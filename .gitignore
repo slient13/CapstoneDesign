@@ -4,8 +4,8 @@
 #
 
 # Additional ignore
-[Aa]ssets/Material
-[Aa]ssets/Model
+[Aa]ssets/Material/*.*
+[Aa]ssets/Model/*.*
 
 [Ll]ibrary/
 [Tt]emp/
