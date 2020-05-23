@@ -7,7 +7,7 @@ public class ObjBase : MonoBehaviour
     //디버그용
     public float ydegree;
 
-    //오브젝트 설정
+    //오브젝트부분 설정
     public GameObject obj;
     public float degreeSize = 90f;
     public float rotatespeed = 1f;
@@ -35,17 +35,8 @@ public class ObjBase : MonoBehaviour
     {
         ydegree = obj.transform.localEulerAngles.y;     //디버그용
 
-        /*
-        //임시 인풋
-        if(Input.GetKeyDown(KeyCode.Space))
-            ObjRotation();
-        */
-
         obj.transform.localRotation = Quaternion.Lerp(obj.transform.localRotation, Quaternion.Euler(rotation), rotatespeed*Time.deltaTime);
         //obj.transform.localEulerAngles = Vector3.Lerp(obj.transform.localEulerAngles, rotation, rotatespeed*Time.deltaTime);
-
-
-
     }
 
     //오브젝트 회전

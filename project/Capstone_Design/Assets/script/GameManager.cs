@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     /// <param name="objName"></param>
     void GetGameObjName(string objName)
     {
+        //Debug.Log(obj.name);
         obj = GameObject.Find(objName);
     }
 
@@ -36,11 +37,14 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //키보드 입력
+        //스페이스 입력시 회전
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            obj.SendMessage("ObjRotation");
-            Debug.Log("스페이스바 입력");
+            if(obj.tag == "Object")
+            {
+                obj.SendMessage("ObjRotation");
+                Debug.Log("스페이스바 입력");
+            }
         }
             
     }
