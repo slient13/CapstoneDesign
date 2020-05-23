@@ -1,0 +1,47 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class GameManager : MonoBehaviour
+{
+    public GameObject obj;
+
+
+    //트리거를 활용한 오브젝트 이름 얻어오기
+    /// <summary>
+    /// GetGameObjName("오브젝트이름")
+    /// </summary>
+    /// <param name="objName"></param>
+    void GetGameObjName(string objName)
+    {
+        obj = GameObject.Find(objName);
+    }
+
+    //오프젝트 파괴
+    /// <summary>
+    /// ObjectDestroy(오브젝트 이름)
+    /// </summary>
+    /// <param name="objName"></param>
+    void ObjectDestroy(string objName)
+    {
+        Destroy(GameObject.Find(objName));
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        //키보드 입력
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            obj.SendMessage("ObjRotation");
+            Debug.Log("스페이스바 입력");
+        }
+            
+    }
+}

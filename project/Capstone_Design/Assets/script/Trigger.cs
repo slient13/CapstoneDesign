@@ -2,8 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class testScript : MonoBehaviour
+public class Trigger : MonoBehaviour
 {
+
+    private void OnTriggerEnter(Collider other)
+    {
+        //GameObject.Find("GameManager").SendMessage("GetGameObjName(other.gameObject)");
+    }
+
     // Start is called before the first frame update
     void Start()
     {
