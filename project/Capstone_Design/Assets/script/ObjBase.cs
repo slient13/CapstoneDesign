@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class ObjBase : MonoBehaviour
 {
-    //디버그용
-    public float ydegree;
-
-    //오브젝트부분 설정
+    //오브젝트 설정
     public GameObject obj;
     public float degreeSize = 90f;
-    public float rotatespeed = 1f;
+    public float rotateSpeed = 1f;
+    public float moveLength = 5f;
+    public float moveSpeed = 1f;
 
     private Vector3 rotation;
+    private Transform objTransform;
     private float degree = 0f;
     private bool isRotate = false;
 
@@ -26,17 +26,38 @@ public class ObjBase : MonoBehaviour
         else
         {
             rotation = Vector3.zero;
-            obj.transform.localRotation = Quaternion.identity;
+            if(!Mathf.Approximately(obj.transform.localRotation.y % 90,0))
+            {
+                obj.transform.localRotation = Quaternion.identity;
+                Debug.Log(obj.name + "오브젝트의 회전각이 맞지않아 0으로 초기화함");
+            }
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        ydegree = obj.transform.localEulerAngles.y;     //디버그용
-
-        obj.transform.localRotation = Quaternion.Lerp(obj.transform.localRotation, Quaternion.Euler(rotation), rotatespeed*Time.deltaTime);
+        //오브젝트 회전
+        obj.transform.localRotation = Quaternion.Lerp(obj.transform.localRotation, Quaternion.Euler(rotation), rotateSpeed*Time.deltaTime);
         //obj.transform.localEulerAngles = Vector3.Lerp(obj.transform.localEulerAngles, rotation, rotatespeed*Time.deltaTime);
+
+        //오브젝트 이동
+        obj.transform.position = Vector3.Lerp(obj.transform.position, objTransform.position, moveSpeed);
+    }
+
+    //오브젝트 이동
+    /// <summary>
+    /// 오브젝트를 Vec3만큼 이동
+    /// </summary>
+    /// <param name="tf"></param>
+    void ObjMove(Vector3 addPos)
+    {
+        IsRotate();
+
+        if(!isRotate)
+        {
+           objTransform.position = obj.transform.position + addPos * moveLength;
+        }
     }
 
     //오브젝트 회전

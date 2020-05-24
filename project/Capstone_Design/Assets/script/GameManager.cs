@@ -46,6 +46,10 @@ public class GameManager : MonoBehaviour
                 Debug.Log("스페이스바 입력");
             }
         }
-            
+        //방향키 입력시 이동
+        if(Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+
+        }
     }
 }
