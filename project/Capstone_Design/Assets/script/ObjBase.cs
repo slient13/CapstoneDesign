@@ -13,8 +13,10 @@ public class ObjBase : MonoBehaviour
 
     private Vector3 rotation;
     private Transform objTransform;
+    private Vector3 previousPos;
     private float degree = 0f;
     private bool isRotate = false;
+    private bool isMoving = false;
 
     // Start is called before the first frame update
     void Start()
@@ -42,7 +44,35 @@ public class ObjBase : MonoBehaviour
         //obj.transform.localEulerAngles = Vector3.Lerp(obj.transform.localEulerAngles, rotation, rotatespeed*Time.deltaTime);
 
         //오브젝트 이동
+        previousPos = obj.transform.position;
         obj.transform.position = Vector3.Lerp(obj.transform.position, objTransform.position, moveSpeed);
+    }
+
+    //돌아가는 중인지 확인
+    /// <summary>
+    /// 다 돌아갔으면 false, 돌아가는 중이면 true 출력
+    /// </summary>
+    void IsRotate()
+    {
+        if (Mathf.Approximately(Mathf.Round(obj.transform.localEulerAngles.y), degree) || Mathf.Approximately(Mathf.Round(obj.transform.localEulerAngles.y), 360f))
+            isRotate = false;
+        else
+            isRotate = true;
+
+        if (Mathf.Approximately(Mathf.Round(obj.transform.localEulerAngles.y), 360f) || Mathf.Approximately(Mathf.Round(obj.transform.localEulerAngles.y), 0f))
+            obj.transform.localRotation = Quaternion.identity;
+    }
+
+    //오브젝트 이동중인지 확인
+    /// <summary>
+    /// 다 움직이면 false, 움직이는 중이면 true 출력
+    /// </summary>
+    void IsMoving()
+    {
+        if (previousPos != obj.transform.position)
+            isMoving = true;
+        else
+            isMoving = false;
     }
 
     //오브젝트 이동
@@ -53,8 +83,9 @@ public class ObjBase : MonoBehaviour
     void ObjMove(Vector3 addPos)
     {
         IsRotate();
+        IsMoving();
 
-        if(!isRotate)
+        if(!isRotate && !isMoving)
         {
            objTransform.position = obj.transform.position + addPos * moveLength;
         }
@@ -68,8 +99,9 @@ public class ObjBase : MonoBehaviour
     void ObjRotation()
     {
         IsRotate();
+        IsMoving();
 
-        if (!isRotate)
+        if (!isRotate && !isMoving)
         {
             degree += degreeSize;
             if (degree >= 360)
@@ -81,20 +113,5 @@ public class ObjBase : MonoBehaviour
         }
         else
             Debug.Log("물체가 다 돌아갈때까지 기다리세요!");
-    }
-
-    //돌아가는 중인지 확인
-    /// <summary>
-    /// 다 돌아갔으면 false, 돌아가는 중이면 true 출력
-    /// </summary>
-    void IsRotate()
-    {
-        if (Mathf.Approximately(Mathf.Round(obj.transform.localEulerAngles.y), degree)|| Mathf.Approximately(Mathf.Round(obj.transform.localEulerAngles.y), 360f))
-            isRotate = false;
-        else  
-            isRotate = true;
-
-        if (Mathf.Approximately(Mathf.Round(obj.transform.localEulerAngles.y), 360f) || Mathf.Approximately(Mathf.Round(obj.transform.localEulerAngles.y), 0f))
-            obj.transform.localRotation = Quaternion.identity;
     }
 }
