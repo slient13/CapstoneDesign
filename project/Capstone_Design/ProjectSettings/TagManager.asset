@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Object
   - StaticObj
+  - NPC
   layers:
   - Default
   - TransparentFX

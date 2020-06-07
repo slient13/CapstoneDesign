@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
 {
     public GameObject obj;
 
+    private Vector3 dir;
+
 
     //트리거를 활용한 오브젝트 이름 얻어오기
     /// <summary>
@@ -49,7 +51,35 @@ public class GameManager : MonoBehaviour
         //방향키 입력시 이동
         if(Input.GetKeyDown(KeyCode.LeftArrow))
         {
-
+            if(obj.tag == "Object")
+            {
+                dir.Set(-1, 0, 0);
+                obj.SendMessage("ObjMove", dir);
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            if (obj.tag == "Object")
+            {
+                dir.Set(1, 0, 0);
+                obj.SendMessage("ObjMove", dir);
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            if (obj.tag == "Object")
+            {
+                dir.Set(0, 0, 1);
+                obj.SendMessage("ObjMove", dir);
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            if (obj.tag == "Object")
+            {
+                dir.Set(0, 0, -1);
+                obj.SendMessage("ObjMove", dir);
+            }
         }
     }
 }
