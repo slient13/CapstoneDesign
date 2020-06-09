@@ -12,7 +12,10 @@ public class Trigger : MonoBehaviour
             Debug.Log(other.gameObject.name + "들어옴");
             GameObject.Find("GameManager").SendMessage("GetGameObjName", other.gameObject.name);
         }
-        
+        else if (other.gameObject.tag == "Player")
+        {
+            Debug.Log(other.gameObject.name + "플레이어 들어옴");
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -20,7 +23,7 @@ public class Trigger : MonoBehaviour
         if (other.gameObject.tag == "Object")
         {
             Debug.Log(other.gameObject.name + "나감");
-            GameObject.Find("GameManager").SendMessage("GetGameObjName", "DefaultObj");
+            GameObject.Find("GameManager").SendMessage("GetGameObjName", "null");
         }
     }
 
