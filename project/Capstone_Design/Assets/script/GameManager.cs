@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         //스페이스 입력시 회전
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && obj != null)
         {
             if(obj.tag == "Object")
             {
@@ -49,15 +49,16 @@ public class GameManager : MonoBehaviour
             }
         }
         //방향키 입력시 이동
-        if(Input.GetKeyDown(KeyCode.LeftArrow))
+        if(Input.GetKeyDown(KeyCode.LeftArrow) && obj != null)
         {
             if(obj.tag == "Object")
             {
                 dir.Set(-1, 0, 0);
                 obj.SendMessage("ObjMove", dir);
             }
+
         }
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (Input.GetKeyDown(KeyCode.RightArrow) && obj != null)
         {
             if (obj.tag == "Object")
             {
@@ -65,7 +66,7 @@ public class GameManager : MonoBehaviour
                 obj.SendMessage("ObjMove", dir);
             }
         }
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKeyDown(KeyCode.UpArrow) && obj != null)
         {
             if (obj.tag == "Object")
             {
@@ -73,7 +74,7 @@ public class GameManager : MonoBehaviour
                 obj.SendMessage("ObjMove", dir);
             }
         }
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+        if (Input.GetKeyDown(KeyCode.DownArrow) && obj != null)
         {
             if (obj.tag == "Object")
             {
