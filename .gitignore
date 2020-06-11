@@ -4,8 +4,9 @@
 #
 
 # Additional ignore
-# [Aa]ssets/Material/
-# [Aa]ssets/Model/
+[Aa]ssets/Material/
+[Aa]ssets/Model/
+[Aa]ssets/[Aa]sset[Ss]tore/
 
 [Ll]ibrary/
 [Tt]emp/
@@ -62,4 +63,3 @@ sysinfo.txt
 
 # Crashlytics generated file
 crashlytics-build.properties
-
