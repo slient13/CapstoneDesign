@@ -4,8 +4,8 @@
 #
 
 # Additional ignore
-[Aa]ssets/Material/
-[Aa]ssets/Model/
+# [Aa]ssets/Material/
+# [Aa]ssets/Model/
 project/Capstone_Design/[Aa]ssets/[Aa]ssetStore/
 
 [Ll]ibrary/
@@ -63,3 +63,4 @@ sysinfo.txt
 
 # Crashlytics generated file
 crashlytics-build.properties
+
