@@ -6,7 +6,7 @@
 # Additional ignore
 [Aa]ssets/Material/
 [Aa]ssets/Model/
-[Aa]ssets/[Aa]ssetStore/
+/[Aa]ssets/[Aa]ssetStore/
 
 [Ll]ibrary/
 [Tt]emp/
