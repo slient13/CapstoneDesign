@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Yang/UI_test.unity
+    guid: d5102f8a273d7e146ac4abc56b808cca
+  - enabled: 1
+    path: Assets/Scenes/Yang/TestScene_Yang.unity
+    guid: dbab9ae0f31db0d4798d806ae8994da5
   m_configObjects: {}
