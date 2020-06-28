@@ -9,6 +9,12 @@ public class GameManager : MonoBehaviour
     private Vector3 dir;
 
 
+    // Start is called before the first frame update
+    void Start()
+    {
+
+    }
+
     //트리거를 활용한 오브젝트 이름 얻어오기
     /// <summary>
     /// GetGameObjName("오브젝트이름")
@@ -30,11 +36,24 @@ public class GameManager : MonoBehaviour
         Destroy(GameObject.Find(objName));
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    /// <summary>
+    /// NPC 트리거안에 플레이어가 들어왔을때 발생
+    /// </summary>
+    /// <param name="npc"></param>
+    void NpcPlayerNotice(GameObject npc)
+    { 
+        Debug.Log(npc.name + " NPC가 플레이어를 알아차렸습니다");
     }
+
+    /// <summary>
+    /// NPC 트리거안에 플레이어가 나갔을때 발생
+    /// </summary>
+    /// <param name="npc"></param>
+    void NpcPlayerIgnore(GameObject npc)
+    {
+        Debug.Log(npc.name + " NPC가 플레이어를 무시합니다");
+    }
+
 
     // Update is called once per frame
     void Update()
