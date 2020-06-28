@@ -127,7 +127,7 @@ public class TalkView : MonoBehaviour
     
     void closeTalk() {
         talks = null;
-        talkview.SetActive(false);
+        talkview.gameObject.SetActive(false);
     }
 
     public void answerSelect_1() {

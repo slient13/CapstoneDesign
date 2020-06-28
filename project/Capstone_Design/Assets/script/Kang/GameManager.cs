@@ -7,14 +7,21 @@ public class GameManager : MonoBehaviour
     public GameObject obj;
 
     private Vector3 dir;
+    private Vector3 initPos;
 
     public GameObject UIManager;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        initPos = GameObject.FindWithTag("Player").transform.position;
+        Debug.Log(initPos);
     }
+
+    public void PlayerPosInit()
+    {
+        GameObject.FindWithTag("Player").transform.position = initPos;
+    } 
 
     //트리거를 활용한 오브젝트 이름 얻어오기
     /// <summary>
