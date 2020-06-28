@@ -6,9 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Yang/UI_test.unity
-    guid: d5102f8a273d7e146ac4abc56b808cca
+    path: Assets/Scenes/MainPage.unity
+    guid: 6b51691ba9bbb514386d4970b4be7d25
   - enabled: 1
-    path: Assets/Scenes/Yang/TestScene_Yang.unity
-    guid: dbab9ae0f31db0d4798d806ae8994da5
+    path: Assets/Scenes/GamePlay.unity
+    guid: c6c94cf5f78915e4e86b5816f496639b
+  - enabled: 1
+    path: Assets/Scenes/SampleScene.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects: {}

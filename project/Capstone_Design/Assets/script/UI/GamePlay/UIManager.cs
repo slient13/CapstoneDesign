@@ -18,6 +18,11 @@ public class UIManager : MonoBehaviour
     public int gameTime;
 
 
+    void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
+
     void Start() {
         hp = 100;
         convertScale = 2.5f;
@@ -50,7 +55,7 @@ public class UIManager : MonoBehaviour
             + timeSet[1] + "시 "
             + timeSet[2] + "분";
         
-        if (money >= 99999) GameOver();
+       //if (money >= 99999999) GameOver();
     }
 
     public void StartTalk(string npcName) {
@@ -67,11 +72,13 @@ public class UIManager : MonoBehaviour
         money += val;
     }
 
+    /*
     public void GameOver() {
         int[] clearTime = new int[3];
 
         Invoke("ChangeScene", 10);
     }
+    */
 
     void ChangeScene() {
         SceneManager.LoadScene("MainPage");

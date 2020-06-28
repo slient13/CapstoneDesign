@@ -10,12 +10,18 @@ public class GameManagerDodge : MonoBehaviour
     public Text timeText;//생존 시간을 표시 할 텍스트 컴포넌트
     public Text recoredText;//최고 기록을 표시 할 텍스트 컴포넌트
 
+    public GameObject uiManager;
+
+    
     private float surviveTime;//생존 시간
     private bool isGameover;//게임오버 상태
 
     // Start is called before the first frame update
     void Start()
     {
+        //uiManager 불러오기
+        uiManager = GameObject.Find("UIManager");
+
         //생존 시간과 게임오버 상태 초기화
         surviveTime = 0;
         isGameover = false;
@@ -29,16 +35,19 @@ public class GameManagerDodge : MonoBehaviour
         {
             //생존 시간 경신
             surviveTime += Time.deltaTime;
+
             //갱신한 생존 시간을 timeText 텍스트 컴포넌트를 이용해 표시
             timeText.text = "Time: " + (int)surviveTime;
         }
         else
         {
-           //게임오버인 상태에서 R 키를 누른 경우
-            if(Input.GetKeyDown(KeyCode.R))
+            //게임오버인 상태에서 R 키를 누른 경우
+            if (Input.GetKeyDown(KeyCode.R))
             {
                 //SampleScene 씬을 로드
-                SceneManager.LoadScene("SampleScene");
+                Debug.Log("R눌렀다고");
+                uiManager.SendMessage("hpChange", -10);
+                SceneManager.LoadScene("Gameplay");
             }
         }
     }
@@ -50,6 +59,10 @@ public class GameManagerDodge : MonoBehaviour
         isGameover = true;
         //게임오버 텍스트 게임 오브젝트를 활성화
         gameoverText.SetActive(true);
+
+        //돈추가
+        Debug.Log("돈 추가함");
+        uiManager.SendMessage("moneyChange", surviveTime * 1000);
 
         //BestTime 키로 저장된 이전까지의 최고 기록 가져오기
         float bestTime = PlayerPrefs.GetFloat("BestTime");

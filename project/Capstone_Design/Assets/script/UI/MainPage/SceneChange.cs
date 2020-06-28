@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneChange : MonoBehaviour
 {
-    private string targetScene = "TestScene_Yang";
+    private string targetScene = "GamePlay";
     public void ChangeScene() {
         SceneManager.LoadScene(targetScene);
     }

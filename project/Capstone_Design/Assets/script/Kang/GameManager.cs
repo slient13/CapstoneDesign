@@ -9,13 +9,15 @@ public class GameManager : MonoBehaviour
     private Vector3 dir;
     private Vector3 initPos;
 
-    public GameObject UIManager;
+    private GameObject uiManager;
 
     // Start is called before the first frame update
     void Start()
     {
         initPos = GameObject.FindWithTag("Player").transform.position;
         Debug.Log(initPos);
+
+        uiManager = GameObject.Find("UIManager");
     }
 
     public void PlayerPosInit()
@@ -51,7 +53,7 @@ public class GameManager : MonoBehaviour
     void NpcPlayerNotice(GameObject npc)
     { 
         Debug.Log(npc.name + " NPC가 플레이어를 알아차렸습니다");
-        UIManager.SendMessage("StartTalk", "npc");
+        uiManager.SendMessage("StartTalk", "npc");
     }
 
     /// <summary>
