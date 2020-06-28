@@ -7,6 +7,7 @@ TagManager:
   - Object
   - StaticObj
   - NPC
+  - Ground
   layers:
   - Default
   - TransparentFX
