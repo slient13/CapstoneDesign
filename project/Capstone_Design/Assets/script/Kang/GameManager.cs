@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
             }
         }
         //방향키 입력시 이동
-        if(Input.GetKeyDown(KeyCode.LeftArrow) && obj != null)
+        if(Input.GetKey(KeyCode.LeftArrow) && obj != null)
         {
             if(obj.tag == "Object")
             {
@@ -79,7 +79,7 @@ public class GameManager : MonoBehaviour
             }
 
         }
-        if (Input.GetKeyDown(KeyCode.RightArrow) && obj != null)
+        if (Input.GetKey(KeyCode.RightArrow) && obj != null)
         {
             if (obj.tag == "Object")
             {
@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviour
                 obj.SendMessage("ObjMove", dir);
             }
         }
-        if (Input.GetKeyDown(KeyCode.UpArrow) && obj != null)
+        if (Input.GetKey(KeyCode.UpArrow) && obj != null)
         {
             if (obj.tag == "Object")
             {
@@ -95,7 +95,7 @@ public class GameManager : MonoBehaviour
                 obj.SendMessage("ObjMove", dir);
             }
         }
-        if (Input.GetKeyDown(KeyCode.DownArrow) && obj != null)
+        if (Input.GetKey(KeyCode.DownArrow) && obj != null)
         {
             if (obj.tag == "Object")
             {

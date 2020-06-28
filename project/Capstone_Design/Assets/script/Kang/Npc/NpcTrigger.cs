@@ -9,6 +9,7 @@ public class NpcTrigger : MonoBehaviour
     public bool playerNotice = false;
 
     public Animator animator;
+    private bool waved;
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +24,9 @@ public class NpcTrigger : MonoBehaviour
         {
             playerNotice = true;
             manager.SendMessage("NpcPlayerNotice", other.gameObject);
-            animator.SetTrigger("Wave");
+            if(!waved)
+                animator.SetTrigger("Wave");
+            waved = true;
         }
     }
 
@@ -33,6 +36,7 @@ public class NpcTrigger : MonoBehaviour
         {
             playerNotice = true;
             manager.SendMessage("NpcPlayerIgnore", other.gameObject);
+            waved = false;
         }
             
     }
@@ -40,6 +44,5 @@ public class NpcTrigger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 }
