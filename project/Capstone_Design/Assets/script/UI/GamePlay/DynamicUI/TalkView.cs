@@ -21,6 +21,13 @@ public class TalkView : MonoBehaviour
         startTalk("test");
     }
 
+    void Update() {
+        if (Input.GetKeyDown(KeyCode.Alpha1)) answerSelect_1();
+        if (Input.GetKeyDown(KeyCode.Alpha2)) answerSelect_2();
+        if (Input.GetKeyDown(KeyCode.Alpha3)) answerSelect_3();
+        if (Input.GetKeyDown(KeyCode.Alpha4)) answerSelect_4();
+    }
+
     public void startTalk(string npcName) {
         gameObject.SetActive(true);
         this.npcName = npcName;
