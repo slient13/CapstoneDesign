@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     public int JumpPower;
 
     private bool IsJumping;
+    private bool inAir = false;
 
     // Start is called before the first frame update
     void Start()
@@ -46,6 +47,8 @@ public class PlayerMovement : MonoBehaviour
             this.transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
         }
 
+
+        InAir();
         Jump();
 
 
@@ -53,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
     }
     void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && !inAir)
         {
             rigid.AddForce(Vector3.up * JumpPower, ForceMode.Impulse);
         }
@@ -65,4 +68,12 @@ public class PlayerMovement : MonoBehaviour
             IsJumping = false;
         }    
     }
+    private void InAir()
+    {
+        if (this.transform.position.y > 1.5)
+            inAir = true;
+        else
+            inAir = false;
+    }
+
 }
