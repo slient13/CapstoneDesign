@@ -13,4 +13,10 @@ public class SceneChange : MonoBehaviour
     public void ExitGame() {
         Application.Quit();
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1)) ChangeScene();
+        if (Input.GetKeyDown(KeyCode.Alpha3)) ExitGame();
+    }
 }
