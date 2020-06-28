@@ -347,7 +347,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1516281436}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.03, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -535,10 +535,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 250928461, guid: a713edcbbf3563c4b8270fcc0d60f3d7, type: 3}
+      propertyPath: npcName
+      value: Little Boi
+      objectReference: {fileID: 0}
     - target: {fileID: 1511523193, guid: a713edcbbf3563c4b8270fcc0d60f3d7, type: 3}
       propertyPath: manager
       value: 
-      objectReference: {fileID: 1135913319}
+      objectReference: {fileID: 0}
     - target: {fileID: 202067294157119178, guid: a713edcbbf3563c4b8270fcc0d60f3d7,
         type: 3}
       propertyPath: m_Controller
