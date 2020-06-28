@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
-{
+{    
     public GameObject obj;
 
     private Vector3 dir;
 
+    public GameObject UIManager;
 
     // Start is called before the first frame update
     void Start()
@@ -43,6 +44,7 @@ public class GameManager : MonoBehaviour
     void NpcPlayerNotice(GameObject npc)
     { 
         Debug.Log(npc.name + " NPC가 플레이어를 알아차렸습니다");
+        UIManager.SendMessage("StartTalk", "npc");
     }
 
     /// <summary>
