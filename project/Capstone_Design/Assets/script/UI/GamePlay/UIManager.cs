@@ -40,8 +40,8 @@ public class UIManager : MonoBehaviour
         gameTime = (int)time * 60;
 
         timeSet[0] = gameTime / 3600 / 24;
-        timeSet[1] = gameTime / 3600;
-        timeSet[2] = gameTime / 60;
+        timeSet[1] = gameTime / 3600 % 24;
+        timeSet[2] = gameTime / 60 % 60;
         // 체력바 업데이트
         bar.anchoredPosition = new Vector3(hp * convertScale /2, 0, 0);
         bar.sizeDelta = new Vector2 (hp * convertScale, 50);
