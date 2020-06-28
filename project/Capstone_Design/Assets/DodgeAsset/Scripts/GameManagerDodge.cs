@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;//UI 관련 라이브러리
 using UnityEngine.SceneManagement;//씬 관리 관련 라이브러리
 
-public class GameManager : MonoBehaviour
+public class GameManagerDodge : MonoBehaviour
 {
     public GameObject gameoverText;//게임오버 시 활성화 할 텍스트 게임 오브젝트
     public Text timeText;//생존 시간을 표시 할 텍스트 컴포넌트

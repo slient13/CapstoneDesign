@@ -29,6 +29,7 @@ public class TalkView : MonoBehaviour
     }
 
     public void StartTalk(string npcName) {
+        Debug.Log("토크뷰 받았쩡");
         gameObject.SetActive(true);
         this.npcName = npcName;
         string filename = npcName + "TalkScript";

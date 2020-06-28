@@ -54,9 +54,9 @@ public class UIManager : MonoBehaviour
     }
 
     public void StartTalk(string npcName) {
-        talkView.SendMessage("startTalk", npcName);
+        Debug.Log("매니저 받았쩡");
+        talkView.SendMessage("StartTalk", npcName);
     }
-
     public void hpChange(int val){
         hp += val;
         if (hp > 100) hp = 100;
