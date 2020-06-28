@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
     public RectTransform bar;
     public Text moneyText;
     public Text timeText;
+    public GameObject talkView;
     public int hp;
     private float convertScale;
     public int money;
@@ -52,8 +53,14 @@ public class UIManager : MonoBehaviour
         if (money >= 99999) GameOver();
     }
 
+    public void StartTalk(string npcName) {
+        talkView.SendMessage("startTalk", npcName);
+    }
+
     public void hpChange(int val){
         hp += val;
+        if (hp > 100) hp = 100;
+        else if (hp < 0) hp = 0;
     }
 
     public void moneyChange(int val) {

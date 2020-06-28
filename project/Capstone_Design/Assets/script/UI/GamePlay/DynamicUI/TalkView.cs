@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class TalkView : MonoBehaviour
 {
-    // public GameObject player;
+    public GameObject ui;
     const int NO_SELECTION = -1;
     const int TALK_END = -2;
     private string npcName;
@@ -18,7 +18,7 @@ public class TalkView : MonoBehaviour
     public Text[] playerAnswersText;
 
     void Start() {
-        startTalk("test");
+        // startTalk("test");
     }
 
     void Update() {
@@ -28,7 +28,7 @@ public class TalkView : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha4)) answerSelect_4();
     }
 
-    public void startTalk(string npcName) {
+    public void StartTalk(string npcName) {
         gameObject.SetActive(true);
         this.npcName = npcName;
         string filename = npcName + "TalkScript";
@@ -109,17 +109,17 @@ public class TalkView : MonoBehaviour
     }
 
     void sendMessage() {        
-        // int intParameter;
-        // if (int.TryParse(currentTalk.message[1], out intParameter) == true) {
-            // this.player.SendMessage(
-                // currentTalk.message[0],
-                // intParameter
-                // );
-        // }
-        // else this.player.SendMessage(
-            // currentTalk.message[0],
-            // currentTalk.message[1]
-            // );
+        int intParameter;
+        if (int.TryParse(currentTalk.message[1], out intParameter) == true) {
+            this.ui.SendMessage(
+                currentTalk.message[0],
+                intParameter
+                );
+        }
+        else this.ui.SendMessage(
+            currentTalk.message[0],
+            currentTalk.message[1]
+            );
     }
     
     void closeTalk() {
