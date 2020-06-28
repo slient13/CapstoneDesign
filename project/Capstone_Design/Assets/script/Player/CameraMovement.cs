@@ -71,9 +71,11 @@ public class CameraMovement : MonoBehaviour
                 dist = 10;
             }
 
+            /*
             //카메라 회전속도 계산
             x += Input.GetAxis("Mouse X") * xSpeed * 0.02f;
             y -= Input.GetAxis("Mouse Y") * ySpeed * 0.02f;
+            */
 
             //앵글값 정하기
             //y값의 Min과 Max 없애면 y값이 360도 계속 돎
