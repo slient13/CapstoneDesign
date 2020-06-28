@@ -17,6 +17,8 @@ public class TalkView : MonoBehaviour
     public Text npcTalkText;
     public Text[] playerAnswersText;
 
+    public GameObject talkview;
+
     void Start() {
         // startTalk("test");
     }
@@ -30,7 +32,7 @@ public class TalkView : MonoBehaviour
 
     public void StartTalk(string npcName) {
         Debug.Log("토크뷰 받았쩡");
-        gameObject.SetActive(true);
+        talkview.gameObject.SetActive(true);
         this.npcName = npcName;
         string filename = npcName + "TalkScript";
         loadTalkScript(npcName, filename);
@@ -125,7 +127,7 @@ public class TalkView : MonoBehaviour
     
     void closeTalk() {
         talks = null;
-        gameObject.SetActive(false);
+        talkview.SetActive(false);
     }
 
     public void answerSelect_1() {
