@@ -19,6 +19,8 @@ public class GameManagerDodge : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        UnityEngine.Cursor.visible = false;
+
         //uiManager 불러오기
         uiManager = GameObject.Find("UIManager");
 
@@ -47,7 +49,7 @@ public class GameManagerDodge : MonoBehaviour
                 //SampleScene 씬을 로드
                 Debug.Log("R눌렀다고");
                 uiManager.SendMessage("hpChange", -10);
-                SceneManager.LoadScene("Gameplay");
+                SceneManager.LoadScene("DodgeReturn");
             }
         }
     }

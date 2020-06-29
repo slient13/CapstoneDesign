@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/DodgeReturn.unity
+    guid: d2ed10de0435b4a44b08016b9f3155da
   m_configObjects: {}

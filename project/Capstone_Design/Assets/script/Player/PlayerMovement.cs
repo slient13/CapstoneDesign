@@ -70,7 +70,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void InAir()
     {
-        if (this.transform.position.y > 1.5)
+        if (this.transform.position.y > 1.52f)
             inAir = true;
         else
             inAir = false;
