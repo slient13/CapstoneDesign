@@ -1,0 +1,80 @@
+구성 : 
+    command($commandClass)
+    functionCaller : 
+        function
+        function.scheme : 
+            parameter.number
+            parameter.defaultValue
+            parameter.name
+
+command($commandClass) : 
+    !   $commandClass = MessageClass
+
+MessageClass : 
+    functionName : 
+        = String
+        // 호출 함수 이름
+    arguments : 
+        = List<object>
+        // 전달 인수.
+        인수 후보 : 
+            단일 값 : 
+                int, float, char
+            단일 속성 다중값 : 
+                string, 각종 배열
+            클래스 인스턴스 : 
+                컬렉션
+                사용자 정의 객체
+    returnValue : 
+        값 후보 : 
+            = arguments.@@
+    인수, 
+
+구 command($commandString) : 
+    !   $commandString = "$functionName($arguments)"
+    !   $arguments = "$args, ..."
+    ?   $args : 
+        [$val, ...] = arg.type = array
+        ?   $val : 
+            @@-1 = (0 ~ 9) :
+                ?   "." in $val : 
+                    T # arg.type = float
+                    F # arg.type = int
+            - # arg.type = string
+        $key = $val
+    funcName    // 함수 이름
+    args        // 일반 인수. ArrayList 이용
+    keyArgs     // 대상 지정 인수
+    checker     // 스트링 분리용.
+    index : defaultValue = 1
+    #   $functionName 분리 : 
+        #   checker = $commandString-index. index++
+        - ? checker : 
+            "(" # funcName trim
+            - # add(checker->funcName). # $functionName 분리
+    - # 인수 분리 : 
+        tempStr
+        #   임시저장 : 
+            #   checker = $commandString-index. index++
+            ?   checker == "," : 
+                T # 인수 타입 구분 >> 추가 인수 처리
+                F # add(checker->tempStr). # 임시저장
+        인수 타입 구분 : 
+            ?   tempStr-1 == "[" # 배열 처리
+            - ? "=" in tempStr  # 대상 지정 인수 처리
+            - ? tempStr-1 == (0 ~ 9) : 
+                ?   "." in tempStr : 
+                    F # 정수 처리
+                    T # 실수 처리
+            - # 문자열 처리
+        배열 처리 : 
+            -
+        대상 지정 인수 처리
+        정수 처리
+        실수 처리
+        문자열 처리
+        추가 인수 처리
+    - # 함수 실행부 전달
+        
+
+functionCaller : 
