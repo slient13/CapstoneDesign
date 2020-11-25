@@ -12,19 +12,28 @@ public class Message
 
     ArrayList argString;
 
+    public GameObject baseSystem;
+
     public Message() {
         targetName = "";
         functionName = "";
         args = new ArrayList();
         returnValue = new ArrayList();
         argString = new ArrayList();
+        baseSystem = GameObject.Find("BaseSystem");
     }
-
     public Message(string command) : this() {
         codeSpliter(command);
-        splitCodeConverter(ref argString, ref args);
+        if (argString.Count != 0) splitCodeConverter(ref argString, ref args);
         // codeRunner();
     }
+    public Message(string command, GameObject baseSystem) : this() {
+        codeSpliter(command);
+        if (argString.Count != 0) splitCodeConverter(ref argString, ref args);
+        this.baseSystem = baseSystem;
+    }
+
+
     void codeSpliter(string cmd) {
         int index = 0;
 
@@ -34,7 +43,7 @@ public class Message
         getFunctionName(command, ref index);
 
         // 인수부 분리
-        splitArgText(command, ref index, ref argString);            
+        if (index < command.Length) splitArgText(command, ref index, ref argString);            
     }
 
     // 함수명 추출
@@ -46,13 +55,16 @@ public class Message
         }
         // 인수부 진입까지 인덱스 이동
         index++;
-        while(command[index] == ' ' ) {
+        while(index < command.Length && command[index] == ' ' ) {
             index++;
         }
 
         string[] tempResult = temp.Trim().Split('/');
-        this.targetName = tempResult[0];
-        this.functionName = tempResult[1];
+        if (tempResult.Length == 2) {
+            this.targetName = tempResult[0];
+            this.functionName = tempResult[1];
+        }
+        else this.functionName = tempResult[0];
     }
 
     // 인수부 문자열 분리
@@ -141,5 +153,26 @@ public class Message
 
     void codeRunner() {
         //
+    }
+
+    // 자기 자신을 인수로 전달하며 함수 중계 요청.
+    public void functionCall () {
+        this.baseSystem.SendMessage("functionCaller", this);
+    }
+
+    // 자동으로 baseSystem 을 찾지 못하는 경우 사용.
+    public void functionCall (GameObject baseSystem) {
+        baseSystem.SendMessage("functionCaller", this);
+    }
+
+    public string getCommand() {
+        string output = "";
+        output += targetName + "/" + functionName + " : ";
+        for (int i = 0; i < args.Count; i++) {
+            output += "args" + i;
+            if (i < args.Count - 1) output += ", ";
+        }
+
+        return output;
     }
 }
