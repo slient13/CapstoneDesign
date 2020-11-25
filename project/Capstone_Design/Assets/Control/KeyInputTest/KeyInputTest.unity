@@ -676,6 +676,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseSystem: {fileID: 0}
   objectLayer: []
+  target: 0
 --- !u!4 &1969075461
 Transform:
   m_ObjectHideFlags: 0
