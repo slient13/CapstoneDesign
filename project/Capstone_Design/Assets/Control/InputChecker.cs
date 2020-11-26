@@ -6,6 +6,7 @@ public class InputChecker {
     // 입력 상태 배열 리스트
     public List<int> keyInputList = new List<int>();
     public List<int> mouseInputList = new List<int>();
+    private Vector2 mousePos = new Vector2();
 
     public enum Key {
         // 알파벳
@@ -21,7 +22,9 @@ public class InputChecker {
         // 특수문자(. , / ; ' [ ] \)
         dot, comma, slash, semicolon, quote, bracketL, barcketR, backslash,
         // 펑션키
-        f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12
+        f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12,
+        // 마우스         
+        mouseL, mouseR, mouseM, mouseEx1, mouseEx2, mouseEx3 
     }
     KeyCode[] KeyCodeList = {
         // 알파벳
@@ -51,6 +54,8 @@ public class InputChecker {
         KeyCode.F1, KeyCode.F2, KeyCode.F3, KeyCode.F4, 
         KeyCode.F5, KeyCode.F6, KeyCode.F7, KeyCode.F8,
         KeyCode.F9, KeyCode.F10, KeyCode.F11, KeyCode.F12,
+        // 마우스 입력
+        KeyCode.Mouse0, KeyCode.Mouse1, KeyCode.Mouse2, KeyCode.Mouse3, KeyCode.Mouse4, KeyCode.Mouse5,
     };
 
     string[] keyStringList = {
@@ -61,24 +66,11 @@ public class InputChecker {
         "n1", "n2", "n3", "n4", "n5", "n6", "n7", "n8", "n9", "n0",
         "backQuote", "minus", "equal",
         "dot", "comma", "slash", "semicolon", "quote", "bracketL", "barcketR", "backslash",
-        "f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9", "f10", "f11", "f12"
+        "f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9", "f10", "f11", "f12",
+        "mouseL", "mouseR", "mouseM", "mouseEx1", "mouseEx2", "mouseEx3" 
     };
-
-    public enum Mouse {
-        buttonL, buttonR, buttonM, 
-        exButton1, exButton2, exButton3
-    }
-    KeyCode[] MouseCodeList = {
-        KeyCode.Mouse0,
-        KeyCode.Mouse1,
-        KeyCode.Mouse2,
-        KeyCode.Mouse3,
-        KeyCode.Mouse4,
-        KeyCode.Mouse5,
-    };
-    // Key enum, mouse enum 개수 저장
+    // Key enum 개수 저장
     int keyEnumCount = System.Enum.GetValues(typeof(Key)).Length;        
-    int mouseEnumCount = System.Enum.GetValues(typeof(Mouse)).Length;
 
     int FALSE = -1;
     int NONE = 0;
@@ -86,7 +78,6 @@ public class InputChecker {
 
     public InputChecker() {
         for(int i = 0; i < keyEnumCount; i++) {keyInputList.Add(0);}
-        for(int i = 0; i < mouseEnumCount; i++) {mouseInputList.Add(0);}
     }
 
     public void Update() {
@@ -100,20 +91,13 @@ public class InputChecker {
                 else {keyInputList[i] = 0;}
             }
         }
-        for (int i = 0; i < mouseEnumCount; i++) {
-            if (Input.GetMouseButton(i)) {
-                if (mouseInputList[i] <= 0) {mouseInputList[i] = 1;}
-                else {mouseInputList[i] = 2;}
-                }            
-            else {
-                if (mouseInputList[i] >= 1) {mouseInputList[i] = -1;}
-                else {mouseInputList[i] = 0;}
-            }
-        }
     }
 
     enum Mode {
-        down, downStay, up, upStay
+        down,       // 입력 감지 1회
+        downStay,   // 입력 감지 지속
+        up,         // 뗀 순간 감지.
+        upStay      // 키가 입력되지 않은 상태를 감지.
     }
 
     public int patternMatch(string pattern) {        
@@ -180,5 +164,10 @@ public class InputChecker {
 
         if (checker == TRUE) return true;
         else return false;
+    }
+
+    public Vector2 getMousePos() {
+        mousePos = Input.mousePosition;
+        return mousePos;
     }
 } 

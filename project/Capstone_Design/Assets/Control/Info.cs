@@ -1,3 +1,5 @@
+
+[System.Serializable]
 public class Info {
     public string command;
     public string keyPattern;

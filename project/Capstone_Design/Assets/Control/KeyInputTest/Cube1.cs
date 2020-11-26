@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Cube1 : MonoBehaviour {
-    [SerializeField] public MappingInfo infoList;
+    public MappingInfo infoList;
 
     private void Start() {
-        infoList = new MappingInfo();
+        infoList = new MappingInfo("Cube1");
         infoList.addMapping("move : up", "_w");
         infoList.addMapping("move : down", "_s");
-        infoList.enroll("Cube1");
+        infoList.enroll();
     }
 
     public void move(Message message) {
