@@ -54,7 +54,7 @@ public class ControlManager : MonoBehaviour
         // 첫번째 인수로 현재 마우스의 위치를 전달함. Vector2 형.
         Vector2 mousePos = new Vector2();
         mousePos = inputChecker.getMousePos();
-        msg.args.Insert(0, mousePos);
+        msg.args.Add(mousePos);
         // 함수 호출.
         msg.functionCall();
     }
