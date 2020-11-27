@@ -8,6 +8,8 @@ TagManager:
   - StaticObj
   - NPC
   - Ground
+  - Shop
+  - Floor
   layers:
   - Default
   - TransparentFX
