@@ -96,7 +96,7 @@ public string keyPattern; // 실행 조건이 되는 키 조합 문자열이다.
 "_r, ^t"    // 'r'는 눌리고 있고, 그와 동시에 't'가 눌렀다가 떼지는 순간을 1회 감지한다.
 ```
 
-기타 어떤 키를 인식할 수 있고, 어떻게 입력해야 인식하는지에 대한 내용은 InputChecker 파일의 상단부분에 있는 `keyStringList`를 참고하라.
+기타 어떤 키를 인식할 수 있고, 어떻게 입력해야 인식하는지에 대한 내용은 하단 부록을 참고하라.
 
 ### 다수의 오브젝트의 맵핑을 한 레이어에 연결하는 방법
 
@@ -116,6 +116,30 @@ public string keyPattern; // 실행 조건이 되는 키 조합 문자열이다.
 
 - 마우스 레이어 자동 변경 기능
 
+## 부록
+
+### 매핑용 문자열 목록
+
+```c#
+// 알파벳
+"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
+// 방향키
+"arrowL", "arrowD", "arrowU", "arrowR",
+// 각종 기능키
+"space", "enter", "backspace", "ctrlL", "ctrlR",
+"altL", "altR", "shiftL", "shiftR", "tab", "caps", "esc",
+// 숫자
+"n1", "n2", "n3", "n4", "n5", "n6", "n7", "n8", "n9", "n0",
+// 상단 특수문자(` - =)
+"backQuote", "minus", "equal",
+// 특수문자(. , / ; ' [ ] \)
+"dot", "comma", "slash", "semicolon", "quote", "bracketL", "barcketR", "backslash",
+// 펑션키
+"f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9", "f10", "f11", "f12",
+// 마우스(왼쪽, 오른쪽, 휠클릭, 추가키 (1, 2, 3))
+"mouseL", "mouseR", "mouseM", "mouseEx1", "mouseEx2", "mouseEx3"
+```
+
 ## 변경 사항
 
 ### 11-25
@@ -130,3 +154,4 @@ public string keyPattern; // 실행 조건이 되는 키 조합 문자열이다.
 ### 11-27
 
 - 마우스 위치 관련 전송방법 수정. (첫번째 인수 고정 -> 맨 끝 인수로)
+- 부록으로 매핑용 키 텍스트 목록 추가.

@@ -33,14 +33,28 @@
 ### 예시
 
 ```c#
-Message msg = new Message();
-msg.targetName = "object";
-msg.functionName = "function";
-msg.args.Add(10);
-msg.args.Add(20);
-msg.args.Add(30);
+Message msg = new Message();        // 객체 생성
+msg.targetName = "object";          // 타겟 오브젝트 이름 지정
+msg.functionName = "function";      // 타겟 함수 이름 지정
+msg.args.Add(10);                   // 변수 추가
+msg.args.Add(20);                   // 변수 추가
+msg.args.Add(30);                   // 변수 추가
 // 위 코드와 아래 코드는 같은 의미를 가진 Message 객체를 만든다.
 Message msg2 = new Message("object/function : 10, 20, 30");
+```
+
+`functionCall()` 메소드 사용 시 타겟 오브젝트를 지정하지 않았다면 자동으로 `BaseSystem`객체를 타겟 오브젝트로 설정해버리고 진행한다.
+
+```c#
+Message msg = new Message("BaseSystem/function : args");    // 정석
+Message msg2 = new Message("function : args");              // 명령어에서 타겟을 생략
+Message msg3 = new Message();                               // 직접 할당. 타겟 할당 생략.
+msg3.functionName = "function";
+msg3.args.Add("args");
+// 아래 셋은 완벽하게 동일한 실행 결과를 야기한다.
+msg.functionCall();
+msg2.functionCall();
+msg3.functionCall();
 ```
 
 ## 인수 변환
@@ -62,6 +76,7 @@ Message msg2 = new Message("object/function : 10, 20, 30");
 ## 주의사항
 
 - `args` 와 `returnValue` 는 `ArrayList` 형이므로, 요소값들은 기본적으로 `object` 형으로 박싱 되어 있기 때문에, 사용하기 전에 명시적으로 형변환을 한 번 거쳐야 한다.
+- 변환에는 아래 방식을 사용하면 된다.
 
 ```c#
 int a = (int)msg.args[0];
@@ -79,3 +94,8 @@ int a = msg.args[0] as int;
 
 - 함수 호출 방법 추가 : `new Message(command).functionCall();`
 - 일부 양식 소폭 수정.
+
+11-27
+
+- `functionCall()` 메소드 실행 시 `targetName`을 지정하지 않은 경우 자동으로 `BaseSystem`을 타겟으로 설정하는 기능 추가.
+- 기타 설명 보강
