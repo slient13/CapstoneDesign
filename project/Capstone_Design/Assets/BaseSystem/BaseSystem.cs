@@ -21,6 +21,33 @@ public class BaseSystem : MonoBehaviour
         target.SendMessage(msg.functionName, msg);
         // Debug.Log(msg.returnValue[0]);
     }
+    
+    // 새 플레이 정보 등록 (내부용)
+    void newPlayInfo(string infoName, int value) {
+        playInfoList.Add(new PlayInfo(infoName, value));
+    }
+    void newPlayInfo(string infoName, float value) {
+        playInfoList.Add(new PlayInfo(infoName, value));
+    }
+    void newPlayInfo(string infoName, string value) {
+        playInfoList.Add(new PlayInfo(infoName, value));
+    }
+    // 새 플레이 정보 등록 (외부용)
+    public void newPlayInfo(Message msg) {
+        string infoName =  (string)msg.args[0];     // 이름
+        string infoType =  (string)msg.args[1];     // 타입
+        object infoValue = msg.args[2];             // 값
+        PlayInfo tempInfo;
+        if (infoType == "int") tempInfo = new PlayInfo(infoName, (int)infoValue);
+        else if (infoType == "float") tempInfo = new PlayInfo(infoName, (float)infoValue);
+        else if (infoType == "string") tempInfo = new PlayInfo(infoName, (string)infoValue);
+        else {  // type 이 없는 경우
+            Debug.Log("BaseSystem/newPlayInfo.error : args don't include value or type infomation");
+            return;
+        }
+
+        playInfoList.Add(tempInfo);
+    }
 
     public void playInfoSetter(Message msg) {
         string infoName = (string)msg.args[0];  // 변경 대상 이름.

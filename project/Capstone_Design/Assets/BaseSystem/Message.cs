@@ -151,12 +151,10 @@ public class Message
         }
     }
 
-    void codeRunner() {
-        //
-    }
-
     // 자기 자신을 인수로 전달하며 함수 중계 요청.
     public void functionCall () {
+        // 타겟을 별도로 지정하지 않는 경우 자동으로 'BaseSystem'을 향해 전송.
+        if (targetName == "") targetName = "BaseSystem";
         this.baseSystem.SendMessage("functionCaller", this);
     }
 
