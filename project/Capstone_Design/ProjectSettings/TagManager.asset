@@ -8,6 +8,8 @@ TagManager:
   - StaticObj
   - NPC
   - Ground
+  - FSUI
+  - Water
   layers:
   - Default
   - TransparentFX
