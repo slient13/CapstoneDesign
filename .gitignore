@@ -9,6 +9,7 @@
 project/Capstone_Design/[Aa]ssets/[Aa]ssetStore/
 project/Capstone_Design/[Aa]ssets/[Aa]ssetStore.meta
 project/Capstone_Design/[Aa]ssets/[Tt]emp/
+project/Capstone_Design/[Aa]ssets/Fishing/Practice/
 
 [Ll]ibrary/
 [Tt]emp/
@@ -67,4 +68,3 @@ sysinfo.txt
 
 # Crashlytics generated file
 crashlytics-build.properties
-
