@@ -12,16 +12,63 @@ public class InventoryManager : MonoBehaviour {
         for (int i = 0; i < MAX_ITEM_BOX; i++) {
             itemBoxList.Add(new ItemBox());
         }
+
+        addNewItem(
+            "testItem1",
+            "test",
+            "testTootip",
+            ""
+        );
+        addNewItem(
+            "testItem2",
+            "test",
+            "testTootip",
+            ""
+        );
     
         MappingInfo mapping = new MappingInfo("InventoryManager");
-        mapping.addMapping("modifyItem : testItem, 10", "space");
+        mapping.addMapping("modifyItem : testItem1, 10", "n1");
+        mapping.addMapping("modifyItem : testItem2, 10", "n2");
+        mapping.addMapping("modifyItem : testItem3, 10", "n3");
         mapping.enroll();
+    }
+
+    // 인벤토리 매니저에서 직접 추가하는 용도
+    void addNewItem(string itemCode, string itemName, string itemTooltip, string itemEffect) {
+        // 일치하는 정보를 가진 아이템이 존재하는 경우 중단.
+        if (isInItemList(itemCode)) {
+            Debug.Log("InventoryManager/addNewItem.error : the item which codeName is " + itemCode + " is already exist");
+            return;
+        }
+
+        itemList.Add(new Item(itemCode, itemName, itemTooltip, itemEffect));
+    }
+
+    // 외부에서 추가하는 용도
+    public void addNewItem(Message msg) {
+        string itemCode = (string) msg.args[0];     // 아이템 코드(중복 불가)
+        string itemName = (string) msg.args[1];     // 아이템 이름(중복 가능)
+        string itemTooltip = (string) msg.args[2];  // 아이템 툴팁
+        string itemEffect = (string) msg.args[3];   // 아이템 효과(명령어 양식)
+
+        // 일치하는 정보를 가진 아이템이 존재하는 경우 중단.
+        if (isInItemList(itemCode)) {
+            Debug.Log("InventoryManager/addNewItem.error : the item which codeName is " + itemCode + " is already exist");
+            return;
+        }
+
+        itemList.Add(new Item(itemCode, itemName, itemTooltip, itemEffect));
     }
 
     public void modifyItem(Message msg) {
         string itemCode = (string)msg.args[0];  // 변경 아이템 코드
         int itemNum = (int)msg.args[1];         // 변경 아이템 개수
 
+        // 추가하려는 아이템이 itemList 에 없는 경우 중단.
+        if (!isInItemList(itemCode)) {
+            Debug.Log("InventoryManager/modifyItem.error : there is no item information which codeName is " + itemCode);
+            return;
+        }
         // 해당 코드의 아이템이 이미 인벤토리에 들어있는지 확인
         int index = matchItemBox(itemCode);
         // 들어있다면 해당 아이템 박스의 아이템 개수를 변경
@@ -33,6 +80,17 @@ public class InventoryManager : MonoBehaviour {
         }
         // 결과로 아이템 개수가 0개가 된다면 해당 아이템 박스를 비워버림.
         if (itemBoxList[index].itemNumber == 0) itemBoxList[index].reset();
+    }
+
+    // 변경을 원하는 아이템의 정보가 itemList 에 기록되어 있는지 확인
+    bool isInItemList(string itemCode) {
+        int i;
+        for (i = 0; i < itemList.Count;) {
+            if (itemList[i].getItemCode() == itemCode) break;
+            else i++;
+        }
+        if (i < itemList.Count) return true;
+        else return false;
     }
 
     // 해당 코드의 아이템이 이미 인벤토리에 들어있는지 확인
