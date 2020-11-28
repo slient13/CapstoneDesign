@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class Item {
@@ -8,12 +9,14 @@ public class Item {
     string itemName;        // 아이템 이름.
     string itemTooltip;     // 아이템 툴팁. 설명 문구
     string itemEffect;      // 아이템 사용 시 효과. 커멘드 형식
+    Sprite itemImg;         // 아이템 이미지
 
-    public Item(string itemCode, string itemName, string itemTooltip, string itemEffect) {
+    public Item(string itemCode, string itemName, string itemTooltip, string itemEffect, Sprite itemImg) {
         this.itemCode = itemCode;
         this.itemName = itemName;
         this.itemTooltip = itemTooltip;
         this.itemEffect = itemEffect;
+        this.itemImg = itemImg;
     }
 
     public string getItemCode() {
@@ -25,7 +28,10 @@ public class Item {
     public string getItemToolTip() {
         return this.itemTooltip;
     }
-    public string getItemitemEffect() {
+    public string getItemEffect() {
         return this.itemEffect;
+    }
+    public Sprite getItemImage() {
+        return this.itemImg;
     }
 }

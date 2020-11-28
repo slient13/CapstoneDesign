@@ -5,7 +5,9 @@ using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour {
     List<Item> itemList = new List<Item>();
-    List<ItemBox> itemBoxList = new List<ItemBox>();
+    public List<ItemBox> itemBoxList = new List<ItemBox>();
+    public List<Sprite> itemImageList = new List<Sprite>();
+
     int MAX_ITEM_BOX = 16;
 
     void Start() {
@@ -27,14 +29,17 @@ public class InventoryManager : MonoBehaviour {
             msg.returnValue.Add(false);
             return;
         }
-
+        string imgPath = "Inventory/ItemImage/" + itemCode;
+        Sprite img = Resources.Load<Sprite>(imgPath) as Sprite;
+        itemImageList.Add(img);
+        itemList.Add(new Item(itemCode, itemName, itemTooltip, itemEffect, img));
         msg.returnValue.Add(true);
-        itemList.Add(new Item(itemCode, itemName, itemTooltip, itemEffect));
     }
 
     public void modifyItem(Message msg) {
         string itemCode = (string)msg.args[0];  // 변경 아이템 코드
         int itemNum = (int)msg.args[1];         // 변경 아이템 개수
+        Sprite itemImg = findImage(itemCode);
 
         // 추가하려는 아이템이 itemList 에 없는 경우 중단.
         if (!isInItemList(itemCode)) {
@@ -48,10 +53,24 @@ public class InventoryManager : MonoBehaviour {
         // 들어있지 않다면 비어있는 아이템 박스를 찾아 가장 빠른 위치에 새로 추가.
         else {
             index = findEmptySlot();
-            itemBoxList[index].changeItem(itemCode, itemNum);
+            itemBoxList[index].changeItem(itemCode, itemNum, itemImg);
         }
         // 결과로 아이템 개수가 0개가 된다면 해당 아이템 박스를 비워버림.
         if (itemBoxList[index].itemNumber == 0) itemBoxList[index].reset();
+    }
+
+    Sprite findImage(string itemCode) {
+        Sprite img = null;
+        int i;
+        for (i = 0; i < itemList.Count;) {
+            if (itemList[i].getItemCode() == itemCode) {
+                img = itemImageList[i];
+                break;
+            }
+            else i++;
+        }
+        if (i < itemList.Count) return img;
+        else return null;
     }
 
     // 변경을 원하는 아이템의 정보가 itemList 에 기록되어 있는지 확인
