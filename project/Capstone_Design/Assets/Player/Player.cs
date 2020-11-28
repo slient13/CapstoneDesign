@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     public float speed; //인스펙터 창에서 설정 가능
 
     GameObject nearObject;
+    
 
     float hAxis;
     float vAxis;
@@ -16,6 +17,18 @@ public class Player : MonoBehaviour
 
     bool isJump;
     bool isDodge;
+
+    
+    public int coin; //코인
+    public int health; // 체력
+    public int fish; // 물고기
+    public int bug; // 미끼
+
+    public int maxCoin; //최대 코인 수
+    public int maxHealth; // 최대 체력
+    public int maxFish; // 최대 물고기 마리 수
+    public int maxBug; // 최대 미끼 개수
+    
 
     Vector3 moveVec;
     Vector3 dodgeVec;//회피 도중 방향전환이 되지 않도록 회피방향 Vector3 추가
@@ -29,6 +42,14 @@ public class Player : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
     }
 
+    void Start()
+    {
+        Message msg1 = new Message("newPlayInfo: coin, int, 10000");
+        Message msg2 = new Message("newPlayInfo: health, int, 100");
+
+        msg1.functionCall();
+        msg2.functionCall();
+    }
     
     void Update()
     {
@@ -40,6 +61,8 @@ public class Player : MonoBehaviour
         Interation();
        
     }
+
+
 
     //함수를 기능에 따라 분리 => 이렇게 안하면 나중에 복잡할 수가 있음.
     void GetInput()
@@ -77,6 +100,7 @@ public class Player : MonoBehaviour
         //LookAt()함수는 지정된 벡터를 향해서 회전시켜주는 함수
     }
 
+    //점프
     void Jump()
     {
         if (jDown && moveVec == Vector3.zero && !isJump && !isDodge)
@@ -89,6 +113,7 @@ public class Player : MonoBehaviour
 
     }
 
+    //회피
     void Dodge()
     {
         if (jDown && moveVec != Vector3.zero && !isJump && !isDodge)
