@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da81d6044c8f3964184c9cd2b57b40a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiPosAdjuster: {x: 0, y: 0, z: 0}
+  uiPosAdjuster: {x: 0, y: 2, z: 0}
   scale: {x: 0, y: 0, z: 0}
   mainCamera: {fileID: 0}
 --- !u!1 &6870355678080535945
