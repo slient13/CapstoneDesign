@@ -92,7 +92,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f6b640024e6d264d9c5984969c34a4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxRayRange: 3
+  MaxRayRange: 10
 --- !u!1 &6031496900470531591
 GameObject:
   m_ObjectHideFlags: 0
