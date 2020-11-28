@@ -8,10 +8,12 @@ using UnityEngine;
 public class MappingInfo {
     public List<Info> infoList;
     public string objectName;
+    public string group;
 
     public MappingInfo() {        
         infoList = new List<Info>();
         objectName = "";
+        group = "general";
     }
 
     public MappingInfo(string name) : this() {
@@ -54,18 +56,23 @@ public class MappingInfo {
     }
 
 
-    // 현재 오브젝트의 키 매핑 정보를 ControlManger 에 등록하는 함수.
+    // 현재 매핑 정보를 general 그룹으로 등록하는 함수.
     public void enroll() {
         Message msg = new Message("ControlManager/addMapping : ");
         msg.args.Add(objectName);
         msg.args.Add(this);
+        msg.args.Add(group);
         msg.functionCall();
     }
-    // 사전에 객체 이름을 할당하지 않은 경우
-    public void enroll(string objectName) {
+    
+    // 등록 그룹을 지정
+    public void enroll(string groupName) {
+        this.group = groupName;
+
         Message msg = new Message("ControlManager/addMapping : ");
         msg.args.Add(objectName);
         msg.args.Add(this);
+        msg.args.Add(group);
         msg.functionCall();
     }
 
@@ -74,6 +81,7 @@ public class MappingInfo {
         Message msg = new Message("ControlManager/updateMapping : ");
         msg.args.Add(objectName);
         msg.args.Add(this);
+        msg.args.Add(group);
         msg.functionCall();
     }
 }

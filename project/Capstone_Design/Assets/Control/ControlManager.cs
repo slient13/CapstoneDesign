@@ -8,10 +8,14 @@ public class ControlManager : MonoBehaviour
     public GameObject baseSystem;
     public List<GameObject> objectLayer = new List<GameObject>();
     public List<MappingInfo> mappingInfoList = new List<MappingInfo>();
-    public int target = 0;
+    public List<string> groupList = new List<string>();
+    public List<string> enrolledGroupList = new List<string>();
+    public string currentMappingGroup;
 
     void Start() {
         baseSystem = GameObject.Find("BaseSystem");
+        enrolledGroupList.Add("general");
+        currentMappingGroup = "general";
     }
 
     void Update() {
@@ -33,20 +37,18 @@ public class ControlManager : MonoBehaviour
     // ^a = a up
     // !a = a upStay
     void mapping() {
-        if (match("t")) {
-            if (target == 0) target = 1;
-            else target = 0;
-            Debug.Log("mapping.targetChange");
-        }
-
         if (match("mouseL")) Debug.Log("mousePos : " + inputChecker.getMousePos());
 
-        foreach(Info info in mappingInfoList[target].infoList) {
-            if (match(info.keyPattern)) action(info.command);
+        for (int index = 0; index < mappingInfoList.Count; index++) {
+            if (groupList[index] == currentMappingGroup) {
+                foreach(Info info in mappingInfoList[index].infoList) {
+                    if (match(info.keyPattern)) action(info.command, index);
+                }
+            }
         }
     }
 
-    void action(string command) {
+    void action(string command, int target) {
         // 타겟 오브젝트 정보를 뺀 명령어.
         Message msg = new Message(command);
         // 타겟 오브젝트 이름은 별도로 넣어줌.
@@ -61,15 +63,22 @@ public class ControlManager : MonoBehaviour
 
     // 매핑정보 추가. 순서 무관하게 반드시 끝에 추가.
     public void addMapping(Message msg) {
-        string name = (string)msg.args[0]; // 등록 요청 오브젝트 이름
+        string name = (string)msg.args[0];  // 등록 요청 오브젝트 이름
         MappingInfo mappingInfo = (MappingInfo)msg.args[1]; // 해당 오브젝트의 매핑 정보.
+        string group = (string)msg.args[2]; // 등록 대상 그룹
         GameObject target = GameObject.Find(name);
         if (target != null) {
             int beforeCount = objectLayer.Count;
+            // 오브젝트 츠가
             objectLayer.Add(target);
+            // 매핑 정보 추가
             mappingInfoList.Add(new MappingInfo());
             mappingInfoList[beforeCount].copy(mappingInfo);
-            Debug.Log("addMapping.mappingInfoList.Count : " + mappingInfoList.Count);
+            Debug.Log("addMapping.mappingInfoList.Object : " + name);
+            // 그룹 정보 추가
+            groupList.Add(group);
+            // 기 등록 그룹이 아닌 경우 그룹 등록
+            if (!isInGroup(group)) enrolledGroupList.Add(group);
         }
         else Debug.Log("ControlManager/addMapping.error = There is no object which name is " + name);
     }
@@ -83,6 +92,8 @@ public class ControlManager : MonoBehaviour
             if (objectLayer[i].name == name) {
                 objectLayer.RemoveAt(i);
                 mappingInfoList.RemoveAt(i);
+                groupList.RemoveAt(i);
+                i--;    // 삭제 성공 구분용.
             }
             else i++;
         }
@@ -94,29 +105,42 @@ public class ControlManager : MonoBehaviour
         Debug.Log("Called : updateMapping");
         string name = (string)msg.args[0]; // 변경 대상 오브젝트의 이름
         MappingInfo newMappingInfo = (MappingInfo)msg.args[1]; // 해당 오브젝트의 새 매핑정보.
+        string group = (string)msg.args[2]; // 변경 대상 그룹 이름.
         int i;
+        // 관련 그룹이 존재하지 않는다면 매핑 중단.
+        if (!isInGroup(group)) {
+            Debug.Log("updateMapping.error : There is no group which is " + group);   
+            return;
+        }
+        // 일치 그룹 위치 확인. 존재시 값 업데이트.
         for (i = 0; i < objectLayer.Count; ) {
             if (name == objectLayer[i].name) {
                 mappingInfoList[i].copy(newMappingInfo);
+                groupList[i] = group;
                 break;
             }
             else i++;
         }
+        // 일치정보 없는 경우 디버그 로그 출력.
         if (i == objectLayer.Count) Debug.Log("updateMapping.error : There is no mappingInfo which objectName is " + name);   
     }
 
     // 매핑 대상 변경.
     public void layerChanger(Message msg) {
-        string name = (string)msg.args[0]; // 변경 타겟 오브젝트의 이름
-        int i;
-        for (i = 0; i < objectLayer.Count; ) {
-            if (name == objectLayer[i].name) {
-                target = i;
-                break;
-            }
-            else i++;
+        string name = (string)msg.args[0]; // 변경 그룹 이름
+        // 해당 이름을 가진 그룹이 있는지 검사
+        if (isInGroup(name)) {
+            currentMappingGroup = name;
         }
-        if (i == objectLayer.Count) Debug.Log("layerChanger.error : There is no mappingInfo which objectName is " + name);   
+        else {
+            Debug.Log("layerChanger.error : There is no group which is " + name);   
+        }
     }
 
+    bool isInGroup(string name) {
+        foreach(string groupName in enrolledGroupList) {
+            if (name == groupName) return true;
+        }
+        return false;
+    }
 }

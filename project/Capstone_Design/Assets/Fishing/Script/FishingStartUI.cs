@@ -13,7 +13,6 @@ public class FishingStartUI : MonoBehaviour
 
 	void Start()
 	{
-		uiPosAdjuster = new Vector3(0, 2, 0);
 		player = GameObject.FindGameObjectWithTag("Player");
 		goTemp = this.gameObject;
 		goBillboard = transform.Find("Billboard").gameObject;
