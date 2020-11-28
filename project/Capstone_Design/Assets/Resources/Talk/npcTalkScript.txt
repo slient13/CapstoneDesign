@@ -33,3 +33,8 @@ text,빵 있는데 드실래요?,
 message,hpChange,10
 answer,고마워. 잘 먹을게.,-2
 ,,
+id,999,
+text,그럼 열심히 일하세요.,
+message,questStart,-
+answer,네,-2
+,,
