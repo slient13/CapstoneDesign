@@ -32,37 +32,37 @@ public class Inventory : MonoBehaviour
         {
             return t.item == null || t.item.name == string.Empty;
 
-            if ()
-            {
-                Message msg10 = new Message("getPlayInfo: health");
+            
+                Message msg10 = new Message("getPlayInfo: Health");
                 msg10.functionCall();
                 int health = (int)msg10.returnValue[0];
 
-                Message msg3 = new Message("playInfoChanger: health, 100");
+                /*
+                Message msg3 = new Message("playInfoChanger: Health, 10");
                 msg3.functionCall();
-                Message msg4 = new Message("playInfoChanger: coin, -1000");
+                */
+
+                Message msg4 = new Message("playInfoChanger: Coin, -1000");
                 msg4.functionCall();
 
-                if (health > 1000)
+                if (health > 100)
                 {
-                    Message msg5 = new Message("InventoryManager/modifyItem : health, 1");
+                    Message msg5 = new Message("InventoryManager/modifyItem : Health, 1");
                     msg5.functionCall();
                 }
-            }
-            else if()
-            {
+            
+            
+            
                 Message msg6 = new Message("InventoryManager/modifyItem : fish, 1");
                 msg6.functionCall();
                 Message msg7 = new Message("playInfoChanger: coin, -700");
                 msg7.functionCall();
-            }
-            else
-            {
+            
                 Message msg8 = new Message("InventoryManager/modifyItem : bug, 1");
                 msg8.functionCall();
                 Message msg9 = new Message("playInfoChanger: coin, -100");
                 msg9.functionCall();
-            }
+            
         });
 
         if(emptySlot != null)
