@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class FishingGame : MonoBehaviour
 {
-    
+
+    public AudioClip floatSplashSound;
+    public AudioClip successSound;
     public GameObject fishingManager;
     public GameObject fishingDir;
     public GameObject fishingFloat;
@@ -25,6 +27,7 @@ public class FishingGame : MonoBehaviour
     float timer;
     float baitTimer;
     float randomTime;
+    Message msg;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +35,12 @@ public class FishingGame : MonoBehaviour
         fishingGear = this.gameObject;
         initPos = this.transform.position;
         rayChecker = false;
+
+        //물고기 아이템코드 추가
+        msg = new Message("InventoryManager/addNewItem : fish, 물고기, 평범한 물고기다, aa");
+        msg.functionCall();
+        msg = new Message("InventoryManager/addNewItem : boots, 부츠, 우-야, aa");
+        msg.functionCall();
     }
 
     // Update is called once per frame
@@ -91,6 +100,10 @@ public class FishingGame : MonoBehaviour
         {
             waterPos = fishingDir.GetComponent<FishingDir>().GetWaterPos();
             fishingFloat.GetComponent<FishingFloat>().SetPos(waterPos);
+
+            //소리재생
+            this.GetComponent<AudioSource>().clip = floatSplashSound;
+            this.GetComponent<AudioSource>().Play();
         }
     }
 
@@ -130,6 +143,10 @@ public class FishingGame : MonoBehaviour
         fishingWarnUI.GetComponent<FishingWarnUI>().SetEnabled(false);
         fishingManager.GetComponent<FishingManager>().SetFishGame(false);
 
+        //소리재생
+        this.GetComponent<AudioSource>().clip = successSound;
+        this.GetComponent<AudioSource>().Play();
+
         if (sucPercentage > 100)
             sucPercentage = 100;
         else if (sucPercentage < 0)
@@ -139,8 +156,14 @@ public class FishingGame : MonoBehaviour
         {
             print("물고기를 잡았다!");
             //인벤토리 물고기 추가코드
+            msg = new Message("InventoryManager/modifyItem : fish, 1");
+            msg.functionCall();
         }
         else
+        {
             print("물고기가 아닌걸 잡았다..");
+            msg = new Message("InventoryManager/modifyItem : boots, 1");
+            msg.functionCall();
+        }
     }
 }

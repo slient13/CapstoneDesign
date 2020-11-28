@@ -40,6 +40,9 @@ public class FishingWarnUI : MonoBehaviour
 	public void SetEnabled(bool bo)
     {
 		isEnabled = bo;
+
+		if(bo)
+			this.GetComponent<AudioSource>().Play();
     }
 
 	public bool GetEnabled()
