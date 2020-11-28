@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class PlayInfo {
     int INT_NONE = -999999;
     float FLOAT_NONE = -9999.99f;
 
-    string infoName;
+    public string infoName;
     string infoType;
-    int infoValue_typeInt;
+    public int infoValue_typeInt;
     float infoValue_typeFloat;
     string infoValue_typeString;
 

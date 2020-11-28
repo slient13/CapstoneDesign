@@ -12,6 +12,9 @@ TagManager:
   - Water
   - Shop
   - Floor
+  - ' Heart'
+  - Fish
+  - Bug
   layers:
   - Default
   - TransparentFX

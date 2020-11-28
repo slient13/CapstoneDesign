@@ -15,6 +15,7 @@ public class Store : MonoBehaviour
     {
         slots = new List<Slot>();
 
+        //slots의 하위 slot들을 모두 가져온다
         int slotCnt = slotRoot.childCount;
 
         for (int i = 0; i < slotCnt; i++)
@@ -28,7 +29,11 @@ public class Store : MonoBehaviour
 
             slots.Add(slot);
         }
+
+        
     }
+
+    
 
     // Update is called once per frame
     void Update()
@@ -39,9 +44,11 @@ public class Store : MonoBehaviour
     public void OnClickSlot(Slot slot)
     {
         //Debug.Log(slot.name);
-        if(onSlotClick != null)
+        if (onSlotClick != null)
         {
             onSlotClick(slot.item);
+            Debug.Log(slot.item.name);
+
         }
     }
 

@@ -13,7 +13,7 @@ public class InventoryManager : MonoBehaviour {
             itemBoxList.Add(new ItemBox());
         }
 
-        addNewItem(
+        /*addNewItem(
             "testItem1",
             "test",
             "testTootip",
@@ -24,7 +24,7 @@ public class InventoryManager : MonoBehaviour {
             "test",
             "testTootip",
             ""
-        );
+        );*/
     
         MappingInfo mapping = new MappingInfo("InventoryManager");
         mapping.addMapping("modifyItem : testItem1, 10", "n1");
@@ -33,7 +33,7 @@ public class InventoryManager : MonoBehaviour {
         mapping.enroll();
     }
 
-    // 인벤토리 매니저에서 직접 추가하는 용도
+    /*// 인벤토리 매니저에서 직접 추가하는 용도
     void addNewItem(string itemCode, string itemName, string itemTooltip, string itemEffect) {
         // 일치하는 정보를 가진 아이템이 존재하는 경우 중단.
         if (isInItemList(itemCode)) {
@@ -42,7 +42,7 @@ public class InventoryManager : MonoBehaviour {
         }
 
         itemList.Add(new Item(itemCode, itemName, itemTooltip, itemEffect));
-    }
+    }*/
 
     // 외부에서 추가하는 용도
     public void addNewItem(Message msg) {
