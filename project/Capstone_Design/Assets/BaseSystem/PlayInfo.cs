@@ -6,7 +6,7 @@ public class PlayInfo {
     int INT_NONE = -999999;
     float FLOAT_NONE = -9999.99f;
 
-    string infoName;
+    public string infoName;
     string infoType;
     int infoValue_typeInt;
     float infoValue_typeFloat;
