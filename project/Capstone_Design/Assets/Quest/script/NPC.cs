@@ -11,11 +11,9 @@ public class NPC : MonoBehaviour
     {
         Debug.Log("충돌 시작!");
 
-       // Message msg = new Message("TalkManager/GenerateData : ");
-       // msg.functionCall();
-
-        Message msg = new Message("TalkUI/GenerateData : ");
+        Message msg = new Message("TalkManager/GenerateData : ");
         msg.functionCall();
+
     }
     // Collider 컴포넌트의 is Trigger가 false인 상태로 충돌이 끝났을 때
 
