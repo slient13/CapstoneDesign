@@ -22,16 +22,6 @@ public class BaseSystem : MonoBehaviour
         // Debug.Log(msg.returnValue[0]);
     }
     
-    // 새 플레이 정보 등록 (내부용)
-    void newPlayInfo(string infoName, int value) {
-        playInfoList.Add(new PlayInfo(infoName, value));
-    }
-    void newPlayInfo(string infoName, float value) {
-        playInfoList.Add(new PlayInfo(infoName, value));
-    }
-    void newPlayInfo(string infoName, string value) {
-        playInfoList.Add(new PlayInfo(infoName, value));
-    }
     // 새 플레이 정보 등록 (외부용)
     public void newPlayInfo(Message msg) {
         string infoName =  (string)msg.args[0];     // 이름

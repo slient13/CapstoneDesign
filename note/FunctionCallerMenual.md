@@ -2,13 +2,13 @@
 
 ## Message 클래스 구조
 
-- targetName
+- `targetName`
 대상 오브젝트 이름. 같은 씬 내에서 찾아낸다.
-- functionName
+- `functionName`
 실행할 함수. 대상 오브젝트의 스크립트 내 정의되어 있어야 한다.
-- args
+- `args`
 인수들. 다차원 ArrayList 형태로 제공되며, 필요에 따라 각종 형태로 개조할 수 있다.
-- returnValue
+- `returnValue`
 반환값. 마찬가지로 ArrayList 이며, 반환값이 필요한 경우 관례적으로 이 값을 고치고 이용하도록 한다.
 
 ## 사용법

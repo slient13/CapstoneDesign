@@ -12,36 +12,6 @@ public class InventoryManager : MonoBehaviour {
         for (int i = 0; i < MAX_ITEM_BOX; i++) {
             itemBoxList.Add(new ItemBox());
         }
-
-        addNewItem(
-            "testItem1",
-            "test",
-            "testTootip",
-            ""
-        );
-        addNewItem(
-            "testItem2",
-            "test",
-            "testTootip",
-            ""
-        );
-    
-        MappingInfo mapping = new MappingInfo("InventoryManager");
-        mapping.addMapping("modifyItem : testItem1, 10", "n1");
-        mapping.addMapping("modifyItem : testItem2, 10", "n2");
-        mapping.addMapping("modifyItem : testItem3, 10", "n3");
-        mapping.enroll();
-    }
-
-    // 인벤토리 매니저에서 직접 추가하는 용도
-    void addNewItem(string itemCode, string itemName, string itemTooltip, string itemEffect) {
-        // 일치하는 정보를 가진 아이템이 존재하는 경우 중단.
-        if (isInItemList(itemCode)) {
-            Debug.Log("InventoryManager/addNewItem.error : the item which codeName is " + itemCode + " is already exist");
-            return;
-        }
-
-        itemList.Add(new Item(itemCode, itemName, itemTooltip, itemEffect));
     }
 
     // 외부에서 추가하는 용도
@@ -54,9 +24,11 @@ public class InventoryManager : MonoBehaviour {
         // 일치하는 정보를 가진 아이템이 존재하는 경우 중단.
         if (isInItemList(itemCode)) {
             Debug.Log("InventoryManager/addNewItem.error : the item which codeName is " + itemCode + " is already exist");
+            msg.returnValue.Add(false);
             return;
         }
 
+        msg.returnValue.Add(true);
         itemList.Add(new Item(itemCode, itemName, itemTooltip, itemEffect));
     }
 
@@ -133,5 +105,16 @@ public class InventoryManager : MonoBehaviour {
 
     public void getItemBoxList(Message message) {
         message.returnValue.Add(itemBoxList);
+    }
+
+    public void getItemNumber(Message message) {
+        string itemCode = (string)message.args[0];  // 개수를 원하는 아이템의 이름
+        int number;
+
+        int index = matchItemBox(itemCode);
+        if (index != -1) number = itemBoxList[index].itemNumber;
+        else number = -1;
+
+        message.returnValue.Add(number);
     }
 }

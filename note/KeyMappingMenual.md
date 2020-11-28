@@ -12,10 +12,11 @@ public GameObject baseSystem;               // 함수 중계자 호출용.
 public List<GameObject> objectLayer;        // 매핑 오브젝트 목록
 public List<MappingInfo> mappingInfoList;   // 매핑 정보 목록
 public int target;                          // 현재 타겟 번호
-public void addMapping(Message msg) {}      // 매핑 정보 추가. $1 = 오브젝트 이름, $2 = 매핑 정보
+public void addMapping(Message msg) {}      // 매핑 정보 추가. $1 = 오브젝트 이름, $2 = 매핑 정보, $3 = 그룹 이름.
 public void removeMapping(Message msg) {}   // 매핑 정보 제거. $1 = 오브젝트 이름
-public void updateMapping(Message msg) {}   // 매핑 정보 변경. $1 = 오브젝트 이름, $2 = 매핑 정보
-public void layerChanger(Message msg) {}    // 매핑 동작 대상 변경. $1 = 오브젝트 이름
+    // 한 오브젝트에서 다수의 매핑 정보를 추가한 경우 전부 제거되니 주의
+public void updateMapping(Message msg) {}   // 매핑 정보 변경. $1 = 오브젝트 이름, $2 = 매핑 정보, $3 = 그룹 이름.
+public void layerChanger(Message msg) {}    // 매핑 동작 대상 변경. $1 = 그룹 이름
 ```
 
 ### `InputChecker`
@@ -36,7 +37,8 @@ public List<string> getMappingInfo() {}         // 매핑 정보 목록 확인
 public void reset() {}                          // 매핑 정보 초기화
 public MappingInfo add(MappingInfo other) {}    // 매핑 정보 추가. (기존 정보 보존)
 public MappingInfo copy(MappingInfo other) {}   // 매핑 정보 복사. (기존 정보 초기화)
-public void enroll() {}                         // 매핑 정보 등록
+public void enroll(string group) {}             // 매핑 정보 등록
+    // group = 그룹 이름. 생략 시 자동으로 "general" 삽입.
 public void mappingUpdate() {}                  // 매핑 정보 업데이트. (기존 등록 정보가 있는 경우에만)
 ```
 
@@ -100,7 +102,7 @@ public string keyPattern; // 실행 조건이 되는 키 조합 문자열이다.
 
 ### 다수의 오브젝트의 맵핑을 한 레이어에 연결하는 방법
 
-- 각 오브젝트들의 매핑 요청을 모아 중계해주는 별도의 오브젝트를 하나 추가로 둔다. 매핑정보는 `MappingInfo.add`메소드를 이용해 합친다.
+- 동일한 그룹으로 등록한다. 그룹간 전환은 `layerChanger` 메소드를 이용한다.
 
 ### 마우스 매핑
 
@@ -111,6 +113,7 @@ public string keyPattern; // 실행 조건이 되는 키 조합 문자열이다.
 ## 주의사항
 
 - `MappingInfo` 객체를 만들 때 해당 오브젝트의 이름을 입력해줄 필요가 있다. 아직 스스로 찾는 기능은 없다.
+- `ControlManager.removeMapping` 메소드는 해당 오브젝트 이름으로 등록된 모든 매핑을 제거한다.
 
 ## 구현 예정
 
@@ -155,3 +158,8 @@ public string keyPattern; // 실행 조건이 되는 키 조합 문자열이다.
 
 - 마우스 위치 관련 전송방법 수정. (첫번째 인수 고정 -> 맨 끝 인수로)
 - 부록으로 매핑용 키 텍스트 목록 추가.
+
+### 11-28
+
+- 매핑 그룹화 기능 개선.
+- 주의사항 추가.

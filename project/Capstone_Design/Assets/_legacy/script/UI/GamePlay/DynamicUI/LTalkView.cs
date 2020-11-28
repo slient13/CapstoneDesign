@@ -4,14 +4,14 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TalkView : MonoBehaviour
+public class LTalkView : MonoBehaviour
 {
     public GameObject ui;
     const int NO_SELECTION = -1;
     const int TALK_END = -2;
     private string npcName;
-    private List<Talk> talks;
-    private Talk currentTalk;
+    private List<LTalk> talks;
+    private LTalk currentTalk;
 
     public Text npcNameText;
     public Text npcTalkText;
@@ -40,11 +40,11 @@ public class TalkView : MonoBehaviour
 
     void loadTalkScript(string npcName, string fileName) {
         this.npcName = npcName;
-        talks = new List<Talk>();
+        talks = new List<LTalk>();
 
         TextAsset data = Resources.Load(fileName, typeof(TextAsset)) as TextAsset;
         StringReader sr = new StringReader(data.text);
-        Talk talk = new Talk();
+        LTalk talk = new LTalk();
         int answerNum = 0;
         
         string line;
@@ -74,7 +74,7 @@ public class TalkView : MonoBehaviour
                 }
                 answerNum = 0;
                 talks.Add(talk);
-                talk = new Talk();
+                talk = new LTalk();
             }
             line = sr.ReadLine();
         }
@@ -94,7 +94,7 @@ public class TalkView : MonoBehaviour
 
     public void changeTalk(int targetId) {
         if (targetId == TALK_END) closeTalk();
-        else foreach (Talk talk in talks)
+        else foreach (LTalk talk in talks)
         {
             if (talk.id == targetId){
                 // npc.sendMessage(currentTalk.message[0], currentTalk.message[1]);
@@ -148,23 +148,23 @@ public class TalkView : MonoBehaviour
     }
 }
 
-class Talk {
+class LTalk {
     const int NO_SELECTION = -1;
     public int id;
     public string text;
     public string[] message;    // 첫번째는 함수명, 두번째는 인수.
-    public Answer[] answers;
+    public LAnswer[] answers;
 
-    public Talk() {
+    public LTalk() {
         this.id = NO_SELECTION;
         this.text = "";
         this.message = new string[2];
-        this.answers = new Answer[4];
+        this.answers = new LAnswer[4];
         for (int i = 0 ; i < 4; i++) {
-            this.answers[i] = new Answer();
+            this.answers[i] = new LAnswer();
         }
     }
-    public Talk(int id, string text, string[] message, Answer[] answers) {
+    public LTalk(int id, string text, string[] message, LAnswer[] answers) {
         this.id = id;
         this.text = text;
         this.message = message;    
@@ -172,15 +172,15 @@ class Talk {
     }
 }
 
-class Answer {
+class LAnswer {
     public string text;
     public int targetId;
 
-    public Answer(){
+    public LAnswer(){
         this.text = "";
         this.targetId = 0;
     }
-    public Answer(string text, int targetId) {
+    public LAnswer(string text, int targetId) {
         this.text = text;
         this.targetId = targetId;
     }

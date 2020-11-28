@@ -167,7 +167,12 @@ public class Message
         string output = "";
         output += targetName + "/" + functionName + " : ";
         for (int i = 0; i < args.Count; i++) {
-            output += "args" + i;
+            try {
+                output += args[i];
+            }
+            catch(Exception e) {
+                output += "args" + i;
+            }
             if (i < args.Count - 1) output += ", ";
         }
 

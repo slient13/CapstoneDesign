@@ -7,6 +7,7 @@ public class FishingTrigger : MonoBehaviour
 
     public Vector3 startUIScale;
     public GameObject fishStartUI;
+    public GameObject fishWarnUI;
     public GameObject fishingPos;
     public GameObject fishingDir;
     public GameObject fishingGame;
@@ -56,6 +57,7 @@ public class FishingTrigger : MonoBehaviour
             if (fishStartUI != null)
                 Destroy(GameObject.FindGameObjectWithTag("FSUI"));
 
+            fishWarnUI.GetComponent<FishingWarnUI>().SetEnabled(false);
             fishingManager.GetComponent<FishingManager>().SetFishGame(false);
             print("낚시트리거 비활성화!");
         }
@@ -64,7 +66,7 @@ public class FishingTrigger : MonoBehaviour
     private void Update()
     {
         
-        if(isFishable == true && Input.GetKeyDown(KeyCode.E) == true)
+        if(isFishable == true && Input.GetKeyDown(KeyCode.E) == true && !fishingManager.GetComponent<FishingManager>().GetFishGame())
         {
             //낚시매니저에게 게임시작 전달
             fishingManager.GetComponent<FishingManager>().SetFishGame(true);
@@ -74,7 +76,7 @@ public class FishingTrigger : MonoBehaviour
 
             print("게임시작!");
         }
-        if (fishingManager.GetComponent<FishingManager>().GetFishGame() == true)
+        if (fishingManager.GetComponent<FishingManager>().GetFishGame())
             Destroy(GameObject.FindGameObjectWithTag("FSUI"));
     }
 }
