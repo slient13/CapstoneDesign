@@ -20,6 +20,7 @@ public class QuestManage : MonoBehaviour
     // Update is called once per frame
     void GenerateData()
     {
+        Debug.Log("퀘스트 받음");
         questlist.Add(10, new QuestData("낚시를 해서 광어 한 마리 잡아오기.", new int[] { 1000, 2000 }));
     }
     public int GetQuestTalkIndex(int id)
