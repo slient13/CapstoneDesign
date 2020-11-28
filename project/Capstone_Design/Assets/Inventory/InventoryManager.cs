@@ -24,9 +24,11 @@ public class InventoryManager : MonoBehaviour {
         // 일치하는 정보를 가진 아이템이 존재하는 경우 중단.
         if (isInItemList(itemCode)) {
             Debug.Log("InventoryManager/addNewItem.error : the item which codeName is " + itemCode + " is already exist");
+            msg.returnValue.Add(false)
             return;
         }
 
+        msg.returnValue.Add(true)
         itemList.Add(new Item(itemCode, itemName, itemTooltip, itemEffect));
     }
 
