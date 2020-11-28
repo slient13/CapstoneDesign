@@ -1,7 +1,22 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: d81dff4a4415fec429ba4cea50301b13
 folderAsset: yes
 DefaultImporter:
+=======
+<<<<<<< HEAD:project/Capstone_Design/Assets/Materials/GamePlay.meta
+guid: d81dff4a4415fec429ba4cea50301b13
+=======
+<<<<<<< HEAD:project/Capstone_Design/Assets/Deal/Prefebs/Player (1).prefab.meta
+guid: b7b9f20cad23c184bbb63d81baf2a203
+PrefabImporter:
+=======
+guid: ab22ebf9fc3ed6a4aa67dec40558fab0
+>>>>>>> 43e41e001a50312611d9d320598712fc1c18978c:project/Capstone_Design/Assets/Fishing/Practice.meta
+folderAsset: yes
+DefaultImporter:
+>>>>>>> 7e055b769453e1778d1a11c2daec2e5b76010352:project/Capstone_Design/Assets/Fishing/Practice.meta
+>>>>>>> master
   externalObjects: {}
   userData: 
   assetBundleName: 

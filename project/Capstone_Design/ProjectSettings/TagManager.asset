@@ -8,8 +8,13 @@ TagManager:
   - StaticObj
   - NPC
   - Ground
+  - FSUI
+  - Water
   - Shop
   - Floor
+  - ' Heart'
+  - Fish
+  - Bug
   layers:
   - Default
   - TransparentFX
