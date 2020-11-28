@@ -2,24 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FishingStartUI : MonoBehaviour
+public class FishingWarnUI : MonoBehaviour
 {
 	public Vector3 uiPosAdjuster;
-	public Vector3 scale;
+	public float scaleAdj;
+	public GameObject mainCamera;
+
 	GameObject player;
 	GameObject goTemp;
 	GameObject goBillboard;
-	public GameObject mainCamera;
+	Vector3 initPos;
+	bool isEnabled;
 
 	void Start()
 	{
 		player = GameObject.FindGameObjectWithTag("Player");
 		goTemp = this.gameObject;
 		goBillboard = transform.Find("Billboard").gameObject;
+		initPos = this.transform.position;
 
-		if(mainCamera == null)
+		if (mainCamera == null)
 			mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-		this.transform.localScale = scale;
+		this.transform.localScale *= scaleAdj;
 	}
 
 	void Update()
@@ -27,11 +31,19 @@ public class FishingStartUI : MonoBehaviour
 		goTemp.transform.LookAt(mainCamera.transform.position);
 
 		//UI위치 설정
-		this.transform.position = player.transform.position + uiPosAdjuster;
+		if (isEnabled)
+			this.transform.position = player.transform.position + uiPosAdjuster;
+		else
+			this.transform.position = initPos;
 	}
 
-	public void GetUIScale(Vector3 scaleAdj)
+	public void SetEnabled(bool bo)
     {
-		scale = scaleAdj;
+		isEnabled = bo;
+    }
+
+	public bool GetEnabled()
+    {
+		return isEnabled;
     }
 }
