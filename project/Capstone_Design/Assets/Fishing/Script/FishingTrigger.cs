@@ -64,7 +64,7 @@ public class FishingTrigger : MonoBehaviour
     private void Update()
     {
         
-        if(isFishable == true && Input.GetKeyDown(KeyCode.E) == true)
+        if(isFishable == true && Input.GetKeyDown(KeyCode.E) == true && !fishingManager.GetComponent<FishingManager>().GetFishGame())
         {
             //낚시매니저에게 게임시작 전달
             fishingManager.GetComponent<FishingManager>().SetFishGame(true);
@@ -74,7 +74,7 @@ public class FishingTrigger : MonoBehaviour
 
             print("게임시작!");
         }
-        if (fishingManager.GetComponent<FishingManager>().GetFishGame() == true)
+        if (fishingManager.GetComponent<FishingManager>().GetFishGame())
             Destroy(GameObject.FindGameObjectWithTag("FSUI"));
     }
 }

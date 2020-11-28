@@ -24,12 +24,18 @@ public class FishingDir : MonoBehaviour
         if (Physics.Raycast(transform.position, transform.forward, out hit, MaxRayRange))
         {
             if (hit.collider.tag == "Water")
+            {
                 return true;
+            }
             else
+            {
                 return false;
+            }
         }
         else
+        {
             return false;
+        }   
     }
     
     public Vector3 GetWaterPos()
