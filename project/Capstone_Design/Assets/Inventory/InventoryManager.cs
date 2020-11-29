@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour {
-    List<Item> itemList = new List<Item>();
-    public List<ItemBox> itemBoxList = new List<ItemBox>();
-    public List<Sprite> itemImageList = new List<Sprite>();
+    List<Item> itemList = new List<Item>();                 // 등록된 아이템의 리스트
+    public List<Sprite> itemImageList = new List<Sprite>(); // 등록된 아이템의 이미지 리스트.
+    public List<ItemBox> itemBoxList = new List<ItemBox>(); // 아이템 박스 리스트
 
     int MAX_ITEM_BOX = 16;
 
@@ -34,6 +34,26 @@ public class InventoryManager : MonoBehaviour {
         itemImageList.Add(img);
         itemList.Add(new Item(itemCode, itemName, itemTooltip, itemEffect, img));
         msg.returnValue.Add(true);
+    }
+
+    // 아이템의 이름이나 툴팁, 효과등을 받아오는 함수.
+    public void getItem(Message msg) {
+        if (msg.args.Count == 0) {
+            Debug.Log("InventoryManager/getItemInfo.error : There is no Input");
+            return;
+        }
+
+        string itemCode = (string)msg.args[0];  // 정보를 원하는 아이템의 코드.
+
+        // 아이템 등록 확인
+        if (!isInItemList(itemCode)) {
+            Debug.Log("InventoryManager/getItemInfo.error : there is no item which code is " + itemCode);
+            return;
+        }
+
+        foreach(Item item in itemList) {
+            if (item.getItemCode() == itemCode) msg.returnValue.Add(item);
+        }
     }
 
     public void modifyItem(Message msg) {

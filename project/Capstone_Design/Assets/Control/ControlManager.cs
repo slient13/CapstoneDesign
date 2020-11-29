@@ -144,4 +144,8 @@ public class ControlManager : MonoBehaviour
         }
         return false;
     }
+
+    public void getMousePos(Message msg) {
+        msg.returnValue.Add(inputChecker.getMousePos());
+    }
 }

@@ -17,7 +17,7 @@ public class UIManager : MonoBehaviour {
 
         MappingInfo mapping = new MappingInfo("UIManager");
         mapping.addMapping("openInventory : ", "i");
-        mapping.addMapping("openTalkView : npc", "t");  // 디버그용.
+        // mapping.addMapping("openTalkView : npc", "t");  // 디버그용.
         mapping.enroll();
     }
 
