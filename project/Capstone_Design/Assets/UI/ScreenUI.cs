@@ -39,7 +39,7 @@ public class ScreenUI : MonoBehaviour
         RectTransform rectTran = hpBar.GetComponent<RectTransform>();
         float width = degree * HP_BAR_WEIGHT / MAX_HP;
         rectTran.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
-        hpBar.transform.localPosition = new Vector3(width / 2 - 125, 0, 0);
+        hpBar.transform.localPosition = new Vector3(0, 0, 0);
     }    
     void setMoney(int degree) {
         money.GetComponent<Text>().text = degree + " 원";
