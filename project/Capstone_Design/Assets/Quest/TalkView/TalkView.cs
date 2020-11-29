@@ -16,12 +16,14 @@ public class TalkView : MonoBehaviour
     public Text npcTalkText;            // npc 대화 표시 텍스트 UI
     public List<Text> playerAnswersText;    // 플레이어 선택지 Text 리스트
 
+    public GameObject background;
     public GameObject talkView;
     string talkUIName;
 
     /*
     구조 : 
         TalkUI : 
+            Background
             TalkView : 
                 NpcName
                 NpcTalk : Text
@@ -32,13 +34,14 @@ public class TalkView : MonoBehaviour
                     Button : Text
     */
     void Start() {
-        npcNameText = transform.GetChild(0).GetChild(0).GetComponent<Text>();
-        npcTalkText = transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<Text>();
+        npcNameText = transform.GetChild(1).GetChild(0).GetComponent<Text>();
+        npcTalkText = transform.GetChild(1).GetChild(1).GetChild(0).GetComponent<Text>();
         for (int i = 0; i < 4; i++) {
-            Text tempText = transform.GetChild(0).GetChild(2).GetChild(i).GetChild(0).GetComponent<Text>();
+            Text tempText = transform.GetChild(1).GetChild(2).GetChild(i).GetChild(0).GetComponent<Text>();
             playerAnswersText.Add(tempText);
         }
         talkView = transform.Find("TalkView").gameObject;   // TalkView
+        background = transform.Find("Background").gameObject;
 
         talkUIName = gameObject.name;     // TalkUI
 
@@ -55,6 +58,7 @@ public class TalkView : MonoBehaviour
         // startMap.enroll();
 
 
+        background.SetActive(false);
         talkView.SetActive(false);
         
     }
@@ -70,6 +74,7 @@ public class TalkView : MonoBehaviour
 
     public void StartTalk(string npcName) {
         // Debug.Log("토크뷰 받았쩡");
+        background.SetActive(true);
         talkView.SetActive(true);
         this.npcName = npcName;
         string filename = "Talk/" + npcName + "TalkScript";
@@ -133,7 +138,10 @@ public class TalkView : MonoBehaviour
 
     void setPlayerAnswer() {    // 플레이어의 대화 선택지를 현재 대화의 선택지로 설정.
         for (int i = 0; i < 4; i++) {
-            playerAnswersText[i].text = currentTalk.answers[i].text;            
+            if (currentTalk.answers[i].text.Length != 0) 
+                playerAnswersText[i].text = (i + 1) + ". " +  currentTalk.answers[i].text;            
+            else 
+                playerAnswersText[i].text = "";
         }
     }
 
@@ -167,6 +175,7 @@ public class TalkView : MonoBehaviour
     
     void closeTalk() {
         talkList = null;
+        background.SetActive(false);
         talkView.SetActive(false);
         new Message("ControlManager/layerChanger : general").functionCall();
     }
