@@ -37,9 +37,9 @@ public class FishingGame : MonoBehaviour
         rayChecker = false;
 
         //물고기 아이템코드 추가
-        msg = new Message("InventoryManager/addNewItem : fish, 물고기, 평범한 물고기다, aa");
+        msg = new Message("InventoryManager/addNewItem : Fish, 물고기, 평범한 물고기다, 맛있다");
         msg.functionCall();
-        msg = new Message("InventoryManager/addNewItem : boots, 부츠, 우-야, aa");
+        msg = new Message("InventoryManager/addNewItem : Boots, 부츠, 우-야, 독일산");
         msg.functionCall();
     }
 
@@ -156,13 +156,13 @@ public class FishingGame : MonoBehaviour
         {
             print("물고기를 잡았다!");
             //인벤토리 물고기 추가코드
-            msg = new Message("InventoryManager/modifyItem : fish, 1");
+            msg = new Message("InventoryManager/modifyItem : Fish, 1");
             msg.functionCall();
         }
         else
         {
             print("물고기가 아닌걸 잡았다..");
-            msg = new Message("InventoryManager/modifyItem : boots, 1");
+            msg = new Message("InventoryManager/modifyItem : Boots, 1");
             msg.functionCall();
         }
     }

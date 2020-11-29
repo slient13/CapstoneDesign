@@ -65,17 +65,17 @@ public class Store : MonoBehaviour
                 msg3.functionCall();
                 */
 
-                Message msg14 = new Message("playInfoChanger: Coin, -1000");
+                Message msg14 = new Message("playInfoChanger: money, -1000");
                 msg14.functionCall();
 
-                Message msg35 = new Message("getPlayInfo: Coin");
+                Message msg35 = new Message("getPlayInfo: money");
                 msg35.functionCall();
-                int Coin = (int)msg35.returnValue[0];
+                int money = (int)msg35.returnValue[0];
 
                 Message msg15 = new Message("InventoryManager/modifyItem : Health, 1");
                 msg15.functionCall();
 
-               if(Coin <= 0)
+               if(money <= 0)
                 {
                     Debug.Log("체력을 구매 할 돈이 부족합니다.");
                 }
@@ -94,17 +94,17 @@ public class Store : MonoBehaviour
                 Message msg17 = new Message("playInfoChanger: Fish, 1");
                 msg17.functionCall();
 
-                Message msg18 = new Message("playInfoChanger: Coin, -700");
+                Message msg18 = new Message("playInfoChanger: money, -700");
                 msg18.functionCall();
 
-                Message msg36 = new Message("getPlayInfo: Coin");
+                Message msg36 = new Message("getPlayInfo: money");
                 msg36.functionCall();
-                int Coin = (int)msg36.returnValue[0];
+                int money = (int)msg36.returnValue[0];
 
                 Message msg19 = new Message("InventoryManager/modifyItem : Fish, 1");
                 msg19.functionCall();
 
-                if (Coin <= 0)
+                if (money <= 0)
                 {
                     Debug.Log("물 고 기를 구매 할 돈이 부족합니다.");
                 }
@@ -123,17 +123,17 @@ public class Store : MonoBehaviour
                 Message msg21 = new Message("playInfoChanger: Bug, 1");
                 msg21.functionCall();
 
-                Message msg22 = new Message("playInfoChanger: Coin, -100");
+                Message msg22 = new Message("playInfoChanger: money, -100");
                 msg22.functionCall();
 
-                Message msg37 = new Message("getPlayInfo: Coin");
+                Message msg37 = new Message("getPlayInfo: money");
                 msg37.functionCall();
-                int Coin = (int)msg37.returnValue[0];
+                int money = (int)msg37.returnValue[0];
 
                 Message msg23 = new Message("InventoryManager/modifyItem : Bug, 1");
                 msg23.functionCall();
 
-                if (Coin <= 0)
+                if (money <= 0)
                 {
                     Debug.Log("미 끼를 구매 할 돈이 부족합니다.");
                 }
@@ -153,12 +153,12 @@ public class Store : MonoBehaviour
                 msg3.functionCall();
                 */
 
-                Message msg25 = new Message("playInfoChanger: Coin, 1000");
+                Message msg25 = new Message("playInfoChanger: money, 1000");
                 msg25.functionCall();
 
-                Message msg38 = new Message("getPlayInfo: Coin");
+                Message msg38 = new Message("getPlayInfo: money");
                 msg38.functionCall();
-                int Coin = (int)msg38.returnValue[0];
+                int money = (int)msg38.returnValue[0];
 
                 Message msg26 = new Message("InventoryManager/modifyItem : Health, -1");
                 msg26.functionCall();
@@ -182,12 +182,12 @@ public class Store : MonoBehaviour
                 Message msg28 = new Message("playInfoChanger: Fish, -1");
                 msg28.functionCall();
 
-                Message msg29 = new Message("playInfoChanger: Coin, 700");
+                Message msg29 = new Message("playInfoChanger: money, 700");
                 msg29.functionCall();
 
-                Message msg39 = new Message("getPlayInfo: Coin");
+                Message msg39 = new Message("getPlayInfo: money");
                 msg39.functionCall();
-                int Coin = (int)msg39.returnValue[0];
+                int money = (int)msg39.returnValue[0];
 
                 Message msg30 = new Message("InventoryManager/modifyItem : Fish, -1");
                 msg30.functionCall();
@@ -211,12 +211,12 @@ public class Store : MonoBehaviour
                 Message msg32 = new Message("playInfoChanger: Bug, -1");
                 msg32.functionCall();
 
-                Message msg33 = new Message("playInfoChanger: Coin, 100");
+                Message msg33 = new Message("playInfoChanger: money, 100");
                 msg33.functionCall();
 
-                Message msg40 = new Message("getPlayInfo: Coin");
+                Message msg40 = new Message("getPlayInfo: money");
                 msg40.functionCall();
-                int Coin = (int)msg40.returnValue[0];
+                int money = (int)msg40.returnValue[0];
 
                 Message msg34 = new Message("InventoryManager/modifyItem : Bug, -1");
                 msg34.functionCall();
@@ -250,7 +250,7 @@ public class Store : MonoBehaviour
                 msg3.functionCall();
                 
 
-                Message msg25 = new Message("playInfoChanger: Coin, 1000");
+                Message msg25 = new Message("playInfoChanger: money, 1000");
                 msg25.functionCall();
 
                 Message msg26 = new Message("InventoryManager/modifyItem : Health, -1");

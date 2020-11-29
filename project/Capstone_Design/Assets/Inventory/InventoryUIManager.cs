@@ -49,12 +49,12 @@ public class InventoryUIManager : MonoBehaviour {
         // 아이템 박스 프리팹 로드
         itemBox = Resources.Load("Inventory/Prefab/ItemBox") as GameObject;
         // 아이템 판넬 오브젝트 저장
-        itemPanel = transform.GetChild(0).GetChild(0).gameObject;
+        itemPanel = transform.GetChild(0).GetChild(1).gameObject;
         // tooltip 판넬 프리팹 로드 및 부모 설정 및         
-        tooltipPanel = transform.GetChild(0).GetChild(1).gameObject;
+        tooltipPanel = transform.GetChild(0).GetChild(2).gameObject;
         tooltipPanel.SetActive(false);
         // 종료 버튼 할당.
-        closeButton = transform.GetChild(0).GetChild(2).gameObject;
+        closeButton = transform.GetChild(0).GetChild(0).gameObject;
         closeButton.GetComponent<Button>().onClick.AddListener(closeInventory);        
         // 아이템 코드내임 리스트 세팅
         for (int i = 0; i < MAX_ITEM_BOX; i++) itemBoxCodenameList.Add("");
