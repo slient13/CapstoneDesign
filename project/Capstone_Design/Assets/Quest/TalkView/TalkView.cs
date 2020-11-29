@@ -133,7 +133,10 @@ public class TalkView : MonoBehaviour
 
     void setPlayerAnswer() {    // 플레이어의 대화 선택지를 현재 대화의 선택지로 설정.
         for (int i = 0; i < 4; i++) {
-            playerAnswersText[i].text = currentTalk.answers[i].text;            
+            if (currentTalk.answers[i].text.Length != 0)
+                playerAnswersText[i].text = (i + 1) + ". " + currentTalk.answers[i].text;
+            else
+                playerAnswersText[i].text = "";
         }
     }
 
@@ -161,6 +164,7 @@ public class TalkView : MonoBehaviour
         string functionName = currentTalk.message[0];
         string arg = currentTalk.message[1];
         Message msg = new Message(functionName + ":" + arg);
+        msg.targetName = "QuestManager";
         msg.functionCall();
         Debug.Log("TalkView.sendMessage.msg.getCommand() = " + msg.getCommand());
     }

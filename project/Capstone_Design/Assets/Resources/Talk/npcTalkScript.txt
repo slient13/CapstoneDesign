@@ -1,35 +1,36 @@
 id,0,
-text,안녕하세요. 날씨 좋네요. 무슨 일이신가요?
-answer,그냥 와봤어,100
-answer,무슨 좋은 소식 있어?,200
-answer,돈 좀 빌릴 수 있을까?,300
-answer,먹을 것좀 있어?,400
+text,저는 Quest NPC 입니다. 무엇을 도와드릴까요?,
+answer,무슨 퀘스트가 있어?,100
+answer,Quest NPC 가 뭐야?,200
+answer,퀘스트 완료하기.,300
+answer,나가기,-2
 ,,
 id,100,
-text,그렇군요. 좋은 하루 되세요.,
-answer,너도,-2
+text,지금 퀘스트는.. 물고기 잡아오기가 있네요,
+answer,그 퀘스트는 보상이 뭐야?,110
+,,
+id,110,
+text,보상으로는 돈 1000원 을 드려요 수락하시겠습니까?,
+answer,네.,901
+answer,아니오.,-2
 ,,
 id,200
-text,글세요. 드디어 종강이라는 것 정도?,
-answer,그거 참 날라갈거 같네.,0
+text,저는 퀘스트 관리 및 보상을 주고있어요,
+answer,그렇구나 고마워.,0
 ,,
 id,300,
-text,돈이라... 얼마 필요하신데요?,
-answer,그냥 해본 말이야,0
-answer,만원,310
-answer,1억원,320
+text,어머 벌써 퀘스트를 다 하셨나요?,
+message,questCheck,-
+answer,네,902
+answer,아니오 잘못눌렀어요,0
 ,,
-id,310,
-text,여기있어요. 꼭 갚으셔야되요?,
-message,moneyChange,10000
-answer,땡큐,-2
+id,901,
+text,그럼 열심히 해주세요,
+message,questStart,-
+answer,네,-2
 ,,
-id,320,
-text,저도 그런 큰 돈은 없어요 ㅋ.,
-answer,농담이야. 나중에 봐,-2
-,,
-id,400,
-text,빵 있는데 드실래요?,
-message,hpChange,10
-answer,고마워. 잘 먹을게.,-2
+id,902,
+text,여기 보상이 있어요 감사드려요,
+message,moneyChange,1000
+answer,고마워요,-2
 ,,

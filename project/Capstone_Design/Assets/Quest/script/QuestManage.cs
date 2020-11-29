@@ -13,6 +13,7 @@ public class QuestManage : MonoBehaviour
     Dictionary<int, QuestData> questlist;
     void Start()
     {
+
         questlist = new Dictionary<int, QuestData>();
         GenerateData();
     }
@@ -33,5 +34,13 @@ public class QuestManage : MonoBehaviour
         questActionIndex++;
     }
 
+   /*public void questCheck(Message message)
+    {
+        if(msg == 0)
+        {
+            
+        }
+    }
+    */
     
 }
