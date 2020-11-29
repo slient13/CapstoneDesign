@@ -28,10 +28,14 @@ public class FootSound : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         //태그가 NotGround일때 나오는 소리
-        if(other.tag != "NotGround" && moveVec == Vector3.zero)
+        if(other.tag != "NotGround" && other.tag != "Player" && moveVec == Vector3.zero)
         {
             this.GetComponent<AudioSource>().clip = rockSound;
             this.GetComponent<AudioSource>().Play();
+        }
+        else
+        {
+            this.GetComponent<AudioSource>().Stop();
         }
     }
 }
