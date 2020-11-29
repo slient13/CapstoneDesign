@@ -21,27 +21,28 @@ public class Shop : MonoBehaviour
 
      void Start()
     {
-        Message msg1 = new Message("InventoryManager/addNewItem : health, 체 력, 가, 가 ");
-        Message msg2 = new Message("InventoryManager/addNewItem : fish, 물 고 기, 가, 가 ");
-        Message msg3 = new Message("InventoryManager/addNewItem : bug, 미 끼, 가, 가 ");
+        Message msg1 = new Message("InventoryManager/addNewItem : Health, 체 력, 가, 가 ");
+        Message msg2 = new Message("InventoryManager/addNewItem : Fish, 물 고 기, 가, 가 ");
+        Message msg3 = new Message("InventoryManager/addNewItem : Bug, 미 끼, 가, 가 ");
 
         msg1.functionCall();
         msg2.functionCall();
         msg3.functionCall();
 
-        msg1 = new Message("InventoryManager/modifyItem: health, 0 ");
-        msg2 = new Message("InventoryManager/modifyItem: fish, 0 ");
-        msg3 = new Message("InventoryManager/modifyItem: bug, 0 ");
+        Message msg4 = new Message("InventoryManager/modifyItem: Health, 0 ");
+        Message msg5 = new Message("InventoryManager/modifyItem: Fish, 0 ");
+        Message msg6 = new Message("InventoryManager/modifyItem: Bug, 0 ");
 
-        msg1.functionCall();
-        msg2.functionCall();
-        msg3.functionCall();
+        msg4.functionCall();
+        msg5.functionCall();
+        msg6.functionCall();
 
         MappingInfo map1 = new MappingInfo("Zone");
         map1.addMapping("Tem :", "o");
         map1.enroll();
     }
    
+    /*
     public void InventoryChange()
     {
         if (this.tag == "Fish")
@@ -60,6 +61,7 @@ public class Shop : MonoBehaviour
         }
 
     }
+    */
 
     public void Enter(Player player)
     {
@@ -85,6 +87,7 @@ public class Shop : MonoBehaviour
 
     }
 
+    /*
     public void Buy(int index)
     {
         int price = itemPrice[index];
@@ -96,7 +99,10 @@ public class Shop : MonoBehaviour
         }
 
         enterPlayer.coin -= price;
+        
+
     }
+    */
 
     IEnumerator Talk()
     {

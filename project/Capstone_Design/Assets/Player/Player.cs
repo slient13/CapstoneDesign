@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
     bool isJump;
     bool isDodge;
 
-    
+    /*
     public int coin; //코인
     public int health; // 체력
     public int fish; // 물고기
@@ -28,7 +28,7 @@ public class Player : MonoBehaviour
     public int maxHealth; // 최대 체력
     public int maxFish; // 최대 물고기 마리 수
     public int maxBug; // 최대 미끼 개수
-    
+    */
 
     Vector3 moveVec;
     Vector3 dodgeVec;//회피 도중 방향전환이 되지 않도록 회피방향 Vector3 추가
@@ -44,11 +44,21 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        Message msg1 = new Message("newPlayInfo: coin, int, 10000");
-        Message msg2 = new Message("newPlayInfo: health, int, 100");
+        Message msg7 = new Message("newPlayInfo: Coin, int, 10000");
+        Message msg8 = new Message("newPlayInfo: Health, int, 100");
+        Message msg9 = new Message("newPlayInfo: Fish, int, 0");
+        Message msg10 = new Message("newPlayInfo: Bug, int, 0");
+        Message msg11 = new Message("newPlayInfo: MaxCoin, int, 10000");
+        Message msg12 = new Message("newPlayInfo: MaxHealth, int, 100");
+        
 
-        msg1.functionCall();
-        msg2.functionCall();
+        msg7.functionCall();
+        msg8.functionCall();
+        msg9.functionCall();
+        msg10.functionCall();
+        msg11.functionCall();
+        msg12.functionCall();
+       
     }
     
     void Update()
