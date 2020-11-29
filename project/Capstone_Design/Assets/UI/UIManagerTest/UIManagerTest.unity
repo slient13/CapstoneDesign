@@ -308,6 +308,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: DefaultSetting
       objectReference: {fileID: 0}
+    - target: {fileID: 3957774932388179572, guid: fd997681b4ad2fc4f92af7f3efe471c2,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8681115649883809720, guid: fd997681b4ad2fc4f92af7f3efe471c2,
         type: 3}
       propertyPath: m_LocalPosition.x
