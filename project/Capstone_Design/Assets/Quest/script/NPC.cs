@@ -1,17 +1,16 @@
-﻿
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class NPC : MonoBehaviour
 {
-    
+
+
     private void OnTriggerEnter(Collider collider)
 
     {
-        Debug.Log("충돌 시작!");
-
-        Message msg = new Message("TalkManager/GenerateData : ");
+        //Debug.Log("충돌 시작!");
+        Message msg = new Message("TalkUI/StartTalkByKey : npc");
         msg.functionCall();
 
     }
@@ -21,9 +20,14 @@ public class NPC : MonoBehaviour
 
     {
 
-        Debug.Log("충돌 끝!");
+        //Debug.Log("충돌 끝!");
+
 
     }
-
-    
+   
 }
+
+
+
+
+
