@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 125123863613863090}
   - component: {fileID: 125123863613863093}
   - component: {fileID: 125123863613863091}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FishingDir
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 125123863688407411}
   - component: {fileID: 125123863688407410}
   - component: {fileID: 125123863688407413}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FishingPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -233,7 +233,7 @@ GameObject:
   - component: {fileID: 125123863923067487}
   - component: {fileID: 125123863923067486}
   - component: {fileID: 125123863923067473}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -449,6 +449,10 @@ PrefabInstance:
     - target: {fileID: 105484, guid: a04f6e9f627e52c4ab26cb420ab6401f, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Deckchair_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 105484, guid: a04f6e9f627e52c4ab26cb420ab6401f, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 491684, guid: a04f6e9f627e52c4ab26cb420ab6401f, type: 3}
       propertyPath: m_LocalPosition.x
