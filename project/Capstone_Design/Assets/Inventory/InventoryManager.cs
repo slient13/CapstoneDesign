@@ -152,7 +152,7 @@ public class InventoryManager : MonoBehaviour {
 
         int index = matchItemBox(itemCode);
         if (index != -1) number = itemBoxList[index].itemNumber;
-        else number = -1;
+        else number = 0;
 
         message.returnValue.Add(number);
     }

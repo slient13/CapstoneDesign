@@ -51,183 +51,56 @@ public class Store : MonoBehaviour
             Debug.Log(slot.item.name);
             */
 
-            if (slot.tag == "Health")
-            {
-                onSlotClick(slot.item);
-                Debug.Log(slot.item.name);
+            // 구매
+            if (slot.tag == "Health")   buyItem(slot, "Health", 1000);
+            if (slot.tag == "Fish")     buyItem(slot, "Fish", 700);
+            if (slot.tag == "Bug")      buyItem(slot, "Bug", 100);
 
-                Message msg13 = new Message("getPlayInfo: Health");
-                msg13.functionCall();
-                int Health = (int)msg13.returnValue[0];
-
-                /*
-                Message msg3 = new Message("playInfoChanger: Health, 10");
-                msg3.functionCall();
-                */
-
-                Message msg14 = new Message("playInfoChanger: money, -1000");
-                msg14.functionCall();
-
-                Message msg35 = new Message("getPlayInfo: money");
-                msg35.functionCall();
-                int money = (int)msg35.returnValue[0];
-
-                Message msg15 = new Message("InventoryManager/modifyItem : Health, 1");
-                msg15.functionCall();
-
-               if(money <= 0)
-                {
-                    Debug.Log("체력을 구매 할 돈이 부족합니다.");
-                }
-            }
-
-
-            if (slot.tag == "Fish")
-            {
-                onSlotClick(slot.item);
-                Debug.Log(slot.item.name);
-
-                Message msg16 = new Message("getPlayInfo: Fish");
-                msg16.functionCall();
-                int Fish = (int)msg16.returnValue[0];
-
-                Message msg17 = new Message("playInfoChanger: Fish, 1");
-                msg17.functionCall();
-
-                Message msg18 = new Message("playInfoChanger: money, -700");
-                msg18.functionCall();
-
-                Message msg36 = new Message("getPlayInfo: money");
-                msg36.functionCall();
-                int money = (int)msg36.returnValue[0];
-
-                Message msg19 = new Message("InventoryManager/modifyItem : Fish, 1");
-                msg19.functionCall();
-
-                if (money <= 0)
-                {
-                    Debug.Log("물 고 기를 구매 할 돈이 부족합니다.");
-                }
-            }
-
-
-            if (slot.tag == "Bug")
-            {
-                onSlotClick(slot.item);
-                Debug.Log(slot.item.name);
-
-                Message msg20 = new Message("getPlayInfo: Bug");
-                msg20.functionCall();
-                int Bug = (int)msg20.returnValue[0];
-
-                Message msg21 = new Message("playInfoChanger: Bug, 1");
-                msg21.functionCall();
-
-                Message msg22 = new Message("playInfoChanger: money, -100");
-                msg22.functionCall();
-
-                Message msg37 = new Message("getPlayInfo: money");
-                msg37.functionCall();
-                int money = (int)msg37.returnValue[0];
-
-                Message msg23 = new Message("InventoryManager/modifyItem : Bug, 1");
-                msg23.functionCall();
-
-                if (money <= 0)
-                {
-                    Debug.Log("미 끼를 구매 할 돈이 부족합니다.");
-                }
-            }
-
-            if (slot.tag == "health")
-            {
-                onSlotClick(slot.item);
-                Debug.Log(slot.item.name);
-
-                Message msg24 = new Message("getPlayInfo: Health");
-                msg24.functionCall();
-                int Health = (int)msg24.returnValue[0];
-
-                /*
-                Message msg3 = new Message("playInfoChanger: Health, 10");
-                msg3.functionCall();
-                */
-
-                Message msg25 = new Message("playInfoChanger: money, 1000");
-                msg25.functionCall();
-
-                Message msg38 = new Message("getPlayInfo: money");
-                msg38.functionCall();
-                int money = (int)msg38.returnValue[0];
-
-                Message msg26 = new Message("InventoryManager/modifyItem : Health, -1");
-                msg26.functionCall();
-
-                if (Health <= 0)
-                {
-                    Debug.Log("더 이상 판매할 체력이 없습니다.");
-                }
-            }
-
-
-            if (slot.tag == "fish")
-            {
-                onSlotClick(slot.item);
-                Debug.Log(slot.item.name);
-
-                Message msg27 = new Message("getPlayInfo: Fish");
-                msg27.functionCall();
-                int Fish = (int)msg27.returnValue[0];
-
-                Message msg28 = new Message("playInfoChanger: Fish, -1");
-                msg28.functionCall();
-
-                Message msg29 = new Message("playInfoChanger: money, 700");
-                msg29.functionCall();
-
-                Message msg39 = new Message("getPlayInfo: money");
-                msg39.functionCall();
-                int money = (int)msg39.returnValue[0];
-
-                Message msg30 = new Message("InventoryManager/modifyItem : Fish, -1");
-                msg30.functionCall();
-
-                if (Fish <= 0)
-                {
-                    Debug.Log("더 이상 판매할 물고기가 없습니다.");
-                }
-            }
-
-
-            if (slot.tag == "bug")
-            {
-                onSlotClick(slot.item);
-                Debug.Log(slot.item.name);
-
-                Message msg31 = new Message("getPlayInfo: Bug");
-                msg31.functionCall();
-                int Bug = (int)msg31.returnValue[0];
-
-                Message msg32 = new Message("playInfoChanger: Bug, -1");
-                msg32.functionCall();
-
-                Message msg33 = new Message("playInfoChanger: money, 100");
-                msg33.functionCall();
-
-                Message msg40 = new Message("getPlayInfo: money");
-                msg40.functionCall();
-                int money = (int)msg40.returnValue[0];
-
-                Message msg34 = new Message("InventoryManager/modifyItem : Bug, -1");
-                msg34.functionCall();
-
-                if (Bug <= 0)
-                {
-                    Debug.Log("더 이상 판매할 미끼가 없습니다.");
-                }
-            }
+            // 판매
+            if (slot.tag == "health")   sellItem(slot, "Health", 1000);
+            if (slot.tag == "fish")     sellItem(slot, "Fish", 700);
+            if (slot.tag == "bug")      sellItem(slot, "Bug", 100);            
         }
     }
+
+    bool buyItem(Slot slot, string itemCode, int needMoney) {
+        onSlotClick(slot.item);
+        // Debug.Log(slot.item.name);
+
+        Message msg_money = new Message("getPlayInfo: money").functionCall();
+        int money = (int)msg_money.returnValue[0];
+
+        if(money < needMoney)
+        {
+            Debug.Log("돈이 부족합니다. 구매 시도 아이템 = " + itemCode + ", 가격 = " + needMoney);
+            return false;
+        }
+        else {
+            new Message("playInfoChanger: money, " + -(needMoney)).functionCall();
+            new Message("InventoryManager/modifyItem : " + itemCode + ", 1").functionCall();
+            return true;
+        }
+    }
+
+    bool sellItem(Slot slot, string itemCode, int getMoney) {
+        onSlotClick(slot.item);
+        // Debug.Log(slot.item.name);
+
+        Message msg_item = new Message("InventoryManager/getItemNumber: " + itemCode).functionCall();
+        int itemNumber = (int)msg_item.returnValue[0];
+
+        if(itemNumber == 0)
+        {
+            Debug.Log("판매할 아이템이 없습니다. 판매 시도 아이템 = " + itemCode);
+            return false;
+        }
+        else {
+            new Message("playInfoChanger: money, " + getMoney).functionCall();
+            new Message("InventoryManager/modifyItem : " + itemCode + ", -1").functionCall();
+            return true;
+        }
+    }
+
 
     /*
     public void OnClickSellSlot(Slot slot)
@@ -241,20 +114,16 @@ public class Store : MonoBehaviour
             if (slot.tag == "health")
             {
 
-                Message msg24 = new Message("getPlayInfo: Health");
-                msg24.functionCall();
+                Message msg24 = new Message("getPlayInfo: Health").functionCall();
                 int Health = (int)msg24.returnValue[1];
 
                 /*
-                Message msg3 = new Message("playInfoChanger: Health, 10");
-                msg3.functionCall();
+                new Message("playInfoChanger: Health, 10").functionCall();
                 
 
-                Message msg25 = new Message("playInfoChanger: money, 1000");
-                msg25.functionCall();
+                new Message("playInfoChanger: money, 1000").functionCall();
 
-                Message msg26 = new Message("InventoryManager/modifyItem : Health, -1");
-                msg26.functionCall();
+                new Message("InventoryManager/modifyItem : Health, -1").functionCall();
 
                 if (Health > 100)
                 {
@@ -267,18 +136,14 @@ public class Store : MonoBehaviour
             if (slot.tag == "fish")
             {
 
-                Message msg27 = new Message("getPlayInfo: Fish");
-                msg27.functionCall();
+                Message msg27 = new Message("getPlayInfo: Fish").functionCall();
                 int Fish = (int)msg27.returnValue[1];
 
-                Message msg28 = new Message("playInfoChanger: Fish, -1");
-                msg28.functionCall();
+                new Message("playInfoChanger: Fish, -1").functionCall();
 
-                Message msg29= new Message("playInfoChanger: coin, 700");
-                msg29.functionCall();
+                new Message("playInfoChanger: coin, 700").functionCall();
 
-                Message msg30 = new Message("InventoryManager/modifyItem : Fish, -1");
-                msg30.functionCall();
+                new Message("InventoryManager/modifyItem : Fish, -1").functionCall();
 
                 if (Fish == 0)
                 {
@@ -290,18 +155,14 @@ public class Store : MonoBehaviour
             if (slot.tag == "bug")
             {
 
-                Message msg31 = new Message("getPlayInfo: Bug");
-                msg31.functionCall();
+                Message msg31 = new Message("getPlayInfo: Bug").functionCall();
                 int Bug = (int)msg31.returnValue[1];
 
-                Message msg32 = new Message("playInfoChanger: Bug, -1");
-                msg32.functionCall();
+                new Message("playInfoChanger: Bug, -1").functionCall();
 
-                Message msg33 = new Message("playInfoChanger: coin, 100");
-                msg33.functionCall();
+                new Message("playInfoChanger: coin, 100").functionCall();
 
-                Message msg34 = new Message("InventoryManager/modifyItem : Bug, -1");
-                msg34.functionCall();
+                new Message("InventoryManager/modifyItem : Bug, -1").functionCall();
 
                 if (Bug == 0)
                 {

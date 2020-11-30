@@ -21,21 +21,19 @@ public class Shop : MonoBehaviour
 
      void Start()
     {
-        Message msg1 = new Message("InventoryManager/addNewItem : Health, 체 력, 가, 가 ");
-        Message msg2 = new Message("InventoryManager/addNewItem : Fish, 물 고 기, 가, 가 ");
-        Message msg3 = new Message("InventoryManager/addNewItem : Bug, 미 끼, 가, 가 ");
+        // 사용법 간략화.
+        new Message("InventoryManager/addNewItem : Health, 체 력, 체력이다, - ").functionCall();
+        new Message("InventoryManager/addNewItem : Fish, 물 고 기, 평범한 물고기다, - ").functionCall();
+        new Message("InventoryManager/addNewItem : Bug, 미 끼, 물고기를 잡기위한 미끼다, - ").functionCall();
 
-        msg1.functionCall();
-        msg2.functionCall();
-        msg3.functionCall();
+        // 효과 없는 불필요한 코드
+        // Message msg4 = new Message("InventoryManager/modifyItem: Health, 0 ");
+        // Message msg5 = new Message("InventoryManager/modifyItem: Fish, 0 ");
+        // Message msg6 = new Message("InventoryManager/modifyItem: Bug, 0 ");
 
-        Message msg4 = new Message("InventoryManager/modifyItem: Health, 0 ");
-        Message msg5 = new Message("InventoryManager/modifyItem: Fish, 0 ");
-        Message msg6 = new Message("InventoryManager/modifyItem: Bug, 0 ");
-
-        msg4.functionCall();
-        msg5.functionCall();
-        msg6.functionCall();
+        // msg4.functionCall();
+        // msg5.functionCall();
+        // msg6.functionCall();
 
         MappingInfo map1 = new MappingInfo("Zone");
         map1.addMapping("Tem :", "o");
