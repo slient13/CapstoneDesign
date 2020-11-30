@@ -69,16 +69,21 @@ public class TalkView : MonoBehaviour
     public void StartTalkByKey(Message message) {
         new Message("ControlManager/layerChanger : talkView").functionCall();        
         string name = (string)message.args[0];  // 대화 대상 이름
-        StartTalk(name);
+        int startId;
+        if (message.args.Count == 1) startId = 0;
+        else startId = (int) message.args[1];
+        StartTalk(name, startId);
     }
 
-    public void StartTalk(string npcName) {
+    public void StartTalk(string npcName, int startId) {
         // Debug.Log("토크뷰 받았쩡");
         background.SetActive(true);
         talkView.SetActive(true);
         this.npcName = npcName;
         string filename = "Talk/" + npcName + "TalkScript";
+        npcNameText.text = npcName;
         loadTalkScript(npcName, filename);
+        changeTalk(startId);
     }
 
     void loadTalkScript(string npcName, string fileName) {
@@ -128,8 +133,6 @@ public class TalkView : MonoBehaviour
             }
             line = sr.ReadLine();
         }
-
-        changeTalk(0);
     }
 
     void setNpcTalk() {     // npc 의 텍스트를 현재 대화의 텍스트로 설정.
