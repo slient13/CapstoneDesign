@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public float speed; //인스펙터 창에서 설정 가능
+    public float jumpHeight; //점프높이 설정
 
     GameObject nearObject;
     
@@ -115,7 +116,7 @@ public class Player : MonoBehaviour
     {
         if (jDown && moveVec == Vector3.zero && !isJump && !isDodge)
         {
-            rigid.AddForce(Vector3.up * 15, ForceMode.Impulse);
+            rigid.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
             anim.SetBool("isJump", true);
             anim.SetTrigger("doJump");
             isJump = true;
