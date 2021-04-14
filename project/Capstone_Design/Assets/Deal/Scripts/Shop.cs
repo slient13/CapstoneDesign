@@ -61,6 +61,10 @@ public class Shop : MonoBehaviour
     }
     */
 
+    public void Interaction(Player player) {
+        Enter(player);
+    }
+
     public void Enter(Player player)
     {
         enterPlayer = player;

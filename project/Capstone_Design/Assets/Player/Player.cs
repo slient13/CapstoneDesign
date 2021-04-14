@@ -7,6 +7,8 @@ public class Player : MonoBehaviour
     public float speed; //인스펙터 창에서 설정 가능
     public float jumpHeight; //점프높이 설정
 
+    public List<string> interactionTargetList;
+
     GameObject nearObject;
     
 
@@ -41,25 +43,30 @@ public class Player : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody>(); //Rigidbody 변수를 초기화 한다.
         anim = GetComponentInChildren<Animator>();
+
+        // 여기에 상호작용이 필요한 오브젝트의 태그를 적으면 된다.
+        string[] targetList = {
+            "Shop"
+        };
+        interactionTargetList.AddRange(targetList);
     }
 
     void Start()
     {
-        Message msg7 = new Message("newPlayInfo: Coin, int, 10000");
-        Message msg8 = new Message("newPlayInfo: Health, int, 100");
-        Message msg9 = new Message("newPlayInfo: Fish, int, 0");
-        Message msg10 = new Message("newPlayInfo: Bug, int, 0");
-        Message msg11 = new Message("newPlayInfo: MaxCoin, int, 10000");
-        Message msg12 = new Message("newPlayInfo: MaxHealth, int, 100");
+        // Message msg7 = new Message("newPlayInfo: Coin, int, 10000");
+        // Message msg8 = new Message("newPlayInfo: Health, int, 100");
+        // Message msg9 = new Message("newPlayInfo: Fish, int, 0");
+        // Message msg10 = new Message("newPlayInfo: Bug, int, 0");
+        // Message msg11 = new Message("newPlayInfo: MaxCoin, int, 10000");
+        // Message msg12 = new Message("newPlayInfo: MaxHealth, int, 100");
         
 
-        msg7.functionCall();
-        msg8.functionCall();
-        msg9.functionCall();
-        msg10.functionCall();
-        msg11.functionCall();
-        msg12.functionCall();
-       
+        // msg7.functionCall();
+        // msg8.functionCall();
+        // msg9.functionCall();
+        // msg10.functionCall();
+        // msg11.functionCall();
+        // msg12.functionCall();       
     }
     
     void Update()
@@ -68,9 +75,8 @@ public class Player : MonoBehaviour
         Move();
         Turn();
         Jump();
-        Dodge();
-        Interation();
-       
+        // Dodge(); // 자꾸 벽을 뚫고 들어가는 버그가 있어 비활성화.
+        Interaction();
     }
 
 
@@ -124,7 +130,7 @@ public class Player : MonoBehaviour
 
     }
 
-    //회피
+    //회피. 
     void Dodge()
     {
         if (jDown && moveVec != Vector3.zero && !isJump && !isDodge)
@@ -144,7 +150,8 @@ public class Player : MonoBehaviour
         speed *= 0.5f;
         isDodge = false;
     }
-
+    
+    // 점프 중 오브젝트랑 충돌 시 애니메이션 초기화.
     void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.tag != "NotFloor")
@@ -154,34 +161,25 @@ public class Player : MonoBehaviour
         }
     }
 
-    void Interation()
+    void Interaction()
     {
         if (iDown && nearObject != null && !isJump && !isDodge)
-        {
-            if (nearObject.tag == "Shop")
-            {
-                Shop shop = nearObject.GetComponent<Shop>();
-                shop.Enter(this);
-            }
-        }
+            nearObject.SendMessage("Interaction", this);
     }
 
-
+    // 인접 오브젝트 확인.
+    // 복수의 오브젝트가 충돌 시, 제일 나중에 입력된 태그를 가진 오브젝트가 우선권을 가짐.
     void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Shop")
-        {
-            nearObject = other.gameObject;
-        }
+        foreach(string targetTag in interactionTargetList)
+            if (other.tag == targetTag)
+                nearObject = other.gameObject;
     }
 
+    // 오브젝트와의 충돌이 끝나는 경우 그것이 'nearObject'였다면 초기화.
     void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Shop")
-        {
-            Shop shop = nearObject.GetComponent<Shop>();
-            shop.Exit();
+        if (other.tag == nearObject.tag) 
             nearObject = null;
-        }
     }
 }
