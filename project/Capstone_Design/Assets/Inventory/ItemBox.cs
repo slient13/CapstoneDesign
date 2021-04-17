@@ -28,12 +28,14 @@ public class ItemBox {
     public void changeItem(string itemCode, int itemNumber, Sprite itemImg) {
         this.itemCode = itemCode;
         this.itemNumber = itemNumber;
+        if (this.itemNumber < 0) this.itemNumber = 0;
         this.itemImg = itemImg;
     }
 
     public void changeItem(ItemBox other) {
         this.itemCode = other.itemCode;
         this.itemNumber = other.itemNumber;
+        if (this.itemNumber < 0) this.itemNumber = 0;
         this.itemImg = other.itemImg;
     }
 

@@ -10,12 +10,17 @@ public class BaseSystem : MonoBehaviour
     void Start() {
     }
 
+    // 임시로 아무런 동작을 요하지 않는 message 객체가 필요할 때 사용.
+    public void none(Message message) {
+        Debug.Log("BaseSystem.none is called.");
+    }
+
     public void functionCaller(Message msg) {
         // Debug.Log(msg.args[0]);
         target = GameObject.Find(msg.targetName);
         // 타겟 포착 실패시 메세지 호출 후 함수 종료
         if (target == null) {
-            Debug.Log("Basesystem.functionCaller.error : Could not find object.");
+            Debug.Log("BaseSystem.functionCaller.error : Could not find object. targetName = " + msg.targetName);
             return;
         }
         target.SendMessage(msg.functionName, msg);

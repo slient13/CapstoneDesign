@@ -21,10 +21,6 @@ public class Shop : MonoBehaviour
 
      void Start()
     {
-        // 사용법 간략화.
-        new Message("InventoryManager/addNewItem : Health, 체 력, 체력이다, - ").functionCall();
-        new Message("InventoryManager/addNewItem : Fish, 물 고 기, 평범한 물고기다, - ").functionCall();
-        new Message("InventoryManager/addNewItem : Bug, 미 끼, 물고기를 잡기위한 미끼다, - ").functionCall();
 
         // 효과 없는 불필요한 코드
         // Message msg4 = new Message("InventoryManager/modifyItem: Health, 0 ");

@@ -30,8 +30,7 @@ public class InventoryUIManager : MonoBehaviour {
     // 우상단에 있는 종료 버튼
     public GameObject closeButton;
     
-
-    int MAX_ITEM_BOX = 16;
+    int MAX_ITEM_BOX = 16; // 임시용이므로 16개로 한정.
 
     // 구조 
     /*
@@ -71,8 +70,12 @@ public class InventoryUIManager : MonoBehaviour {
 
     void itemBoxPlacer() {
         GameObject tempObject;
+        // 배치할 때 X 축으로 몇개를 더 배치해야 되는지에 대한 수. 최대 4.
+        int remain_axleX = 0;
         for (int axleY = 0; axleY < MAX_ITEM_BOX / 4; axleY++) {
-            for (int axleX = 0 ; axleX < MAX_ITEM_BOX / 4; axleX++) {
+            remain_axleX = MAX_ITEM_BOX - axleY*4;
+            if (remain_axleX > 4) remain_axleX = 4;
+            for (int axleX = 0 ; axleX < remain_axleX; axleX++) {
                 // 새 itemBox 판넬을 생성해서 배치함.
                 tempObject = GameObject.Instantiate(itemBox);
                 tempObject.transform.SetParent(itemPanel.transform, true);
@@ -93,11 +96,14 @@ public class InventoryUIManager : MonoBehaviour {
     }
 
     private void Update() {
+        // 아이템 리스트 불러옴.
         Message msg = new Message("InventoryManager/getItemBoxList : ");
         msg.functionCall();
         List<ItemBox> tempItemBoxList = (List<ItemBox>)msg.returnValue[0];  // 아이템박스 리스트 전체
+        // 현재 가진 아이템의 가짓 수 = 아이템 박스 개수.
+        int box_count = (int) new Message("InventoryManager/getItemBoxCount : ").functionCall().returnValue[0];
         for (int i = 0; i < MAX_ITEM_BOX; i++) {
-            if (tempItemBoxList[i].itemNumber != 0) {
+            if (i < box_count && tempItemBoxList[i].itemNumber != 0) {
                 // 아이템 코드를 저장
                 itemBoxCodenameList[i] = tempItemBoxList[i].itemCode;
                 // 개수 표시
@@ -119,7 +125,6 @@ public class InventoryUIManager : MonoBehaviour {
                 alterTextList[i].text = "";
                 itemImageList[i].sprite = null;
             }
-
         }
     }
 
@@ -152,6 +157,12 @@ public class InventoryUIManager : MonoBehaviour {
         #   ItemBox *16
     */
     void showTooltip(Vector2 pos, string itemCode) {
+        // 빈 공간 클릭 체크.
+        if (itemCode == "") {
+            closeTooltip();
+            return;            
+        }
+
         tooltipPanel.SetActive(true);
         tooltipPanel.transform.position = new Vector3(pos.x, pos.y, 0);
         string itemName;
@@ -180,6 +191,8 @@ public class InventoryUIManager : MonoBehaviour {
         itemNameText.text       = itemName;
         itemTooltipText.text    = itemTooltip;
         itemItemEffectText.text = itemEffect;
+
+        new Message("InventoryManager/useItem : " + itemCode).functionCall();
     }
 
     void closeTooltip() {
