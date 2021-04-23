@@ -183,6 +183,7 @@ public class InventoryManager : MonoBehaviour {
         message.returnValue.Add(itemBoxList);
     }
 
+    // Get items' number in inventory.
     public void getItemNumber(Message message) {
         string itemCode = (string)message.args[0];  // 개수를 원하는 아이템의 이름
         int number;

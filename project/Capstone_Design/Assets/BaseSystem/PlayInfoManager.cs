@@ -10,10 +10,10 @@ public class PlayInfoManager : MonoBehaviour
         new Message("newPlayInfo : money, int, 10000").functionCall();
 
         MappingInfo mapping = new MappingInfo("PlayInfoManager");
-        mapping.addMapping("hpChange : 10", "_a, arrowU");
-        mapping.addMapping("hpChange : -10", "_a, arrowD");
-        mapping.addMapping("moneyChange : 1000", "_s, arrowU");
-        mapping.addMapping("moneyChange : -1000", "_s, arrowD");
+        mapping.addMapping("hpChange : 10", "_ctrlL, arrowU");
+        mapping.addMapping("hpChange : -10", "_ctrlL, arrowD");
+        mapping.addMapping("moneyChange : 1000", "_altL, arrowU");
+        mapping.addMapping("moneyChange : -1000", "_altL, arrowD");
         mapping.enroll();        
     }
 
@@ -46,5 +46,16 @@ public class PlayInfoManager : MonoBehaviour
         if (afterMoney < 0) afterMoney = 0;
         else if (afterMoney > 1000000) afterMoney = 1000000;
         new Message("playInfoSetter : money, "+ afterMoney).functionCall();
+    }
+
+    public void getHp(Message message) {
+        Message getValue = new Message("getPlayInfo : hp").functionCall();
+        int hp = (int) getValue.returnValue[0];
+        message.returnValue.Add(hp);
+    }
+    public void getMoney(Message message) {
+        Message getValue = new Message("getPlayInfo : money").functionCall();
+        int money = (int) getValue.returnValue[0];
+        message.returnValue.Add(money);
     }
 }

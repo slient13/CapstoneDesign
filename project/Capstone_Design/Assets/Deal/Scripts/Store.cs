@@ -66,18 +66,15 @@ public class Store : MonoBehaviour
     bool buyItem(Slot slot, string itemCode, int needMoney) {
         onSlotClick(slot.item);
         // Debug.Log(slot.item.name);
+        Message buyEvent = new Message("ShopManager/Buy : test, " + itemCode + ", 1").functionCall();
+        bool isDone = (bool) buyEvent.returnValue[0];
 
-        Message msg_money = new Message("getPlayInfo: money").functionCall();
-        int money = (int)msg_money.returnValue[0];
-
-        if(money < needMoney)
+        if(isDone == false)
         {
             Debug.Log("돈이 부족합니다. 구매 시도 아이템 = " + itemCode + ", 가격 = " + needMoney);
             return false;
         }
         else {
-            new Message("playInfoChanger: money, " + -(needMoney)).functionCall();
-            new Message("InventoryManager/modifyItem : " + itemCode + ", 1").functionCall();
             return true;
         }
     }
@@ -86,17 +83,15 @@ public class Store : MonoBehaviour
         onSlotClick(slot.item);
         // Debug.Log(slot.item.name);
 
-        Message msg_item = new Message("InventoryManager/getItemNumber: " + itemCode).functionCall();
-        int itemNumber = (int)msg_item.returnValue[0];
+        Message sellEvent = new Message("ShopManager/Sell : test, " + itemCode + ", 1").functionCall();
+        bool isDone = (bool) sellEvent.returnValue[0];
 
-        if(itemNumber == 0)
+        if(isDone == false)
         {
             Debug.Log("판매할 아이템이 없습니다. 판매 시도 아이템 = " + itemCode);
             return false;
         }
         else {
-            new Message("playInfoChanger: money, " + getMoney).functionCall();
-            new Message("InventoryManager/modifyItem : " + itemCode + ", -1").functionCall();
             return true;
         }
     }

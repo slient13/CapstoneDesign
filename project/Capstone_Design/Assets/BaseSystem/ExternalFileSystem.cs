@@ -30,4 +30,16 @@ public class ExternalFileSystem
         // 테스트용 임시 코드.
         return true;
     }
+
+    public ShopInfo GetShopInfo() {
+        ShopInfo shopInfo = new ShopInfo("test");
+        shopInfo.buyList.Add("Health", 1000);
+        shopInfo.buyList.Add("Fish", 700);
+        shopInfo.buyList.Add("Bug", 100);
+        shopInfo.sellList.Add("Health", 1000);
+        shopInfo.sellList.Add("Fish", 700);
+        shopInfo.sellList.Add("Bug", 100);
+
+        return shopInfo;
+    }
 }
