@@ -54,16 +54,16 @@ public class InventoryUIManager : MonoBehaviour {
         tooltipPanel.SetActive(false);
         // 종료 버튼 할당.
         closeButton = transform.GetChild(0).GetChild(0).gameObject;
-        closeButton.GetComponent<Button>().onClick.AddListener(closeInventory);        
+        closeButton.GetComponent<Button>().onClick.AddListener(CloseInventory);        
         // 아이템 코드내임 리스트 세팅
         for (int i = 0; i < MAX_ITEM_BOX; i++) itemBoxCodenameList.Add("");
         // itemBox 배치자 실행
         itemBoxPlacer();
 
         MappingInfo mapping = new MappingInfo("Inventory");
-        mapping.addMapping("closeInventory : ", "esc");
-        mapping.addMapping("checkHoveringOnBox : ", "mouseL, !mouseR");
-        mapping.enroll("inventory");
+        mapping.AddMapping("CloseInventory : ", "esc");
+        mapping.AddMapping("CheckHoveringOnBox : ", "mouseL, !mouseR");
+        mapping.Enroll("inventory");
 
         gameObject.SetActive(false);
     }
@@ -97,11 +97,11 @@ public class InventoryUIManager : MonoBehaviour {
 
     private void Update() {
         // 아이템 리스트 불러옴.
-        Message msg = new Message("InventoryManager/getItemBoxList : ");
-        msg.functionCall();
+        Message msg = new Message("InventoryManager/GetItemBoxList : ");
+        msg.FunctionCall();
         List<ItemBox> tempItemBoxList = (List<ItemBox>)msg.returnValue[0];  // 아이템박스 리스트 전체
         // 현재 가진 아이템의 가짓 수 = 아이템 박스 개수.
-        int box_count = (int) new Message("InventoryManager/getItemBoxCount : ").functionCall().returnValue[0];
+        int box_count = (int) new Message("InventoryManager/GetItemBoxCount : ").FunctionCall().returnValue[0];
         for (int i = 0; i < MAX_ITEM_BOX; i++) {
             if (i < box_count && tempItemBoxList[i].itemNumber != 0) {
                 // 아이템 코드를 저장
@@ -128,20 +128,20 @@ public class InventoryUIManager : MonoBehaviour {
         }
     }
 
-    public void closeInventory() {
+    public void CloseInventory() {
         gameObject.SetActive(false);
-        new Message("ControlManager/layerChanger : general").functionCall();
+        new Message("ControlManager/LayerChanger : general").FunctionCall();
     }
 
-    public void checkHoveringOnBox() {
+    public void CheckHoveringOnBox() {
         MouseDetector detector = new MouseDetector();
         int findChecker = 0;
         foreach(GameObject box in itemBoxList) {
             // 타겟 설정.
-            detector.targetChange(box.transform);
+            detector.TargetChange(box.transform);
             // 현재 마우스가 타겟 위에 있는지 확인. 있다면 현재 커서 위치에 툴팁 생성
-            if (detector.trigger()) {
-                showTooltip(detector.getMousePos(), itemBoxCodenameList[findChecker]);
+            if (detector.Trigger()) {
+                showTooltip(detector.GetMousePos(), itemBoxCodenameList[findChecker]);
                 break;
             }
             else findChecker += 1;            
@@ -168,7 +168,7 @@ public class InventoryUIManager : MonoBehaviour {
         string itemName;
         string itemTooltip;
         string itemEffect;
-        Message msg = new Message("InventoryManager/getItem : " + itemCode).functionCall();
+        Message msg = new Message("InventoryManager/GetItem : " + itemCode).FunctionCall();
         if (msg.returnValue.Count != 0) {
             Item item = (Item)msg.returnValue[0];
             itemName = item.getItemName();
@@ -192,7 +192,7 @@ public class InventoryUIManager : MonoBehaviour {
         itemTooltipText.text    = itemTooltip;
         itemItemEffectText.text = itemEffect;
 
-        new Message("InventoryManager/useItem : " + itemCode).functionCall();
+        new Message("InventoryManager/UseItem : " + itemCode).FunctionCall();
     }
 
     void closeTooltip() {

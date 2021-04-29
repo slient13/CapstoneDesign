@@ -15,7 +15,7 @@ public class BaseSystem : MonoBehaviour
         Debug.Log("BaseSystem.none is called.");
     }
 
-    public void functionCaller(Message msg) {
+    public void FunctionCaller(Message msg) {
         // Debug.Log(msg.args[0]);
         target = GameObject.Find(msg.targetName);
         // 타겟 포착 실패시 메세지 호출 후 함수 종료
@@ -28,7 +28,7 @@ public class BaseSystem : MonoBehaviour
     }
     
     // 새 플레이 정보 등록 (외부용)
-    public void newPlayInfo(Message msg) {
+    public void NewPlayInfo(Message msg) {
         string infoName =  (string)msg.args[0];     // 이름
         string infoType =  (string)msg.args[1];     // 타입
         object infoValue = msg.args[2];             // 값
@@ -44,7 +44,7 @@ public class BaseSystem : MonoBehaviour
         playInfoList.Add(tempInfo);
     }
 
-    public void playInfoSetter(Message msg) {
+    public void PlayInfoSetter(Message msg) {
         string infoName = (string)msg.args[0];  // 변경 대상 이름.
         object value = msg.args[1];             // 변경 값.
         int index = findInfo(infoName);
@@ -52,7 +52,7 @@ public class BaseSystem : MonoBehaviour
         if (index == -1) Debug.Log("BaseSystem/playInfoChanger.error : there is no information which name is " + infoName);
         else playInfoList[index].setValue(value);
     }
-    public void playInfoChanger(Message msg) {
+    public void PlayInfoChanger(Message msg) {
         string infoName = (string)msg.args[0];  // 변경 대상 이름.
         object value = msg.args[1];             // 변경 값.
         int index = findInfo(infoName);
@@ -72,7 +72,7 @@ public class BaseSystem : MonoBehaviour
         return -1;
     }
 
-    public void getPlayInfo(Message msg) {
+    public void GetPlayInfo(Message msg) {
         string infoName = (string) msg.args[0]; // 정보를 원하는 대상 이름.
         int index = findInfo(infoName);
         if (index == -1) Debug.Log("BaseSystem/getPlayInfo.error : there is no information which name is " + infoName);

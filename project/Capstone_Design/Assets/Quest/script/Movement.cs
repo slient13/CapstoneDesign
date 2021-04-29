@@ -9,9 +9,9 @@ public class Movement : MonoBehaviour
     private void Start()
     {
         infoList = new MappingInfo("Player");
-        infoList.addMapping("move : up", "_w");
-        infoList.addMapping("move : down", "_s");
-        infoList.enroll();
+        infoList.AddMapping("move : up", "_w");
+        infoList.AddMapping("move : down", "_s");
+        infoList.Enroll();
     }
 
     public void move(Message message)

@@ -42,7 +42,7 @@ public class ShopManager : MonoBehaviour
             return;
         }
         // Money Check.
-        Message getMoney = new Message("PlayInfoManager/getMoney : ").functionCall();
+        Message getMoney = new Message("PlayInfoManager/GetMoney : ").FunctionCall();
         int itemPrice = shop.buyList[itemCode];
         int money = (int) getMoney.returnValue[0];
         int needMoney = itemPrice * itemNumber;
@@ -52,8 +52,8 @@ public class ShopManager : MonoBehaviour
             return;
         }
         // Action.        
-        new Message("PlayInfoManager/moneyChange : " + -needMoney).functionCall();
-        new Message("InventoryManager/modifyItem : " + itemCode + ", " + itemNumber).functionCall();
+        new Message("PlayInfoManager/ChangeMoney : " + -needMoney).FunctionCall();
+        new Message("InventoryManager/ModifyItem : " + itemCode + ", " + itemNumber).FunctionCall();
         message.returnValue.Add(true);
     }
     // Sell : input(item.code, number), output(isDone)
@@ -75,9 +75,9 @@ public class ShopManager : MonoBehaviour
             return;
         }
         // Inventory Check.
-        Message getItemNumber = new Message("InventoryManager/getItemNumber : " + itemCode).functionCall();
+        Message GetItemNumber = new Message("InventoryManager/GetItemNumber : " + itemCode).FunctionCall();
         int itemPrice = shop.sellList[itemCode];
-        int itemNumberInInventory = (int) getItemNumber.returnValue[0];
+        int itemNumberInInventory = (int) GetItemNumber.returnValue[0];
         // If don't have enough money, stop process.
         if (itemNumberInInventory == 0) {
             message.returnValue.Add(false);
@@ -85,8 +85,8 @@ public class ShopManager : MonoBehaviour
         }
         // Action.
         int salePrice = itemPrice * itemNumber;
-        new Message("PlayInfoManager/moneyChange : " + salePrice).functionCall();
-        new Message("InventoryManager/modifyItem : " + itemCode + ", " + -itemNumber).functionCall();
+        new Message("PlayInfoManager/ChangeMoney : " + salePrice).FunctionCall();
+        new Message("InventoryManager/ModifyItem : " + itemCode + ", " + -itemNumber).FunctionCall();
         message.returnValue.Add(true);
     }
 }

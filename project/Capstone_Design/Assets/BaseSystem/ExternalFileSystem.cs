@@ -15,7 +15,7 @@ public class ExternalFileSystem
         // 사용법 간략화.
         ArrayList output = new ArrayList();
 
-        output.Add("Health, 체 력, 체력이다, PlayInfoManager/hpChange : 10");
+        output.Add("Health, 체 력, 체력이다, PlayInfoManager/ChangeHp : 10");
         output.Add("Bug, 미 끼, 물고기를 잡기위한 미끼다, - ");
 
         return output;

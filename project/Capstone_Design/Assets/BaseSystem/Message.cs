@@ -152,20 +152,20 @@ public class Message
     }
 
     // 자기 자신을 인수로 전달하며 함수 중계 요청.
-    public Message functionCall () {
+    public Message FunctionCall () {
         // 타겟을 별도로 지정하지 않는 경우 자동으로 'BaseSystem'을 향해 전송.
         if (targetName == "") targetName = "BaseSystem";
-        this.baseSystem.SendMessage("functionCaller", this);
+        this.baseSystem.SendMessage("FunctionCaller", this);
         return this;
     }
 
     // 자동으로 baseSystem 을 찾지 못하는 경우 사용.
-    public Message functionCall (GameObject baseSystem) {
-        baseSystem.SendMessage("functionCaller", this);
+    public Message FunctionCall (GameObject baseSystem) {
+        baseSystem.SendMessage("FunctionCaller", this);
         return this;
     }
 
-    public string getCommand() {
+    public string GetCommand() {
         string output = "";
         output += targetName + "/" + functionName + " : ";
         for (int i = 0; i < args.Count; i++) {

@@ -8,7 +8,8 @@ public class InventoryManager : MonoBehaviour {
     public List<Sprite> itemImageList = new List<Sprite>(); // 등록된 아이템의 이미지 리스트.
     public List<ItemBox> itemBoxList = new List<ItemBox>(); // 아이템 박스 리스트
 
-    int MAX_ITEM_BOX = 999;
+    // 아이템 최대 수량. 현재 사용하지 않음.
+    // int MAX_ITEM_BOX = 999;
     int box_count = 0;
 
     void Start() {
@@ -19,24 +20,24 @@ public class InventoryManager : MonoBehaviour {
     private void LoadItemInfo() {
         ArrayList itemInfoes = ExternalFileSystem.SingleTon().GetItemInfo();
         foreach(string itemInfo in itemInfoes) {
-            new Message("InventoryManager/addNewItem : " + itemInfo).functionCall();
+            new Message("InventoryManager/AddNewItem : " + itemInfo).FunctionCall();
         }
     }
     // 외부에서 추가하는 용도
-    public void addNewItem(Message msg) {
+    public void AddNewItem(Message msg) {
         string itemCode = (string) msg.args[0];     // 아이템 코드(중복 불가)
         string itemName = (string) msg.args[1];     // 아이템 이름(중복 가능)
         string itemTooltip = (string) msg.args[2];  // 아이템 툴팁
         string itemEffect = (string) msg.args[3];   // 아이템 효과(명령어 양식)
         // 정확한 명령어 양식이 아닌 경우를 대략적으로 검사. 이 경우 더미 부여.
         if (itemEffect.IndexOf(':') == -1) {
-            Debug.Log("InventoryManager/addNewItem.error : " + itemCode + "'s effect is incorrect. This will be replace \"none : \".");
+            Debug.Log("InventoryManager/AddNewItem.error : " + itemCode + "'s effect is incorrect. This will be replace \"none : \".");
             itemEffect = "none : ";  
         }
 
         // 일치하는 정보를 가진 아이템이 존재하는 경우 중단.
         if (isInItemList(itemCode)) {
-            Debug.Log("InventoryManager/addNewItem.error : the item which codeName is " + itemCode + " is already exist");
+            Debug.Log("InventoryManager/AddNewItem.error : the item which codeName is " + itemCode + " is already exist");
             msg.returnValue.Add(false);
             return;
         }
@@ -48,7 +49,7 @@ public class InventoryManager : MonoBehaviour {
     }
 
     // 아이템의 이름이나 툴팁, 효과등을 받아오는 함수.
-    public void getItem(Message msg) {
+    public void GetItem(Message msg) {
         if (msg.args.Count == 0) {
             Debug.Log("InventoryManager/getItemInfo.error : There is no Input");
             return;
@@ -68,7 +69,7 @@ public class InventoryManager : MonoBehaviour {
     }
 
     // 아이템의 보유 개수를 반환하는 함수.
-    public void getItemCount(Message message) {
+    public void GetItemCount(Message message) {
         string itemCode = (string) message.args[0];
         int index = matchItemBox(itemCode);
         int count = 0;
@@ -76,14 +77,14 @@ public class InventoryManager : MonoBehaviour {
         message.returnValue.Add(count);
     }
 
-    public void modifyItem(Message msg) {
+    public void ModifyItem(Message msg) {
         string itemCode = (string)msg.args[0];  // 변경 아이템 코드
         int itemNum = (int)msg.args[1];         // 변경 아이템 개수
         Sprite itemImg = findImage(itemCode);
 
         // 추가하려는 아이템이 itemList 에 없는 경우 중단.
         if (!isInItemList(itemCode)) {
-            Debug.Log("InventoryManager/modifyItem.error : there is no item information which codeName is " + itemCode);
+            Debug.Log("InventoryManager/ModifyItem.error : there is no item information which codeName is " + itemCode);
             return;
         }
         // 해당 코드의 아이템이 이미 인벤토리에 들어있는지 확인
@@ -162,7 +163,7 @@ public class InventoryManager : MonoBehaviour {
     }
     */
 
-    public void itemMove(int beforePos, int afterPos) {
+    public void ItemMove(int beforePos, int afterPos) {
         // 이전 위치의 아이템 박스가 비어있는 경우 중단.
         if (itemBoxList[beforePos].itemNumber == 0) return;
         // 다음 위치의 아이템 박스가 비어있는 경우 단순히 이동
@@ -179,12 +180,12 @@ public class InventoryManager : MonoBehaviour {
         }
     }
 
-    public void getItemBoxList(Message message) {
+    public void GetItemBoxList(Message message) {
         message.returnValue.Add(itemBoxList);
     }
 
     // Get items' number in inventory.
-    public void getItemNumber(Message message) {
+    public void GetItemNumber(Message message) {
         string itemCode = (string)message.args[0];  // 개수를 원하는 아이템의 이름
         int number;
 
@@ -195,21 +196,21 @@ public class InventoryManager : MonoBehaviour {
         message.returnValue.Add(number);
     }
 
-    public void getItemBoxCount(Message message) {
+    public void GetItemBoxCount(Message message) {
         message.returnValue.Add(box_count);
     }
 
     // 아이템 사용
-    public void useItem(Message message) {
+    public void UseItem(Message message) {
         string itemCode = (string) message.args[0];
         int index = matchItemBox(itemCode);
         if (index != -1) {
-            new Message("InventoryManager/modifyItem : " + itemCode + ", -1").functionCall();
+            new Message("InventoryManager/ModifyItem : " + itemCode + ", -1").FunctionCall();
             string command = "";
             foreach (Item item in itemList) {
                 if (itemCode == item.getItemCode()) command = item.getItemEffect();
             }
-            new Message(command).functionCall();
+            new Message(command).FunctionCall();
         }
     }
 }

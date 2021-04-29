@@ -169,17 +169,18 @@ public class Player : MonoBehaviour
 
     // 인접 오브젝트 확인.
     // 복수의 오브젝트가 충돌 시, 제일 나중에 입력된 태그를 가진 오브젝트가 우선권을 가짐.
-    void OnTriggerStay(Collider other)
+    void OnTriggerEnter(Collider other)
     {
-        foreach(string targetTag in interactionTargetList)
-            if (other.tag == targetTag)
-                nearObject = other.gameObject;
+            // 태그 검사하고 대상 변경.                
+            foreach(string targetTag in interactionTargetList)
+                if (other.tag == targetTag)
+                    nearObject = other.gameObject;
     }
 
     // 오브젝트와의 충돌이 끝나는 경우 그것이 'nearObject'였다면 초기화.
     void OnTriggerExit(Collider other)
     {
-        if (other.tag == nearObject.tag) 
+        if (nearObject != null && other.tag == nearObject.tag) 
             nearObject = null;
     }
 }

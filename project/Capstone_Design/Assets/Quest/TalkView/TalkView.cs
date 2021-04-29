@@ -46,16 +46,16 @@ public class TalkView : MonoBehaviour
         talkUIName = gameObject.name;     // TalkUI
 
         MappingInfo mapping = new MappingInfo(talkUIName);  
-        mapping.addMapping("answerSelect_1 : ", "n1");
-        mapping.addMapping("answerSelect_2 : ", "n2");
-        mapping.addMapping("answerSelect_3 : ", "n3");
-        mapping.addMapping("answerSelect_4 : ", "n4");
-        mapping.enroll("talkView");
+        mapping.AddMapping("AnswerSelect_1 : ", "n1");
+        mapping.AddMapping("AnswerSelect_2 : ", "n2");
+        mapping.AddMapping("AnswerSelect_3 : ", "n3");
+        mapping.AddMapping("AnswerSelect_4 : ", "n4");
+        mapping.Enroll("talkView");
 
         // 테스트용 시작 코드
         // MappingInfo startMap = new MappingInfo(talkUIName);
-        // startMap.addMapping("StartTalkByKey : npc", "space");
-        // startMap.enroll();
+        // startMap.AddMapping("StartTalkByKey : npc", "space");
+        // startMap.Enroll();
 
 
         background.SetActive(false);
@@ -67,7 +67,7 @@ public class TalkView : MonoBehaviour
     }
 
     public void StartTalkByKey(Message message) {
-        new Message("ControlManager/layerChanger : talkView").functionCall();        
+        new Message("ControlManager/LayerChanger : talkView").FunctionCall();        
         string name = (string)message.args[0];  // 대화 대상 이름
         int startId;
         if (message.args.Count == 1) startId = 0;
@@ -83,7 +83,7 @@ public class TalkView : MonoBehaviour
         string filename = "Talk/" + npcName + "TalkScript";
         npcNameText.text = npcName;
         loadTalkScript(npcName, filename);
-        changeTalk(startId);
+        ChangeTalk(startId);
     }
 
     void loadTalkScript(string npcName, string fileName) {
@@ -148,7 +148,7 @@ public class TalkView : MonoBehaviour
         }
     }
 
-    public void changeTalk(int targetId) {  // 선택에 따른 다음 분기로 대화 이동.
+    public void ChangeTalk(int targetId) {  // 선택에 따른 다음 분기로 대화 이동.
         // 대상 분기가 종료인 경우 대화 종료.
         if (targetId == TALK_END) closeTalk();
         // 아닌 경우 talkList 를 순회하며 일치하는 타겟을 확인, 현재 대화를 그것으로 변경
@@ -173,32 +173,32 @@ public class TalkView : MonoBehaviour
         string arg = currentTalk.message[1];
         Message msg = new Message(functionName + ":" + arg);
         msg.targetName = "QuestManager";
-        msg.functionCall();
-        Debug.Log("TalkView.sendMessage.msg.getCommand() = " + msg.getCommand());
+        msg.FunctionCall();
+        Debug.Log("TalkView.sendMessage.msg.GetCommand() = " + msg.GetCommand());
     }
     
     void closeTalk() {
         talkList = null;
         background.SetActive(false);
         talkView.SetActive(false);
-        new Message("ControlManager/layerChanger : general").functionCall();
+        new Message("ControlManager/LayerChanger : general").FunctionCall();
     }
 
-    public void answerSelect_1() {
-        changeTalk(currentTalk.answers[0].targetId);
-        // Debug.Log("clicked : answerSelect_1");
+    public void AnswerSelect_1() {
+        ChangeTalk(currentTalk.answers[0].targetId);
+        // Debug.Log("clicked : AnswerSelect_1");
     }
-    public void answerSelect_2() {
-        changeTalk(currentTalk.answers[1].targetId);
-        // Debug.Log("clicked : answerSelect_2");
+    public void AnswerSelect_2() {
+        ChangeTalk(currentTalk.answers[1].targetId);
+        // Debug.Log("clicked : AnswerSelect_2");
     }
-    public void answerSelect_3() {
-        changeTalk(currentTalk.answers[2].targetId);
-        // Debug.Log("clicked : answerSelect_3");
+    public void AnswerSelect_3() {
+        ChangeTalk(currentTalk.answers[2].targetId);
+        // Debug.Log("clicked : AnswerSelect_3");
     }
-    public void answerSelect_4() {
-        changeTalk(currentTalk.answers[3].targetId);
-        // Debug.Log("clicked : answerSelect_4");
+    public void AnswerSelect_4() {
+        ChangeTalk(currentTalk.answers[3].targetId);
+        // Debug.Log("clicked : AnswerSelect_4");
     }
 }
 

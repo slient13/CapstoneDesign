@@ -32,8 +32,8 @@ public class Shop : MonoBehaviour
         // msg6.functionCall();
 
         MappingInfo map1 = new MappingInfo("Zone");
-        map1.addMapping("Tem :", "o");
-        map1.enroll();
+        map1.AddMapping("Tem :", "o");
+        map1.Enroll();
     }
    
     /*

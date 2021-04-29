@@ -16,24 +16,24 @@ public class UIManager : MonoBehaviour {
         }
 
         MappingInfo mapping = new MappingInfo("UIManager");
-        mapping.addMapping("openInventory : ", "i");
-        // mapping.addMapping("openTalkView : npc", "t");  // 디버그용.
-        mapping.enroll();
+        mapping.AddMapping("OpenInventory : ", "i");
+        // mapping.AddMapping("OpenTalkView : npc", "t");  // 디버그용.
+        mapping.Enroll();
     }
 
     // 인벤토리를 활성화 시키고 키 매핑 레이어 전환.
-    public void openInventory() {
+    public void OpenInventory() {
         foreach(GameObject obj in UIList) {
             if (obj.name == "Inventory") {
                 obj.SetActive(true);
-                new Message("ControlManager/layerChanger : inventory").functionCall();
+                new Message("ControlManager/LayerChanger : inventory").FunctionCall();
             }
         }
     }
 
-    public void openTalkView(Message msg) {
+    public void OpenTalkView(Message msg) {
         string name = (string)msg.args[0];  // 대상 NPC 이름
-        new Message("TalkUI/StartTalkByKey : " + name).functionCall();
-        new Message("ControlManager/layerChanger : talkView").functionCall();
+        new Message("TalkUI/StartTalkByKey : " + name).FunctionCall();
+        new Message("ControlManager/LayerChanger : talkView").FunctionCall();
     }
 }
