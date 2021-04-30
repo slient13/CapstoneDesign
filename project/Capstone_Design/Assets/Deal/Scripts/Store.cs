@@ -71,7 +71,6 @@ public class Store : MonoBehaviour
 
         if(isDone == false)
         {
-            Debug.Log("돈이 부족합니다. 구매 시도 아이템 = " + itemCode + ", 가격 = " + needMoney);
             return false;
         }
         else {
@@ -88,7 +87,6 @@ public class Store : MonoBehaviour
 
         if(isDone == false)
         {
-            Debug.Log("판매할 아이템이 없습니다. 판매 시도 아이템 = " + itemCode);
             return false;
         }
         else {

@@ -35,12 +35,6 @@ public class FishingGame : MonoBehaviour
         fishingGear = this.gameObject;
         initPos = this.transform.position;
         rayChecker = false;
-
-        //물고기 아이템코드 추가
-        msg = new Message("InventoryManager/AddNewItem : Fish, 물고기, 평범한 물고기다, 맛있다");
-        msg.FunctionCall();
-        msg = new Message("InventoryManager/AddNewItem : Boots, 부츠, 우-야, 독일산");
-        msg.FunctionCall();
     }
 
     // Update is called once per frame

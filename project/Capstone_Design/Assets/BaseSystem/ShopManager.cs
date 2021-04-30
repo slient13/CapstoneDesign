@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class ShopManager : MonoBehaviour
 {
-    List<ShopInfo> shopInfos;
+    Dictionary<string, ShopInfo> shopInfoesDic;
+    string[] shopwList = {
+        "None",     // 상점 실행중이지 않을 때 처리하는 용도.
+        "Sample"
+    };
+    ShopInfo shop;
     // Start is called before the first frame update
     void Start()
     {
-        shopInfos = new List<ShopInfo>();
-        getShopInfo();
+        shopInfoesDic = new Dictionary<string, ShopInfo>();
+        LoadShopInfo();
+        shop = shopInfoesDic["None"];
     }
 
     // Update is called once per frame
@@ -18,8 +24,20 @@ public class ShopManager : MonoBehaviour
         
     }
 
-    void getShopInfo() {
-        shopInfos.Add(ExternalFileSystem.SingleTon().GetShopInfo());
+    void LoadShopInfo() {
+        for (int i = 0; i < shopwList.Length; i++) {
+            shopInfoesDic.Add(shopwList[i], (ExternalFileSystem.SingleTon().GetShopInfo(shopwList[i])));
+        }
+    }
+
+    public void ChangeShop(Message message) {
+        string shopCode = (string) message.args[0];
+        Debug.Log("ShopManager/ChangeShop : " + shop.shopCode + " -> " + shopCode);
+        if (shopInfoesDic.ContainsKey(shopCode)) shop = shopInfoesDic[shopCode];
+        else {
+            Debug.Log("ShopManager/ChangeShop.Error : Invaild shopcode - " + shopCode);
+            shop = null;
+        } 
     }
 
     // Interface //
@@ -29,15 +47,15 @@ public class ShopManager : MonoBehaviour
         string shopCode = (string) message.args[0];        
         string itemCode = (string) message.args[1];
         int itemNumber = (int) message.args[2];
-        ShopInfo shop = null;
-        foreach(ShopInfo shopinfo in shopInfos) {
-            if (shopinfo.shopCode == shopCode) {
-                shop = shopinfo;
-                break;
-            }
-        }
+        // 상점 코드가 제대로 입력되었는지 확인.
         if (shop == null) {
             Debug.Log("ShopManager/Buy : shopCode is invalid. Input shopCode is" + shopCode + ".");
+            message.returnValue.Add(false);
+            return;
+        }
+        // 해당 아이템을 상점에서 취급하는지 확인.
+        if (shop.buyList.ContainsKey(itemCode) == false) {
+            Debug.Log("ShopManager/Buy : Can't buy " + itemCode + " in " + shop.shopCode);
             message.returnValue.Add(false);
             return;
         }
@@ -48,6 +66,7 @@ public class ShopManager : MonoBehaviour
         int needMoney = itemPrice * itemNumber;
         // If don't have enough money, stop process.
         if (money < needMoney) {
+            Debug.Log("ShopManager/Buy : There is no " + itemCode);
             message.returnValue.Add(false);
             return;
         }
@@ -62,15 +81,15 @@ public class ShopManager : MonoBehaviour
         string shopCode = (string) message.args[0];        
         string itemCode = (string) message.args[1];
         int itemNumber = (int) message.args[2];
-        ShopInfo shop = null;
-        foreach(ShopInfo shopinfo in shopInfos) {
-            if (shopinfo.shopCode == shopCode) {
-                shop = shopinfo;
-                break;
-            }
-        }
+        // 상점 코드가 제대로 입력되었는지 확인.
         if (shop == null) {
-            Debug.Log("ShopManager/Buy : shopCode is invalid. Input shopCode is" + shopCode + ".");
+            Debug.Log("ShopManager/Sell : shopCode is invalid. Input shopCode is" + shopCode + ".");
+            message.returnValue.Add(false);
+            return;
+        }
+        // 해당 아이템을 상점에서 취급하는지 확인.
+        if (shop.sellList.ContainsKey(itemCode) == false) {
+            Debug.Log("ShopManager/Sell : Can't sell " + itemCode + " in " + shop.shopCode);
             message.returnValue.Add(false);
             return;
         }
@@ -80,6 +99,7 @@ public class ShopManager : MonoBehaviour
         int itemNumberInInventory = (int) GetItemNumber.returnValue[0];
         // If don't have enough money, stop process.
         if (itemNumberInInventory == 0) {
+            Debug.Log("ShopManager/Sell : Not enough money for " + itemCode);
             message.returnValue.Add(false);
             return;
         }

@@ -14,16 +14,20 @@ public class InventoryManager : MonoBehaviour {
 
     void Start() {
         LoadItemInfo();
+        new Message("InventoryManager/LoadInventory : ").FunctionCall();
+        MappingInfo debugMapping = new MappingInfo("InventoryManager");
+        debugMapping.AddMapping("SaveInventory : ", "_shift, p");
+        debugMapping.Enroll();
     }
 
     // 외부 파일에 저장된 아이템 리스트를 읽어와 저장하는 코드.
     private void LoadItemInfo() {
-        ArrayList itemInfoes = ExternalFileSystem.SingleTon().GetItemInfo();
+        List<string> itemInfoes = ExternalFileSystem.SingleTon().GetItemInfo();
         foreach(string itemInfo in itemInfoes) {
             new Message("InventoryManager/AddNewItem : " + itemInfo).FunctionCall();
         }
     }
-    // 외부에서 추가하는 용도
+    // 아이템 정보 등록
     public void AddNewItem(Message msg) {
         string itemCode = (string) msg.args[0];     // 아이템 코드(중복 불가)
         string itemName = (string) msg.args[1];     // 아이템 이름(중복 가능)
@@ -47,7 +51,19 @@ public class InventoryManager : MonoBehaviour {
         itemList.Add(new Item(itemCode, itemName, itemTooltip, itemEffect, img));
         msg.returnValue.Add(true);
     }
-
+    // 인벤토리 정보를 불러오는 메소드.
+    public void LoadInventory(Message message) {
+        Debug.Log("InventoryManager/LoadInventory : is called.");
+        List<string> itemDataList = ExternalFileSystem.SingleTon().LoadInventory();
+        foreach(string itemData in itemDataList) {
+            new Message("InventoryManager/ModifyItem : " + itemData).FunctionCall();   
+        }
+    }
+    // 아이템 소지 정보를 저장하는 메소드.
+    public void SaveInventory(Message message) {
+        Debug.Log("InventoryManager/SaveInventory : is called.");
+        ExternalFileSystem.SingleTon().SaveInventory(itemBoxList);
+    }
     // 아이템의 이름이나 툴팁, 효과등을 받아오는 함수.
     public void GetItem(Message msg) {
         if (msg.args.Count == 0) {

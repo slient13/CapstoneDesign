@@ -66,7 +66,7 @@ public class Shop : MonoBehaviour
         enterPlayer = player;
         uiGroup1.anchoredPosition = Vector3.up * 250;
         uiGroup2.anchoredPosition = Vector3.up * -250;
-
+        new Message("ShopManager/ChangeShop : Sample").FunctionCall();
     }
 
     public void Tem()
@@ -75,6 +75,7 @@ public class Shop : MonoBehaviour
         anim.SetTrigger("doHello");
         uiGroup1.anchoredPosition = Vector3.down * 1000;
         uiGroup2.anchoredPosition = Vector3.down * 1500;
+        new Message("ShopManager/ChangeShop : None").FunctionCall();
     }
 
     public void Exit()
@@ -82,6 +83,7 @@ public class Shop : MonoBehaviour
         anim.SetTrigger("doHello");
         uiGroup1.anchoredPosition = Vector3.down * 1000;
         uiGroup2.anchoredPosition = Vector3.down * 1500;
+        new Message("ShopManager/ChangeShop : None").FunctionCall();
 
     }
 
