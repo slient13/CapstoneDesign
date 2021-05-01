@@ -10,6 +10,7 @@ using UnityEngine;
 */
 public class ExternalFileSystem 
 {
+    const int BLANK_LIMIT = 20;
     private static ExternalFileSystem single_instance = null;
     public static ExternalFileSystem SingleTon() {
         if (single_instance == null) single_instance = new ExternalFileSystem();
@@ -17,12 +18,10 @@ public class ExternalFileSystem
     }
 
     // Resource 폴더에 있는 파일을 읽어와 문자열을 전달하는 내부 메소드.
-    List<string> fileLoader(string fileDir) {
+    List<string> fileLoader(string fileDir, bool blankRemove = true) {
 
         TextAsset data = Resources.Load(fileDir, typeof(TextAsset)) as TextAsset;
         StringReader sr = new StringReader(data.text);
-        Talk talk = new Talk();
-        int answerNum = 0;
         
         string line = "-";
         List<string> lineList = new List<string>();
@@ -30,18 +29,19 @@ public class ExternalFileSystem
         while(true)
         {
             line = sr.ReadLine();
-            if (line == null || line == "") break;
+            if (line == null) break;
+            if (line == "" && blankRemove == true) continue;
             lineList.Add(line);
             // Debug.Log("ExternalFileSystem/fileLoader.line : " + line);
         }
         return lineList;
     }
     // Resource 폴더 내에 지정한 경로로 파일을 기록하는 메소드.
-    bool fileWriter(string fileDir, List<string> contents) {
-        // 파일 스트림 생성.
-        FileStream  f = new FileStream("Assets/Resources/" + fileDir + ".txt", FileMode.Append, FileAccess.Write);
+    bool fileWriter(string fileDir, List<string> contents, bool isAppend = false) {
+        // // 파일 스트림 생성.
+        // FileStream  f = new FileStream("Assets/Resources/" + fileDir + ".txt", FileMode.Append, FileAccess.Write);
         // 출력 스트림 생성. 인코딩 유니코드.
-        StreamWriter writer = new StreamWriter(f, System.Text.Encoding.Unicode);
+        StreamWriter writer = new StreamWriter("Assets/Resources/" + fileDir + ".txt", isAppend, System.Text.Encoding.Unicode);
         // 한 줄씩 쓰기
         foreach(string strData in contents) {
             writer.WriteLine(strData);
@@ -84,5 +84,9 @@ public class ExternalFileSystem
         }
 
         return shopInfo;
+    }
+
+    public List<string> GetTalkInfo(string talkName) {
+        return fileLoader("Talk/TalkScript/" + talkName);
     }
 }
