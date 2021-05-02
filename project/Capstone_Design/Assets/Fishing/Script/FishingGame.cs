@@ -35,12 +35,6 @@ public class FishingGame : MonoBehaviour
         fishingGear = this.gameObject;
         initPos = this.transform.position;
         rayChecker = false;
-
-        //물고기 아이템코드 추가
-        msg = new Message("InventoryManager/addNewItem : Fish, 물고기, 평범한 물고기다, 맛있다");
-        msg.functionCall();
-        msg = new Message("InventoryManager/addNewItem : Boots, 부츠, 우-야, 독일산");
-        msg.functionCall();
     }
 
     // Update is called once per frame
@@ -156,14 +150,14 @@ public class FishingGame : MonoBehaviour
         {
             print("물고기를 잡았다!");
             //인벤토리 물고기 추가코드
-            msg = new Message("InventoryManager/modifyItem : Fish, 1");
-            msg.functionCall();
+            msg = new Message("InventoryManager/ModifyItem : Fish, 1");
+            msg.FunctionCall();
         }
         else
         {
             print("물고기가 아닌걸 잡았다..");
-            msg = new Message("InventoryManager/modifyItem : Boots, 1");
-            msg.functionCall();
+            msg = new Message("InventoryManager/ModifyItem : Boots, 1");
+            msg.FunctionCall();
         }
     }
 }

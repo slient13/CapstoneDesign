@@ -20,17 +20,17 @@ public class MouseDetector {
         this.targetTransform = targetTransform;
     }
 
-    public void targetChange(Transform newTarget) {
+    public void TargetChange(Transform newTarget) {
         this.targetTransform = newTarget;
     }
 
-    public Vector2 getMousePos() {
-        Message msg = new Message("ControlManager/getMousePos : ").functionCall();
+    public Vector2 GetMousePos() {
+        Message msg = new Message("ControlManager/GetMousePos : ").FunctionCall();
         this.mousePos = (Vector2)msg.returnValue[0];
         return new Vector2(this.mousePos.x, this.mousePos.y);
     }
 
-    public bool trigger() {
+    public bool Trigger() {
         Vector3 targetPos;                  // 타겟 오브젝트의 위치
         Vector2 targetSize = new Vector2(); // 타겟 오브젝트의 크기.
         Vector2 minPos = new Vector2();     // 트리거 인식 최소 위치
@@ -48,7 +48,7 @@ public class MouseDetector {
         targetSize.y = targetTransform.GetComponent<RectTransform>().rect.height;
 
         // 마우스 좌표를 최신화 함.
-        getMousePos();
+        GetMousePos();
 
         // 타겟의 위치와 크기를 통해 마우스가 감지되어야 할 범위를 체크함.
         minPos.x = targetPos.x;

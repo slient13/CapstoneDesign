@@ -100,7 +100,7 @@ public class InputChecker {
         upStay      // 키가 입력되지 않은 상태를 감지.
     }
 
-    public int patternMatch(string pattern) {        
+    public int PatternMatch(string pattern) {        
         int checker = NONE;
 
         string[] splitedPattern = pattern.Split(',');
@@ -166,7 +166,7 @@ public class InputChecker {
         else return false;
     }
 
-    public Vector2 getMousePos() {
+    public Vector2 GetMousePos() {
         mousePos = Input.mousePosition;
         return mousePos;
     }

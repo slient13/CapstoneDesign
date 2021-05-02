@@ -1,0 +1,6 @@
+b, Health, 1000
+b, Fish, 700
+b, Bug, 100
+s, Health, 1000
+s, Fish, 700
+s, Bug, 100

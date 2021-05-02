@@ -5,19 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/_legacy/Scenes/MainPage.unity
-    guid: 6b51691ba9bbb514386d4970b4be7d25
   - enabled: 1
-    path: Assets/_legacy/Scenes/GamePlay.unity
-    guid: c6c94cf5f78915e4e86b5816f496639b
-  - enabled: 0
-    path: Assets/_legacy/Scenes/SampleScene.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 0
-    path: Assets/_legacy/Scenes/DodgeReturn.unity
-    guid: d2ed10de0435b4a44b08016b9f3155da
-  - enabled: 1
-    path: Assets/Deal/TEMP/test1.unity
-    guid: 46c5b7b97ae84554095999d48fe66c91
+    path: Assets/Scene/finalSecen.unity
+    guid: 0ab7c61d39e23f348acdf90a36d03637
   m_configObjects: {}

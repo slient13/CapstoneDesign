@@ -20,16 +20,16 @@ public class MappingInfo {
         objectName = name;
     }
 
-    public void addMapping(string command, string keyPattern) {
+    public void AddMapping(string command, string keyPattern) {
         // Message 용 command
         // InputChecker 용 keyPattern
         infoList.Add(new Info(command, keyPattern));
     }
-    public void removeMapping(int index) {
+    public void RemoveMapping(int index) {
         infoList.RemoveAt(index);
     }
 
-    public List<string> getMappingInfo() {
+    public List<string> GetMappingInfo() {
         List<string> output = new List<string>();
         foreach(Info info in infoList) {
             output.Add(info.command + " | " + info.keyPattern);
@@ -37,10 +37,10 @@ public class MappingInfo {
         return output;
     }
 
-    public void reset() {   // 정보 리스트 리셋
+    public void Reset() {   // 정보 리스트 리셋
         while(infoList.Count != 0) infoList.RemoveAt(0);
     }
-    public MappingInfo add(MappingInfo other) { // 정보 추가. 기존값 보존.
+    public MappingInfo Add(MappingInfo other) { // 정보 추가. 기존값 보존.
         foreach(Info info in other.infoList) {
             this.infoList.Add(new Info(info.command, info.keyPattern));
         }
@@ -48,41 +48,41 @@ public class MappingInfo {
         return this;
     }
 
-    public MappingInfo copy(MappingInfo other) { // 정보 복사. 기존값 초기화.
-        this.reset();
-        this.add(other);
+    public MappingInfo Copy(MappingInfo other) { // 정보 복사. 기존값 초기화.
+        this.Reset();
+        this.Add(other);
 
         return this;
     }
 
 
     // 현재 매핑 정보를 general 그룹으로 등록하는 함수.
-    public void enroll() {
-        Message msg = new Message("ControlManager/addMapping : ");
+    public void Enroll() {
+        Message msg = new Message("ControlManager/AddMapping : ");
         msg.args.Add(objectName);
         msg.args.Add(this);
         msg.args.Add(group);
-        msg.functionCall();
+        msg.FunctionCall();
     }
     
     // 등록 그룹을 지정
-    public void enroll(string groupName) {
+    public void Enroll(string groupName) {
         this.group = groupName;
 
-        Message msg = new Message("ControlManager/addMapping : ");
+        Message msg = new Message("ControlManager/AddMapping : ");
         msg.args.Add(objectName);
         msg.args.Add(this);
         msg.args.Add(group);
-        msg.functionCall();
+        msg.FunctionCall();
     }
 
     // 매핑 정보 변경 반영.
-    public void mappingUpdate() {
-        Message msg = new Message("ControlManager/updateMapping : ");
+    public void MappingUpdate() {
+        Message msg = new Message("ControlManager/UpdateMapping : ");
         msg.args.Add(objectName);
         msg.args.Add(this);
         msg.args.Add(group);
-        msg.functionCall();
+        msg.FunctionCall();
     }
 }
 

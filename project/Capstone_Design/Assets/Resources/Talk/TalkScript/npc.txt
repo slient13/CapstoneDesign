@@ -1,0 +1,40 @@
+id, 0, 
+text, 저는 Quest NPC 입니다. 무엇을 도와드릴까요?
+answer, 무슨 퀘스트가 있어?, 100
+answer, Quest NPC 가 뭐야?, 200
+answer, 퀘스트 완료하기., 300
+answer, 나가기, -2
+end
+
+id, 100, 
+text, 지금 퀘스트는.. 물고기 잡아오기가 있네요.
+answer, 그 퀘스트는 보상이 뭐야?, 110
+end
+
+id, 110, 
+text, 보상으로는 돈 1000원 을 드려요 수락하시겠습니까?
+answer, 네., 901
+answer, 아니오., -2
+end
+
+id, 200
+text, 저는 퀘스트 관리 및 보상을 주고있어요.
+answer, 그렇구나 고마워., 0
+end
+
+id, 300, 
+text, 어머 벌써 퀘스트를 다 하셨나요?
+answer, 네, 902
+answer, 아니오 잘못눌렀어요, 0
+end
+
+id, 901, 
+text, 그럼 열심히 해주세요.
+answer, 네, -2
+end
+
+id, 902,
+text, 축하드려요. 여기 보상이요.
+message, InventoryManager/ModifyItem : Health, 3
+answer, 네, -2
+end
