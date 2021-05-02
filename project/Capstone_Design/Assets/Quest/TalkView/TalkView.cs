@@ -67,25 +67,6 @@ public class TalkView : MonoBehaviour
     }
 
     public void StartTalkByKey(Message message) {
-<<<<<<< HEAD
-        new Message("ControlManager/layerChanger : talkView").functionCall();        
-        string name = (string)message.args[0];  // 대화 대상 이름
-        int startId;
-        if (message.args.Count == 1) startId = 0;
-        else startId = (int) message.args[1];
-        StartTalk(name, startId);
-    }
-
-    public void StartTalk(string npcName, int startId) {
-        // Debug.Log("토크뷰 받았쩡");
-        background.SetActive(true);
-        talkView.SetActive(true);
-        this.npcName = npcName;
-        string filename = "Talk/" + npcName + "TalkScript";
-        npcNameText.text = npcName;
-        loadTalkScript(npcName, filename);
-        changeTalk(startId);
-=======
         string name = (string)message.args[0];  // 대화 대상 이름.
         int startId;                            // 시작 대화 위치. 필요에 따라 다른 포지션에서 시작해야 하는 경우 이용.
         if (message.args.Count == 1) startId = 0;
@@ -102,7 +83,6 @@ public class TalkView : MonoBehaviour
         npcNameText.text = npcName;     // 이름 표시 변경.
         loadTalkScript(npcName);        // 해당 NPC의 대화 목록 불러옴.
         ChangeTalk(startId);            // 지정된 첫 시작 위치로 변경.
->>>>>>> db1eb8c1edf28963203c698221228d9786599756
     }
 
     void loadTalkScript(string npcName) {
