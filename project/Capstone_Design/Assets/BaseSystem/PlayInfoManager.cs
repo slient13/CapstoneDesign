@@ -8,13 +8,6 @@ public class PlayInfoManager : MonoBehaviour
     {
         new Message("NewPlayInfo : hp, int, 100").FunctionCall();
         new Message("NewPlayInfo : money, int, 10000").FunctionCall();
-
-        MappingInfo mapping = new MappingInfo("PlayInfoManager");
-        mapping.AddMapping("ChangeHp : 10", "_ctrlL, arrowU");
-        mapping.AddMapping("ChangeHp : -10", "_ctrlL, arrowD");
-        mapping.AddMapping("ChangeMoney : 1000", "_altL, arrowU");
-        mapping.AddMapping("ChangeMoney : -1000", "_altL, arrowD");
-        mapping.Enroll();        
     }
 
     // Update is called once per frame
