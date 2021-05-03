@@ -7,7 +7,9 @@ public class Player : MonoBehaviour
     public float speed; //인스펙터 창에서 설정 가능
     public float jumpHeight; //점프높이 설정
 
+
     public List<string> interactionTargetList;
+
 
     GameObject nearObject;
     
