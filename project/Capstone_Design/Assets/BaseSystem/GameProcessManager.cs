@@ -22,6 +22,7 @@ public class GameProcessManager : MonoBehaviour
 
     public void CloseGame(Message message) {
         new Message("InventoryManager/SaveInventory :").FunctionCall();
+        new Message("PlayInfoManager/SavePlayData : ").FunctionCall();
         #if UNITY_EDITOR
                 UnityEditor.EditorApplication.isPlaying = false; // 디버그 중 실행 종료.
         #else
@@ -36,6 +37,7 @@ public class GameProcessManager : MonoBehaviour
 
         if (isMatched == true) {
             new Message("InventoryManager/SaveInventory : ").FunctionCall();
+            new Message("PlayInfoManager/SavePlayData : ").FunctionCall();
             SceneManager.LoadScene(targetName);
         }
         else Debug.Log("GameProcessManager/ChangeScene.Error : There is no Scene " + targetName);

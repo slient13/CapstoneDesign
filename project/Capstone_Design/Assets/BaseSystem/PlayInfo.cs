@@ -37,28 +37,28 @@ public class PlayInfo {
         this.infoValue_typeString = infoValue;
     }
 
-    public string getInfoName() {
+    public string GetInfoName() {
         return this.infoName;
     }
 
-    public object getInfoValue() {
+    public object GetInfoValue() {
         if (infoType == "int")          return infoValue_typeInt;
         else if (infoType == "float")   return infoValue_typeFloat;
         else if (infoType == "string")  return infoValue_typeString;
         else                            return null;
     }
 
-    public string getInfoType() {
+    public string GetInfoType() {
         return this.infoType;
     }
 
-    public void setValue(object value) { 
+    public void SetValue(object value) { 
         if (infoType == "int")          this.infoValue_typeInt      = (int) value; 
         else if (infoType == "float")   this.infoValue_typeFloat    = (float) value;
         else if (infoType == "string")  this.infoValue_typeString   = (string) value;
     }
 
-    public void modifyValue(object value) {
+    public void ModifyValue(object value) {
         if (infoType == "int")          this.infoValue_typeInt      += (int) value; 
         else if (infoType == "float")   this.infoValue_typeFloat    += (float) value;
         else if (infoType == "string")  this.infoValue_typeString   += (string) value;        

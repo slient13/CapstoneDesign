@@ -14,8 +14,8 @@
 ## 사용법
 
 - Message 객체 생성 // 예시 = `msg`
-- `BaseSystem.SendMessage("functionCaller", msg);` 입력
-- `msg.functionCall();` 으로도 가능.
+- `BaseSystem.SendMessage("FunctionCaller", msg);` 입력
+- `msg.FunctionCall();` 으로도 가능.
 
 ## Message 객체 생성 방법
 
@@ -43,7 +43,7 @@ msg.args.Add(30);                   // 변수 추가
 Message msg2 = new Message("object/function : 10, 20, 30");
 ```
 
-`functionCall()` 메소드 사용 시 타겟 오브젝트를 지정하지 않았다면 자동으로 `BaseSystem`객체를 타겟 오브젝트로 설정해버리고 진행한다.
+`FunctionCall()` 메소드 사용 시 타겟 오브젝트를 지정하지 않았다면 자동으로 `BaseSystem`객체를 타겟 오브젝트로 설정해버리고 진행한다.
 
 ```c#
 Message msg = new Message("BaseSystem/function : args");    // 정석
@@ -52,9 +52,9 @@ Message msg3 = new Message();                               // 직접 할당. �
 msg3.functionName = "function";
 msg3.args.Add("args");
 // 아래 셋은 완벽하게 동일한 실행 결과를 야기한다.
-msg.functionCall();
-msg2.functionCall();
-msg3.functionCall();
+msg.FunctionCall();
+msg2.FunctionCall();
+msg3.FunctionCall();
 ```
 
 ## 인수 변환
@@ -91,11 +91,12 @@ int a = msg.args[0] as int;
 ## 변경 이력
 
 11-25
-
-- 함수 호출 방법 추가 : `new Message(command).functionCall();`
+- 함수 호출 방법 추가 : `new Message(command).FunctionCall();`
 - 일부 양식 소폭 수정.
 
 11-27
-
-- `functionCall()` 메소드 실행 시 `targetName`을 지정하지 않은 경우 자동으로 `BaseSystem`을 타겟으로 설정하는 기능 추가.
+- `FunctionCall()` 메소드 실행 시 `targetName`을 지정하지 않은 경우 자동으로 `BaseSystem`을 타겟으로 설정하는 기능 추가.
 - 기타 설명 보강
+
+21-05-04
+- `functionCall` 함수 이름 변경 -> `FunctionCall`.

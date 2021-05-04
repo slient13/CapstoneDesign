@@ -21,7 +21,7 @@ public class InventoryManager : MonoBehaviour {
     private void LoadItemInfo() {
         List<string> itemInfoes = ExternalFileSystem.SingleTon().GetItemInfo();
         foreach(string itemInfo in itemInfoes) {
-            new Message("InventoryManager/AddNewItem : " + itemInfo).FunctionCall();
+            if (itemInfo != "") new Message("InventoryManager/AddNewItem : " + itemInfo).FunctionCall();
         }
     }
     // 아이템 정보 등록
