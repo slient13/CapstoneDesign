@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class PlayInfoManager : MonoBehaviour
 {
+    string[] infoFileNameList = {
+        "Player/Stat"
+    };
     void Start()
     {
-        getPlayInfo();
+        foreach(string fileName in infoFileNameList) getPlayInfo(fileName);
         loadPlayData();
     }
 
@@ -16,8 +19,8 @@ public class PlayInfoManager : MonoBehaviour
     }
 
     // 플레이 정보 등록.
-    void getPlayInfo() {
-        List<string> infoStringList = ExternalFileSystem.SingleTon().GetPlayInfo();
+    void getPlayInfo(string fileName) {
+        List<string> infoStringList = ExternalFileSystem.SingleTon().GetPlayInfo(fileName);
         foreach(string infoString in infoStringList) {
             new Message("CreatePlayInfo : " + infoString).FunctionCall();
         }

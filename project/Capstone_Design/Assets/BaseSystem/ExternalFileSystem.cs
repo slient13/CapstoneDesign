@@ -139,11 +139,11 @@ public class ExternalFileSystem
         return fileReader("Talk/TalkScript/" + talkName);
     }
 
-    public List<string> GetPlayInfo() {
-        return fileReader("Player/Stat");
+    public List<string> GetPlayInfo(string fileName) {
+        return fileReader(fileName);
     }
     public List<string> LoadPlayData() {
-        return fileReader("Player/Stat", isUserData:true);
+        return fileReader("PlayInfo/Total", isUserData:true);
     }
     public void SavePlayData(List<PlayInfo> playInfoList) {
         List<string> output = new List<string>();
@@ -157,6 +157,6 @@ public class ExternalFileSystem
             output.Add(infoName + ", " + infoValue);
         }
 
-        fileWriter("Player/Stat", output, isAppend:false, isUserData:true);
+        fileWriter("PlayInfo/Total", output, isAppend:false, isUserData:true);
     }
 }
