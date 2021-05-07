@@ -1,0 +1,62 @@
+git : 
+    설치 = https://git-scm.com/download
+    GUI 지원 프로그램 : 
+        = 아래 명령어를 굳이 안치고도 편하게 쓸 수 있게 해주는 프로그램.
+        = 상당수의 고급 기능이 지원되지 않지만 어차피 안쓸꺼라 상관 없음.
+        주소 = https://desktop.github.com/
+    용도 : 
+        = 파일들의 버전을 관리 -> 실험적인 작업을 시도하거나 이전으로 가볍게 돌아갈 수 있음.
+        = 원격 저장소를 이용한 작업 공유 및 공동 작업.
+    사용 : 
+        파일 추적 : 
+            = 파일을 변경하고 'github desktop' 에서 하단에 제목과 설명을 적고 "commit to ~" 버튼을 클릭.
+        가지 변경 : 
+            = 상단의 "branch" 텝을 눌러서 원하는 가지로 변경
+            변화 : 
+                = 해당 가지에 저장된 내용대로 컴퓨터의 파일 내용이 달라짐.
+            새로 생성 : 
+                = 텝을 눌렀을 때 우측의 "new branch" 버튼을 눌러 생성 가능
+        자료 연동 : 
+            = 우측 상단의 버튼을 누름
+            fatch origin = 원격 저장소의 현 상태 정보만 받아옴
+            pull origin = 원격 저장소의 전체 자료를 받아옴.
+            push origin = 로컬 저장소의 내용을 원격 저장소로 보냄.
+            publish branch = 새로 만든 가지를 반영시킴.
+
+
+명령어 : 
+    cd 'path' : 
+        = 포커스를 해당 경로로 이동함.
+        path : 
+            = 이동할 경로.
+            .. = 한칸 위로 이동.
+    git 'command' :   
+        command : 
+            init : 
+                = 현재 폴더를 로컬 git 저장소로 초기화 시킴. ".git" 파일 생성.
+            add 'file...' : 
+                = 'file'을 [stage] 상태로 변경함
+                file : 
+                    = 파일 이름. 와일드카드 사용 가능.
+                    README = readme.md 추가
+            rm 'option' 'file...' : 
+                = 'file'을 제거하고 'untracked' 상태로 변경함.
+                option : 
+                    --cached = 'file'을 삭제하지 않고 추적만 취소함.
+            push 'repository_name' 'branch' : 
+                = '원격 저장소'에 '로컬 저장소'의 내용을 반영시킴.
+                'repository_name' = 해당 '원격 저장소'의 지정 이름.
+                'branch' = 반영할 가지.
+            remote 'act' : 
+                act : 
+                    add 'repository_name' 'url' : 
+                        = '원격 저장소'를 로컬 'git'에 알려줌.
+                        repository_name = '로컬'에서 사용할 이름.
+                        url = 원격 저장소 주소.
+            config 'act' : 
+                = 설정 관련 명령어
+            clone 'url' : 
+                = '원격 저장소'에서 만든 저장소의 복제품을 현재 위치에 만듬.   
+                비고 = 이 때 자동으로 "origin" 이라는 이름으로 해당 원격 저장소를 지칭함.
+
+                            

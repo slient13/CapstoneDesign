@@ -28,7 +28,7 @@ public class BaseSystem : MonoBehaviour
     }
     
     // 새 플레이 정보 등록 (외부용)
-    public void NewPlayInfo(Message msg) {
+    public void CreatePlayInfo(Message msg) {
         string infoName =  (string)msg.args[0];     // 이름
         string infoType =  (string)msg.args[1];     // 타입
         object infoValue = msg.args[2];             // 값
@@ -44,27 +44,27 @@ public class BaseSystem : MonoBehaviour
         playInfoList.Add(tempInfo);
     }
 
-    public void PlayInfoSetter(Message msg) {
+    public void SetPlayInfo(Message msg) {
         string infoName = (string)msg.args[0];  // 변경 대상 이름.
         object value = msg.args[1];             // 변경 값.
         int index = findInfo(infoName);
 
         if (index == -1) Debug.Log("BaseSystem/playInfoChanger.error : there is no information which name is " + infoName);
-        else playInfoList[index].setValue(value);
+        else playInfoList[index].SetValue(value);
     }
-    public void PlayInfoChanger(Message msg) {
+    public void ChangePlayInfo(Message msg) {
         string infoName = (string)msg.args[0];  // 변경 대상 이름.
         object value = msg.args[1];             // 변경 값.
         int index = findInfo(infoName);
 
         if (index == -1) Debug.Log("BaseSystem/playInfoChanger.error : there is no information which name is " + infoName);
-        else playInfoList[index].modifyValue(value);
+        else playInfoList[index].ModifyValue(value);
     }
 
     int findInfo(string infoName) {
         int i;
         for (i = 0; i < playInfoList.Count; ) {
-            if (playInfoList[i].getInfoName() == infoName) return i;
+            if (playInfoList[i].GetInfoName() == infoName) return i;
             else i++;
         }
         
@@ -72,14 +72,18 @@ public class BaseSystem : MonoBehaviour
         return -1;
     }
 
-    public void GetPlayInfo(Message msg) {
+    public void GetPlayInfoValue(Message msg) {
         string infoName = (string) msg.args[0]; // 정보를 원하는 대상 이름.
         int index = findInfo(infoName);
         if (index == -1) Debug.Log("BaseSystem/getPlayInfo.error : there is no information which name is " + infoName);
         else {
-            msg.returnValue.Add(playInfoList[index].getInfoValue());    // 오브젝트 형으로 정보 반환.
-            msg.returnValue.Add(playInfoList[index].getInfoType());     // 언박싱 위한 타입
+            msg.returnValue.Add(playInfoList[index].GetInfoValue());    // 오브젝트 형으로 정보 반환.
+            msg.returnValue.Add(playInfoList[index].GetInfoType());     // 언박싱 위한 타입
         }
+    }
+
+    public void GetPlayInfoList(Message msg) {
+        msg.returnValue.Add(playInfoList);
     }
 }
 

@@ -15,16 +15,13 @@ public class InventoryManager : MonoBehaviour {
     void Start() {
         LoadItemInfo();
         new Message("InventoryManager/LoadInventory : ").FunctionCall();
-        MappingInfo debugMapping = new MappingInfo("InventoryManager");
-        debugMapping.AddMapping("SaveInventory : ", "_shift, p");
-        debugMapping.Enroll();
     }
 
     // 외부 파일에 저장된 아이템 리스트를 읽어와 저장하는 코드.
     private void LoadItemInfo() {
         List<string> itemInfoes = ExternalFileSystem.SingleTon().GetItemInfo();
         foreach(string itemInfo in itemInfoes) {
-            new Message("InventoryManager/AddNewItem : " + itemInfo).FunctionCall();
+            if (itemInfo != "") new Message("InventoryManager/AddNewItem : " + itemInfo).FunctionCall();
         }
     }
     // 아이템 정보 등록
