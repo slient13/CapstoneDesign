@@ -8,6 +8,10 @@ public class PlayInfoManager : MonoBehaviour
     {
         new Message("NewPlayInfo : hp, int, 100").FunctionCall();
         new Message("NewPlayInfo : money, int, 10000").FunctionCall();
+        new Message("NewPlayInfo : tired, int, 100").FunctionCall();
+        new Message("NewPlayInfo : attack, int, 100").FunctionCall();
+        new Message("NewPlayInfo : defense, int, 100").FunctionCall();
+
 
         MappingInfo mapping = new MappingInfo("PlayInfoManager");
         mapping.AddMapping("ChangeHp : 10", "_ctrlL, arrowU");
