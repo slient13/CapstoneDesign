@@ -223,6 +223,10 @@ public class InventoryManager : MonoBehaviour {
             foreach (Item item in itemList) {
                 if (itemCode == item.getItemCode()) command = item.getItemEffect();
             }
+            if (command.IndexOf('/') == -1) {
+                string[] data = command.Split(':');                
+                command = "PlayInfoManager/ChangeData : " + data[0] + ", " + data[1];
+            } 
             new Message(command).FunctionCall();
         }
     }

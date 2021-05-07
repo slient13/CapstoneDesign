@@ -25,10 +25,10 @@ public class ScreenUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Message msgHp = new Message("GetPlayInfoValue : hp").FunctionCall();
+        Message msgHp = new Message("GetPlayInfoValue : Hp").FunctionCall();
         setHpBar((int) msgHp.returnValue[0]);
 
-        Message msgMoney = new Message("GetPlayInfoValue : money").FunctionCall();
+        Message msgMoney = new Message("GetPlayInfoValue : Money").FunctionCall();
         setMoney((int) msgMoney.returnValue[0]);
     }
 

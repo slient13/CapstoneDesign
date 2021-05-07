@@ -46,9 +46,9 @@ public class PlayInfoManager : MonoBehaviour
         string targetName = (string) message.args[0];
         int degree = (int) message.args[1];
 
-        if (targetName == "hp") changeHp(degree);
-        // else if (targetName == "maxHp") changeMaxHp(degree);
-        else if (targetName == "money") changeMoney(degree);
+        if (targetName == "Hp") changeHp(degree);
+        // else if (targetName == "MaxHp") changeMaxHp(degree);
+        else if (targetName == "Money") changeMoney(degree);
         else {
             new Message("ChangePlayInfo : " + targetName + ", " + degree).FunctionCall();
         }
@@ -62,32 +62,32 @@ public class PlayInfoManager : MonoBehaviour
     }
 
     void changeHp(int degree) {
-        Message before = new Message("PlayInfoManager/GetData : hp").FunctionCall();
-        Message max = new Message("PlayInfoManager/GetData : maxHp").FunctionCall();
+        Message before = new Message("PlayInfoManager/GetData : Hp").FunctionCall();
+        Message max = new Message("PlayInfoManager/GetData : MaxHp").FunctionCall();
         int beforeHp = (int) before.returnValue[0];
         int maxHp = (int) max.returnValue[0];
 
         int afterHp = beforeHp + degree;
         if (afterHp < 0) afterHp = 0;
         else if (afterHp > maxHp) afterHp = maxHp;
-        new Message("SetPlayInfo : hp, " + afterHp).FunctionCall();
+        new Message("SetPlayInfo : Hp, " + afterHp).FunctionCall();
     }
 
     void changeMaxHp(int degree) {
-        Message before = new Message("PlayInfoManager/GetData : maxHp").FunctionCall();
+        Message before = new Message("PlayInfoManager/GetData : MaxHp").FunctionCall();
         int maxHp = (int) before.returnValue[0];
         maxHp += degree;
         if (maxHp < 0) maxHp = 0;
-        new Message("SetPlayInfo : maxHp, " + maxHp).FunctionCall();
+        new Message("SetPlayInfo : MaxHp, " + maxHp).FunctionCall();
     }
 
     void changeMoney(int degree) {
-        Message before = new Message("PlayInfoManager/GetData : money").FunctionCall();
+        Message before = new Message("PlayInfoManager/GetData : Money").FunctionCall();
         int beforeMoney = (int) before.returnValue[0];
 
         int afterMoney = beforeMoney + degree;
         if (afterMoney < 0) afterMoney = 0;
         else if (afterMoney > 1000000) afterMoney = 1000000;
-        new Message("SetPlayInfo : money, "+ afterMoney).FunctionCall();
+        new Message("SetPlayInfo : Money, "+ afterMoney).FunctionCall();
     }
 }

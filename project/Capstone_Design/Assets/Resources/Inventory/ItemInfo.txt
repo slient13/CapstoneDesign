@@ -1,4 +1,4 @@
-Health, 체 력, 체력이다, PlayInfoManager/ChangeHp : 10
+Health, 체 력, 체력이다, Hp : 10
 Bug, 미 끼, 물고기를 잡기위한 미끼다, - 
 Fish, 물고기, 평범한 물고기다, -
 Boots, 부츠, 우-야, 독일산, -

@@ -10,10 +10,10 @@ public class DebugAction : MonoBehaviour
     {
         // PlayInfoManager 관련.
         MappingInfo playInfoManagerDebug = new MappingInfo("PlayInfoManager");
-        playInfoManagerDebug.AddMapping("ChangeData : hp, 10", "_ctrlL, arrowU");
-        playInfoManagerDebug.AddMapping("ChangeData : hp, -10", "_ctrlL, arrowD");
-        playInfoManagerDebug.AddMapping("ChangeData : money, 1000", "_altL, arrowU");
-        playInfoManagerDebug.AddMapping("ChangeData : money, -1000", "_altL, arrowD");
+        playInfoManagerDebug.AddMapping("ChangeData : Hp, 10", "_ctrlL, arrowU");
+        playInfoManagerDebug.AddMapping("ChangeData : Hp, -10", "_ctrlL, arrowD");
+        playInfoManagerDebug.AddMapping("ChangeData : Money, 1000", "_altL, arrowU");
+        playInfoManagerDebug.AddMapping("ChangeData : Money, -1000", "_altL, arrowD");
         playInfoManagerDebug.Enroll();                
         // InventoryManager 관련. 
         MappingInfo inventoryManagerDebug = new MappingInfo("InventoryManager");
