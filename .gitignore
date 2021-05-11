@@ -6,7 +6,8 @@
 # Additional ignore
 # [Aa]ssets/Material/
 # [Aa]ssets/Model/
-project/Capstone_Design/[Aa]ssets/_legacy/
+project/Capstone_Design/[Aa]ssets/_legacy
+project/Capstone_Design/[Aa]ssets/_legacy/*
 project/Capstone_Design/[Aa]ssets/_legacy.meta
 project/Capstone_Design/[Aa]ssets/[Aa]ssetStore/
 project/Capstone_Design/[Aa]ssets/[Aa]ssetStore.meta
@@ -25,6 +26,10 @@ project/Capstone_Design/[Aa]ssets/Fishing/Practice.meta
 [Ll]ogs/
 [Mm]emoryCaptures/
 buildOutput/
+
+# vscode ignore
+.vscode
+.vscode/*
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
