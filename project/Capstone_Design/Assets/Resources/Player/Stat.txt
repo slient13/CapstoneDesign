@@ -1,5 +1,13 @@
 Hp, int, 100
 MaxHp, int, 100
+MinHp, int, 0
 Stamina, int, 100
 MaxStamina, int, 100
+MinStamina, int, 0
 Money, int, 10000
+MinMoney, int, 0
+Attack, int, 10
+MaxAttack, int, 100
+Defense, int, 10
+MaxDefense, int, 100
+Trash, int, 0
