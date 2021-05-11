@@ -60,7 +60,7 @@ public class ShopManager : MonoBehaviour
             return;
         }
         // money Check.
-        Message getMoney = new Message("PlayInfoManager/GetData : money").FunctionCall();
+        Message getMoney = new Message("PlayInfoManager/GetData : Money").FunctionCall();
         int itemPrice = shop.buyList[itemCode];
         int money = (int) getMoney.returnValue[0];
         int needMoney = itemPrice * itemNumber;
@@ -71,7 +71,7 @@ public class ShopManager : MonoBehaviour
             return;
         }
         // Action.        
-        new Message("PlayInfoManager/ChangeData : money, " + -needMoney).FunctionCall();
+        new Message("PlayInfoManager/ChangeData : Money, " + -needMoney).FunctionCall();
         new Message("InventoryManager/ModifyItem : " + itemCode + ", " + itemNumber).FunctionCall();
         message.returnValue.Add(true);
     }
@@ -105,7 +105,7 @@ public class ShopManager : MonoBehaviour
         }
         // Action.
         int salePrice = itemPrice * itemNumber;
-        new Message("PlayInfoManager/ChangeData : money, " + salePrice).FunctionCall();
+        new Message("PlayInfoManager/ChangeData : Money, " + salePrice).FunctionCall();
         new Message("InventoryManager/ModifyItem : " + itemCode + ", " + -itemNumber).FunctionCall();
         message.returnValue.Add(true);
     }

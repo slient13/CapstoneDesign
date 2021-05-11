@@ -1,5 +1,5 @@
-hp, int, 100
-maxHp, int, 100
-stamina, int, 100
-maxStamina, int, 100
-money, int, 10000
+Hp, int, 100
+MaxHp, int, 100
+Stamina, int, 100
+MaxStamina, int, 100
+Money, int, 10000
