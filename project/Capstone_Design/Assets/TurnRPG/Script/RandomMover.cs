@@ -6,39 +6,67 @@ public class RandomMover : MonoBehaviour
 {
     public GameObject enemyArea;
     public GameObject rallyPoint;
-    public Rigidbody npcBody;
     public float minTime;
     public float maxTime;
+    public float speed;
 
 
-    float timer = 0.0f;
-    float randomTime = 0.0f;
-    bool moving = false;
-    Vector3 rallyPos;
-    public GameObject moveArea;
+    GameObject moveArea;
+    Rigidbody npcBody;
+    float timer = 0f;
+    float randomTime = 0f;
+    bool moving;
+    public bool isRightArea;
 
     // Start is called before the first frame update
     void Start()
     {
+        moving = false;
+        isRightArea = false;
+
         moveArea = transform.Find("MoveArea").gameObject;
         //moveArea.SetActive(false);
         npcBody = GetComponent<Rigidbody>();
+
+        randomTime = Random.Range(minTime, maxTime);
+
+        //이동범위조절 콜리더 작동중지
+        //moveArea.GetComponent<BoxCollider>().enabled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        timer += Time.deltaTime;
-
         if(!moving)
         {
-            randomTime = Random.Range(minTime, maxTime);
-            moving = true;
+            timer += Time.deltaTime;
+        }
+
+        if(!moving && timer>=randomTime)
+        {
+            int i = 0;
+
+            while(true)
+            {
+                SetPosition();
+                IsRightArea();
+                i++;
+                if (isRightArea)
+                {
+                    moving = true;
+                    break;
+                }
+                else if (i > 10)
+                {
+                    EndMove();
+                    Debug.Log("Failed To Move.. " + this.name);
+                    break;
+                }
+            }
         }
 
         if(moving && timer>=randomTime)
         {
-            SetPosition();
             MoveToTarget();
         }
     }
@@ -51,30 +79,36 @@ public class RandomMover : MonoBehaviour
         float moveX = Random.Range(0, xRange) - xRange / 2;
         float moveZ = Random.Range(0, zRange) - zRange / 2;
 
-        rallyPos = new Vector3(transform.position.x - moveX, transform.position.y, transform.position.z - moveZ);
-        Debug.Log(rallyPos);
+        rallyPoint.transform.position = new Vector3(transform.position.x - moveX, transform.position.y, transform.position.z - moveZ);
+        Debug.Log(rallyPoint.transform.position);
     }
 
     void MoveToTarget()
     {
-        transform.LookAt(rallyPos);
-        
+        transform.LookAt(rallyPoint.transform);
+        transform.position = Vector3.MoveTowards(transform.position, rallyPoint.transform.position, speed * Time.deltaTime);
+        //npcBody.AddForce(speed * transform.forward);
     }
 
-    /*
-    void MoveToTarget()
+    void EndMove()
     {
-        if (target.transform.position != Vector3.MoveTowards(transform.position, target.transform.position, 1f))
-        {
-            transform.position = Vector3.MoveTowards(transform.position, target.transform.position, 1f); // 현위치, 도착점, 속도
+        randomTime = Random.Range(minTime, maxTime);
+        timer = 0.0f;
+        isRightArea = false;
+        moving = false;
+    }
 
-            transform.LookAt(target.transform);
-            //Debug.Log(Vector3.MoveTowards(transform.position, target.transform.position, 1f));
+    //몬스터가 활동영역 내에 있는지 확인
+    void IsRightArea()
+    {
+        float xRange = enemyArea.transform.localScale.x;
+        float zRange = enemyArea.transform.localScale.z;
+        float localX = rallyPoint.transform.localPosition.x;
+        float localZ = rallyPoint.transform.localPosition.z;
 
-            farmer_animator.IsMove = true;
-        }
+        if ((localX + xRange/2) <= xRange && (localX + xRange / 2) >= 0 && (localZ + zRange/2) <= zRange && (localZ + zRange / 2) >=0)
+            isRightArea = true;
         else
-            farmer_animator.IsMove = false;
+            isRightArea = false;
     }
-    */
 }
