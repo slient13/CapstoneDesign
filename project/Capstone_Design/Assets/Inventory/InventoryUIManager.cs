@@ -171,10 +171,10 @@ public class InventoryUIManager : MonoBehaviour {
         Message msg = new Message("InventoryManager/GetItem : " + itemCode).FunctionCall();
         if (msg.returnValue.Count != 0) {
             Item item = (Item)msg.returnValue[0];
-            itemName = item.getItemName();
-            itemTooltip = item.getItemToolTip();
-            itemEffect = item.getItemEffect();
-
+            itemName = item.GetItemName();
+            itemTooltip = item.GetItemToolTip();
+            itemEffect = "";
+            foreach(string effectString in item.GetItemEffect()) itemEffect += effectString;
         }
         else {
             itemName = "";
