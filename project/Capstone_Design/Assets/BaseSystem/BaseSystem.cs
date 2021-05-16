@@ -11,7 +11,7 @@ public class BaseSystem : MonoBehaviour
     }
 
     // 임시로 아무런 동작을 요하지 않는 message 객체가 필요할 때 사용.
-    public void None(Message message) {
+    public void none(Message message) {
         Debug.Log("BaseSystem.none is called.");
     }
 

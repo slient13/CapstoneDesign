@@ -19,58 +19,22 @@ public class InventoryManager : MonoBehaviour {
 
     // 외부 파일에 저장된 아이템 리스트를 읽어와 저장하는 코드.
     private void LoadItemInfo() {
-        List<string> itemInfoStringList = ExternalFileSystem.SingleTon().GetItemInfo();
-        string code = "";       // 아이템 코드(중복 불가)
-        string type = "";       // 아이템 이름(중복 가능)
-        string name = "";       // 아이템 타입.
-        string tooltip = "";    // 아이템 툴팁
-        List<string> effect = new List<string>();   // 아이템 효과(명령어 양식)
-        foreach(string itemInfoString in itemInfoStringList) {
-            // end를 만나면 묶어서 새로은 정보 등록.
-            if (itemInfoString == "end") {
-                // code 가 없으면 오류로 판단, 스킵.
-                if (code == "") {
-                    Debug.Log("InventoryManager/LoadItemInfo.error : No item code input.");
-                    code = "";
-                    type = "";
-                    name = "";
-                    tooltip = "";
-                    continue;
-                }
-                // type 이 없으면, general 로 초기화.
-                if (type == "") type = "general";
-                // name 이 없으면 code 값으로 초기화.
-                if (name == "") name = code;
-                // if (effect.Count == 0) effect.Add("None");
-                Message msg = new Message($"InventoryManager/AddNewItem : {code}, {type}, {name}, {tooltip}");
-                msg.args.Add(effect);
-                msg.FunctionCall();
-                code = "";
-                type = "";
-                name = "";
-                tooltip = "";
-                effect = new List<string>();
-            }
-            // 그 외에는 정보에 대입.
-            else {
-                string[] temp = itemInfoString.Split('=');
-                string mode = temp[0].Trim();
-                string value = temp[1].Trim();
-                if (mode == "code")         code = value;
-                else if (mode == "type")    type = value;
-                else if (mode == "name")    name = value;
-                else if (mode == "desc")    tooltip = value;
-                else if (mode == "effect")  effect.Add(value);
-            }
+        List<string> itemInfoes = ExternalFileSystem.SingleTon().GetItemInfo();
+        foreach(string itemInfo in itemInfoes) {
+            if (itemInfo != "") new Message("InventoryManager/AddNewItem : " + itemInfo).FunctionCall();
         }
     }
     // 아이템 정보 등록
     public void AddNewItem(Message msg) {
         string itemCode = (string) msg.args[0];     // 아이템 코드(중복 불가)
-        string itemType = (string) msg.args[1];     // 아이템 타입.
-        string itemName = (string) msg.args[2];     // 아이템 이름(중복 가능)
-        string itemTooltip = (string) msg.args[3];  // 아이템 툴팁
-        List<string> itemEffect = (List<string>) msg.args[4];   // 아이템 효과(명령어 양식)
+        string itemName = (string) msg.args[1];     // 아이템 이름(중복 가능)
+        string itemTooltip = (string) msg.args[2];  // 아이템 툴팁
+        string itemEffect = (string) msg.args[3];   // 아이템 효과(명령어 양식)
+        // 정확한 명령어 양식이 아닌 경우를 대략적으로 검사. 이 경우 더미 부여.
+        if (itemEffect.IndexOf(':') == -1) {
+            Debug.Log("InventoryManager/AddNewItem.error : " + itemCode + "'s effect is incorrect. This will be replace \"none : \".");
+            itemEffect = "none : ";  
+        }
 
         // 일치하는 정보를 가진 아이템이 존재하는 경우 중단.
         if (isInItemList(itemCode)) {
@@ -81,7 +45,7 @@ public class InventoryManager : MonoBehaviour {
         string imgPath = "Inventory/ItemImage/" + itemCode;
         Sprite img = Resources.Load<Sprite>(imgPath) as Sprite;
         itemImageList.Add(img);
-        itemList.Add(new Item(itemCode, itemType, itemName, itemTooltip, itemEffect, img));
+        itemList.Add(new Item(itemCode, itemName, itemTooltip, itemEffect, img));
         msg.returnValue.Add(true);
     }
     // 인벤토리 정보를 불러오는 메소드.
@@ -100,7 +64,7 @@ public class InventoryManager : MonoBehaviour {
     // 아이템의 이름이나 툴팁, 효과등을 받아오는 함수.
     public void GetItem(Message msg) {
         if (msg.args.Count == 0) {
-            Debug.Log("InventoryManager/GetItemInfo.error : There is no Input");
+            Debug.Log("InventoryManager/getItemInfo.error : There is no Input");
             return;
         }
 
@@ -108,12 +72,12 @@ public class InventoryManager : MonoBehaviour {
 
         // 아이템 등록 확인
         if (!isInItemList(itemCode)) {
-            Debug.Log("InventoryManager/GetItemInfo.error : there is no item which code is " + itemCode);
+            Debug.Log("InventoryManager/getItemInfo.error : there is no item which code is " + itemCode);
             return;
         }
 
         foreach(Item item in itemList) {
-            if (item.GetItemCode() == itemCode) msg.returnValue.Add(item);
+            if (item.getItemCode() == itemCode) msg.returnValue.Add(item);
         }
     }
 
@@ -154,7 +118,7 @@ public class InventoryManager : MonoBehaviour {
         Sprite img = null;
         int i;
         for (i = 0; i < itemList.Count;) {
-            if (itemList[i].GetItemCode() == itemCode) {
+            if (itemList[i].getItemCode() == itemCode) {
                 img = itemImageList[i];
                 break;
             }
@@ -168,7 +132,7 @@ public class InventoryManager : MonoBehaviour {
     bool isInItemList(string itemCode) {
         int i;
         for (i = 0; i < itemList.Count;) {
-            if (itemList[i].GetItemCode() == itemCode) break;
+            if (itemList[i].getItemCode() == itemCode) break;
             else i++;
         }
         if (i < itemList.Count) return true;
@@ -254,28 +218,16 @@ public class InventoryManager : MonoBehaviour {
         string itemCode = (string) message.args[0];
         int index = matchItemBox(itemCode);
         if (index != -1) {
-            // 해당 아이템 코드를 기반으로 아이템 효과 정보를 받아옴.
-            List<string> commandList = null;
+            new Message("InventoryManager/ModifyItem : " + itemCode + ", -1").FunctionCall();
+            string command = "";
             foreach (Item item in itemList) {
-                if (itemCode == item.GetItemCode()) commandList = item.GetItemEffect();
+                if (itemCode == item.getItemCode()) command = item.getItemEffect();
             }
-            // 해당 아이템의 효과가 없다면 그대로 중단.(사용 안됨.)
-            if (commandList.Count == 0) {
-                Debug.Log($"InventoryManager.UseItem.Error : Item-{itemCode} has no effect. It can't be used.");
-                return;
-            }
-            // 사용 아이템 개수 감소.
-            new Message($"InventoryManager/ModifyItem : {itemCode}, -1").FunctionCall();
-            // 아이템 효과 적용.
-            for (int i = 0; i < commandList.Count; i++) {
-                // 약식인 경우 대응 형태로 변경.
-                if (commandList[i].IndexOf('/') == -1) {
-                    string[] data = commandList[i].Split(':');                
-                    commandList[i] = "PlayInfoManager/ChangeData : " + data[0] + ", " + data[1];
-                } 
-                // 효과 실행.
-                new Message(commandList[i]).FunctionCall();
-            }
+            if (command.IndexOf('/') == -1) {
+                string[] data = command.Split(':');                
+                command = "PlayInfoManager/ChangeData : " + data[0] + ", " + data[1];
+            } 
+            new Message(command).FunctionCall();
         }
     }
 }
