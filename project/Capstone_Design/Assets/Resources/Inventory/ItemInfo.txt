@@ -1,4 +1,29 @@
-Health, 체 력, 체력이다, Hp : 10
-Bug, 미 끼, 물고기를 잡기위한 미끼다, - 
-Fish, 물고기, 평범한 물고기다, -
-Boots, 부츠, 우-야, 독일산, -
+code = Health
+type = consumable
+name = 체 력
+desc = 체력이다
+effect = Hp : 10
+end
+
+code = Bug
+type = consumable
+name = 미 끼
+desc = 물고기를 잡기위한 미끼다
+end
+
+code = Fish
+type = consumable
+name = 물고기
+desc = 평범한 물고기다
+end
+
+code = Boots
+name = 부츠
+desc = 독일산
+end
+
+code = Equipment
+name = 장비
+type = equipment
+desc = 분류 테스트용 장비.
+end
