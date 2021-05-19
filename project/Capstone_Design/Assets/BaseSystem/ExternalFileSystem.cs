@@ -159,4 +159,29 @@ public class ExternalFileSystem
 
         fileWriter("PlayInfo/Total", output, isAppend:false, isUserData:true);
     }
+
+    public Dictionary<string, Quest> LoadQeust(List<string> questNameList) {
+        List<string> questStringList;        
+        Dictionary<string, Quest> questList = new Dictionary<string, Quest>();
+        foreach(string questName in questNameList) {
+            questStringList = fileReader("Quest/Info/" + questName);            
+            Quest quest = new Quest(questName);
+            foreach(string questString in questStringList) {
+                // mode 분리.
+                string[] temp = questString.Split(':');
+                string mode = temp[0].Trim();
+                string info = temp[1];
+                // info 분리.
+                temp = info.Split(',');
+                string type = temp[0].Trim();
+                string code = temp[1].Trim();
+                string value = temp[2].Trim();
+                if (mode == "goal") quest.goalList.Add(new QuestInfo(type, code, value));
+                else if (mode == "price") quest.priceList.Add(new QuestInfo(type, code, value));
+                else if (mode == "reward") quest.rewardList.Add(new QuestInfo(type, code, value));
+            }            
+            questList.Add(quest.name, quest);
+        }
+        return questList;
+    }
 }

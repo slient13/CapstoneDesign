@@ -7,8 +7,8 @@ using UnityEngine.UI;
 
 public class TalkView : MonoBehaviour
 {
-    const int NO_SELECTION = -1;
-    const int TALK_END = -2;
+    const int NO_SELECTION = -1;        // 아무것도 아님. 선택 불가.
+    const int TALK_END = -2;            // 대화 종료.
     private string npcName;             // 현재 대화 중인 NPC 이름.
     public List<Talk> talkList;         // 전체 대화 리스트.
     public Talk currentTalk;            // 현재 대화 리스트.
@@ -20,6 +20,8 @@ public class TalkView : MonoBehaviour
     public GameObject background;
     public GameObject talkView;
     string talkUIName;
+
+    bool inputDelay = false;            // 대화 넘길 때 누른 키를 한 번 떼야 다음 동작이 되도록 잠시 멈춰둠.
 
     /*
     구조 : 
@@ -47,10 +49,14 @@ public class TalkView : MonoBehaviour
         talkUIName = gameObject.name;     // TalkUI
 
         MappingInfo mapping = new MappingInfo(talkUIName);  
-        mapping.AddMapping("AnswerSelect_1 : ", "n1");
-        mapping.AddMapping("AnswerSelect_2 : ", "n2");
-        mapping.AddMapping("AnswerSelect_3 : ", "n3");
-        mapping.AddMapping("AnswerSelect_4 : ", "n4");
+        mapping.AddMapping("AnswerSelect : 0", "n1");
+        mapping.AddMapping("AnswerSelect : 1", "n2");
+        mapping.AddMapping("AnswerSelect : 2", "n3");
+        mapping.AddMapping("AnswerSelect : 3", "n4");
+        mapping.AddMapping("CancelDelay : ", "^n1");
+        mapping.AddMapping("CancelDelay : ", "^n2");
+        mapping.AddMapping("CancelDelay : ", "^n3");
+        mapping.AddMapping("CancelDelay : ", "^n4");
         mapping.Enroll("talkView");
 
         // 테스트용 시작 코드
@@ -83,6 +89,7 @@ public class TalkView : MonoBehaviour
         npcNameText.text = npcName;     // 이름 표시 변경.
         loadTalkScript(npcName);        // 해당 NPC의 대화 목록 불러옴.
         ChangeTalk(startId);            // 지정된 첫 시작 위치로 변경.
+        inputDelay = false;             // 입력 딜레이 초기화.
     }
 
     void loadTalkScript(string npcName) {
@@ -95,6 +102,7 @@ public class TalkView : MonoBehaviour
         string mode;                                // 해당 줄이 담은 정보 구분.
         int id = 0;                                 // 해당 대화 단위의 번호.
         string text = "";                           // NPC의 대화 내용.
+        bool isBranch = false;                      // 분기 노드 여부.
         Answer[] answer = new Answer[4];            // 선택지.
         for (int i = 0; i < 4; i++) answer[i] = new Answer();
         int answerCount = 0;                        // 현재 입력된 선택지 개수.
@@ -112,6 +120,8 @@ public class TalkView : MonoBehaviour
             mode = splitedLine[0];
             // 아이디 기록.
             if (mode == "id") id = Convert.ToInt32(splitedLine[1]);
+            // 브랜치 여부 입력.
+            else if (mode == "branch") isBranch = true;
             // 대답 입력.
             else if (mode == "text") text = splitedLine[1];
             // 선택지 입력.
@@ -139,10 +149,11 @@ public class TalkView : MonoBehaviour
                     answer[answerCount].targetId = NO_SELECTION;
                     answerCount += 1;
                 }
-                talkList.Add(new Talk(id, text, message, answer));
+                talkList.Add(new Talk(id, text, message, answer, isBranch));
                 // 다음 대화 목록을 받기 위한 초기화
                 id = Talk.NO_TALK;
                 text = "";
+                isBranch = false;
                 answer = new Answer[4];
                 for (int i = 0; i < 4; i++) answer[i] = new Answer();
                 answerCount = 0;
@@ -166,7 +177,7 @@ public class TalkView : MonoBehaviour
 
     public void ChangeTalk(int targetId) {  // 선택에 따른 다음 분기로 대화 이동.
         // 대상 분기가 종료인 경우 대화 종료.
-        if (targetId == TALK_END) closeTalk();
+        if (targetId == TALK_END) closeTalk();        
         // 아닌 경우 talkList 를 순회하며 일치하는 타겟을 확인, 현재 대화를 그것으로 변경
         else foreach (Talk talk in talkList) {
             if (talk.id == targetId){
@@ -174,14 +185,40 @@ public class TalkView : MonoBehaviour
                 currentTalk = talk;
                 this.setNpcTalk();
                 this.setPlayerAnswer();
-                // Debug.Log(currentTalk.answers[0].targetId);
-                // Debug.Log(currentTalk.answers[1].targetId);
-                // Debug.Log(currentTalk.answers[2].targetId);
-                // Debug.Log(currentTalk.answers[3].targetId);
-                if (currentTalk.message.Count != 0) eventCall();
+                // 이동한 대화가 'branch'면 자동으로 처리.
+                if (currentTalk.isBranch == true) passBranch();
+                else if (currentTalk.message.Count != 0) eventCall();
                 break;
             }                            
         }
+    }
+
+    // 브랜치 노트에서 자동으로 다음 노드로 건너가도록 해주는 함수.
+    void passBranch() {
+        int nextIndex = 0;
+
+        // 선택 대상 판별. message 가 여러개라면 결과값의 합산으로 결정.
+        // 
+        foreach(string command in currentTalk.message) {
+            Message checker = new Message(command).FunctionCall();
+            try { nextIndex += (int) checker.returnValue[0]; }
+            catch (System.Exception) { Debug.Log($"TalkView/passBranch.error : Next command action's return is not integer type. [{command}]"); }
+        }
+
+        // 선택지가 단 1개 뿐이면 'nextIndex' 값에 무관하게 0번 선택지로 이동.
+        if (currentTalk.GetAnswerCount() == 1) {
+            new Message($"TalkView/AnswerSelect : {nextIndex}").FunctionCall();
+            return;
+        }
+
+        // 결과값이 0 ~ 3 범위 내가 아니라면 자동으로 넘기지 않음.
+        if (!(nextIndex >= 0 && nextIndex < 4)) {
+            Debug.Log($"TalkView/passBranch.error : Out of index. nextIndex = {nextIndex}");
+            return;
+        }
+
+        // 그 외에는 대상 대화 노드로 바로 이동.
+        new Message($"TalkUI/AnswerSelect : {nextIndex}").FunctionCall();
     }
 
     void eventCall() {        
@@ -200,21 +237,18 @@ public class TalkView : MonoBehaviour
         new Message("ControlManager/LayerChanger : general").FunctionCall();
     }
 
-    public void AnswerSelect_1() {
-        ChangeTalk(currentTalk.answers[0].targetId);
-        // Debug.Log("clicked : AnswerSelect_1");
+    public void AnswerSelect(Message message) {
+        // 중복 입력 방지.
+        if (inputDelay == true) return;
+        int index = (int) message.args[0];
+        int targetId = currentTalk.answers[index].targetId;        
+        Debug.Log($"TalkView/AnswerSelect.Notice : currentId = {currentTalk.id}, index = {index}, targetId = {targetId}");
+        ChangeTalk(targetId);
+        this.inputDelay = true;
     }
-    public void AnswerSelect_2() {
-        ChangeTalk(currentTalk.answers[1].targetId);
-        // Debug.Log("clicked : AnswerSelect_2");
-    }
-    public void AnswerSelect_3() {
-        ChangeTalk(currentTalk.answers[2].targetId);
-        // Debug.Log("clicked : AnswerSelect_3");
-    }
-    public void AnswerSelect_4() {
-        ChangeTalk(currentTalk.answers[3].targetId);
-        // Debug.Log("clicked : AnswerSelect_4");
+
+    public void CancelDelay(Message message) {
+        this.inputDelay = false;
     }
 }
 
@@ -224,6 +258,7 @@ public class Talk {
     public const int NO_SELECTION = -1;
     public int id;
     public string text;
+    public bool isBranch;   // 이것이 'true'면 대답을 기다리지 않고 자체적으로 Message 실행 결과를 이용해 분기.
     public List<string> message;    
     public Answer[] answers;
 
@@ -235,12 +270,22 @@ public class Talk {
         for (int i = 0 ; i < 4; i++) {
             this.answers[i] = new Answer();
         }
+        this.isBranch = false;
     }
-    public Talk(int id, string text, List<string> message, Answer[] answers) {
+    public Talk(int id, string text, List<string> message, Answer[] answers, bool isBranch = false) {
         this.id = id;
         this.text = text;
         this.message = message;    
         this.answers = answers;
+        this.isBranch = isBranch;
+    }
+    // 선택 가능한 'answer'의 개수 반환.
+    public int GetAnswerCount() {
+        int index = 0;
+        foreach(Answer answer in answers) {
+            if (answer.targetId != NO_SELECTION) index += 1;
+        }
+        return index;
     }
 }
 
