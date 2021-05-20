@@ -16,4 +16,10 @@ List<string> GetTalkInfo(string talkName) {}         // 입력(대상 코드), �
 List<string> GetPlayInfo() {}                        // 출력(플레이 정보 정의)
 List<string> LoadPlayData() {}                       // 출력(플레이 정보)
 void SavePlayData(List<PlayInfo> playInfoList) {}    // 입력(플레이 정보)
+public Dictionary<string, Quest> LoadQeust(List<string> questNameList) {} // 입력(퀘스트-이름-리스트), 출력(퀘스트-딕셔너리)
 ```
+
+## update log
+
+### 21-05-20
+- `LoadQuest` 추가

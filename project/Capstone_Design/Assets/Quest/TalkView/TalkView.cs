@@ -21,8 +21,6 @@ public class TalkView : MonoBehaviour
     public GameObject talkView;
     string talkUIName;
 
-    bool inputDelay = false;            // 대화 넘길 때 누른 키를 한 번 떼야 다음 동작이 되도록 잠시 멈춰둠.
-
     /*
     구조 : 
         TalkUI : 
@@ -53,10 +51,6 @@ public class TalkView : MonoBehaviour
         mapping.AddMapping("AnswerSelect : 1", "n2");
         mapping.AddMapping("AnswerSelect : 2", "n3");
         mapping.AddMapping("AnswerSelect : 3", "n4");
-        mapping.AddMapping("CancelDelay : ", "^n1");
-        mapping.AddMapping("CancelDelay : ", "^n2");
-        mapping.AddMapping("CancelDelay : ", "^n3");
-        mapping.AddMapping("CancelDelay : ", "^n4");
         mapping.Enroll("talkView");
 
         // 테스트용 시작 코드
@@ -89,7 +83,6 @@ public class TalkView : MonoBehaviour
         npcNameText.text = npcName;     // 이름 표시 변경.
         loadTalkScript(npcName);        // 해당 NPC의 대화 목록 불러옴.
         ChangeTalk(startId);            // 지정된 첫 시작 위치로 변경.
-        inputDelay = false;             // 입력 딜레이 초기화.
     }
 
     void loadTalkScript(string npcName) {
@@ -238,17 +231,10 @@ public class TalkView : MonoBehaviour
     }
 
     public void AnswerSelect(Message message) {
-        // 중복 입력 방지.
-        if (inputDelay == true) return;
         int index = (int) message.args[0];
         int targetId = currentTalk.answers[index].targetId;        
         Debug.Log($"TalkView/AnswerSelect.Notice : currentId = {currentTalk.id}, index = {index}, targetId = {targetId}");
         ChangeTalk(targetId);
-        this.inputDelay = true;
-    }
-
-    public void CancelDelay(Message message) {
-        this.inputDelay = false;
     }
 }
 
