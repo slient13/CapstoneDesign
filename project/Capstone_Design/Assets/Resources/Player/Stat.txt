@@ -1,5 +1,7 @@
-Hp, int, 100
-MaxHp, int, 100
-Stamina, int, 100
-MaxStamina, int, 100
-Money, int, 10000
+short = Hp, int, 100, 0, 100
+short = Stamina, int, 100, 0, 100
+
+code = Money
+type = int
+value = 10000
+end

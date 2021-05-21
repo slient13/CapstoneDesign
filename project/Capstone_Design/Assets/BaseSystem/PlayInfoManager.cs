@@ -46,48 +46,48 @@ public class PlayInfoManager : MonoBehaviour
         string targetName = (string) message.args[0];
         int degree = (int) message.args[1];
 
-        if (targetName == "Hp") changeHp(degree);
+        // if (targetName == "Hp") changeHp(degree);
         // else if (targetName == "MaxHp") changeMaxHp(degree);
-        else if (targetName == "Money") changeMoney(degree);
-        else {
-            new Message("ChangePlayInfo : " + targetName + ", " + degree).FunctionCall();
-        }
+        // else if (targetName == "Money") changeMoney(degree);
+        // else {
+            new Message($"ChangePlayInfo : {targetName}, {degree}").FunctionCall();
+        // }
     }
 
     public void GetData(Message message) {
         string targetName = (string) message.args[0];
-        Message data = new Message("GetPlayInfoValue : " + targetName).FunctionCall();
+        Message data = new Message($"GetPlayInfoValue : {targetName}").FunctionCall();
         message.returnValue.Add(data.returnValue[0]);
         message.returnValue.Add(data.returnValue[1]);
     }
 
-    void changeHp(int degree) {
-        Message before = new Message("PlayInfoManager/GetData : Hp").FunctionCall();
-        Message max = new Message("PlayInfoManager/GetData : MaxHp").FunctionCall();
-        int beforeHp = (int) before.returnValue[0];
-        int maxHp = (int) max.returnValue[0];
+    // void changeHp(int degree) {
+    //     Message before = new Message("PlayInfoManager/GetData : Hp").FunctionCall();
+    //     Message max = new Message("PlayInfoManager/GetData : MaxHp").FunctionCall();
+    //     int beforeHp = (int) before.returnValue[0];
+    //     int maxHp = (int) max.returnValue[0];
 
-        int afterHp = beforeHp + degree;
-        if (afterHp < 0) afterHp = 0;
-        else if (afterHp > maxHp) afterHp = maxHp;
-        new Message("SetPlayInfo : Hp, " + afterHp).FunctionCall();
-    }
+    //     int afterHp = beforeHp + degree;
+    //     if (afterHp < 0) afterHp = 0;
+    //     else if (afterHp > maxHp) afterHp = maxHp;
+    //     new Message("SetPlayInfo : Hp, " + afterHp).FunctionCall();
+    // }
 
-    void changeMaxHp(int degree) {
-        Message before = new Message("PlayInfoManager/GetData : MaxHp").FunctionCall();
-        int maxHp = (int) before.returnValue[0];
-        maxHp += degree;
-        if (maxHp < 0) maxHp = 0;
-        new Message("SetPlayInfo : MaxHp, " + maxHp).FunctionCall();
-    }
+    // void changeMaxHp(int degree) {
+    //     Message before = new Message("PlayInfoManager/GetData : MaxHp").FunctionCall();
+    //     int maxHp = (int) before.returnValue[0];
+    //     maxHp += degree;
+    //     if (maxHp < 0) maxHp = 0;
+    //     new Message("SetPlayInfo : MaxHp, " + maxHp).FunctionCall();
+    // }
 
-    void changeMoney(int degree) {
-        Message before = new Message("PlayInfoManager/GetData : Money").FunctionCall();
-        int beforeMoney = (int) before.returnValue[0];
+    // void changeMoney(int degree) {
+    //     Message before = new Message("PlayInfoManager/GetData : Money").FunctionCall();
+    //     int beforeMoney = (int) before.returnValue[0];
 
-        int afterMoney = beforeMoney + degree;
-        if (afterMoney < 0) afterMoney = 0;
-        else if (afterMoney > 1000000) afterMoney = 1000000;
-        new Message("SetPlayInfo : Money, "+ afterMoney).FunctionCall();
-    }
+    //     int afterMoney = beforeMoney + degree;
+    //     if (afterMoney < 0) afterMoney = 0;
+    //     else if (afterMoney > 1000000) afterMoney = 1000000;
+    //     new Message("SetPlayInfo : Money, "+ afterMoney).FunctionCall();
+    // }
 }

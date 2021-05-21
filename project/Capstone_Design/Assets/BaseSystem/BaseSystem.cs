@@ -32,16 +32,29 @@ public class BaseSystem : MonoBehaviour
         string infoName =  (string)msg.args[0];     // 이름
         string infoType =  (string)msg.args[1];     // 타입
         object infoValue = msg.args[2];             // 값
-        PlayInfo tempInfo;
-        if (infoType == "int") tempInfo = new PlayInfo(infoName, (int)infoValue);
-        else if (infoType == "float") tempInfo = new PlayInfo(infoName, (float)infoValue);
-        else if (infoType == "string") tempInfo = new PlayInfo(infoName, (string)infoValue);
-        else {  // type 이 없는 경우
+        int min = 0;
+        int max = 0;
+        if (msg.args.Count == 5) {
+            min = (int) msg.args[3];
+            max = (int) msg.args[4];
+        }
+        if (infoType == null || infoType == "") {
             Debug.Log("BaseSystem/newPlayInfo.error : args don't include value or type infomation");
             return;
         }
+        PlayInfo tempInfo = null;
+        if (msg.args.Count == 5) {
+            if (infoType == "int")          tempInfo = new PlayInfo(infoName, (int)infoValue, min, max);
+            else if (infoType == "float")   tempInfo = new PlayInfo(infoName, (float)infoValue, min, max);
+            else if (infoType == "string")  tempInfo = new PlayInfo(infoName, (string)infoValue, min, max);
+        }
+        else {
+            if (infoType == "int")          tempInfo = new PlayInfo(infoName, (int)infoValue);
+            else if (infoType == "float")   tempInfo = new PlayInfo(infoName, (float)infoValue);
+            else if (infoType == "string")  tempInfo = new PlayInfo(infoName, (string)infoValue);
+        }
 
-        playInfoList.Add(tempInfo);
+        if (tempInfo != null) playInfoList.Add(tempInfo);
     }
 
     public void SetPlayInfo(Message msg) {

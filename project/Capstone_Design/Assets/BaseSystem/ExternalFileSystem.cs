@@ -144,7 +144,49 @@ public class ExternalFileSystem
     }
 
     public List<string> GetPlayInfo(string fileName) {
-        return fileReader(fileName);
+        // 파일에서 읽어온 한줄 단위 문자열 리스트.    
+        List<string> fileContents = fileReader(fileName);
+        // 반환할 리스트
+        List<string> outputList = new List<string>();
+        // 루프문 내부에서 사용할 변수들
+        string code = "";
+        string type = "";
+        string value = "";
+        string min = "";
+        string max = "";
+        string outputString = "";
+        // 한 줄씩 읽어가며 출력용 양식으로 가공, 리스트에 추가.
+        foreach(string infoString in fileContents) {
+            string[] temp = infoString.Split('=');
+            string mode = temp[0].Trim();
+            string content;
+            if (temp.Length == 2) content = temp[1].Trim();
+            else content = "";
+            // 숏컷은 바로 입력.
+            if (mode == "short") outputList.Add(content);
+            // 그 외는 조합해서 입력.
+            else {
+                // 배치
+                if (mode == "code") code = content;
+                else if (mode == "type") type = content;
+                else if (mode == "value") value = content;
+                else if (mode == "min") min = content;
+                else if (mode == "max") max = content;
+                else if (mode == "end") {
+                    outputString += $"{code}, {type}, {value}";
+                    if (min != "" && max != "") outputString += $", {min}, {min}";
+                    outputList.Add(outputString);
+                    // 다음 값을 받기 위해 초기화.
+                    code = "";
+                    type = "";
+                    value = "";
+                    min = "";
+                    max = "";
+                    outputString = "";
+                }
+            }
+        }
+        return outputList;
     }
     public List<string> LoadPlayData() {
         return fileReader("PlayInfo/Total", isUserData:true);
