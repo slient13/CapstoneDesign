@@ -99,8 +99,12 @@ public class ExternalFileSystem
         writer.Close();
         return true;
     }
-    public List<string> GetItemInfo() {
-        return fileReader("Inventory/ItemInfo");
+    public List<string> GetItemInfo(string[] itemInfoPathList) {
+        List<string> output = new List<string>();
+        foreach(string itemInfoPath in itemInfoPathList) {
+            output.AddRange(fileReader(itemInfoPath));
+        }
+        return output;
     }
 
     public bool SaveInventory(List<ItemBox> itemBoxList) {        

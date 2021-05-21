@@ -32,15 +32,18 @@ public void UseItem(Message message) {}                 // 아이템 사용. 소
 인벤토리 UI 관리자. 인벤토리 UI의 업데이트 및 조작에 대한 처리를 담당한다. // 변경 예정.
 
 ## 아이템 기록 방법
-저장 위치 : `Resource/Inventory/ItemInfo.txt`
+저장 위치 : `InventoryManager.itemInfoPathList` 참고.
 
 저장 양식 : 
-- code : 아이템 코드. 생략 불가능. 생략하면 입력이 안됨.
-- type : 아이템 타입. 생략 시 **general**로 자동 설정됨.
-- name : 아이템 이름. 생략 시 `code` 값으로 자동 설정됨.
-- desc : 아이템 설명. 생략 시 빈 내용이 됨.
-- effect : 아이템 효과. 생략 시 효과가 없는 것으로 저장 됨. 다중 효과 부여 가능.
-- end : 입력 종료.
+- code = 아이템 코드. 생략 불가능. 생략하면 입력이 안됨.
+- type = 아이템 타입. 생략 시 **general**로 자동 설정됨.
+- name = 아이템 이름. 생략 시 `code` 값으로 자동 설정됨.
+- desc = 아이템 설명. 생략 시 빈 내용이 됨.
+- effect = 아이템 효과. 생략 시 효과가 없는 것으로 저장 됨. 다중 효과 부여 가능.
+- end = 입력 종료.
+
+숏컷 : 
+- short = 타입, 코드, 이름, 설명[, 효과]
 
 
 ## updateLog
@@ -51,3 +54,7 @@ public void UseItem(Message message) {}                 // 아이템 사용. 소
 ### 21-05-14
 - 빠져있던 `GetItem` 메소드 설명 추가.
 - 아이템 정의 방법에 대한 기술 추가.
+
+### 21-05-21
+- 저장 위치 분산 지원 기능 추가.
+- 정보 입력용 숏컷 추가.
