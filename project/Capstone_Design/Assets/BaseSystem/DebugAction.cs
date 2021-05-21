@@ -18,6 +18,7 @@ public class DebugAction : MonoBehaviour
         // InventoryManager 관련. 
         MappingInfo inventoryManagerDebug = new MappingInfo("InventoryManager");
         inventoryManagerDebug.AddMapping("SaveInventory : ", "_shiftL, p");
+        inventoryManagerDebug.AddMapping("ModifyItem : Test, 1", "_shiftL, n1");
         inventoryManagerDebug.Enroll();
         // GamaProcessManager 관련.
         MappingInfo gameProcessManagerDebug = new MappingInfo("GameProcessManager");

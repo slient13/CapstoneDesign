@@ -24,8 +24,18 @@ public void GetData(Message message) {}         // 입력(정보 코드), 출력
 - 아래 메소드들을 직접 사용할 수도 있지만 위 명시된 인터페이스를 사용하기를 권장함.
 
 ```c#
-public void NewPlayInfo(Message msg) {}     // 입력(코드, 자료형, 초기값)
-public void SetPlayInfo(Message msg) {}     // 입력(코드, 설정.값)
-public void ChangePlayInfo(Message msg) {}  // 입력(코드, 변경.값)
-public void GetPlayInfo(Message msg) {}     // 입력(코드), 출력(값)
+public void CreatePlayInfo(Message msg) {}      // 입력(코드, 자료형, 초기값[, 최소값, 최대값])
+public void SetPlayInfo(Message msg) {}         // 입력(코드, 설정.값)
+public void ChangePlayInfo(Message msg) {}      // 입력(코드, 변경.값)
+public void GetPlayInfoValue(Message msg) {}    // 입력(코드), 출력(값)
+public void GetPlayInfoList(Message msg) {}     // 출력(플레이 정보 리스트)
 ```
+
+## update log
+
+### 21-05-21
+`CreatePlayInfo`
+- 인수 변경 반영.
+
+비고
+- 누락되어있던 함수 이름 변경 반영 : `NewPlayInfo` -> `CreatePlayInfo`.

@@ -12,6 +12,12 @@ public class InventoryManager : MonoBehaviour {
     // int MAX_ITEM_BOX = 999;
     int box_count = 0;
 
+    // 아이템 정보가 기술된 위치들.
+    string[] itemInfoPathList = {
+        "Inventory/ItemInfo", 
+        "Inventory/Test"
+    };
+
     void Start() {
         LoadItemInfo();
         new Message("InventoryManager/LoadInventory : ").FunctionCall();
@@ -19,7 +25,7 @@ public class InventoryManager : MonoBehaviour {
 
     // 외부 파일에 저장된 아이템 리스트를 읽어와 저장하는 코드.
     private void LoadItemInfo() {
-        List<string> itemInfoStringList = ExternalFileSystem.SingleTon().GetItemInfo();
+        List<string> itemInfoStringList = ExternalFileSystem.SingleTon().GetItemInfo(itemInfoPathList);
         string code = "";       // 아이템 코드(중복 불가)
         string type = "";       // 아이템 이름(중복 가능)
         string name = "";       // 아이템 타입.
@@ -45,6 +51,7 @@ public class InventoryManager : MonoBehaviour {
                 Message msg = new Message($"InventoryManager/AddNewItem : {code}, {type}, {name}, {tooltip}");
                 msg.args.Add(effect);
                 msg.FunctionCall();
+                Debug.Log($"InventoryManager/LoadItemInfo : [{code}] is added.");
                 code = "";
                 type = "";
                 name = "";
@@ -56,7 +63,29 @@ public class InventoryManager : MonoBehaviour {
                 string[] temp = itemInfoString.Split('=');
                 string mode = temp[0].Trim();
                 string value = temp[1].Trim();
-                if (mode == "code")         code = value;
+                if (mode == "short") {
+                    Debug.Log("InventoryManager/LoadItemInfo : shortCut is detected.");
+                    string[] shortInfoList = value.Split(',');
+                    type = shortInfoList[0].Trim();
+                    code = shortInfoList[1].Trim();
+                    name = shortInfoList[2].Trim();
+                    tooltip = shortInfoList[3].Trim();
+                    string effectString = "";
+                    for (int i = 4; i < shortInfoList.Length; i++) effectString += shortInfoList[i];
+                    effectString = effectString.Trim();
+                    if (effectString != "") effect.Add(effectString);
+                    // 반영.                        
+                    Message msg = new Message($"InventoryManager/AddNewItem : {code}, {type}, {name}, {tooltip}");
+                    msg.args.Add(effect);
+                    msg.FunctionCall();
+                    Debug.Log($"InventoryManager/LoadItemInfo : [{code}] is added.");
+                    code = "";
+                    type = "";
+                    name = "";
+                    tooltip = "";
+                    effect = new List<string>();
+                }
+                else if (mode == "code")    code = value;
                 else if (mode == "type")    type = value;
                 else if (mode == "name")    name = value;
                 else if (mode == "desc")    tooltip = value;
