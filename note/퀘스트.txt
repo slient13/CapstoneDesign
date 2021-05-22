@@ -1,0 +1,47 @@
+QuestUI
+구조   Q를 누르면 퀘스트창이 켜짐
+
+Quest
+ QusestTitle
+   text
+   CloseButton //클릭시 퀘스트 창 종료
+ Select // 진행중이나 완료한 퀘스트 창 보여주기는 기능임, 진행중 클릭시 진행중인 퀘스트 목록(QuestPanel(Procedding)패널이 보이고 
+               완료 클릭시 완료한 퀘스트 목록(QuestPanel(Complete)패널이보임 기본값은 진행중인 퀘스트 목록임
+
+
+   QuestPanel(Proceeding) //진행중인 퀘스트창 패널
+  Scroll View
+   Viewport
+    ProceedingList //진행중인 퀘스트 리스트를 넣은 패널 
+     PQn //n은 숫자임,진행중인 퀘스트n이고 클릭시 오른쪽의 패널 Contents 에 해당 제목(ContentTitleText)하고 
+             해당 내용(ContentsText), 해당 보상(RewardText) 이 표시됨
+      PQnText //진행중인 퀘스트n의 텍스트이고 퀘스트 제목이 변동되면 바뀌는 텍스트 
+       PQnToggle //체크박스, 체크를 할경우 화면 오른쪽의 진행중인 퀘스트 패널(Proceeding)에 순서대로 채워짐 최대3개
+
+QuestPanel(Complete) //완료한 퀘스트창 패널
+  Scrool View
+       Viewport
+        CompleteList //완료한 퀘스트 리스트를 넣은 패널
+          CQn  //n은 숫자임, 완료한 퀘스트n이고 클릭시 오른쪽의 패널 Contents 에 해당 제목(ContentTitleText)하고 
+             해당 내용(ContentsText), 해당 보상(RewardText) 이 표시됨
+     
+
+Contents // 왼쪽의 진행중퀘스트나 완료퀘스트의 제목,내용을 받아오는 패널
+   ContentsTitle 
+      ContentTitleText   // 퀘스트 클릭시 해당 퀘스트의 제목으로 변동되는 텍스트
+
+   Reward
+     RewardText // 퀘스트 클릭시 해당 퀘스트의 보상으로 변동되는 텍스트
+
+
+ Scroll View 
+   Viewport
+   Content
+    ContentsText //퀘스트 클릭시 해당 퀘스트의 내용으로 변동되는 텍스트
+
+
+Proceeding //진행중인 퀘스트를 메인 화면 오른쪽 표시해주는 패널 , 체크한 퀘스트가없으면 보이지않음
+
+   ProceedingPanel //
+     Proceeding1
+      Proceeding1Text //진행중인 퀘스트 제목을 보여줌 예)자동차 수집가

@@ -1,0 +1,41 @@
+InventoryUICanvas 
+
+구조  //k를 누르면 인벤토리가 켜짐
+
+ InventoryUI
+ InventoryTitle //인벤토리 상단부
+   InventoryTitleText
+  CloseButton //클릭시 인벤토리 창 종료
+
+ Inventory
+  InventoryTypePanel 
+    TypeSelectButton //인벤토리의 타입(전체,장비,소비,기타)를 선택하는 버튼
+
+ ScrollView
+   Viewport
+    ItemPanel //아이템 박스를 넣은 패널 ItemBox는 총30개
+      ItemBox // 아이템을 획득하거나 버릴경우 활성화하거나 비우는 박스
+       ItemImage //아이템의 이미지를 표시
+        ItemNumberImage //아이템의 숫자를 표시 하기위한 이미지
+         ItemNumberText //아이템의 숫자가 변동되면 바뀌는 텍스트
+
+
+ IenventoryBottom //인벤토리 하단부
+  Money
+     MoneyText //플레이어의 소지금에 따라 변동되는 텍스트
+
+ Tooltip //아이템에 마우스를 가져간후 오른쪽 클릭시 활성화되는 툴팁
+    ItemName
+       ItemNameText //아이템의 이름이 변동되면 바뀌는 텍스트
+     ItemToolTip
+      ItemToolTipText//아이템의 설명이 변동되면 바뀌는 텍스트
+    ItemEffect
+      ItemEffectText //아이템의 효과가 변동되면 바뀌는 텍스트
+
+   Selcet //아이템의 사용유무등의 항목을 선택하는 버튼을 담은 패널
+
+   Use //클릭시 아이템을 사용
+   Abandon //클릭시 아이템을 버림
+  Cancel //툴팁창을 종료함
+
+  
