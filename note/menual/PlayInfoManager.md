@@ -31,6 +31,24 @@ public void GetPlayInfoValue(Message msg) {}    // 입력(코드), 출력(값)
 public void GetPlayInfoList(Message msg) {}     // 출력(플레이 정보 리스트)
 ```
 
+## 정보 입력 양식
+정석 :
+```
+type = $type
+code = $code
+value = $value
+min = $min
+max = $max
+end
+```
+
+숏컷
+- `short = $type, $code, $value, $min, $max`
+
+비고
+- 정석과 숏컷 모두 `min, max`는 생략 가능. 
+    - 둘 중 하나만 생략할 수는 없음.
+
 ## update log
 
 ### 21-05-21
@@ -39,3 +57,7 @@ public void GetPlayInfoList(Message msg) {}     // 출력(플레이 정보 리�
 
 비고
 - 누락되어있던 함수 이름 변경 반영 : `NewPlayInfo` -> `CreatePlayInfo`.
+
+### 21-05-22
+비고 
+- 누락되어 있던 정보 입력 양식 추가.

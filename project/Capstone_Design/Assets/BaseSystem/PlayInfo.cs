@@ -10,6 +10,7 @@ public class PlayInfo {
     int MAX = 2000000000;
 
     public string infoName;
+    public string type;
     string infoType;
     public int infoValue_typeInt;
     float infoValue_typeFloat;
@@ -19,7 +20,8 @@ public class PlayInfo {
     int max;
 
     
-    public PlayInfo(string infoName) {
+    public PlayInfo(string type, string infoName) {
+        this.type = type;
         this.infoName = infoName;
         this.infoType = "none";
         this.infoValue_typeInt = INT_NONE;
@@ -28,31 +30,31 @@ public class PlayInfo {
         this.min = MIN;
         this.max = MAX;
     }
-    public PlayInfo(string infoName, int infoValue) : this(infoName) {
+    public PlayInfo(string type, string infoName, int infoValue) : this(type, infoName) {
         this.infoName = infoName;
         this.infoType = "int";
         this.infoValue_typeInt = infoValue;
     }
-    public PlayInfo(string infoName, int infoValue, int min, int max) : this(infoName, infoValue) {
+    public PlayInfo(string type, string infoName, int infoValue, int min, int max) : this(type, infoName, infoValue) {
         this.min = min;
         if (max >= min) this.max = max;
     }
-    public PlayInfo(string infoName, float infoValue) : this(infoName) {
+    public PlayInfo(string type, string infoName, float infoValue) : this(type, infoName) {
         this.infoName = infoName;
         this.infoType = "float";
         this.infoValue_typeFloat = infoValue;
     }
-    public PlayInfo(string infoName, float infoValue, int min, int max) : this(infoName, infoValue) {
+    public PlayInfo(string type, string infoName, float infoValue, int min, int max) : this(type, infoName, infoValue) {
         this.min = min;
         if (max >= min) this.max = max;
     }
-    public PlayInfo(string infoName, string infoValue) : this(infoName) {
+    public PlayInfo(string type, string infoName, string infoValue) : this(type, infoName) {
         this.infoName = infoName;
         this.infoType = "string";
         this.infoValue_typeString = infoValue;
         this.min = 0;
     }
-    public PlayInfo(string infoName, string infoValue, int min, int max) : this(infoName, infoValue) {
+    public PlayInfo(string type, string infoName, string infoValue, int min, int max) : this(type, infoName, infoValue) {
         if (min > 0) this.min = min;
         if (max >= min) this.max = max;
     }

@@ -173,7 +173,7 @@ public class ExternalFileSystem
                 else if (mode == "min") min = content;
                 else if (mode == "max") max = content;
                 else if (mode == "end") {
-                    outputString += $"{code}, {type}, {value}";
+                    outputString += $"{type}, {code}, {value}";
                     if (min != "" && max != "") outputString += $", {min}, {min}";
                     outputList.Add(outputString);
                     // 다음 값을 받기 위해 초기화.
