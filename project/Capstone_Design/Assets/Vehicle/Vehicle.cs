@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour
+public class Vehicle : MonoBehaviour
 {
+    public float speed;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -14,5 +16,13 @@ public class NewBehaviourScript : MonoBehaviour
     void Update()
     {
         
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Vehicle")
+        {
+            speed *= 3;
+        }
     }
 }
