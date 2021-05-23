@@ -1,6 +1,6 @@
-InventoryUICanvas 
+InventoryUICanvas
 
-구조  //k를 누르면 인벤토리가 켜짐
+구조
 
  InventoryUI
  InventoryTitle //인벤토리 상단부
@@ -8,16 +8,37 @@ InventoryUICanvas
   CloseButton //클릭시 인벤토리 창 종료
 
  Inventory
-  InventoryTypePanel 
-    TypeSelectButton //인벤토리의 타입(전체,장비,소비,기타)를 선택하는 버튼
+  InventoryTypePanel  //인벤토리의 타입버튼을 넣은패널
+    EquipmentButton // 클릭시 EquipmentScroll View 패널이 활성화된다ConsumptionScroll View,EtcScroll View는 비활성화됨)
+    ConsumptionButton // 클릭시 ConsumptionScroll View 패널이 활성화된다EquipmentScroll View,EtcScroll View는 비활성화됨)
+    EtcButton // 클릭시 EtcScroll View 패널이 활성화된다ConsumptionScroll View,EquipmentScroll View는 비활성화됨)
 
- ScrollView
-   Viewport
-    ItemPanel //아이템 박스를 넣은 패널 ItemBox는 총30개
-      ItemBox // 아이템을 획득하거나 버릴경우 활성화하거나 비우는 박스
-       ItemImage //아이템의 이미지를 표시
-        ItemNumberImage //아이템의 숫자를 표시 하기위한 이미지
-         ItemNumberText //아이템의 숫자가 변동되면 바뀌는 텍스트
+ EquipmentScrollView //장비 아이템 패널 ,장비버튼 클릭시 활성화
+   EquipmentViewport
+    EquipmentItemPanel //아이템 박스를 넣은 패널 ItemBox는 총30개
+      EqItemBox // 아이템을 획득하거나 버릴경우 활성화하거나 비우는 박스
+       EqItemImage //아이템의 이미지를 표시 ,장비아이템은 개수를 세지않아서 이미지만 넣었음
+  
+      
+ ConsumptionScrollView //소비 아이템 패널 , 소비버튼 클릭시 활성화
+   ConsumptionViewport
+    ConsumptionItemPanel //아이템 박스를 넣은 패널 ItemBox는 총30개
+      CsItemBox // 아이템을 획득하거나 버릴경우 활성화하거나 비우는 박스
+       CsItemImage //아이템의 이미지를 표시 
+          CsItemNumberImage //아이템의 숫자를 표시 하기위한 이미지
+           CsItemNumberText //아이템의 숫자가 변동되면 바뀌는 텍스트
+
+ EtcScrollView //기타 아이템 패널 , 기타버튼 클릭시 활성화
+   EtcViewport
+    EtcItemPanel //아이템 박스를 넣은 패널 ItemBox는 총30개
+      EtcItemBox // 아이템을 획득하거나 버릴경우 활성화하거나 비우는 박스
+       EtcItemImage //아이템의 이미지를 표시 
+          EtcItemNumberImage //아이템의 숫자를 표시 하기위한 이미지
+           EtcItemNumberText //아이템의 숫자가 변동되면 바뀌는 텍스트
+
+
+
+
 
 
  IenventoryBottom //인벤토리 하단부

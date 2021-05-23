@@ -7,7 +7,7 @@ ShopUI 구조
   CloseButton //클릭시 상점창 종료
     Text
  ShopTypeSelect
-   BuyButton // 구입버튼 클릭시 ItemBuyPanel,BuyTradePanel,BuyPrice 가 활성화되고 ItemSellPanel,SellTradePanel,SellPrice 가 활성화된다
+   BuyButton // 구입버튼 클릭시 ItemBuyPanel,BuyTradePanel,BuyPrice 가 활성화되고 ItemSellPanel,SellTradePanel,SellPrice 가 비활성화된다
     BuyButtonText
   
   SellButton // 판매버튼 클릭시  ItemSellPanel,SellTradePanel,SellPrice 가 활성화되고 ItemBuyPanel,BuyTradePanel,BuyPrice 가 비활성화된다.
@@ -19,7 +19,7 @@ ShopUI 구조
   ScrollView
     Viewport
       itemBuy //ItemBuyList를 관리하는 Content
-       ItemBuyList1 //상점 아이템의 속성을 담은 패널, 더블 클릭시 BuyTradePanel로 데이터를 보냄 ,마우스 오른쪽 클릭시 ShopToolTip이 활성화됨
+       ItemBuyList1 //상점 아이템의 속성을 담은 패널, 더블 클릭시 BuyTradePanel(거래물품 아래)로 데이터를 보냄 ,마우스 오른쪽 클릭시 ShopToolTip이 활성화됨
          ItemBuyImage //상점 아이템의 이미지
          ItemBoyName //상점 아이템의 이름
          ItemBuyCount //상점 아이템의 개수
@@ -27,7 +27,7 @@ ShopUI 구조
 
   ~9까지 총 9개의 리스트가있음
 
-TradeTitle
+TradeTitle //거래물품
    TradeText
   BuyTradePanel // 구입버튼클릭시 활성화되는 패널 ,판매 클릭시 비활성화됨
      Scroll View
@@ -68,19 +68,26 @@ Money
   ScrollView
     Viewport
       itemSell //ItemSellList를 관리하는 Content
-       ItemSellList1 //보유한 아이템의 속성을 담은 패널, 더블 클릭시 SellTradePanel로 데이터를 보냄 ,마우스 오른쪽 클릭시 ShopToolTip이 활성화됨
+       ItemSellList1 //보유한 아이템의 속성을 담은 패널, 더블 클릭시 SellTradePanel(거래물품 아래)로 데이터를 보냄 ,마우스 오른쪽 클릭시 ShopToolTip이 활성화됨
          ItemSellImage //보유한 아이템의 이미지
          ItemSellName //보유한 아이템의 이름
          ItemSellCount //보유한 아이템의 개수
          ItemSellPrice //보유한 아이템의 가격
 
-ShopToolTip //평소에 비활성화 상태, 구입,판매 패널에 마우스를 가져간후 오른쪽클릭시 해당내용이 활성화됨
-  STName
-   STNameText //아이템의 이름이 바뀔경우 변동됨
-  STContents
-   STContentsText //아이템의 내용이 바뀔경우 변동됨
-  STEffect
-   STEffectText //아이템의 효과가 바뀔경우 변동됨
+ShopBuyToolTip //평소에 비활성화 상태, 구입시 아이템 패널에 마우스를 가져간후 오른쪽클릭시 해당내용이 활성화됨
+  SBTName
+   SBTNameText //아이템의 이름이 바뀔경우 변동됨
+  SBTContents
+   SBTContentsText //아이템의 내용이 바뀔경우 변동됨
+  SBTEffect
+   SBTEffectText //아이템의 효과가 바뀔경우 변동됨
 
+ShopSellToolTip //평소에 비활성화 상태, 판매시 아이템 패널에 마우스를 가져간후 오른쪽클릭시 해당내용이 활성화됨
+  SSTName
+   SSTNameText //아이템의 이름이 바뀔경우 변동됨
+  SSTContents
+   SSTContentsText //아이템의 내용이 바뀔경우 변동됨
+  SSTEffect
+   SSTEffectText //아이템의 효과가 바뀔경우 변동됨
 
    
