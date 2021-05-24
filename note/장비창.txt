@@ -6,13 +6,13 @@ EquipmentUI  실행키 E
   CloseButton //클릭시 장비창 종료
    text
  EquipmentPanel //장착중인 장비패널 , 보유한 장비에서 더블클릭하면 여기 패널로 보내짐
-  EquipmentImage1~4 //장비장착슬롯
+  EquipmentImage1~4 //장비장착슬롯 ,더블클릭시 장착해제
 
  EquipmentList//오른쪽의 보유한 장비 리스트패널
    ScroolView
      Viewport
-       EquipmentContent //EquipmentList 관리하는 패널 EquipmentList는 총9개있음
-        EquipmentList1~9
+       EquipmentContent //EquipmentList 관리하는 패널 EquipmentList는 총30개있음 ,인벤토리에 장비가 있는 만큼 표시됨 ,예) 인벤토리에 장비5개있으면 장비창에 5개만표시
+        EquipmentList1~30
          EquipmentListName 
           EquipmentListNameText//아이템의 이름이 변동되면 바뀌는 텍스트
          EquipmentListStat 
