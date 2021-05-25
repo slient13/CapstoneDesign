@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerFind : MonoBehaviour
+public class AttackTrigger : MonoBehaviour
 {
-    GameObject target;
-
     // Start is called before the first frame update
     void Start()
     {

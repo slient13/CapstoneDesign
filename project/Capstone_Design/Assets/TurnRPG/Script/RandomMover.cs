@@ -6,6 +6,7 @@ public class RandomMover : MonoBehaviour
 {
     public GameObject enemyArea;
     public GameObject rallyPoint;
+    public GameObject returnPoint;
     public float minTime;
     public float maxTime;
     public float speed;
@@ -16,11 +17,14 @@ public class RandomMover : MonoBehaviour
     float timer = 0f;
     float randomTime = 0f;
     bool moving;
-    public bool isRightArea;
+    bool isRightArea;
+    bool enable;
+    bool returning;
 
     // Start is called before the first frame update
     void Start()
     {
+        enable = true;
         moving = false;
         isRightArea = false;
 
@@ -37,37 +41,48 @@ public class RandomMover : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!moving)
+        if(enable)
         {
-            timer += Time.deltaTime;
-        }
-
-        if(!moving && timer>=randomTime)
-        {
-            int i = 0;
-
-            while(true)
+            //활성화시
+            if (!moving)
             {
-                SetPosition();
-                IsRightArea();
-                i++;
-                if (isRightArea)
+                timer += Time.deltaTime;
+            }
+
+            if (!moving && timer >= randomTime)
+            {
+                int i = 0;
+
+                while (true)
                 {
-                    moving = true;
-                    break;
-                }
-                else if (i > 10)
-                {
-                    EndMove();
-                    Debug.Log("Failed To Move.. " + this.name);
-                    break;
+                    SetPosition();
+                    IsRightArea();
+                    i++;
+                    if (isRightArea)
+                    {
+                        moving = true;
+                        break;
+                    }
+                    else if (i > 10)
+                    {
+                        EndMove();
+                        Debug.Log("Failed To Move.. " + this.name);
+                        break;
+                    }
                 }
             }
-        }
 
-        if(moving && timer>=randomTime)
+            if (moving && timer >= randomTime)
+            {
+                MoveToTarget(rallyPoint);
+            }
+        }
+        else
         {
-            MoveToTarget();
+            if(returning)
+            {
+                MoveToTarget(returnPoint);
+            }
         }
     }
 
@@ -83,10 +98,10 @@ public class RandomMover : MonoBehaviour
         Debug.Log(rallyPoint.transform.position);
     }
 
-    void MoveToTarget()
+    void MoveToTarget(GameObject rally)
     {
-        transform.LookAt(rallyPoint.transform);
-        transform.position = Vector3.MoveTowards(transform.position, rallyPoint.transform.position, speed * Time.deltaTime);
+        transform.LookAt(new Vector3(rally.transform.position.x, 1, rally.transform.position.z));
+        transform.position = Vector3.MoveTowards(transform.position, rally.transform.position, speed * Time.deltaTime);
         //npcBody.AddForce(speed * transform.forward);
     }
 
@@ -111,4 +126,25 @@ public class RandomMover : MonoBehaviour
         else
             isRightArea = false;
     }
+    
+    /// <summary>
+    /// 배회 알고리즘 활성화 설정
+    /// </summary>
+    /// <param name="boolean"></param>
+    //활성화 설정
+    void SetEnable(bool boolean)
+    {
+        enable = boolean;
+    }
+
+
+    /// <summary>
+    /// 초기화지점으로 돌아가게한다
+    /// </summary>
+    void SetReturning(bool boolean)
+    {
+        returning = boolean;
+    }
+
+
 }
