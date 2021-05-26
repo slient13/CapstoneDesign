@@ -24,7 +24,7 @@ public class InventoryUIManager : MonoBehaviour {
     
     // 기타 기본적으로 배치된 요소들.
     // 각 아이템 박스들이 배치될 상위 판넬 오브젝트
-    public GameObject itemPanel;
+    public GameObject Content;
     // 툴팁 박스 오브젝트
     public GameObject tooltipPanel;
     // 우상단에 있는 종료 버튼
@@ -36,7 +36,7 @@ public class InventoryUIManager : MonoBehaviour {
     /*
     Inventory : 
         InventoryWindow : 
-            ItemPanel : 
+            Content : 
             TooltipPanel : 
                 ItemName : Text
                 ItemTooltip : Text
@@ -48,7 +48,7 @@ public class InventoryUIManager : MonoBehaviour {
         // 아이템 박스 프리팹 로드
         itemBox = Resources.Load("Inventory/Prefab/ItemBox") as GameObject;
         // 아이템 판넬 오브젝트 저장
-        itemPanel = transform.GetChild(0).GetChild(1).gameObject;
+        Content = transform.GetChild(0).GetChild(1).gameObject;
         // tooltip 판넬 프리팹 로드 및 부모 설정 및         
         tooltipPanel = transform.GetChild(0).GetChild(2).gameObject;
         tooltipPanel.SetActive(false);
@@ -78,7 +78,7 @@ public class InventoryUIManager : MonoBehaviour {
             for (int axleX = 0 ; axleX < remain_axleX; axleX++) {
                 // 새 itemBox 판넬을 생성해서 배치함.
                 tempObject = GameObject.Instantiate(itemBox);
-                tempObject.transform.SetParent(itemPanel.transform, true);
+                tempObject.transform.SetParent(Content.transform, true);
                 tempObject.transform.localPosition = new Vector3(-195 + axleX*100, 195 - axleY*100, 0);
                 // itemBox 판넬 자체의 Image 컴포넌트에 접근, 리스트에 저장함.
                 itemImageList.Add(tempObject.transform.GetComponent<Image>());
