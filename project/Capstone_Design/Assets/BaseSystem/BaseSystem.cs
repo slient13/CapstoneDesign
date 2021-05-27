@@ -23,7 +23,10 @@ public class BaseSystem : MonoBehaviour
             Debug.Log("BaseSystem.functionCaller.error : Could not find object. targetName = " + msg.targetName);
             return;
         }
-        target.SendMessage(msg.functionName, msg);
+        else {
+            target.SendMessage(msg.functionName, msg);
+            EventListener.GetEventListener().EventCall(msg);
+        }
         // Debug.Log(msg.returnValue[0]);
     }
     
