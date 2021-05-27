@@ -74,6 +74,10 @@ public class PlayInfo {
         return this.infoType;
     }
 
+    public int[] GetRange() {
+        return new int[] {min, max};
+    }
+
     public void SetValue(object value) { 
         if (infoType == "int")          this.infoValue_typeInt      = (int) value; 
         else if (infoType == "float")   this.infoValue_typeFloat    = (float) value;

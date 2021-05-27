@@ -59,6 +59,8 @@ public class PlayInfoManager : MonoBehaviour
         Message data = new Message($"GetPlayInfoValue : {targetName}").FunctionCall();
         message.returnValue.Add(data.returnValue[0]);
         message.returnValue.Add(data.returnValue[1]);
+        message.returnValue.Add(((int[]) data.returnValue[2])[0]);
+        message.returnValue.Add(((int[]) data.returnValue[2])[1]);
     }
 
     // void changeHp(int degree) {

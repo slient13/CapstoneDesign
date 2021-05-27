@@ -98,6 +98,7 @@ public class BaseSystem : MonoBehaviour
         else {
             msg.returnValue.Add(playInfoList[index].GetInfoValue());    // 오브젝트 형으로 정보 반환.
             msg.returnValue.Add(playInfoList[index].type);              // 사용 분류를 위한 타입.
+            msg.returnValue.Add(playInfoList[index].GetRange());        // 최소, 최대값.
             msg.returnValue.Add(playInfoList[index].GetInfoType());     // 언박싱 위한 타입
         }
     }
