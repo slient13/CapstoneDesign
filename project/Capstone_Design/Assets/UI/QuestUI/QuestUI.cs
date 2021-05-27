@@ -4,22 +4,26 @@ using UnityEngine;
 
 public class QuestUI : MonoBehaviour
 {
-    public GameObject questpanel;
-    bool activeQuest = false;
+    public GameObject panel;
+    bool isActive = false;
 
     private void Start()
     {
-        questpanel.SetActive(activeQuest);
+        panel = transform.GetChild(0).gameObject;
+        panel.SetActive(isActive);
     }
-   
 
-
-    private void Update()
+    private void Updata()
     {
-     if(Input.GetKeyDown(KeyCode.Q))
-        {
-            activeQuest = !activeQuest;
-            questpanel.SetActive(activeQuest);
-        }
+    }
+
+    public void OpenUI(Message message) {
+        isActive = true;
+        panel.SetActive(isActive);
+    }
+
+    public void CloseUI(Message message) {
+        isActive = false;
+        panel.SetActive(isActive);
     }
 }

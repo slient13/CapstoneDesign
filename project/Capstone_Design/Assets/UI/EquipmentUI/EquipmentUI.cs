@@ -4,20 +4,26 @@ using UnityEngine;
 
 public class EquipmentUI : MonoBehaviour
 {
-    public GameObject equipmentpanel;
-    bool activeEquipment = false;
+    public GameObject panel;
+    bool isActive = false;
 
     private void Start()
     {
-        equipmentpanel.SetActive(activeEquipment);
+        panel = transform.GetChild(0).gameObject;
+        panel.SetActive(isActive);
     }
 
     private void Updata()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            activeEquipment = !activeEquipment;
-            equipmentpanel.SetActive(activeEquipment);
-        }
+    }
+
+    public void OpenUI(Message message) {
+        isActive = true;
+        panel.SetActive(isActive);        
+    }
+
+    public void CloseUI(Message message) {
+        isActive = false;
+        panel.SetActive(isActive);
     }
 }

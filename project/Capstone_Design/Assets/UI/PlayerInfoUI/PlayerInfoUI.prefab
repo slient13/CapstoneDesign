@@ -2615,10 +2615,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6899282325077939097}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65fcf81edb7519040a41ac884366a1c1, type: 3}
+  m_Script: {fileID: 11500000, guid: 0ca214bf730e78b4ea1579b4db4e39ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  infoPanel: {fileID: 6971275528157237871}
+  infoPanel: {fileID: 0}
 --- !u!1 &6971275528157237871
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,0 +1,38 @@
+플레이어 인포  단축키P
+ 구조
+PlayerInfoUI
+ info // 인포패널
+  infoTitle //제목하고 종료버튼있는 패널
+   colsebutton //클릭시 플레이어 인포 종료
+  InfoMiddel //중간 에있는 인포 패널(레벨,이름,칭호)
+   playerimage//플레이어 사진
+    InfoPanel //레벨 이름 칭호가 있는 패널
+      Level 
+           LevelText //캐릭터 레벨이 변동되면 변하는 텍스트
+      Name 
+          NameText //캐릭터 이름이 변동되면 변하는 텍스트
+      Title 
+         TitleText // 캐릭터 칭호가 변동되면 변하는 텍스트
+    InfoLevelText~InfoTitleText // 각각의 패널들 이름
+
+ Select // 타입을 선택하는 버튼을 넣은 패널
+   StatButton //아래쪽 패널 제목을 나타내는 버튼(용도없음)
+    text
+ StatPanel //스탯을 나타내는 패널
+   TextList // 각각의 스탯 제목을 넣기위한 패널
+     HP~EXP //스탯제목
+    HpPanel 
+      HpText // Hp가 변동되면 변하는 텍스트
+    SpPanel 
+      SpText // Sp가 변동되면 변하는 텍스트
+    PowerPanel
+      PowerText // Power가 변동되면 변하는 텍스트
+    DefensePanel 
+      DefenseText // Defense가 변동되면 변하는 텍스트
+    ExpPanel 
+      ExpText // Exp가 변동되면 변하는 텍스트
+  
+ TextList2 //각각의 스탯 제목을 넣기위한 패널2
+  Beautiful //제목
+    BeautifulPanel 
+      BeautifulText // 거리미화가 변동되면 변하는 텍스트
