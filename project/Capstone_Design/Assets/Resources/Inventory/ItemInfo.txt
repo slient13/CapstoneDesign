@@ -1,29 +1,11 @@
-code = Health
-type = consumable
-name = 체 력
-desc = 체력이다
-effect = Hp : 10
-end
-
-code = Bug
-type = consumable
-name = 미 끼
-desc = 물고기를 잡기위한 미끼다
-end
-
-code = Fish
-type = consumable
-name = 물고기
-desc = 평범한 물고기다
-end
-
-code = Boots
-name = 부츠
-desc = 독일산
-end
-
-code = Equipment
-name = 장비
-type = equipment
-desc = 분류 테스트용 장비.
-end
+short = Item, Health, 체력, 체력을 회복시킨다., Hp:+30
+short = Item, Fish, 물고기, 싱싱한 물고기이다.
+short = Item, Bug, 미끼, 낚시를 위한 미끼다.
+short = Item, Apple, 사과, 잘 익은 사과다., Hp:+10
+short = Item, Bread, 빵, 갓 구운 빵이다., Hp:+15
+short = Item, Hambuger, 햄버거, 군침이 도는 햄버거다., Hp:+20
+short = Item, Water, 1급수 물이다., Sp:-5
+short = Item, Coffee, 시원한 커피다., Sp:-10
+short = Item, Cola, 톡 쏘는 콜라다., Sp:-15
+short = Equipment, Weapon, 무기, 장인이 만든 무기다., Attack:+10
+short = Equipment, Amor, 방어구, 장인이 만든 방어구이다., Defense:+10

@@ -1,7 +1,5 @@
 short = Stat, Hp, 100, 0, 100
-short = Stat, Stamina, 100, 0, 100
-
-type = Other
-code = Money
-value = 10000
-end
+short = Stat, Sp, 0, 0, 100
+short = Stat, Money, 100, 0
+short = Stat, Attack, 10, 10
+short = Stat, Defense, 10, 10
