@@ -1,4 +1,3 @@
-itemshop
 b, Health, 5000
 b, Fish, 700
 b, Bug, 100
