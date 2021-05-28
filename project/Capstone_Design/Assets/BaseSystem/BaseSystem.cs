@@ -23,7 +23,10 @@ public class BaseSystem : MonoBehaviour
             Debug.Log("BaseSystem.functionCaller.error : Could not find object. targetName = " + msg.targetName);
             return;
         }
-        target.SendMessage(msg.functionName, msg);
+        else {
+            target.SendMessage(msg.functionName, msg);
+            EventListener.GetEventListener().EventCall(msg);
+        }
         // Debug.Log(msg.returnValue[0]);
     }
     
@@ -98,6 +101,7 @@ public class BaseSystem : MonoBehaviour
         else {
             msg.returnValue.Add(playInfoList[index].GetInfoValue());    // 오브젝트 형으로 정보 반환.
             msg.returnValue.Add(playInfoList[index].type);              // 사용 분류를 위한 타입.
+            msg.returnValue.Add(playInfoList[index].GetRange());        // 최소, 최대값.
             msg.returnValue.Add(playInfoList[index].GetInfoType());     // 언박싱 위한 타입
         }
     }
