@@ -11,6 +11,9 @@ public class PlayerInfoUI : MonoBehaviour
     {
         panel = transform.GetChild(0).gameObject;
         panel.SetActive(isActive);
+        MappingInfo mapping = new MappingInfo("PlayerInfoUI");
+        mapping.AddMapping("CloseUI : ", "esc");
+        mapping.Enroll("PlayerInfoUI");
     }
 
 
@@ -26,5 +29,6 @@ public class PlayerInfoUI : MonoBehaviour
     public void CloseUI(Message message) {
         isActive = false;
         panel.SetActive(isActive);
+        new Message("ControlManager/LayerChanger : general").FunctionCall();
     }
 }

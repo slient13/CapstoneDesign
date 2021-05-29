@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// 현재 사용 안함.
 public class InventoryUIManager : MonoBehaviour {
     
     // 아이템 박스 프리팹

@@ -158,6 +158,7 @@ public class InventoryManager : MonoBehaviour {
     public void ModifyItem(Message msg) {
         string itemCode = (string)msg.args[0];  // 변경 아이템 코드
         int itemNum = (int)msg.args[1];         // 변경 아이템 개수
+        string itemType = findType(itemCode);
         Sprite itemImg = findImage(itemCode);
 
         // 추가하려는 아이템이 itemList 에 없는 경우 중단.
@@ -173,10 +174,24 @@ public class InventoryManager : MonoBehaviour {
         else {
             newItemBox();
             index = box_count - 1;
-            itemBoxList[index].changeItem(itemCode, itemNum, itemImg);
+            itemBoxList[index].changeItem(itemType, itemCode, itemNum, itemImg);
         }
         // 결과로 아이템 개수가 0개가 된다면 해당 아이템 박스를 비워버림.
         if (itemBoxList[index].itemNumber == 0) deleteItemBox(index);
+    }
+
+    string findType(string itemCode) {
+        string output = null;
+        int i;
+        for (i = 0; i < itemList.Count;) {
+            if (itemList[i].GetItemCode() == itemCode) {
+                output = itemList[i].GetItemType();
+                break;
+            }
+            else i++;
+        }
+        if (i < itemList.Count) return output;
+        else return null;
     }
 
     Sprite findImage(string itemCode) {
