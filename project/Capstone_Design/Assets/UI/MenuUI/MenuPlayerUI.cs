@@ -27,7 +27,7 @@ public class MenuPlayerUI : MonoBehaviour
         hpBar.Sync(
             (int) getHp.returnValue[0],  // value
             (int) getHp.returnValue[3]); // max
-        Message getStamina = new Message("PlayInfoManager/GetData : Stamina").FunctionCall();
+        Message getStamina = new Message("PlayInfoManager/GetData : Sp").FunctionCall();
         spBar.Sync(
             (int) getStamina.returnValue[0],  // value
             (int) getStamina.returnValue[3]); // max
