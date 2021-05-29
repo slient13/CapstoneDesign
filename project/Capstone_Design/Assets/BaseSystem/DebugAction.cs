@@ -1,13 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 // 각종 디버그용 키매핑을 모아둔 클래스.
 public class DebugAction : MonoBehaviour
 {
+    public GameObject debugConsole;
     // Start is called before the first frame update
     void Start()
     {
+        // 디버그용 콘솔 생성.
+        debugConsole = GameObject.Find("DefaultSetting/Canvas/DebugConsole");
+        debugConsole.SetActive(false);
+        // 디버그 콘솔 관련 매핑.
+        // 열기
+        MappingInfo openDebugConsole = new MappingInfo("DebugAction");
+        openDebugConsole.AddMapping("OpenDebugConsole : ", "slash");
+        openDebugConsole.Enroll();
+        // 닫기
+        MappingInfo closeDebugConsole = new MappingInfo("DebugAction");
+        closeDebugConsole.AddMapping("CloseDebugConsole : 0", "esc");
+        closeDebugConsole.AddMapping("CloseDebugConsole : 1", "enter");
+        closeDebugConsole.Enroll("Debug");
         // PlayInfoManager 관련.
         MappingInfo playInfoManagerDebug = new MappingInfo("PlayInfoManager");
         playInfoManagerDebug.AddMapping("ChangeData : Hp, 10", "_ctrlL, arrowU");
@@ -38,5 +53,22 @@ public class DebugAction : MonoBehaviour
         values.Add((int) temp[0]);
         values.Add((int) temp[1]);
         Debug.Log($"DebugAction/EventTest.values : {values[0]}, {values[1]}, {values[2]}");
+    }
+
+    public void OpenDebugConsole() {
+        debugConsole.SetActive(true);
+        InputField temp = debugConsole.transform.GetChild(0).gameObject.GetComponent<InputField>();
+        temp.ActivateInputField();
+        new Message("ControlManager/LayerChanger : Debug").FunctionCall();
+    }
+
+    public void CloseDebugConsole(Message message) {
+        int isModify = (int) message.args[0];        
+        if (isModify == 1) {
+            string command = debugConsole.transform.GetChild(0).GetChild(2).gameObject.GetComponent<Text>().text;
+            Debug.Log($"DebugAction/CloseDebugConsole.command : {command}");
+            new Message(command).FunctionCall();
+        }
+        debugConsole.SetActive(false);
     }
 }
