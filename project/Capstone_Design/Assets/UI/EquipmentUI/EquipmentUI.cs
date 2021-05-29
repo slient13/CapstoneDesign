@@ -11,6 +11,9 @@ public class EquipmentUI : MonoBehaviour
     {
         panel = transform.GetChild(0).gameObject;
         panel.SetActive(isActive);
+        MappingInfo mapping = new MappingInfo("EquipmentUI");
+        mapping.AddMapping("CloseUI : ", "esc");
+        mapping.Enroll("EquipmentUI");
     }
 
     private void Updata()
@@ -25,5 +28,6 @@ public class EquipmentUI : MonoBehaviour
     public void CloseUI(Message message) {
         isActive = false;
         panel.SetActive(isActive);
+        new Message("ControlManager/LayerChanger : general").FunctionCall();
     }
 }
