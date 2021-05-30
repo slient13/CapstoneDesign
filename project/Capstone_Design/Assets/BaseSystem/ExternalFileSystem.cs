@@ -230,4 +230,36 @@ public class ExternalFileSystem
         }
         return questList;
     }
+
+    public List<Creature> GetCreatureInfo (string fileName) {
+        List<string> temp = fileReader(fileName);   
+        foreach(string tempString in temp) {
+            string[] tempSplitedString = tempString.Split('=');
+            string mode = tempSplitedString[0].Trim();
+            string values = tempSplitedString[1].Trim();
+            string type = "None";
+            string code = "None";
+            string monHp = "0";
+            string monAttack = "0";
+            string monDefense = "0";
+
+            string type    = "None";
+            string code    = "None";
+            string hp      = "0";
+            string attack  = "0";
+            string defense = "0";
+            string skill   = "None";
+            string drop    = "None";
+            if (mode == "type")    type = values;
+            else if (mode == "code")    code = values;
+            else if (mode == "hp")      hp = values;
+            else if (mode == "attack")  attack = values;
+            else if (mode == "defense") defense = values;
+            else if (mode == "skill")   skill = values;
+            else if (mode == "drop")    drop = values;
+            else if (mode == "end")     {
+                //
+            }
+        }
+    }
 }
