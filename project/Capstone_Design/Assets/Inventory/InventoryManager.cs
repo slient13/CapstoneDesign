@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour {
-    List<Item> itemList = new List<Item>();                 // 등록된 아이템의 리스트
+    public List<Item> itemList = new List<Item>();                 // 등록된 아이템의 리스트
     public List<Sprite> itemImageList = new List<Sprite>(); // 등록된 아이템의 이미지 리스트.
     public List<ItemBox> itemBoxList = new List<ItemBox>(); // 아이템 박스 리스트
 
