@@ -18,11 +18,11 @@ public class MenuPlayerUI : MonoBehaviour
         spBar.width = transform.GetChild(2).gameObject.GetComponent<RectTransform>().rect.width;
         spBar.panel = transform.GetChild(2).GetChild(0).gameObject.GetComponent<RectTransform>();
         spBar.text = transform.GetChild(2).GetChild(1).gameObject.GetComponent<Text>();
+        // 이벤트 리스너 지정.
+        EventListener.GetEventListener().Binding("PlayInfoManager", "ChangeData", "MenuUI/Sync : ");
+        Sync();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
+    public void Sync() {
         Message getHp = new Message("PlayInfoManager/GetData : Hp").FunctionCall();
         hpBar.Sync(
             (int) getHp.returnValue[0],  // value

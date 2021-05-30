@@ -13,7 +13,7 @@ public class InventoryTooltip : MonoBehaviour
     public Button buttonCancle;
     public string itemCode;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         itemNameText = transform.GetChild(0).GetChild(0).GetComponent<Text>();
         itemTooltipText = transform.GetChild(1).GetChild(0).GetComponent<Text>();

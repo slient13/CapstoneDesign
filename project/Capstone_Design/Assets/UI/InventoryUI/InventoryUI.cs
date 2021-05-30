@@ -8,18 +8,25 @@ public class InventoryUI : MonoBehaviour
     public GameObject panel;
     bool isActive = false;
     public int mode = 0;
+    // 현재 보유 아이템 리스트를 저장하는 임시 변수.
     List<ItemBox> itemList;
+    // 각 아이템 박스를 담아둔 변수.
     public List<ItemBox> equipmentList;
     public List<ItemBox> consumableList;
     public List<ItemBox> etcList;
 
+    // 각 칸에 사용할 정보들.
     List<EquipmentInventory> equipmentInventories;
     List<ComsumableInventory> comsumableInventories;
     List<EtcInventory> etcInventories;
+
+    // 돈 텍스트
+    Text moneyText;
+    // 툴팁 패널
     GameObject tooltipPanel;
 
     public const int INVENTORY_CAPACITY = 30;
-    private void Start()
+    private void Awake()
     {
         // 자식 오브젝트 연결.
         panel = transform.GetChild(0).gameObject;
@@ -39,10 +46,12 @@ public class InventoryUI : MonoBehaviour
                 new EtcInventory(
                     temp.GetChild(3).GetChild(0).GetChild(0).GetChild(i)));
         }
+        moneyText = panel.transform.GetChild(2).GetChild(0).GetChild(0).gameObject.GetComponent<Text>();
         tooltipPanel = panel.transform.GetChild(3).gameObject;
         tooltipPanel.SetActive(false);
         // 이벤트 연결.
         EventListener.GetEventListener().Binding("InventoryManager", "ModifyItem", "InventoryUICanvas/Sync : ");
+        EventListener.GetEventListener().Binding("PlayInfoManager", "ChangeData", "InventoryUICanvas/Sync : ");
         // 키 바인딩.
         MappingInfo mapping = new MappingInfo("InventoryUICanvas");
         mapping.AddMapping("CloseUI : ", "esc");
@@ -65,8 +74,8 @@ public class InventoryUI : MonoBehaviour
         consumableList.Clear();
         etcList.Clear();
         foreach(ItemBox item in itemList) {
-            if (item.itemType == "equipment") equipmentList.Add(item);
-            else if (item.itemType == "consumable") consumableList.Add(item);
+            if (item.itemType == "Equipment") equipmentList.Add(item);
+            else if (item.itemType == "Consumable") consumableList.Add(item);
             else etcList.Add(item);
         }
         
@@ -100,6 +109,9 @@ public class InventoryUI : MonoBehaviour
             }
             else etcInventories[i].Clear();
         }
+        Message getMoney = new Message("PlayInfoManager/GetData : Money").FunctionCall();
+        int money = (int) getMoney.returnValue[0];
+        moneyText.text = string.Format("{0:N0}", money);
     }
 
     public void OpenUI(Message message) {

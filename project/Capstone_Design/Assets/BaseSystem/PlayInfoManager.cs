@@ -8,9 +8,8 @@ public class PlayInfoManager : MonoBehaviour
     string[] infoFileNameList = {
         "Player/Stat"
     };
-
     List<Creature> creatureList;
-    void Start()
+    void Awake()
     {
         foreach(string fileName in infoFileNameList) getPlayInfo(fileName);
         loadPlayData();
