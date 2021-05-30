@@ -232,34 +232,47 @@ public class ExternalFileSystem
     }
 
     public List<Creature> GetCreatureInfo (string fileName) {
-        List<string> temp = fileReader(fileName);   
+        List<string> temp = fileReader(fileName);       // 임시
+        List<Creature> output = new List<Creature>();   // 출력용
+        // 선언
+        string type = "None";
+        string code = "None";
+        string name = "None";
+        string hp = "0";
+        string attack = "0";
+        string defense = "0";
+        List<string> skill = new List<string>();
+        List<string> drop = new List<string>();
         foreach(string tempString in temp) {
+            // 모드 분리.
             string[] tempSplitedString = tempString.Split('=');
             string mode = tempSplitedString[0].Trim();
-            string values = tempSplitedString[1].Trim();
-            string type = "None";
-            string code = "None";
-            string monHp = "0";
-            string monAttack = "0";
-            string monDefense = "0";
-
-            string type    = "None";
-            string code    = "None";
-            string hp      = "0";
-            string attack  = "0";
-            string defense = "0";
-            string skill   = "None";
-            string drop    = "None";
-            if (mode == "type")    type = values;
-            else if (mode == "code")    code = values;
-            else if (mode == "hp")      hp = values;
-            else if (mode == "attack")  attack = values;
-            else if (mode == "defense") defense = values;
-            else if (mode == "skill")   skill = values;
-            else if (mode == "drop")    drop = values;
-            else if (mode == "end")     {
-                //
+            // 대입.
+            if (mode == "end") {
+                output.Add(new Creature(type, code, name, hp, attack, defense, skill, drop));
+                // 다음 입력을 위한 초기화.
+                type = "None";
+                code = "None";
+                name = "None";
+                hp = "0";
+                attack = "0";
+                defense = "0";
+                skill = new List<string>();
+                drop = new List<string>();
             }
+            else {
+                string values = tempSplitedString[1].Trim();
+                if (mode == "type")         type = values;
+                else if (mode == "code")    code = values;
+                else if (mode == "name")    name = values;
+                else if (mode == "hp")      hp = values;
+                else if (mode == "attack")  attack = values;
+                else if (mode == "defense") defense = values;
+                else if (mode == "skill")   skill.Add(values);
+                else if (mode == "drop")    drop.Add(values);
+            }
+            
         }
+        return output;
     }
 }

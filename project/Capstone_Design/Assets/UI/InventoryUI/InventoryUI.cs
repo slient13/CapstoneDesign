@@ -128,8 +128,6 @@ public class InventoryUI : MonoBehaviour
 
     public void CheckHoveringOnBox() {
         MouseDetector detector = new MouseDetector();
-        // 모드에 따라 임시 변수 할당.
-        List<InventoryPanel> temp = null;
         // 클릭 확인.
         for (int i = 0; i < INVENTORY_CAPACITY; i++) {
             GameObject box;

@@ -16,7 +16,10 @@
 ```c#
 public void SavePlayData(Message message) {}    // 동작(현재 플레이 정보 저장)
 public void ChangeData(Message message) {}      // 입력(정보 코드, 변화값) 
-public void GetData(Message message) {}         // 입력(정보 코드), 출력(정보 값)
+public void GetData(Message message) {}         
+    // 입력(정보 코드), 출력(정보 값)
+    // 입력(정보 타입, 정보 코드)
+        // ? 정보 타입 == "Creature" : 출력(Creature 인스턴스)
 ```
 
 ## BaseSystem 에 포함된 코드.
@@ -31,7 +34,7 @@ public void GetPlayInfoValue(Message msg) {}    // 입력(코드), 출력(값)
 public void GetPlayInfoList(Message msg) {}     // 출력(플레이 정보 리스트)
 ```
 
-## 정보 입력 양식
+## 정보 입력 양식 (일반)
 정석 :
 ```
 type = $type
@@ -49,6 +52,22 @@ end
 - 정석과 숏컷 모두 `min, max`는 생략 가능. 
     - 둘 중 하나만 생략할 수는 없음.
 
+## 정보 입력 양식 (Creature)
+```
+type = $type-string
+code = $code-string
+name = $name-string
+hp = $hp-int
+attack = $attack-int
+defense = $defense-int
+skill = $code-string, $name-string, $effect-double-(0~1)
+drop = $code-string, $rate-double-(0~1)
+end
+```
+
+비고 
+- 약식은 지원되지 않음.
+- `skill, drop` 생략 가능. 나머지도 생략은 가능하나 string 형은 `None`으로 int 형은 `0`으로 초기화 됨.
 ## update log
 
 ### 21-05-21
@@ -61,3 +80,6 @@ end
 ### 21-05-22
 비고 
 - 누락되어 있던 정보 입력 양식 추가.
+
+### 21-05-30 
+`Creature` 관련된 코드 추가.

@@ -8,12 +8,33 @@ public class PlayInfoManager : MonoBehaviour
     string[] infoFileNameList = {
         "Player/Stat"
     };
-    List<Creature> creatureList;
+
+    string[] creatureInfoPathList = {
+        "Rpg/Monster/Info"
+    };
+    public List<Creature> creatureList;
+    // // 테스트용.
+    // public string testType = "";
+    // public string testCode;
+    // public string testName;
+    // public string testHp;
+    // public string testAttack;
+    // public string testDefense;
     void Awake()
     {
         foreach(string fileName in infoFileNameList) getPlayInfo(fileName);
         loadPlayData();
         creatureList = new List<Creature>();
+        GetCreatureInfo();
+        // // 테스트 코드 : 실행 잘 됨.
+        // Message testGet = new Message("PlayInfoManager/GetData : Creature, W_Pig").FunctionCall();
+        // Creature temp = (Creature) testGet.returnValue[0];
+        // testType = temp.type;
+        // testCode = temp.code;
+        // testName = temp.name;
+        // testHp = $"{temp.hp}";
+        // testAttack = $"{temp.attack}";
+        // testDefense = $"{temp.defense}";
     }
 
     // Update is called once per frame
@@ -40,7 +61,10 @@ public class PlayInfoManager : MonoBehaviour
 
     // 몬스터 정보 로드. 수동형.
     public void GetCreatureInfo() {
-        
+        foreach(string filepath in creatureInfoPathList) {
+            List<Creature> temp = ExternalFileSystem.SingleTon().GetCreatureInfo(filepath);
+            creatureList.AddRange(temp);
+        }
     }
 
     public void SavePlayData(Message message) {
@@ -71,18 +95,12 @@ public class PlayInfoManager : MonoBehaviour
             message.returnValue.Add(((int[]) data.returnValue[2])[0]);
             message.returnValue.Add(((int[]) data.returnValue[2])[1]);
         }
-        else if (message.args.Count == 3) {
+        else if (message.args.Count == 2) {
             string type = (string) message.args[0];
             string code = (string) message.args[1];
-            string target = (string) message.args[2];
-            if (type == "creature") {
+            if (type == "Creature") {
                 Creature creature = creatureList.Find(x => x.code == code);
-                if (target == "name")         message.returnValue.Add(creature.name);
-                else if (target == "hp")      message.returnValue.Add(creature.hp);
-                else if (target == "maxHp")   message.returnValue.Add(creature.maxHp);
-                else if (target == "attack")  message.returnValue.Add(creature.attack);
-                else if (target == "defense") message.returnValue.Add(creature.defense);
-                else if (target == "isAlive") message.returnValue.Add(creature.isAlive);
+                message.returnValue.Add(creature);
             }
         }
     }
@@ -125,11 +143,10 @@ public class Creature {
     public int hp {get;}
     public int attack {get;}
     public int defense {get;}
-    List<Skill> skillList;
-    List<Drop> dropList;
-    int dropWeightTotal;
+    public List<Skill> skillList;
+    public List<Drop> dropList;
 
-    protected struct Skill {
+    public struct Skill {
         public string code {get;}
         public string name {get;}
         public double effect {get;}
@@ -140,12 +157,12 @@ public class Creature {
         }
     }
 
-    protected struct Drop {
+    public struct Drop {
         public string dropItemCode {get;}
-        public int weight {get;}
-        public Drop(string dropItemCode, int weight) {
+        public double rate {get;}
+        public Drop(string dropItemCode, double rate) {
             this.dropItemCode = dropItemCode;
-            this.weight = weight;
+            this.rate = rate;
         }
     }
 
@@ -160,28 +177,22 @@ public class Creature {
         this.attack = Convert.ToInt32(attack);
         this.defense = Convert.ToInt32(defense);
         // 메모리 할당.
+        skillList = new List<Skill>();
+        dropList = new List<Drop>();
         // 스킬 입력
         foreach(string skillString in skillStringList) {
             string[] temp = skillString.Split(',');
-            string code = temp[0].Trim();
-            string name = temp[1].Trim();
-            double effect = Convert.ToDouble(temp[2].Trim());
-            skillList.Add(Skill(code, name, effect));
+            string skillCode = temp[0].Trim();
+            string skillName = temp[1].Trim();
+            double skillEffect = Convert.ToDouble(temp[2].Trim());
+            skillList.Add(new Skill(skillCode, skillName, skillEffect));
         }
-        dropWeightTotal = 0;
         // 드롭 입력
         foreach(string dropString in dropStringList) {
             string[] temp = dropString.Split(',');
             string dropItemCode = temp[0].Trim();
-            int weight = Convert.ToInt32(temp[1].Trim());
-            dropList.Add(Drop(dropItemCode, weight));            
-            dropWeightTotal += weight;
+            double rate = Convert.ToDouble(temp[1].Trim());
+            dropList.Add(new Drop(dropItemCode, rate));            
         }
-    }
-    public List<int> GetWeight(string itemCode) {
-        int index = dropList.FindIndex(x => x.dropItemCode == itemCode);
-        int weight = dropList[index].weight;
-        List<int> output = new List<int> (new int[] {weight, dropWeightTotal});
-        return output;
     }
 }
