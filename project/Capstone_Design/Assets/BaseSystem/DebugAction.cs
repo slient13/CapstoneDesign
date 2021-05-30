@@ -69,6 +69,7 @@ public class DebugAction : MonoBehaviour
             Debug.Log($"DebugAction/CloseDebugConsole.command : {command}");
             new Message(command).FunctionCall();
         }
+        new Message("ControlManager/LayerChanger : general").FunctionCall();
         debugConsole.SetActive(false);
     }
 }

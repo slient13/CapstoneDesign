@@ -7,7 +7,7 @@ public class PlayInfoManager : MonoBehaviour
     string[] infoFileNameList = {
         "Player/Stat"
     };
-    void Start()
+    void Awake()
     {
         foreach(string fileName in infoFileNameList) getPlayInfo(fileName);
         loadPlayData();
