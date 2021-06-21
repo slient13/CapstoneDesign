@@ -146,7 +146,7 @@ public class Message
             if (command.IndexOf('.') == -1) list.Add(tempInt);
             else list.Add(tempFloat);
         }
-        catch (Exception e) {
+        catch {
             list.Add(command);  
         }
     }
@@ -172,7 +172,7 @@ public class Message
             try {
                 output += args[i];
             }
-            catch(Exception e) {
+            catch {
                 output += "args" + i;
             }
             if (i < args.Count - 1) output += ", ";

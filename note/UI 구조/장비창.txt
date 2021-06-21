@@ -1,0 +1,33 @@
+EquipmentUI  실행키 E
+  구조 
+
+ Equipment //장비창 패널
+  EquipmentTitle  //장비창 제목
+  CloseButton //클릭시 장비창 종료
+   text
+ EquipmentPanel //장착중인 장비패널 , 보유한 장비에서 더블클릭하면 여기 패널로 보내짐
+  EquipmentImage1~4 //장비장착슬롯 ,더블클릭시 장착해제
+
+ EquipmentList//오른쪽의 보유한 장비 리스트패널
+   ScroolView
+     Viewport
+       EquipmentContent //EquipmentList 관리하는 패널 EquipmentList는 총30개있음 ,인벤토리에 장비가 있는 만큼 표시됨 ,예) 인벤토리에 장비5개있으면 장비창에 5개만표시
+        EquipmentList1~30
+         EquipmentListName 
+          EquipmentListNameText//아이템의 이름이 변동되면 바뀌는 텍스트
+         EquipmentListStat 
+          EquipmentListStatText //아이템의 능력치가 변동되면 바뀌는 텍스트
+
+EquipmentStatPanel //왼쪽아래의 캐릭터의 능력치를 보여줌(장비의 능력치아님,장비 장착후의 캐릭터 능력치임)
+   HpPanel
+    HpPanelText //캐릭터의 HP가 변동되면 바뀌는 텍스트
+   AtkPanel
+      AtkPanelText //캐릭터의 공격력이 변동되면 바뀌는 텍스트
+    APanel
+      APanelText //캐릭터의 능력치A가 변동되면 바뀌는 텍스트
+     SpPanel
+      SpPanelText // 캐릭터의 SP가 변동되면 바뀌는 텍스트
+    DefPanel
+       DefPanelText //캐릭터의 방어력이 변동되면 바뀌는 텍스트
+    BPanel
+      BPanelText //캐릭터의 능력치B가 변동되면 바뀌는 텍스트

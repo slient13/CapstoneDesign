@@ -7,7 +7,9 @@ public class ShopManager : MonoBehaviour
     Dictionary<string, ShopInfo> shopInfoesDic;
     string[] shopwList = {
         "None",     // 상점 실행중이지 않을 때 처리하는 용도.
-        "Sample"
+        "Sample",
+        "ItemShop",
+        "EquipmentShop"
     };
     ShopInfo shop;
     // Start is called before the first frame update
@@ -59,8 +61,8 @@ public class ShopManager : MonoBehaviour
             message.returnValue.Add(false);
             return;
         }
-        // Money Check.
-        Message getMoney = new Message("PlayInfoManager/GetMoney : ").FunctionCall();
+        // money Check.
+        Message getMoney = new Message("PlayInfoManager/GetData : Money").FunctionCall();
         int itemPrice = shop.buyList[itemCode];
         int money = (int) getMoney.returnValue[0];
         int needMoney = itemPrice * itemNumber;
@@ -71,7 +73,7 @@ public class ShopManager : MonoBehaviour
             return;
         }
         // Action.        
-        new Message("PlayInfoManager/ChangeMoney : " + -needMoney).FunctionCall();
+        new Message("PlayInfoManager/ChangeData : Money, " + -needMoney).FunctionCall();
         new Message("InventoryManager/ModifyItem : " + itemCode + ", " + itemNumber).FunctionCall();
         message.returnValue.Add(true);
     }
@@ -105,7 +107,7 @@ public class ShopManager : MonoBehaviour
         }
         // Action.
         int salePrice = itemPrice * itemNumber;
-        new Message("PlayInfoManager/ChangeMoney : " + salePrice).FunctionCall();
+        new Message("PlayInfoManager/ChangeData : Money, " + salePrice).FunctionCall();
         new Message("InventoryManager/ModifyItem : " + itemCode + ", " + -itemNumber).FunctionCall();
         message.returnValue.Add(true);
     }

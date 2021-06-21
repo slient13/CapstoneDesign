@@ -1,0 +1,4 @@
+b, Weapon, 20000
+b, Amor, 30000
+s, Weapon, 15000
+s, Amor, 25000

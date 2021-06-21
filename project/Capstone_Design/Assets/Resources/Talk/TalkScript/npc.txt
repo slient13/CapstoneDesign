@@ -13,7 +13,7 @@ end
 
 id, 110, 
 text, 보상으로는 돈 1000원 을 드려요 수락하시겠습니까?
-answer, 네., 901
+answer, 네., 400
 answer, 아니오., -2
 end
 
@@ -23,18 +23,41 @@ answer, 그렇구나 고마워., 0
 end
 
 id, 300, 
-text, 어머 벌써 퀘스트를 다 하셨나요?
-answer, 네, 902
+text, 벌써 퀘스트를 다 하셨나요?
+answer, 네, 401
 answer, 아니오 잘못눌렀어요, 0
 end
 
-id, 901, 
+id, 400
+branch
+answer,, 801
+answer,, 800
+message, QuestManager/StartQuest : Test
+end
+
+id, 401
+branch
+answer,, 901
+answer,, 902
+message, QuestManager/CheckQuestFinish : Test, 1
+end
+
+id, 800, 
 text, 그럼 열심히 해주세요.
+answer, 네, -2
+end
+
+id, 801
+text, 이미 이 퀘스트를 진행하고 계시네요.
+answer, 네, -2
+end
+
+id, 901
+text, 아직 물고기가 부족하네요. 좀 더 잡아와 주세요.
 answer, 네, -2
 end
 
 id, 902,
 text, 축하드려요. 여기 보상이요.
-message, InventoryManager/ModifyItem : Health, 3
 answer, 네, -2
 end

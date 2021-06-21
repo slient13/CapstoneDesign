@@ -1,0 +1,11 @@
+type = Monster
+code = W_Pig
+hp = 200
+name = 멧돼지
+attack = 10
+defense = 20
+skill = Skill_A, 몸통 박치기, 1.0
+skill = Skill_B, 송곳니 공격, 1.6
+drop = PLeather, 0.5
+drop = PIvory, 0.5
+end

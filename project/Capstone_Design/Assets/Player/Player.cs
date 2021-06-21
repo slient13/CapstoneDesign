@@ -7,7 +7,9 @@ public class Player : MonoBehaviour
     public float speed; //인스펙터 창에서 설정 가능
     public float jumpHeight; //점프높이 설정
 
+
     public List<string> interactionTargetList;
+
 
     GameObject nearObject;
     
@@ -17,7 +19,10 @@ public class Player : MonoBehaviour
     bool wDown;
     bool jDown;
     bool iDown;
+    bool vDown;
+    bool bDown;
 
+    bool isVehicle;
     bool isJump;
     bool isDodge;
 
@@ -46,9 +51,11 @@ public class Player : MonoBehaviour
 
         // 여기에 상호작용이 필요한 오브젝트의 태그를 적으면 된다.
         string[] targetList = {
-            "Shop"
+            "Shop",
+            "Vehicle"
         };
         interactionTargetList.AddRange(targetList);
+
     }
 
     void Start()
@@ -77,6 +84,8 @@ public class Player : MonoBehaviour
         Jump();
         // Dodge(); // 자꾸 벽을 뚫고 들어가는 버그가 있어 비활성화.
         Interaction();
+        Vehicle();
+       
     }
 
 
@@ -92,6 +101,7 @@ public class Player : MonoBehaviour
         jDown = Input.GetButton("Jump");
         //GetButton() 함수로 점프 입력 받기
         iDown = Input.GetButton("Interation");
+        vDown = Input.GetButton("OnCollisionEnter");
     }
 
     void Move()
@@ -159,7 +169,28 @@ public class Player : MonoBehaviour
             anim.SetBool("isJump", false);
             isJump = false;
         }
+
+        if (collision.gameObject.name == "Vehicle")
+        {
+            speed = 30;
+            isVehicle = true;
+        }
     }
+
+    //차량 탑승
+    void Vehicle()
+    {
+        if (Input.GetKeyDown("v"))
+        {
+            if (speed == 30)
+            {
+                speed = 10;
+                isVehicle = false;
+            }
+        }
+    }
+
+
 
     void Interaction()
     {
@@ -183,4 +214,6 @@ public class Player : MonoBehaviour
         if (nearObject != null && other.tag == nearObject.tag) 
             nearObject = null;
     }
+
+
 }

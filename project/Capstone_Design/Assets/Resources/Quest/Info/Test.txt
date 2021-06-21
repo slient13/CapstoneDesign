@@ -1,0 +1,2 @@
+price : Inventory, Fish, 3
+reward : Stat, Money, 3000
