@@ -86,6 +86,8 @@ public class BaseSystem : MonoBehaviour
     int findInfo(string infoName) {
         int i;
         for (i = 0; i < playInfoList.Count; ) {
+            // string temp = playInfoList[i].GetInfoName();
+            // Debug.Log($"BaseSystem/findInfo : playInfoList[{i}].name = {temp}, infoName = {infoName}.");
             if (playInfoList[i].GetInfoName() == infoName) return i;
             else i++;
         }

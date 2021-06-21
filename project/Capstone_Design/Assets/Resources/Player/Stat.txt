@@ -1,5 +1,5 @@
 short = Stat, Hp, 100, 0, 100
 short = Stat, Sp, 0, 0, 100
-short = Stat, Money, 100, 0
-short = Stat, Attack, 10, 10
-short = Stat, Defense, 10, 10
+short = Stat, Money, 10000, 0, 99999999
+short = Stat, Attack, 20
+short = Stat, Defense, 20
