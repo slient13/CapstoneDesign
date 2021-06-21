@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    
     public float speed; //인스펙터 창에서 설정 가능
     public float jumpHeight; //점프높이 설정
-
+    
 
     public List<string> interactionTargetList;
 
 
-    GameObject nearObject;
-    
+    public GameObject nearObject;
+    public GameObject Car;
+    //public GameObject player;
+    public GameObject target;
+
 
     float hAxis;
     float vAxis;
@@ -25,6 +29,9 @@ public class Player : MonoBehaviour
     bool isVehicle;
     bool isJump;
     bool isDodge;
+
+    private bool state;
+    
 
     /*
     public int coin; //코인
@@ -66,7 +73,7 @@ public class Player : MonoBehaviour
         // Message msg10 = new Message("newPlayInfo: Bug, int, 0");
         // Message msg11 = new Message("newPlayInfo: MaxCoin, int, 10000");
         // Message msg12 = new Message("newPlayInfo: MaxHealth, int, 100");
-        
+
 
         // msg7.functionCall();
         // msg8.functionCall();
@@ -74,6 +81,27 @@ public class Player : MonoBehaviour
         // msg10.functionCall();
         // msg11.functionCall();
         // msg12.functionCall();       
+
+        /*
+        MappingInfo mapping = new MappingInfo("player");
+        mapping.AddMapping("Horizontal : 1", "_d");
+        mapping.AddMapping("Horizontal : -1", "_a");
+        mapping.AddMapping("Horizontal : 0", "!d, !a");
+        mapping.AddMapping("Vertical : 1", "_w");
+        mapping.AddMapping("Vertical : -1", "_s");
+        mapping.AddMapping("Vertical : 0", "!w, !s");
+        mapping.AddMapping("Walk : 1", "_w");
+        mapping.AddMapping("Walk : 0", "!w");
+        mapping.AddMapping("Jump : 1", "_j");
+        mapping.AddMapping("Jump : 0", "!j");
+        mapping.AddMapping("Interaction : 1", "_i");
+        mapping.AddMapping("Interaction : 0", "!i");
+        mapping.AddMapping("OnCollisionEnter : 1", "_v");
+        mapping.AddMapping("OnCollisionEnter : 0", "!v");
+        mapping.Enroll("MainPlayer");
+        */
+
+        state = true;
     }
     
     void Update()
@@ -82,13 +110,62 @@ public class Player : MonoBehaviour
         Move();
         Turn();
         Jump();
-        // Dodge(); // 자꾸 벽을 뚫고 들어가는 버그가 있어 비활성화.
+         Dodge(); // 자꾸 벽을 뚫고 들어가는 버그가 있어 비활성화.
         Interaction();
-        Vehicle();
-       
+        //Off();
+      
+    }
+  
+    /*
+    public void Horizontal (Message message)
+    {
+        hAxis = (int)message.args[0];
     }
 
+    public void Vertical(Message message)
+    {
+        vAxis = (int)message.args[0];
+    }
 
+    public void Walk(Message message)
+    {
+        int w = (int)message.args[0];
+        if(w == 1)
+        {
+            wDown = true;
+        }
+        else
+        {
+            wDown = false;
+        }
+    }
+
+    public void Jump(Message message)
+    {
+        int j = (int)message.args[0];
+        if (j == 1)
+        {
+            jDown = true;
+        }
+        else
+        {
+            jDown = false;
+        }
+    }
+
+    public void Interaction(Message message)
+    {
+        int i = (int)message.args[0];
+        if (i == 1)
+        {
+            iDown = true;
+        }
+        else
+        {
+            iDown = false;
+        }
+    }
+    */
 
     //함수를 기능에 따라 분리 => 이렇게 안하면 나중에 복잡할 수가 있음.
     void GetInput()
@@ -100,8 +177,8 @@ public class Player : MonoBehaviour
         //shift는 누를 때만 작동되도록 GetButton() 함수 사용
         jDown = Input.GetButton("Jump");
         //GetButton() 함수로 점프 입력 받기
-        iDown = Input.GetButton("Interation");
-        vDown = Input.GetButton("OnCollisionEnter");
+        //iDown = Input.GetButton("Interaction");
+        //vDown = Input.GetButton("OnCollisionEnter");
     }
 
     void Move()
@@ -169,29 +246,33 @@ public class Player : MonoBehaviour
             anim.SetBool("isJump", false);
             isJump = false;
         }
-
-        if (collision.gameObject.name == "Vehicle")
-        {
-            speed = 30;
-            isVehicle = true;
-        }
     }
-
-    //차량 탑승
-    void Vehicle()
+    
+    
+   //차량 탑승
+    void OnCollisionStay(Collision collision)
     {
-        if (Input.GetKeyDown("v"))
+        if (collision.gameObject.tag == "Vehicle")
         {
-            if (speed == 30)
+            if(Input.GetKeyDown("b"))
             {
-                speed = 10;
-                isVehicle = false;
+                //speed = 30;
+                //isVehicle = true;
+
+                //차량 오브젝트가 플레이어의 자식 오브젝트가 된다.
+                target.transform.parent = Car.transform;
+
+                target.SetActive(false);
+                print("사라짐");
+                state = false;
+
+                new Message($"ControlManager/LayerChanger : PlayerCar").FunctionCall();
             }
         }
     }
+    
 
-
-
+    
     void Interaction()
     {
         if (iDown && nearObject != null && !isJump && !isDodge)
@@ -214,6 +295,6 @@ public class Player : MonoBehaviour
         if (nearObject != null && other.tag == nearObject.tag) 
             nearObject = null;
     }
-
+    
 
 }
