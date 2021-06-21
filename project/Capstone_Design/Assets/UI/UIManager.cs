@@ -19,7 +19,7 @@ public class UIManager : MonoBehaviour {
         MappingInfo mapping = new MappingInfo("UIManager");
         mapping.AddMapping("OpenUI : PlayerInfoUI"  , "p");
         mapping.AddMapping("OpenUI : InventoryUICanvas", "i");
-        mapping.AddMapping("OpenUI : EquipmentUI"   , "e");
+        mapping.AddMapping("OpenUI : EquipmentUI"   , "r");
         mapping.AddMapping("OpenUI : QuestUI"       , "q");
         // mapping.AddMapping("CloseUI : "             , "!ctrlL, esc");
         // mapping.AddMapping("CloseAllUI : "          , "_ctrlL, esc");

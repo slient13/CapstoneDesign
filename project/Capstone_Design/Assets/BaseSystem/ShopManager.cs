@@ -42,6 +42,11 @@ public class ShopManager : MonoBehaviour
         } 
     }
 
+    public void GetShop(Message message) {
+        ChangeShop(message);
+        message.returnValue.Add(shop);
+    }
+
     // Interface //
     // Buy : input(item.code, number), output(isDone)
     public void Buy(Message message) {
