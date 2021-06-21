@@ -289,6 +289,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56e18fb9332308b4d83e21d1173b62b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectorText: '> '
+  command: []
+  selectorIndex: 0
 --- !u!1 &128520935
 GameObject:
   m_ObjectHideFlags: 0
@@ -742,7 +745,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "> \uB3C4\uC8FC"
+  m_Text: "\uB3C4\uC8FC"
 --- !u!222 &569057699
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1166,7 +1169,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "> \uC544\uC774\uD15C"
+  m_Text: "\uC544\uC774\uD15C"
 --- !u!222 &1079667885
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1322,7 +1325,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "> \uC2F8\uC6B0\uAE30"
+  m_Text: "\uC2F8\uC6B0\uAE30"
 --- !u!222 &1146538419
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1510,6 +1513,7 @@ GameObject:
   - component: {fileID: 1422807232}
   - component: {fileID: 1422807234}
   - component: {fileID: 1422807233}
+  - component: {fileID: 1422807235}
   m_Layer: 5
   m_Name: CommentPanel
   m_TagString: Untagged
@@ -1575,6 +1579,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1422807231}
   m_CullTransparentMesh: 0
+--- !u!114 &1422807235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1422807231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56ee8736dee1e874e9b98fe9853ccb5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textPanel: {fileID: 0}
 --- !u!1 &1469840421
 GameObject:
   m_ObjectHideFlags: 0
