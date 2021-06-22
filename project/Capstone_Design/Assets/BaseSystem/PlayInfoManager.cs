@@ -90,10 +90,11 @@ public class PlayInfoManager : MonoBehaviour
         if (message.args.Count == 1) {
             string targetName = (string) message.args[0];
             Message data = new Message($"GetPlayInfoValue : {targetName}").FunctionCall();
-            message.returnValue.Add(data.returnValue[0]);
-            message.returnValue.Add(data.returnValue[1]);
-            message.returnValue.Add(((int[]) data.returnValue[2])[0]);
-            message.returnValue.Add(((int[]) data.returnValue[2])[1]);
+            message.returnValue.Add(data.returnValue[0]);               // 값.
+            message.returnValue.Add(data.returnValue[1]);               // 타입.
+            message.returnValue.Add(((int[]) data.returnValue[2])[0]);  // 최소값.
+            message.returnValue.Add(((int[]) data.returnValue[2])[1]);  // 최대값.
+            return;
         }
         else if (message.args.Count == 2) {
             string type = (string) message.args[0];
@@ -101,8 +102,10 @@ public class PlayInfoManager : MonoBehaviour
             if (type == "Creature") {
                 Creature creature = creatureList.Find(x => x.code == code);
                 message.returnValue.Add(creature);
+                return;
             }
         }
+        Debug.Log("PlayInfoManager/GetData.error : Argument is too many or incorecctr.");
     }
 
     // void changeHp(int degree) {
