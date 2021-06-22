@@ -592,8 +592,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uBA54\uC778 \uCF54\uBA58\uD2B8 \uBC15\uC2A4\uB2E4!\n\uB450\uBC88\uC9F8
-    \uC904\uC774\uB2E4!"
+  m_Text: "\uC557! \uC57C\uC0DD\uC758 [MonsterName]\uC774(\uAC00) \uB098\uD0C0\uB0AC\uB2E4!"
 --- !u!222 &387450683
 CanvasRenderer:
   m_ObjectHideFlags: 0
