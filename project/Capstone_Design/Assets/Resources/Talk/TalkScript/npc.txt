@@ -32,14 +32,14 @@ id, 400
 branch
 answer,, 801
 answer,, 800
-message, QuestManager/StartQuest : Test
+message, QuestManager/StartQuest : GetFish
 end
 
 id, 401
 branch
 answer,, 901
 answer,, 902
-message, QuestManager/CheckQuestFinish : Test, 1
+message, QuestManager/CheckQuestFinish : GetFish, 1
 end
 
 id, 800, 
