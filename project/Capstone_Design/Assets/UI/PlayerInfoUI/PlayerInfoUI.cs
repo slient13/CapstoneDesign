@@ -40,13 +40,13 @@ public class PlayerInfoUI : MonoBehaviour
     {
     }
     
-    public void OpenUI(Message message) {
+    public void OpenUI() {
         isActive = true;
         panel.SetActive(isActive);
         Sync();
     }
 
-    public void CloseUI(Message message) {
+    public void CloseUI() {
         isActive = false;
         panel.SetActive(isActive);
         new Message("ControlManager/LayerChanger : general").FunctionCall();

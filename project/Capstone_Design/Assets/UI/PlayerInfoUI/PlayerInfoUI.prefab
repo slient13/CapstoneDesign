@@ -2619,6 +2619,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panel: {fileID: 0}
+  levelText: {fileID: 0}
+  playerNameText: {fileID: 0}
+  playerCalledText: {fileID: 0}
+  statHpText: {fileID: 0}
+  statSpText: {fileID: 0}
+  statAttackText: {fileID: 0}
+  statDefenceText: {fileID: 0}
+  statExpText: {fileID: 0}
 --- !u!1 &6971275528157237871
 GameObject:
   m_ObjectHideFlags: 0
@@ -3128,9 +3136,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6971275528157237871}
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 466155071084282728}
+        m_MethodName: CloseUI
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
