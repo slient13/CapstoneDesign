@@ -64,9 +64,11 @@ public class Shop : MonoBehaviour
     public void Enter(Player player)
     {
         enterPlayer = player;
-        uiGroup1.anchoredPosition = Vector3.up * 250;
-        uiGroup2.anchoredPosition = Vector3.up * -250;
-        new Message("ShopManager/ChangeShop : Sample").FunctionCall();
+        // uiGroup1.anchoredPosition = Vector3.up * 250;
+        // uiGroup2.anchoredPosition = Vector3.up * -250;
+        // new Message("ShopManager/ChangeShop : Sample").FunctionCall();
+        new Message("ShopUI/OpenUI : ItemShop").FunctionCall();
+        new Message("ControlManager/LayerChanger : ShopUI").FunctionCall();
     }
 
     public void Tem()
