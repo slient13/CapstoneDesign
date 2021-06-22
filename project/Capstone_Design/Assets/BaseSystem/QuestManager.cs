@@ -7,12 +7,13 @@ public class QuestManager : MonoBehaviour
 {
     Dictionary<string, Quest> questList;
     // Start is called before the first frame update
-    List<string> questNameList;
+    public List<string> questNameList;
     void Start()
     {
         questNameList = new List<string>();
-        questNameList.Add("Test");
+        questNameList.Add("GetFish");
         loadQeust();
+        questProcessingUISync();
     }
     bool loadQeust() {
         questList = ExternalFileSystem.SingleTon().LoadQeust(questNameList);
@@ -76,6 +77,7 @@ public class QuestManager : MonoBehaviour
             Debug.Log($"QuestManager.StartQuest.Error : The Quest '{targetQuest.name}' is already in process.");
             message.returnValue.Add(0);
         }
+        questProcessingUISync();
         return true;
     }
 
@@ -91,6 +93,13 @@ public class QuestManager : MonoBehaviour
         Quest targetQuest = questList[targetName];
         if (targetQuest.isProcess) message.returnValue.Add(1);
         else message.returnValue.Add(0);
+    }
+
+    // 진행중인 퀘스트 목록 반환
+    public void GetProcessingQuestList(Message message) {
+        foreach(KeyValuePair<string, Quest>questPair in questList) {
+            if (questPair.Value.isProcess == true) message.returnValue.Add(questPair.Value);
+        }
     }
 
     // 퀘스트 완료 체크.
@@ -176,7 +185,12 @@ public class QuestManager : MonoBehaviour
         foreach(QuestInfo price in target.priceList) setData(price.code, price.type, "-" + price.value);
         foreach(QuestInfo reward in target.rewardList) setData(reward.code, reward.type, reward.value);
         target.isProcess = false;
+        questProcessingUISync();
         return true;
+    }
+
+    void questProcessingUISync() {
+        new Message("QuestUI/ProcessingSync : ").FunctionCall();
     }
 }
 
