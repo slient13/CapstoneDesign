@@ -51,12 +51,11 @@ public class ShopManager : MonoBehaviour
     // Buy : input(item.code, number), output(isDone)
     public void Buy(Message message) {
         // Setup.
-        string shopCode = (string) message.args[0];        
-        string itemCode = (string) message.args[1];
-        int itemNumber = (int) message.args[2];
+        string itemCode = (string) message.args[0];
+        int itemNumber = (int) message.args[1];
         // 상점 코드가 제대로 입력되었는지 확인.
         if (shop == null) {
-            Debug.Log("ShopManager/Buy : shopCode is invalid. Input shopCode is" + shopCode + ".");
+            Debug.Log("ShopManager/Buy : Incorrect Shop Data");
             message.returnValue.Add(false);
             return;
         }
@@ -85,12 +84,11 @@ public class ShopManager : MonoBehaviour
     // Sell : input(item.code, number), output(isDone)
     public void Sell(Message message) {
         // Setup.
-        string shopCode = (string) message.args[0];        
-        string itemCode = (string) message.args[1];
-        int itemNumber = (int) message.args[2];
+        string itemCode = (string) message.args[0];
+        int itemNumber = (int) message.args[1];
         // 상점 코드가 제대로 입력되었는지 확인.
         if (shop == null) {
-            Debug.Log("ShopManager/Sell : shopCode is invalid. Input shopCode is" + shopCode + ".");
+            Debug.Log("ShopManager/Sell : Incorrect Shop Data");
             message.returnValue.Add(false);
             return;
         }

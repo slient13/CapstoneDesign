@@ -8,9 +8,11 @@ public class ShopUI : MonoBehaviour
     public GameObject panel;
     public Trade buyTrade;
     public Trade sellTrade;
+    public Text bottomMoneyPanelText;   // 하단 "돈" 패널의 텍스트.
     public Vector2 posBuffer;           // 직전 클릭 위치 저장. 더블클릭 구현용.
     public int mode = 0;                // 상점 모드. 0 = 구매, 1 = 판매.
     public bool isActive = false;       // 활성화 여부.
+    string shopCode;
     void Awake() {
     }
 
@@ -18,19 +20,29 @@ public class ShopUI : MonoBehaviour
         // 가장 바탕의 판넬 지정
         panel = transform.GetChild(0).gameObject;                
         // 각 패널과 리스트를 저장.
-        buyTrade = new Trade(panel.transform.GetChild(2).gameObject, panel.transform.GetChild(4).gameObject);
-        sellTrade = new Trade(panel.transform.GetChild(7).gameObject, panel.transform.GetChild(6).gameObject);
+            // 각 요소의 `상단 패널, 하단 패널, 툴팁 패널, 가격 패널`을 지정.
+        buyTrade = new Trade(panel.transform.GetChild(2).gameObject
+                            , panel.transform.GetChild(4).gameObject
+                            , panel.transform.GetChild(8).gameObject
+                            , panel.transform.GetChild(5).GetChild(2).gameObject);
+        sellTrade = new Trade(panel.transform.GetChild(7).gameObject
+                            , panel.transform.GetChild(6).gameObject
+                            , panel.transform.GetChild(9).gameObject
+                            , panel.transform.GetChild(5).GetChild(3).gameObject);
+        bottomMoneyPanelText = panel.transform.GetChild(5).GetChild(1).GetChild(0).GetComponent<Text>();
         // 더블 클릭 체크용 버퍼 초기화.
         posBuffer = new Vector2(0, 0);
         panel.SetActive(false);
         // 매핑
         MappingInfo mapping = new MappingInfo("ShopUI");
-        mapping.AddMapping("OnDoubleClick : ", "mouseL");
+        mapping.AddMapping("OnLeftDoubleClick : ", "mouseL");
+        mapping.AddMapping("OnRightClick : ", "mouseR");
         mapping.AddMapping("CloseUI : ", "esc");
         mapping.Enroll("ShopUI");
     }
 
     void setShopInfo(string shopCode) {
+        this.shopCode = shopCode;
         // 상점 정보 받아옴.
         Message GetShop = new Message($"ShopManager/GetShop : {shopCode}").FunctionCall();
         ShopInfo shop = (ShopInfo) GetShop.returnValue[0];
@@ -59,6 +71,9 @@ public class ShopUI : MonoBehaviour
         // 최초 싱크 실시.
         buyTrade.Sync();
         sellTrade.Sync();
+        // 보이는 툴팁 제거.
+        ModeChange(mode);
+        Sync();    
     }
 
     public void OpenUI(Message message) {
@@ -78,27 +93,65 @@ public class ShopUI : MonoBehaviour
         if (mode == 0) {
             this.mode = mode;
             buyTrade.viewPanel.SetActive(true);
-            sellTrade.viewPanel.SetActive(false);
             buyTrade.selectedViewPanel.SetActive(true);
+            buyTrade.totalPricePanel.SetActive(true);
+            sellTrade.viewPanel.SetActive(false);
             sellTrade.selectedViewPanel.SetActive(false);
+            sellTrade.totalPricePanel.SetActive(false);
         }
         if (mode == 1) {
             this.mode = mode;
             buyTrade.viewPanel.SetActive(false);
-            sellTrade.viewPanel.SetActive(true);
             buyTrade.selectedViewPanel.SetActive(false);
+            buyTrade.totalPricePanel.SetActive(false);
+            sellTrade.viewPanel.SetActive(true);
             sellTrade.selectedViewPanel.SetActive(true);
+            sellTrade.totalPricePanel.SetActive(true);
         }
+        sellTrade.tooltipPanel.lootPanel.SetActive(false); 
+        buyTrade.tooltipPanel.lootPanel.SetActive(false);  
+            // 툴팁 패널들은 종류 무관하게 모드 변경 시 모두 비활성화.
     }
 
-    public void OnDoubleClick(Message message) {
+    public void OnLeftDoubleClick(Message message) {
         MouseDetector detector = new MouseDetector();
         Vector2 nowPos = detector.GetMousePos();
         if (posBuffer == nowPos) {
             if (mode == 0) buyTrade.SelectItem();
             else if (mode == 1) sellTrade.SelectItem();
         }
-        else posBuffer = nowPos;        
+        else posBuffer = nowPos;    
+        Sync();    
+    }
+
+    public void OnRightClick(Message message) {
+        MouseDetector detector = new MouseDetector();
+        Vector2 pos = detector.GetMousePos();
+        if (mode == 0) buyTrade.CheckShowTooltip();
+        else if (mode == 1) sellTrade.CheckShowTooltip();
+        Sync();
+    }
+
+    public void Sync() {
+        int money;
+        Message getMoney = new Message("PlayInfoManager/GetData : Money").FunctionCall();
+        money = (int) getMoney.returnValue[0];
+        bottomMoneyPanelText.text = $"{money}";
+    }
+
+    // "결제" 수행.
+    public void DoTrade() {
+        if (mode == 0) {
+            foreach(TradeData tradeData in buyTrade.tradeDataList) {
+                new Message($"ShopManager/Buy : {tradeData.itemCode}, {tradeData.itemCount}").FunctionCall();
+            }
+        }
+        else if (mode == 1) {
+            foreach(TradeData tradeData in sellTrade.tradeDataList) {
+                new Message($"ShopManager/Sell : {tradeData.itemCode}, {tradeData.itemCount}").FunctionCall();
+            }
+        }
+        setShopInfo(shopCode);  // 결제 후 UI를 다시 설정하여 정보 최신화.
     }
 }
 
@@ -125,6 +178,8 @@ public class Trade {
     public List<GameObject> itemViewList;
     public GameObject selectedViewPanel;
     public List<GameObject> selectedViewList;
+    public Tooltip tooltipPanel;
+    public GameObject totalPricePanel;
     public List<ShopItem> shopItemList;
     public List<TradeData> tradeDataList;
 
@@ -133,9 +188,11 @@ public class Trade {
         selectedViewList = new List<GameObject>();
         tradeDataList = new List<TradeData>();
     }
-    public Trade(GameObject viewPanel, GameObject selectedViewPanel) : this() {
+    public Trade(GameObject viewPanel, GameObject selectedViewPanel, GameObject tooltipPanel, GameObject totalPricePanel) : this() {
         this.viewPanel = viewPanel;
         this.selectedViewPanel = selectedViewPanel;
+        this.tooltipPanel = new Tooltip(tooltipPanel);
+        this.totalPricePanel = totalPricePanel;
         for (int i = 0; i < viewPanel.transform.GetChild(0).GetChild(0).GetChild(0).childCount; i++) {
             itemViewList.Add(viewPanel.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(i).gameObject);
         }
@@ -152,6 +209,7 @@ public class Trade {
                 break;
             }
         }
+        int price = shopItemList.Find(x => x.itemCode == itemCode).price;
 
         checker = false;
         for (int i = 0; i < tradeDataList.Count; i++) {
@@ -163,7 +221,7 @@ public class Trade {
                 break;
             }
         }
-        if (checker == false && itemCount > 0) tradeDataList.Add(new TradeData(itemCode, itemCount));
+        if (checker == false && itemCount > 0) tradeDataList.Add(new TradeData(itemCode, itemCount, price));
             // 일치하는 경우를 못 찾은 경우.
         Sync();
     }
@@ -214,11 +272,12 @@ public class Trade {
                 selectedViewList[i].SetActive(false);
             }
         }
+        totalPricePanel.transform.GetChild(0).GetComponent<Text>().text = $"{GetTotalPrice()}";
     }
 
     // 좌표를 입력받아 그것에 해당하는 아이템이 무엇인지 확인하고 아래 목록으로 이동.
         // 만약 대상이 하단 패널이면 오히려 위로 올림.
-    public void SelectItem() {        
+    public void SelectItem() {
         MouseDetector detector = new MouseDetector();
         // 현재 커서가 상단 패널에 있는지 하단 패널에 있는지 확인.
         int mode = -1;
@@ -251,13 +310,112 @@ public class Trade {
             }
         }
     }
+
+    public void CheckShowTooltip () {
+        MouseDetector detector = new MouseDetector();
+        // 현재 커서가 상단 패널에 있는지 하단 패널에 있는지 확인.
+        int mode = -1;
+        detector.TargetChange(viewPanel.transform);
+        if (detector.Trigger()) mode = 0;
+        detector.TargetChange(selectedViewPanel.transform);
+        if (detector.Trigger()) mode = 1;
+
+        if (mode == -1) {
+            CloseTooltip();
+            return;
+        }
+            // mode 가 -1인 경우 엉뚱한 곳이 클릭되었다는 뜻이므로 탈출.
+        if (mode == 0) {
+            // 상단 패널 안인 경우.
+            for (int i = 0; i < shopItemList.Count; i++) {
+                detector.TargetChange(itemViewList[i].transform);
+                if (detector.Trigger()) {
+                    if (shopItemList[i].count != 0) showTooltip(detector.GetMousePos(), shopItemList[i].itemCode);
+                    return;
+                }
+            }
+        }
+        if (mode == 1) {
+            // 하단 패널 안인 경우.
+            for (int i = 0; i < tradeDataList.Count; i++) {
+                detector.TargetChange(selectedViewList[i].transform);
+                if (detector.Trigger()) {
+                    showTooltip(detector.GetMousePos(), tradeDataList[i].itemCode);
+                    return;
+                }
+            }
+        }
+    }
+
+    void showTooltip(Vector2 pos, string itemCode) {
+        // 빈 공간 클릭 체크.
+        if (itemCode == "") {
+            CloseTooltip();
+            return;            
+        }
+
+        tooltipPanel.lootPanel.SetActive(true);
+        tooltipPanel.lootPanel.transform.position = new Vector3(pos.x, pos.y, 0);
+        // 아이템 정보 받아옴.
+        tooltipPanel.itemCode = itemCode;
+        tooltipPanel.Sync();
+    }
+
+    public void CloseTooltip() {
+        tooltipPanel.lootPanel.SetActive(false);
+    }
+
+    public int GetTotalPrice() {
+        int output = 0;
+        foreach(TradeData trade in tradeDataList) {
+            output += trade.itemCount * trade.itemPrice;
+        }
+        return output;
+    }
 }
 
 public class TradeData {
     public string itemCode;
     public int itemCount;
-    public TradeData(string itemCode, int itemCount) {
+    public int itemPrice;
+    public TradeData(string itemCode, int itemCount, int itemPrice) {
         this.itemCode = itemCode;
         this.itemCount = itemCount;
+        this.itemPrice = itemPrice;
+    }
+}
+
+public class Tooltip {
+    public GameObject lootPanel;
+    Text itemNameText;
+    Text itemTooltipText;
+    Text itemItemEffectText;
+    public string itemCode;
+    public Tooltip(GameObject lootPanel) {
+        this.lootPanel = lootPanel;
+        itemNameText = lootPanel.transform.GetChild(0).GetChild(0).GetComponent<Text>();
+        itemTooltipText = lootPanel.transform.GetChild(1).GetChild(0).GetComponent<Text>();
+        itemItemEffectText = lootPanel.transform.GetChild(2).GetChild(0).GetComponent<Text>();
+    }
+    public void Sync() {
+        string itemName;
+        string itemTooltip;
+        string itemEffect;
+        Message msg = new Message($"InventoryManager/GetItem : {itemCode}").FunctionCall();
+        if (msg.returnValue.Count != 0) {
+            Item item = (Item)msg.returnValue[0];
+            itemName = item.GetItemName();
+            itemTooltip = item.GetItemToolTip();
+            itemEffect = "";
+            foreach(string effectString in item.GetItemEffect()) itemEffect += effectString;
+        }
+        else {
+            itemName = "";
+            itemTooltip = "";
+            itemEffect = "";
+        }
+        itemNameText.text = itemName;
+        itemTooltipText.text = itemTooltip;
+        itemItemEffectText.text = itemEffect;
     }
 }
