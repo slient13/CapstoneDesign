@@ -21,6 +21,7 @@ public class GameProcessManager : MonoBehaviour
     }
 
     public void CloseGame(Message message) {
+        Debug.Log("GameProcessManager/CloseGame : is called");
         new Message("InventoryManager/SaveInventory :").FunctionCall();
         new Message("PlayInfoManager/SavePlayData : ").FunctionCall();
         #if UNITY_EDITOR
