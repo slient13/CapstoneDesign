@@ -13,11 +13,12 @@ public class BattleNpc : MonoBehaviour
         {
             npcCommandManager.GetComponent<NpcCommandManager>().SendMessage("BattleStart", true);
 
-            Debug.Log(collision.gameObject.name + "과 전투가 시작되었습니다");
+            Message message = new Message("InventoryManager/ModifyItem : Boots, 1").FunctionCall();
+            //Debug.Log(collision.gameObject.name + "과 전투가 시작되었습니다");
         }
     }
 
-    void Respawn()
+    public void Respawn()
     {
         this.gameObject.SetActive(true);
         transform.localPosition = new Vector3(0, 0, 0);

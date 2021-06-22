@@ -6,11 +6,33 @@ public class NpcCommandManager : MonoBehaviour
 {
     public GameObject npc;
     public float respawnTime;
-    
+
     //플레이어 정보를 전달하는 매니저
     public GameObject systemManager;
 
-    bool isLive;
+    bool isLive = true;
+    float timer;
+    AudioSource hitSound;
+    GameObject deadEffect;
+
+    private void Start()
+    {
+        hitSound = transform.Find("HitSound").GetComponent<AudioSource>();
+        deadEffect = transform.Find("ParticleDead").gameObject;
+    }
+
+    private void Update()
+    {
+        if (!isLive)
+        {
+            timer += Time.deltaTime;
+            if (timer > respawnTime)
+            {
+                Respawn();
+                timer = 0f;
+            }
+        }
+    }
 
     void ChaseTarget(GameObject target)
     {
@@ -36,7 +58,20 @@ public class NpcCommandManager : MonoBehaviour
     /// </summary>
     void Respawn()
     {
-        npc.GetComponent<BattleNpc>().SendMessage("Respawn");
+        npc.GetComponent<BattleNpc>().Respawn();
+        //npc.GetComponent<BattleNpc>().SendMessage("Respawn");
+
+        isLive = true;
+    }
+
+    /// <summary>
+    /// 전투 시작
+    /// </summary>
+    /// <param name="boolean"></param>
+    void BattleStart(bool boolean)
+    {
+        Die();
+        Debug.Log("몬스터 사망");
     }
 
 
@@ -45,7 +80,12 @@ public class NpcCommandManager : MonoBehaviour
     /// </summary>
     void Die()
     {
+        deadEffect.transform.position = npc.transform.position;
+        deadEffect.GetComponent<ParticleSystem>().Play();
+
+        hitSound.Play();
+
+        isLive = false;
         npc.SetActive(false);
     }
-
 }
