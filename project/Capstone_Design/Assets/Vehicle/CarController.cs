@@ -6,6 +6,7 @@ public class CarController : MonoBehaviour
 
 {
     public GameObject target;
+    public GameObject Car;
 
     private const string HORIZONTAL = "Horizontal";
     private const string VERTICAL = "Vertical";
@@ -88,6 +89,30 @@ public class CarController : MonoBehaviour
       
     }
 
+    //차량 탑승
+    void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            if (Input.GetKeyDown("b"))
+            {
+                //speed = 30;
+                //isVehicle = true;
+
+                //플레이어 오브젝트가 차량의 자식 오브젝트가 된다.
+                target.transform.parent = Car.transform;
+
+                motorForce = 1000;
+
+                target.SetActive(false);
+                print("사라짐");
+                state = false;
+
+                new Message($"ControlManager/LayerChanger : PlayerCar").FunctionCall();
+            }
+        }
+    }
+
     //차량 하차 
     void Off()
     {
@@ -97,7 +122,9 @@ public class CarController : MonoBehaviour
             target.SetActive(true);
             print("생김");
             state = true;
+            //플레이어 오브젝트가 다시 독립적으로 나온다.
             target.transform.parent = null;
+            motorForce = 0;
 
             new Message("ControlManager/LayerChanger : general").FunctionCall();
 
@@ -108,11 +135,9 @@ public class CarController : MonoBehaviour
     {
         frontLeftWheelCollider.motorTorque = verticalInput * motorForce;
         frontRightWheelCollider.motorTorque = verticalInput * motorForce;
-        breakForce = isBreaking ? breakForce : 0f;
-        if (isBreaking)
-        {
-            ApplyBreaking();
-        }
+        currentbreakForce = isBreaking ? breakForce : 0f;
+        ApplyBreaking();
+        
     }
 
     private void ApplyBreaking()

@@ -13,9 +13,9 @@ public class Player : MonoBehaviour
 
 
     public GameObject nearObject;
-    public GameObject Car;
+
     //public GameObject player;
-    public GameObject target;
+    
 
 
     float hAxis;
@@ -248,7 +248,7 @@ public class Player : MonoBehaviour
         }
     }
     
-    
+    /*
    //차량 탑승
     void OnCollisionStay(Collision collision)
     {
@@ -270,7 +270,7 @@ public class Player : MonoBehaviour
             }
         }
     }
-    
+    */
 
     
     void Interaction()
