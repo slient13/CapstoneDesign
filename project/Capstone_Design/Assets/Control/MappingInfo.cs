@@ -9,14 +9,16 @@ public class MappingInfo {
     public List<Info> infoList;
     public string objectName;
     public string group;
+    public bool isDebug;
 
-    public MappingInfo() {        
+    public MappingInfo(bool isDebug = false) {        
         infoList = new List<Info>();
         objectName = "";
         group = "general";
+        this.isDebug = isDebug;
     }
 
-    public MappingInfo(string name) : this() {
+    public MappingInfo(string name, bool isDebug = false) : this(isDebug) {
         objectName = name;
     }
 

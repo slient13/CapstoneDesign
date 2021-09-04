@@ -42,13 +42,13 @@ public class ControlManager : MonoBehaviour
         for (int index = 0; index < mappingInfoList.Count; index++) {
             if (groupList[index] == currentMappingGroup) {
                 foreach(Info info in mappingInfoList[index].infoList) {
-                    if (match(info.keyPattern)) action(info.command, index, info.keyPattern);
+                    if (match(info.keyPattern)) action(info.command, index, info.keyPattern, mappingInfoList[index].isDebug);
                 }
             }
         }
     }
 
-    void action(string command, int target, string keyPattern) {
+    void action(string command, int target, string keyPattern, bool isDebug) {
         // 타겟 오브젝트 정보를 뺀 명령어.
         Message msg = new Message(command);
         // 타겟 오브젝트 이름은 별도로 넣어줌.
@@ -57,9 +57,10 @@ public class ControlManager : MonoBehaviour
         Vector2 mousePos = new Vector2();
         mousePos = inputChecker.GetMousePos();
         msg.args.Add(mousePos);
-        // 함수 호출.
         msg.FunctionCall();
-        Debug.Log("ControlManager.action : keyPattern = " + keyPattern + ", command = " + command);
+
+        if (isDebug)
+            Debug.Log("ControlManager.action : keyPattern = " + keyPattern + ", command = " + command);
     }
 
     // 매핑정보 추가. 순서 무관하게 반드시 끝에 추가.
