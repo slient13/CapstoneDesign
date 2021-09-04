@@ -92,7 +92,21 @@ public class Message
                 }
                 // 처리 완료 컬렉션 연결
                 strList.Add(subStrList);
-            }        
+            }     
+            // 특수 문자가 섞인 문자열 분리.
+            else if (command[index] == '(') {
+                // Debug.Log($"Message.debug : command = {command}");
+                level = 1;
+                ++index;
+                do {
+                    temp += command[index++];
+                    if (command[index] == '(') level++;
+                    if (command[index] == ')') level--;
+                } while(level > 0);
+                ++index;
+
+                strList.Add(temp.Trim());
+            }
             else {
                 // 일반 인수 처리 파트
                 // 콤마 까지 모든 문자열 읽음

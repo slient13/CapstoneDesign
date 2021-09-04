@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
 
 
     GameObject nearObject;
-    
+
 
     float hAxis;
     float vAxis;
@@ -22,21 +22,10 @@ public class Player : MonoBehaviour
     bool vDown;
     bool bDown;
 
-    bool isVehicle;
     bool isJump;
     bool isDodge;
 
-    /*
-    public int coin; //코인
-    public int health; // 체력
-    public int fish; // 물고기
-    public int bug; // 미끼
-
-    public int maxCoin; //최대 코인 수
-    public int maxHealth; // 최대 체력
-    public int maxFish; // 최대 물고기 마리 수
-    public int maxBug; // 최대 미끼 개수
-    */
+    string act_command = "None : ";
 
     Vector3 moveVec;
     Vector3 dodgeVec;//회피 도중 방향전환이 되지 않도록 회피방향 Vector3 추가
@@ -60,32 +49,19 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        // Message msg7 = new Message("newPlayInfo: Coin, int, 10000");
-        // Message msg8 = new Message("newPlayInfo: Health, int, 100");
-        // Message msg9 = new Message("newPlayInfo: Fish, int, 0");
-        // Message msg10 = new Message("newPlayInfo: Bug, int, 0");
-        // Message msg11 = new Message("newPlayInfo: MaxCoin, int, 10000");
-        // Message msg12 = new Message("newPlayInfo: MaxHealth, int, 100");
-        
-
-        // msg7.functionCall();
-        // msg8.functionCall();
-        // msg9.functionCall();
-        // msg10.functionCall();
-        // msg11.functionCall();
-        // msg12.functionCall();       
+        MappingInfo playerControl = new MappingInfo("Player");
+        playerControl.AddMapping("Move : ", "!esc");
+        playerControl.AddMapping("Jump : ", "space");
+        playerControl.AddMapping("Action : ", "mouseL");
+        playerControl.AddMapping("Interaction : ", "e");
+        playerControl.Enroll();
     }
-    
+
     void Update()
     {
         GetInput();
-        Move();
         Turn();
-        Jump();
         // Dodge(); // 자꾸 벽을 뚫고 들어가는 버그가 있어 비활성화.
-        Interaction();
-        Vehicle();
-       
     }
 
 
@@ -130,7 +106,7 @@ public class Player : MonoBehaviour
     //점프
     void Jump()
     {
-        if (jDown && moveVec == Vector3.zero && !isJump && !isDodge)
+        if (jDown && !isJump && !isDodge)
         {
             rigid.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
             anim.SetBool("isJump", true);
@@ -152,7 +128,6 @@ public class Player : MonoBehaviour
 
             Invoke("DodgeOut", 0.4f); //Invoke 함수로 시간차를 둔다
         }
-
     }
 
     void DodgeOut()
@@ -160,37 +135,26 @@ public class Player : MonoBehaviour
         speed *= 0.5f;
         isDodge = false;
     }
-    
+
     // 점프 중 오브젝트랑 충돌 시 애니메이션 초기화.
     void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag != "NotFloor")
+        if (collision.gameObject.tag != "NotFloor")
         {
             anim.SetBool("isJump", false);
             isJump = false;
         }
-
-        if (collision.gameObject.name == "Vehicle")
-        {
-            speed = 30;
-            isVehicle = true;
-        }
     }
 
-    //차량 탑승
-    void Vehicle()
+    void Action()
     {
-        if (Input.GetKeyDown("v"))
-        {
-            if (speed == 30)
-            {
-                speed = 10;
-                isVehicle = false;
-            }
-        }
+        new Message(act_command).FunctionCall();
     }
 
-
+    void SetAction(Message message)
+    {
+        this.act_command = (string) message.args[0];
+    }
 
     void Interaction()
     {
@@ -202,18 +166,16 @@ public class Player : MonoBehaviour
     // 복수의 오브젝트가 충돌 시, 제일 나중에 입력된 태그를 가진 오브젝트가 우선권을 가짐.
     void OnTriggerEnter(Collider other)
     {
-            // 태그 검사하고 대상 변경.                
-            foreach(string targetTag in interactionTargetList)
-                if (other.tag == targetTag)
-                    nearObject = other.gameObject;
+        // 태그 검사하고 대상 변경.                
+        foreach (string targetTag in interactionTargetList)
+            if (other.tag == targetTag)
+                nearObject = other.gameObject;
     }
 
     // 오브젝트와의 충돌이 끝나는 경우 그것이 'nearObject'였다면 초기화.
     void OnTriggerExit(Collider other)
     {
-        if (nearObject != null && other.tag == nearObject.tag) 
+        if (nearObject != null && other.tag == nearObject.tag)
             nearObject = null;
     }
-
-
 }
