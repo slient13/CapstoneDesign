@@ -42,21 +42,25 @@ public class ControlManager : MonoBehaviour
         for (int index = 0; index < mappingInfoList.Count; index++) {
             if (groupList[index] == currentMappingGroup) {
                 foreach(Info info in mappingInfoList[index].infoList) {
-                    if (match(info.keyPattern)) action(info.command, index, info.keyPattern, mappingInfoList[index].isDebug);
+                    if (match(info.keyPattern)) 
+                        action(info.command, index, info.keyPattern, mappingInfoList[index].isNeedMousePos, mappingInfoList[index].isDebug);
                 }
             }
         }
     }
 
-    void action(string command, int target, string keyPattern, bool isDebug) {
+    void action(string command, int target, string keyPattern, bool isNeedMousePos, bool isDebug) {
         // 타겟 오브젝트 정보를 뺀 명령어.
         Message msg = new Message(command);
         // 타겟 오브젝트 이름은 별도로 넣어줌.
         msg.targetName = objectLayer[target].name;
         // 첫번째 인수로 현재 마우스의 위치를 전달함. Vector2 형.
-        Vector2 mousePos = new Vector2();
-        mousePos = inputChecker.GetMousePos();
-        msg.args.Add(mousePos);
+        if (isNeedMousePos)
+        {
+            Vector2 mousePos = new Vector2();
+            mousePos = inputChecker.GetMousePos();
+            msg.args.Add(mousePos);
+        }
         msg.FunctionCall();
 
         if (isDebug)
