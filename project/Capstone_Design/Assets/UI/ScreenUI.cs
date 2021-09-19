@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/*
+현재 사용하지 않는 코드.
+현재 해당 기능은 MenuPlayerUI.cs 에서 구현되고 있음.
+*/
 public class ScreenUI : MonoBehaviour
 {   
     GameObject hpBar;   // 체력바
@@ -25,10 +29,10 @@ public class ScreenUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Message msgHp = new Message("GetPlayInfoValue : Hp").FunctionCall();
+        Message msgHp = new Message("GetPlayInfo : Player.Stat.Hp").FunctionCall();
         setHpBar((int) msgHp.returnValue[0]);
 
-        Message msgMoney = new Message("GetPlayInfoValue : Money").FunctionCall();
+        Message msgMoney = new Message("GetPlayInfo : Player.Stat.Money").FunctionCall();
         setMoney((int) msgMoney.returnValue[0]);
     }
 

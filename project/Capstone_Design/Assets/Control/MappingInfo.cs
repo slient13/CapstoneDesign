@@ -10,15 +10,17 @@ public class MappingInfo {
     public string objectName;
     public string group;
     public bool isDebug;
+    public bool isNeedMousePos;
 
-    public MappingInfo(bool isDebug = false) {        
+    public MappingInfo(bool isNeedMousePos = false, bool isDebug = false) {        
         infoList = new List<Info>();
         objectName = "";
         group = "general";
         this.isDebug = isDebug;
+        this.isNeedMousePos = isNeedMousePos;
     }
 
-    public MappingInfo(string name, bool isDebug = false) : this(isDebug) {
+    public MappingInfo(string name, bool isNeedMousePos = false, bool isDebug = false) : this(isNeedMousePos, isDebug) {
         objectName = name;
     }
 

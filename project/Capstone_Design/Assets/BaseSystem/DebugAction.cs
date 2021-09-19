@@ -24,11 +24,11 @@ public class DebugAction : MonoBehaviour
         closeDebugConsole.AddMapping("CloseDebugConsole : 1", "enter");
         closeDebugConsole.Enroll("Debug");
         // PlayInfoManager 관련.
-        MappingInfo playInfoManagerDebug = new MappingInfo("PlayInfoManager");
-        playInfoManagerDebug.AddMapping("ChangeData : Hp, 10", "_ctrlL, arrowU");
-        playInfoManagerDebug.AddMapping("ChangeData : Hp, -10", "_ctrlL, arrowD");
-        playInfoManagerDebug.AddMapping("ChangeData : Money, 1000", "_altL, arrowU");
-        playInfoManagerDebug.AddMapping("ChangeData : Money, -1000", "_altL, arrowD");
+        MappingInfo playInfoManagerDebug = new MappingInfo("BaseSystem");
+        playInfoManagerDebug.AddMapping("ChangeData : Player.Stat.Hp, 10", "_ctrlL, arrowU");
+        playInfoManagerDebug.AddMapping("ChangeData : Player.Stat.Hp, -10", "_ctrlL, arrowD");
+        playInfoManagerDebug.AddMapping("ChangeData : Player.Stat.Money, 1000", "_altL, arrowU");
+        playInfoManagerDebug.AddMapping("ChangeData : Player.Stat.Money, -1000", "_altL, arrowD");
         playInfoManagerDebug.Enroll();                
         // InventoryManager 관련. 
         MappingInfo inventoryManagerDebug = new MappingInfo("InventoryManager");

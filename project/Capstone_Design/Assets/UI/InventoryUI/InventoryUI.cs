@@ -109,7 +109,7 @@ public class InventoryUI : MonoBehaviour
             }
             else etcInventories[i].Clear();
         }
-        Message getMoney = new Message("PlayInfoManager/GetData : Money").FunctionCall();
+        Message getMoney = new Message("GetPlayInfoValue : Player.Stat.Money").FunctionCall();
         int money = (int) getMoney.returnValue[0];
         moneyText.text = string.Format("{0:N0}", money);
     }

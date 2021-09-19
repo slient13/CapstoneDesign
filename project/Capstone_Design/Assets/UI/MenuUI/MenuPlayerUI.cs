@@ -19,18 +19,18 @@ public class MenuPlayerUI : MonoBehaviour
         spBar.panel = transform.GetChild(2).GetChild(0).gameObject.GetComponent<RectTransform>();
         spBar.text = transform.GetChild(2).GetChild(1).gameObject.GetComponent<Text>();
         // 이벤트 리스너 지정.
-        EventListener.GetEventListener().Binding("PlayInfoManager", "ChangeData", "MenuUI/Sync : ");
+        EventListener.GetEventListener().Binding("BaseSystem", "ChangeData", "MenuUI/Sync : ");
         Sync();
     }
     public void Sync() {
-        Message getHp = new Message("PlayInfoManager/GetData : Hp").FunctionCall();
-        hpBar.Sync(
-            (int) getHp.returnValue[0],  // value
-            (int) getHp.returnValue[3]); // max
-        Message getStamina = new Message("PlayInfoManager/GetData : Sp").FunctionCall();
-        spBar.Sync(
-            (int) getStamina.returnValue[0],  // value
-            (int) getStamina.returnValue[3]); // max
+        Message getHp = new Message("GetPlayInfo : Player.Stat.Hp").FunctionCall();
+        PlayInfo Hp = (PlayInfo) getHp.returnValue[0];
+        PlayInfo Hp_data = Hp.GetDataList()[0];
+        hpBar.Sync((int)Hp_data.GetValue(), (int)Hp_data.GetRange()[1]);
+        Message getStamina = new Message("GetPlayInfo : Player.Stat.Sp").FunctionCall();
+        PlayInfo Sp = (PlayInfo) getStamina.returnValue[0];
+        PlayInfo Sp_data = Sp.GetDataList()[0];
+        spBar.Sync((int)Sp_data.GetValue(), (int)Sp_data.GetRange()[1]);
     }
 }
 
