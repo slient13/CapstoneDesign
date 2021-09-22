@@ -227,10 +227,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uAE30\uBCF8\uC801\uC73C\uB85C \uCEE8\uD150\uCE20\uB294 \uD654\uBA74 \uD558\uB2E8\uC758
-    \uBBF8\uB2C8\uB9F5\uC5D0 \n\uD45C\uC2DC\uB41C \uC7A5\uC18C\uC5D0 \uAC00\uAE4C\uC774
-    \uAC00\uAC70\uB098\nE\uD0A4\uB97C \uB20C\uB7EC\uC11C \uD65C\uC131\uD654 \uD560
-    \uC218 \uC788\uC2B5\uB2C8\uB2E4"
+  m_Text: "\uAC01\uC885 \uCEE8\uD150\uCE20\uB294 \uBBF8\uB2C8\uB9F5\uC758 \uC544\uC774\uCF58\uC73C\uB85C
+    \uD655\uC778\uAC00\uB2A5\n"
 --- !u!1 &1254961303054178747
 GameObject:
   m_ObjectHideFlags: 0
@@ -582,8 +580,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC774\uC81C \uD29C\uD1A0\uB9AC\uC5BC \uC885\uB8CC\uBC84\uD2BC\uC744 \uB20C\uB7EC\uC11C\n\uB3C4\uC2DC\uB85C
-    \uC774\uB3D9\uD574 \uBCF4\uC138\uC694"
+  m_Text: "\uB09A\uC2DC\uD130\uC5D0\uC11C\uB294 e\uB97C \uB204\uB978\uD6C4\n\uD0C0\uC774\uBC0D\uC5D0
+    \uB9DE\uCDB0 e\uB97C \uB204\uB974\uBA74 \uC544\uC774\uD15C \uD68D\uB4DD\uAC00\uB2A5"
 --- !u!1 &2399149342154958621
 GameObject:
   m_ObjectHideFlags: 0
@@ -822,7 +820,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b80f43092bcfda74fb402471e8ffb2c2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0f9398cc9c2e9e447b002b70561be96f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
