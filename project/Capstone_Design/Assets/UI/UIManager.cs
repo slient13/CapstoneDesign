@@ -20,8 +20,8 @@ public class UIManager : MonoBehaviour {
         mapping.AddMapping("OpenUI : PlayerInfoUI"  , "p");
         mapping.AddMapping("OpenUI : InventoryUICanvas", "i");
         mapping.AddMapping("OpenUI : MenuUI", "m");
-        // mapping.AddMapping("OpenUI : EquipmentUI"   , "r");  // 시간 부족.
-        // mapping.AddMapping("OpenUI : QuestUI"       , "q");  // 시간 부족.
+        mapping.AddMapping("OpenUI : EquipmentUI"   , "r");  // 시간 부족.
+        mapping.AddMapping("OpenUI : QuestUI"       , "q");  // 시간 부족.
         // mapping.AddMapping("CloseUI : "             , "!ctrlL, esc");
         // mapping.AddMapping("CloseAllUI : "          , "_ctrlL, esc");
         // mapping.AddMapping("OpenTalkView : npc", "t");  // 디버그용.

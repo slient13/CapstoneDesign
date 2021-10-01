@@ -34,7 +34,7 @@ public class QuestUI : MonoBehaviour
         panel.SetActive(isActive);
     }
 
-    public void CloseUI(Message message) {
+    public void CloseUI() {
         isActive = false;
         panel.SetActive(isActive);
         new Message("ControlManager/LayerChanger : general").FunctionCall();
