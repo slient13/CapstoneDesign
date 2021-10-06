@@ -1,5 +1,48 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &475604431744126391
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4035326986165371762}
+  - component: {fileID: 6301242891461294775}
+  m_Layer: 0
+  m_Name: EquipmentSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4035326986165371762
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 475604431744126391}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6982275485517748625}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6301242891461294775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 475604431744126391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca968f56da7f1b8408079ce6eac3a88b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1215388791198277914
 GameObject:
   m_ObjectHideFlags: 0
@@ -86,6 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e98603befab6a7540891f7adc66837a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  questNameList: []
 --- !u!1 &4565333244716810929
 GameObject:
   m_ObjectHideFlags: 0
@@ -172,6 +216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb32416b8a7c832419e8d16919f063bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugConsole: {fileID: 0}
 --- !u!1 &5984103486632464317
 GameObject:
   m_ObjectHideFlags: 0
@@ -310,7 +355,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  playInfoList: []
 --- !u!1 &6982275484285908791
 GameObject:
   m_ObjectHideFlags: 0
@@ -420,6 +464,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 779cfadb6f03bcb4d8b185a85e272692, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemList: []
   itemImageList: []
   itemBoxList: []
 --- !u!1 &6982275485517748626
@@ -459,6 +504,7 @@ Transform:
   - {fileID: 697294661014597070}
   - {fileID: 109661140378689310}
   - {fileID: 7644647473741356789}
+  - {fileID: 4035326986165371762}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -290,4 +290,58 @@ public class ExternalFileSystem
         }
         return questList;
     }
+
+    public List<Equipment> GetEquipmentInfo(string fileName)
+    {
+        List<string> input_list = fileReader(fileName);
+
+        string code = "";
+        string name = "";
+        List<EquipmentEffect> effects = new List<EquipmentEffect>();
+        List<Equipment> output_equipment_list = new List<Equipment>();
+        foreach (string input in input_list)
+        {
+            string[] temp = input.Split('=');
+            string type = temp[0].Trim();
+            string value = "";
+            if (temp.Length == 2) value = temp[1].Trim();
+
+            if (type == "code") code = value;
+            else if (type == "name") name = value;
+            else if (type == "effect")
+            {
+                temp = value.Split(',');
+                string target = temp[0].Trim();
+                int degree = Convert.ToInt32(temp[1].Trim());
+                effects.Add(new EquipmentEffect(target, degree));
+            }
+            else if (type == "end")
+            {
+                Equipment temp_equipment = new Equipment(code, name, effects);
+                output_equipment_list.Add(temp_equipment);
+            }
+        }
+
+        return output_equipment_list;
+    }
+    public List<string> LoadEquipState()
+    {
+        string targetFileName = "Equip/State.txt";
+
+        return fileReader(targetFileName, isUserData: true);
+    }
+    public void SaveEquipState(List<Equipment> equip_state_list)
+    {
+        string targetFileName = "Equip/State.txt";
+
+        List<string> output_string_list = new List<string>();
+
+        foreach (Equipment state in equip_state_list)
+        {
+            output_string_list.Add(state.code);
+        }
+
+        fileWriter(targetFileName, output_string_list, isUserData: true);
+    }
+
 }
