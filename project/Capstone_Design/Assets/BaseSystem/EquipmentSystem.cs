@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EquipmentSystem : MonoBehaviour
 {
@@ -98,7 +99,9 @@ public class EquipmentSystem : MonoBehaviour
             new Message($"ChangeData : {effect.target_code}, {effect.degree * -1}");
         }
 
-        new Message($"InventoryManager/ModifyItem : {temp_equipment}, 1");
+        // Debug.Log($"EquipmentSystem/Unequip.debug : temp_equipement.code = {temp_equipment.code}");
+
+        new Message($"InventoryManager/ModifyItem : {temp_equipment.code}, 1").FunctionCall();
         this.equiped_list.RemoveAt(targetIndex);
     }
     public void GetEquipState(Message message)
@@ -127,12 +130,26 @@ public class Equipment
     public string code { get; }
     public string name { get; }
     public List<EquipmentEffect> effect_list { get; }
+    public Sprite img { get; }
 
-    public Equipment(string code, string name, List<EquipmentEffect> effect_list)
+    public Equipment(string code, string name, List<EquipmentEffect> effect_list, Sprite img)
     {
         this.code = code;
         this.name = name;
         this.effect_list = effect_list;
+        this.img = img;
+    }
+    public Equipment(string code, string name, List<EquipmentEffect> effect_list) : this(code, name, effect_list, null) { }
+
+    public string GetDesc()
+    {
+        string output = "";
+        foreach (EquipmentEffect effect in effect_list)
+        {
+            output += effect.GetDesc() + "\n";
+        }
+
+        return output;
     }
 }
 
@@ -145,5 +162,10 @@ public class EquipmentEffect
     {
         this.target_code = target_code;
         this.degree = degree;
+    }
+
+    public string GetDesc()
+    {
+        return $"{target_code} : {degree}";
     }
 }

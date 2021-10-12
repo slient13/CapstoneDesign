@@ -15,6 +15,11 @@ public class MouseDetector {
         this.targetTransform = null;
     }
 
+    public MouseDetector(Transform targetTransform) {
+        this.mousePos = this.GetMousePos();
+        this.targetTransform = targetTransform;
+    }
+
     public MouseDetector(Vector2 mousePos, Transform targetTransform) {
         this.mousePos = mousePos;
         this.targetTransform = targetTransform;
@@ -30,7 +35,13 @@ public class MouseDetector {
         return new Vector2(this.mousePos.x, this.mousePos.y);
     }
 
-    public bool Trigger() {
+    public bool Trigger(int pinMode = 1) {
+        // pinMode
+        /*
+            1 = 좌상단.
+            5 = 중앙.            
+        */
+
         Vector3 targetPos;                  // 타겟 오브젝트의 위치
         Vector2 targetSize = new Vector2(); // 타겟 오브젝트의 크기.
         Vector2 minPos = new Vector2();     // 트리거 인식 최소 위치
@@ -55,6 +66,15 @@ public class MouseDetector {
         minPos.y = targetPos.y - targetSize.y;
         maxPos.x = targetPos.x + targetSize.x;
         maxPos.y = targetPos.y;
+
+        // pinMode 에 따라 판정 범위를 조정함.
+        if (pinMode == 5)
+        {
+            minPos.x -= targetSize.x / 2;
+            maxPos.x -= targetSize.x / 2;
+            minPos.y += targetSize.y / 2;
+            maxPos.y += targetSize.y / 2;
+        }
 
         // 디버그용 값 표시기
         // Debug.LogFormat("MouseDetector/trigger : targetPos = ({6}, {7}) / targetSize = ({8}, {9}) / " + 
