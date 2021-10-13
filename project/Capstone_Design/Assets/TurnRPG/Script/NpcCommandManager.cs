@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class NpcCommandManager : MonoBehaviour
 {
@@ -70,8 +71,10 @@ public class NpcCommandManager : MonoBehaviour
     /// <param name="boolean"></param>
     void BattleStart(bool boolean)
     {
-        Die();
-        Debug.Log("몬스터 사망");
+        SceneManager.LoadScene("Rpg_Intro");
+
+        //Die();
+        //Debug.Log("몬스터 사망");
     }
 
 

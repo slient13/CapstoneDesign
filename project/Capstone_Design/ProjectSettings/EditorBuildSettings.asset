@@ -5,10 +5,19 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scene/finalSecen.unity
     guid: 0ab7c61d39e23f348acdf90a36d03637
   - enabled: 0
     path: Assets/Scene/dummyScene.unity
     guid: cee9374e985e1964797b68dd78512842
+  - enabled: 1
+    path: Assets/TurnRPG/Scene/finalSecen for merge.unity
+    guid: 5f9d3dc93e0091c479d291c60e8d2efc
+  - enabled: 1
+    path: Assets/TurnRPG/Scene/Rpg_Intro.unity
+    guid: f6446dfb245bdec4486cea55a0a36652
+  - enabled: 1
+    path: Assets/TurnRPG/Scene/BattleScene.unity
+    guid: c0fa2221b2f12cb48a96de85c68328b6
   m_configObjects: {}

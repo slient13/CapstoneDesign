@@ -34,4 +34,29 @@ public class CommentPanel : MonoBehaviour
         originalText.color = mainText.color;
         originalText.fontSize = mainText.fontSize;
     }
+
+    /// <summary>
+    /// 활성화
+    /// </summary>
+    void Activate()
+    {
+        this.gameObject.SetActive(true);
+    }
+
+    /// <summary>
+    /// 비활성화
+    /// </summary>
+    void DeActivate()
+    {
+        this.gameObject.SetActive(false);
+    }
+
+    /// <summary>
+    /// 활성화 설정
+    /// </summary>
+    /// <param name="boolean"></param>
+    void SetActivate(bool boolean)
+    {
+        this.gameObject.SetActive(boolean);
+    }
 }
