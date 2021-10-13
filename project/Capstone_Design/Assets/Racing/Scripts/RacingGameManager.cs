@@ -199,8 +199,25 @@ public class RacingGameManager : MonoBehaviour
         for(int i=0;i<car.Length;i++)
         {
             // 차량의 속도는 기본 속도에서 오차 0.5f내에서 랜덤으로 배정 
-            car[i].carSpeed = Random.Range(baseSpeed, baseSpeed + 0.5f);
+            //car[i].carSpeed = Random.Range(baseSpeed, baseSpeed + 0.5f);
         }
+        car[0].carSpeed = 12;
+        car[1].carSpeed = 12;
+        car[2].carSpeed = 12;
+        car[3].carSpeed = 12;
+        car[4].carSpeed = 12.5f;
+
+        car[0].carRotate = 30;
+        car[1].carRotate = 30;
+        car[2].carRotate = 30; 
+        car[3].carRotate = 60;
+        car[4].carRotate = 30;
+
+        car[0].carAccel = 10;
+        car[1].carAccel = 7;
+        car[2].carAccel = 15; 
+        car[3].carAccel = 10;
+        car[4].carAccel = 5;
     }
 
     //시작 버튼 기능 구현

@@ -6,8 +6,13 @@ using UnityEngine.AI; //Nav 기능을 사용할 수 있게 한다.
 public class Car : MonoBehaviour
 {
     public float carSpeed; //차량 스피드
+
+    public float carRotate;
+
+    public float carAccel;
     public Transform target; //목적지
 
+    //public float speed;
     int nextTarget; // 목적지 순서를 결정 
 
     public bool player; // 플레이어 챠량 여부 
@@ -24,6 +29,9 @@ public class Car : MonoBehaviour
 
             //NavMeshAgent의 speed를 carSpeed와 일치시킨다.
             GetComponent<NavMeshAgent>().speed = carSpeed;
+            GetComponent<NavMeshAgent>().acceleration = carAccel;
+            // GetComponent<NavMeshAgent>().angularSpeed = carRotate;
+            GetComponent<NavMeshAgent>().autoBraking = true;
 
             //AI코르틴을 실행시킨다. => 그래야 작동이 된다.
             StartCoroutine("AI_Move");
@@ -45,7 +53,7 @@ public class Car : MonoBehaviour
             float dis = (target.position-transform.position).magnitude;
 
             //목적지와의 거리가 1보다 작으면
-            if(dis <= 1)
+            if(dis <= 10)
             {
                 //다음 타겟으로 목적지 변경
                 nextTarget += 1; 
@@ -165,4 +173,13 @@ public class Car : MonoBehaviour
             }
         }
     }
+
+    //키보드 조작 테스트 
+    //  void FixedUpdate(){
+    //     float hor = Input.GetAxis("Horizontal");
+    //     float ver = Input.GetAxis("Vertical");
+
+    //     transform.Translate(Vector3.forward * speed * ver * Time.deltaTime);      //이동
+    //     transform.Rotate(Vector3.up * speed * hor);    // 회전
+    // }
 }
