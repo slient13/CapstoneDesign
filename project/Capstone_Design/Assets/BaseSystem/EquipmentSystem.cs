@@ -49,7 +49,7 @@ public class EquipmentSystem : MonoBehaviour
             if (temp_equipment != null) this.equiped_list.Add(temp_equipment);
         }
     }
-    void saveEquipState()
+    void SaveEquipState()
     {
         ExternalFileSystem.SingleTon().SaveEquipState(this.equiped_list);
     }
@@ -60,7 +60,7 @@ public class EquipmentSystem : MonoBehaviour
         if (this.equiped_list.Count >= equip_slot_count)
         {
             Debug.Log("EquipmentSystem/Equip.error : slot is already full.");
-            new Message($"InventoryManager/ModifyItem : {equipment_code}, 1");
+            new Message($"InventoryManager/ModifyItem : {equipment_code}, 1").FunctionCall();
             return;
         }
 
@@ -74,7 +74,11 @@ public class EquipmentSystem : MonoBehaviour
             }
         }
 
-        if (target_equipment == null) Debug.Log($"EquipmentSystem/Equip.error : There is no matched equipment. input = {equipment_code}.");
+        if (target_equipment == null) 
+        {
+            Debug.Log($"EquipmentSystem/Equip.error : There is no matched equipment. input = {equipment_code}.");
+            return;
+        }
 
         this.equiped_list.Add(target_equipment);
         foreach (EquipmentEffect effect in target_equipment.effect_list)
@@ -96,7 +100,7 @@ public class EquipmentSystem : MonoBehaviour
 
         foreach (EquipmentEffect effect in temp_equipment.effect_list)
         {
-            new Message($"ChangeData : {effect.target_code}, {effect.degree * -1}");
+            new Message($"ChangeData : {effect.target_code}, {effect.degree * -1}").FunctionCall();
         }
 
         // Debug.Log($"EquipmentSystem/Unequip.debug : temp_equipement.code = {temp_equipment.code}");

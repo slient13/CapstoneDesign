@@ -326,13 +326,13 @@ public class ExternalFileSystem
     }
     public List<string> LoadEquipState()
     {
-        string targetFileName = "Equip/State.txt";
+        string targetFileName = "Equip/State";
 
         return fileReader(targetFileName, isUserData: true);
     }
     public void SaveEquipState(List<Equipment> equip_state_list)
     {
-        string targetFileName = "Equip/State.txt";
+        string targetFileName = "Equip/State";
 
         List<string> output_string_list = new List<string>();
 
