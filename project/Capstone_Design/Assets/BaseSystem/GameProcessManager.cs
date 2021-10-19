@@ -12,6 +12,9 @@ public class GameProcessManager : MonoBehaviour
         sceneNameList = new List<string>();
         sceneNameList.Add("finalSecen");
         sceneNameList.Add("LodingSecen");
+        sceneNameList.Add("LodingSecen2");
+        sceneNameList.Add("CoverSecen");
+        sceneNameList.Add("TutorialSecen");
     }
 
     // Update is called once per frame
