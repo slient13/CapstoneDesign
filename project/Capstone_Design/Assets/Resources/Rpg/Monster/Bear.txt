@@ -1,0 +1,8 @@
+name = 곰
+hp = 200
+attack = 30
+defence = 20
+skill = skill_A, 몸통 박치기, 1.0
+skill = skill_B, 송곳니 공격, 1.6
+drop = 곰 가죽, 1.0
+drop = 단단한 송곳니, 0.3

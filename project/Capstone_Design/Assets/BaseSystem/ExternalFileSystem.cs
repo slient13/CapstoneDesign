@@ -290,4 +290,39 @@ public class ExternalFileSystem
         }
         return questList;
     }
+
+    public Enemy GetEnemyInfo(string enemy_code)
+    {
+        string code = enemy_code;
+        string name = "";
+        string hp = "";
+        string attack = "";
+        string defence = "";
+        List<string> skill_list = new List<string>();
+        List<string> drop_list = new List<string>();
+        Enemy output;
+
+        List<string> input = fileReader($"Rpg/Monster/{enemy_code}");
+
+        foreach (string line in input)
+        {
+            string type = "";
+            string value = "";
+
+            string[] splited_line = line.Split('=');
+            type = splited_line[0].Trim();
+            value = splited_line[1].Trim();
+
+            if (type == "name") { name = value; }
+            else if (type == "hp") { hp = value; }
+            else if (type == "attack") { attack = value; }
+            else if (type == "defence") { defence = value; }
+            else if (type == "skill") { skill_list.Add(value); }
+            else if (type == "drop") { drop_list.Add(value); }
+        }
+
+        output = new Enemy("Monster", code, name, hp, attack, defence, skill_list, drop_list);
+
+        return output;
+    }
 }
