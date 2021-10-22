@@ -24,11 +24,11 @@ public class DebugAction : MonoBehaviour
         closeDebugConsole.AddMapping("CloseDebugConsole : 1", "enter");
         closeDebugConsole.Enroll("Debug");
         // PlayInfoManager 관련.
-        MappingInfo playInfoManagerDebug = new MappingInfo("PlayInfoManager");
-        playInfoManagerDebug.AddMapping("ChangeData : Hp, 10", "_ctrlL, arrowU");
-        playInfoManagerDebug.AddMapping("ChangeData : Hp, -10", "_ctrlL, arrowD");
-        playInfoManagerDebug.AddMapping("ChangeData : Money, 1000", "_altL, arrowU");
-        playInfoManagerDebug.AddMapping("ChangeData : Money, -1000", "_altL, arrowD");
+        MappingInfo playInfoManagerDebug = new MappingInfo("BaseSystem");
+        playInfoManagerDebug.AddMapping("ChangeData : Player.Stat.Hp, 10", "_ctrlL, arrowU");
+        playInfoManagerDebug.AddMapping("ChangeData : Player.Stat.Hp, -10", "_ctrlL, arrowD");
+        playInfoManagerDebug.AddMapping("ChangeData : Player.Stat.Money, 1000", "_altL, arrowU");
+        playInfoManagerDebug.AddMapping("ChangeData : Player.Stat.Money, -1000", "_altL, arrowD");
         playInfoManagerDebug.Enroll();                
         // InventoryManager 관련. 
         MappingInfo inventoryManagerDebug = new MappingInfo("InventoryManager");
@@ -42,18 +42,18 @@ public class DebugAction : MonoBehaviour
         gameProcessManagerDebug.AddMapping("ChangeScene : dummyScene ", "_ctrlL, _shiftL, n2");
         gameProcessManagerDebug.Enroll();
 
-        EventListener.GetEventListener().Binding("BaseSystem", "None", "DebugAction/EventTest : 123");
-        new Message("BaseSystem/None : 456, 789").FunctionCall();
+        // EventListener.GetEventListener().Binding("BaseSystem", "None", "DebugAction/EventTest : 123");
+        // new Message("BaseSystem/None : 456, 789").FunctionCall();
     }
 
-    public void EventTest(Message message) {
-        List<int> values = new List<int>();
-        values.Add((int) message.args[0]);
-        ArrayList temp = (ArrayList) message.args[1];
-        values.Add((int) temp[0]);
-        values.Add((int) temp[1]);
-        Debug.Log($"DebugAction/EventTest.values : {values[0]}, {values[1]}, {values[2]}");
-    }
+    // public void EventTest(Message message) {
+    //     List<int> values = new List<int>();
+    //     values.Add((int) message.args[0]);
+    //     ArrayList temp = (ArrayList) message.args[1];
+    //     values.Add((int) temp[0]);
+    //     values.Add((int) temp[1]);
+    //     Debug.Log($"DebugAction/EventTest.values : {values[0]}, {values[1]}, {values[2]}");
+    // }
 
     public void OpenDebugConsole() {
         debugConsole.SetActive(true);
@@ -65,7 +65,7 @@ public class DebugAction : MonoBehaviour
     public void CloseDebugConsole(Message message) {
         int isModify = (int) message.args[0];        
         if (isModify == 1) {
-            string command = debugConsole.transform.GetChild(0).GetChild(2).gameObject.GetComponent<Text>().text;
+            string command = debugConsole.transform.GetChild(0).gameObject.GetComponent<InputField>().text;
             Debug.Log($"DebugAction/CloseDebugConsole.command : {command}");
             new Message(command).FunctionCall();
         }

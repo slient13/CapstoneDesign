@@ -73,11 +73,11 @@ public class ExternalFileSystem
             }
             reader.Close();
         }
-        else 
+        else
         {
             string totalText = (Resources.Load<TextAsset>(filePath) as TextAsset).text;
             string[] splitedText = totalText.Split('\n');
-            foreach(string line in splitedText)
+            foreach (string line in splitedText)
                 lineList.Add(line);
         }
         return lineList;
@@ -178,11 +178,12 @@ public class ExternalFileSystem
         List<string> outputList = new List<string>();
         // 루프문 내부에서 사용할 변수들
         string code = "";
-        string type = "";
         string value = "";
         string min = "";
         string max = "";
         string outputString = "";
+
+        string replaced_fileName = fileName.Replace('/', '.');
         // 한 줄씩 읽어가며 출력용 양식으로 가공, 리스트에 추가.
         foreach (string infoString in fileContents)
         {
@@ -192,24 +193,22 @@ public class ExternalFileSystem
             if (temp.Length == 2) content = temp[1].Trim();
             else content = "";
             // 숏컷은 바로 입력.
-            if (mode == "short") outputList.Add(content);
+            if (mode == "short") outputList.Add($"{replaced_fileName}.{content}");
             // 그 외는 조합해서 입력.
             else
             {
                 // 배치
                 if (mode == "code") code = content;
-                else if (mode == "type") type = content;
                 else if (mode == "value") value = content;
                 else if (mode == "min") min = content;
                 else if (mode == "max") max = content;
                 else if (mode == "end")
                 {
-                    outputString += $"{type}, {code}, {value}";
+                    outputString += $"{replaced_fileName}.{code}, {value}";
                     if (min != "" && max != "") outputString += $", {min}, {min}";
                     outputList.Add(outputString);
                     // 다음 값을 받기 위해 초기화.
                     code = "";
-                    type = "";
                     value = "";
                     min = "";
                     max = "";
@@ -221,23 +220,47 @@ public class ExternalFileSystem
     }
     public List<string> LoadPlayData()
     {
-        return fileReader("PlayInfo/Total", isUserData: true);
+        return fileReader("PlayInfo/Data", isUserData: true);
     }
-    public void SavePlayData(List<PlayInfo> playInfoList)
+    public void SavePlayData(PlayInfo root_playinfo)
     {
         List<string> output = new List<string>();
-        string infoName;
-        string infoType;
-        object infoValue;
-        foreach (PlayInfo playInfo in playInfoList)
+
+        output.AddRange(save_process(root_playinfo));
+
+        fileWriter("PlayInfo/Data", output, isAppend: false, isUserData: true);
+    }
+
+    List<string> save_process(PlayInfo target, string name = "")
+    {
+        List<string> output = new List<string>();
+
+        Stack<PlayInfo> playInfo_stack = new Stack<PlayInfo>();
+
+        if (target.name != "@root")
         {
-            infoName = playInfo.GetInfoName();
-            infoType = playInfo.GetInfoType();
-            infoValue = playInfo.GetInfoValue();
-            output.Add(infoName + ", " + infoValue);
+            if (name == "") name += target.name;
+            else name += $".{target.name}";
+
+            List<PlayInfo> target_data = target.GetDataList();
+            foreach (PlayInfo data in target_data)
+                output.Add($"{name}, {data.GetValue()}");
+        }
+        // Debug.Log($"ExternalFileSystem.save_process.debug : name = {name}");
+
+        List<PlayInfo> target_subList = target.GetSubList();
+        foreach (PlayInfo sub_target in target_subList)
+        {
+            output.AddRange(save_process(sub_target, name));
         }
 
-        fileWriter("PlayInfo/Total", output, isAppend: false, isUserData: true);
+        List<PlayInfo> target_instanceList = target.GetInstanceList();
+        foreach (PlayInfo instance in target_instanceList)
+        {
+            output.AddRange(save_process(instance, $"{name}[{instance.id}]"));
+        }
+
+        return output;
     }
 
     public Dictionary<string, Quest> LoadQeust(List<string> questNameList)
@@ -268,52 +291,38 @@ public class ExternalFileSystem
         return questList;
     }
 
-    public List<Creature> GetCreatureInfo(string fileName)
+    public Enemy GetEnemyInfo(string enemy_code)
     {
-        List<string> temp = fileReader(fileName);       // 임시
-        List<Creature> output = new List<Creature>();   // 출력용
-        // 선언
-        string type = "None";
-        string code = "None";
-        string name = "None";
-        string hp = "0";
-        string attack = "0";
-        string defense = "0";
-        List<string> skill = new List<string>();
-        List<string> drop = new List<string>();
-        foreach (string tempString in temp)
-        {
-            // 모드 분리.
-            string[] tempSplitedString = tempString.Split('=');
-            string mode = tempSplitedString[0].Trim();
-            // 대입.
-            if (mode == "end")
-            {
-                output.Add(new Creature(type, code, name, hp, attack, defense, skill, drop));
-                // 다음 입력을 위한 초기화.
-                type = "None";
-                code = "None";
-                name = "None";
-                hp = "0";
-                attack = "0";
-                defense = "0";
-                skill = new List<string>();
-                drop = new List<string>();
-            }
-            else
-            {
-                string values = tempSplitedString[1].Trim();
-                if (mode == "type") type = values;
-                else if (mode == "code") code = values;
-                else if (mode == "name") name = values;
-                else if (mode == "hp") hp = values;
-                else if (mode == "attack") attack = values;
-                else if (mode == "defense") defense = values;
-                else if (mode == "skill") skill.Add(values);
-                else if (mode == "drop") drop.Add(values);
-            }
+        string code = enemy_code;
+        string name = "";
+        string hp = "";
+        string attack = "";
+        string defence = "";
+        List<string> skill_list = new List<string>();
+        List<string> drop_list = new List<string>();
+        Enemy output;
 
+        List<string> input = fileReader($"Rpg/Monster/{enemy_code}");
+
+        foreach (string line in input)
+        {
+            string type = "";
+            string value = "";
+
+            string[] splited_line = line.Split('=');
+            type = splited_line[0].Trim();
+            value = splited_line[1].Trim();
+
+            if (type == "name") { name = value; }
+            else if (type == "hp") { hp = value; }
+            else if (type == "attack") { attack = value; }
+            else if (type == "defence") { defence = value; }
+            else if (type == "skill") { skill_list.Add(value); }
+            else if (type == "drop") { drop_list.Add(value); }
         }
+
+        output = new Enemy("Monster", code, name, hp, attack, defence, skill_list, drop_list);
+
         return output;
     }
 }

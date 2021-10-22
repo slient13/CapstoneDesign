@@ -6,12 +6,41 @@ using UnityEngine.UI;
 public class CommentPanel : MonoBehaviour
 {
     public GameObject textPanel;
+    public GameObject readyIndicator;
+    public EnemyInfo enemy;
+    public string enemyName;
+    public string enemySkill;
+    public string itemName;
+    public string[] commentLine;
+
     Text mainText;
+    int lineIndex;
+    bool _isTextReady = false;
 
     // Start is called before the first frame update
     void Start()
     {
         textPanel = transform.Find("MainText").gameObject;
+        readyIndicator = transform.Find("ReadyIndicator").gameObject;
+
+        //코멘트라인 설정
+        commentLine[0] = "앗! 야생의" + enemyName + "이(가) 나타났다!";
+        commentLine[1] = "무엇을 하지?";
+        commentLine[2] = itemName + "을 사용하였다.";
+    }
+
+    /// <summary>
+    /// 텍스트 라인 인덱스 선택
+    /// </summary>
+    public void SetCommentLine(int index)
+    {
+        mainText.text = commentLine[index];
+        lineIndex = index;
+    }
+
+    public int GetCommentLineIndex()
+    {
+        return lineIndex;
     }
 
     /// <summary>
@@ -31,8 +60,12 @@ public class CommentPanel : MonoBehaviour
         Text originalText = textPanel.GetComponent<Text>();
 
         originalText.text = mainText.text;
-        originalText.color = mainText.color;
-        originalText.fontSize = mainText.fontSize;
+
+        /*
+        mainText.text = originalText.text;
+        mainText.color = originalText.color;
+        mainText.fontSize = originalText.fontSize;
+        */
     }
 
     /// <summary>

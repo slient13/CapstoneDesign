@@ -1,7 +1,7 @@
-short = Stat, Hp, 100, 0, 100
-short = Stat, Sp, 0, 0, 100
-short = Stat, Money, 10000, 0, 99999999
-short = Stat, Attack, 20
-short = Stat, Defense, 20
-short = Stat, Level, 1, 1, 99
-short = Stat, Exp, 500, 0, 100000
+short = Hp, 100, 0, 100
+short = Sp, 0, 0, 100
+short = Money, 10000, 0, 99999999
+short = Attack, 20
+short = Defense, 20
+short = Level, 1, 1, 99
+short = Exp, 500, 0, 100000
