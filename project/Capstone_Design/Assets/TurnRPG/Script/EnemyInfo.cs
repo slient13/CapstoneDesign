@@ -28,6 +28,11 @@ public class EnemyInfo : MonoBehaviour
         
     }
 
+    public void SetEnemyInfo(Enemy val)
+    {
+        enemy = val;
+    }
+
     Enemy GetEnemyInfo()
     {
         return enemy;

@@ -7,6 +7,7 @@ public class NpcCommandManager : MonoBehaviour
 {
     public GameObject npc;
     public float respawnTime;
+    public GameProcessManager gpManager;
 
     //플레이어 정보를 전달하는 매니저
     public GameObject systemManager;
@@ -20,6 +21,7 @@ public class NpcCommandManager : MonoBehaviour
     {
         hitSound = transform.Find("HitSound").GetComponent<AudioSource>();
         deadEffect = transform.Find("ParticleDead").gameObject;
+        gpManager = GameObject.Find("GameProcessManager").GetComponent<GameProcessManager>();
     }
 
     private void Update()
@@ -71,7 +73,9 @@ public class NpcCommandManager : MonoBehaviour
     /// <param name="boolean"></param>
     void BattleStart(bool boolean)
     {
-        SceneManager.LoadScene("Rpg_Intro");
+        Message msg = new Message("GameProcessManager/ChangeScene : Rpg_Intro").FunctionCall();
+
+        //SceneManager.LoadScene("Rpg_Intro");
 
         //Die();
         //Debug.Log("몬스터 사망");

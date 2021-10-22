@@ -19,6 +19,8 @@ public class SceneLoading : MonoBehaviour
     
     IEnumerator LoadAsyncOperation()
     {
+        Message msg = new Message("GameProcessManager/ChangeScene : BattleScene");
+
         //async 만들기
         AsyncOperation levelProgress = SceneManager.LoadSceneAsync("BattleScene");
         levelProgress.allowSceneActivation = false;
