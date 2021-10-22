@@ -13,31 +13,36 @@
 
 ## 인터페이스
 
-```c#
-public void SavePlayData(Message message) {}    // 동작(현재 플레이 정보 저장)
-public void ChangeData(Message message) {}      // 입력(정보 코드, 변화값) 
-public void GetData(Message message) {}         
-    // 입력(정보 코드), 출력(정보 값)
-    // 입력(정보 타입, 정보 코드)
-        // ? 정보 타입 == "Creature" : 출력(Creature 인스턴스)
-```
-
-## BaseSystem 에 포함된 코드.
 비고
 - 아래 메소드들을 직접 사용할 수도 있지만 위 명시된 인터페이스를 사용하기를 권장함.
 
 ```c#
-public void CreatePlayInfo(Message msg) {}      // 입력(코드, 자료형, 초기값[, 최소값, 최대값])
-public void SetPlayInfo(Message msg) {}         // 입력(코드, 설정.값)
-public void ChangePlayInfo(Message msg) {}      // 입력(코드, 변경.값)
-public void GetPlayInfoValue(Message msg) {}    // 입력(코드), 출력(값)
-public void GetPlayInfoList(Message msg) {}     // 출력(플레이 정보 리스트)
+public void CreatePlayInfo(Message msg) {}
+// 입력 = 이름, 값, [최소값, 최대값]. 
+// 기능 = `PlayInfo` 생성.
+public void CreateInstance(Message message) {}
+// 입력 = 이름, [아이디 = 0]. 
+// 기능 = 해당 이름과 일치하는 `PlayInfo`를 복사하여 `Instance`로 만들어 추가함.
+public void RemoveInstance(Message message) {}
+// 입력 = 이름, 아이디.
+// 기능 = 해당 이름과 일치하는 `PlayInfo-Instance`를 제거.
+public void SetData(Message msg) {}
+// 입력 = 이름
+// 기능 = `PlayInfo` 혹은 `PlayInfo-Instance`의 값을 설정.
+public void ChangeData(Message msg) {}
+// 입력 = 이름
+// 기능 = `PlayInfo` 혹은 `PlayInfo-Instance`의 값을 변경.
+public void GetPlayInfo(Message msg) {}
+// 입력 = 이름
+// 반환 = 일치하는 PlayInfo
+public void GetPlayInfoValue(Message message) {}
+// 입력 = 이름, [인덱스 = 0]
+// 반환 = 일치하는 `PlayInfo`의 특정 순번 데이터 반환.
 ```
 
 ## 정보 입력 양식 (일반)
 정석 :
 ```
-type = $type
 code = $code
 value = $value
 min = $min
@@ -46,28 +51,12 @@ end
 ```
 
 숏컷
-- `short = $type, $code, $value, $min, $max`
+- `short = $code, $value, $min, $max`
 
 비고
 - 정석과 숏컷 모두 `min, max`는 생략 가능. 
     - 둘 중 하나만 생략할 수는 없음.
 
-## 정보 입력 양식 (Creature)
-```
-type = $type-string
-code = $code-string
-name = $name-string
-hp = $hp-int
-attack = $attack-int
-defense = $defense-int
-skill = $code-string, $name-string, $effect-double-(0~1)
-drop = $code-string, $rate-double-(0~1)
-end
-```
-
-비고 
-- 약식은 지원되지 않음.
-- `skill, drop` 생략 가능. 나머지도 생략은 가능하나 string 형은 `None`으로 int 형은 `0`으로 초기화 됨.
 ## update log
 
 ### 21-05-21
@@ -83,3 +72,9 @@ end
 
 ### 21-05-30 
 `Creature` 관련된 코드 추가.
+
+### 21-09-18
+- `PlayInfo` 구조 변경 : `단일 자료형` -> `트리형`
+- `PlayInfo`의 처리 규격을 `PlayInfoManager`를 경유하지 않고 `BaseSystem`에서 바로 처리.
+- `Creature`에 대한 별도의 정의 규격을 제거.
+- `PlayInfo-Instance` 생성.
