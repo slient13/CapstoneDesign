@@ -134,7 +134,7 @@ public class ShopUI : MonoBehaviour
 
     public void Sync() {
         int money;
-        Message getMoney = new Message("PlayInfoManager/GetData : Money").FunctionCall();
+        Message getMoney = new Message("GetPlayInfoValue : Player.Stat.Money").FunctionCall();
         money = (int) getMoney.returnValue[0];
         bottomMoneyPanelText.text = $"{money}";
     }
