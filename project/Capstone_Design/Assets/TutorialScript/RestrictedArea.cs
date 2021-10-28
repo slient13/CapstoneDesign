@@ -19,7 +19,7 @@ public class RestrictedArea: MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            player.transform.position = initPos;
+            player.transform.position = new Vector3(1, 1, -102);
         }
     }
 }
