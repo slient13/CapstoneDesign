@@ -213,6 +213,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectorText: '< '
   command: []
+  gameManager: {fileID: 0}
   selectorIndex: 0
 --- !u!1 &128520935
 GameObject:
@@ -840,6 +841,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65a4ce2f87e1f4e43b2e1790ae47d163, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectorText: '> '
+  command: []
+  selectorIndex: 0
 --- !u!1 &701628214
 GameObject:
   m_ObjectHideFlags: 0
@@ -1098,7 +1102,7 @@ GameObject:
   - component: {fileID: 791485052}
   - component: {fileID: 791485051}
   m_Layer: 5
-  m_Name: NextText
+  m_Name: ReadyIndicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1858,6 +1862,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textPanel: {fileID: 0}
+  readyIndicator: {fileID: 0}
+  enemy: {fileID: 0}
+  enemyName: 
+  enemySkill: 
+  itemName: 
+  commentLine: []
 --- !u!1 &1469840421
 GameObject:
   m_ObjectHideFlags: 0
