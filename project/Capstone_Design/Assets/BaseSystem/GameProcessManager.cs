@@ -13,18 +13,12 @@ public class GameProcessManager : MonoBehaviour
         sceneNameList.Add("finalSecen");
         sceneNameList.Add("LodingSecen");
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void Save()
     {
         new Message("InventoryManager/SaveInventory :").FunctionCall();
         new Message("PlayInfoManager/SavePlayData : ").FunctionCall();
         new Message("EquipmentSystem/SaveEquipState : ").FunctionCall();
+        new Message("QuestManager/SaveQuestProcess : ").FunctionCall();
     }
 
     public void CloseGame(Message message)
