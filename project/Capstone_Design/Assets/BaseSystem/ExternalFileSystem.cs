@@ -230,7 +230,6 @@ public class ExternalFileSystem
 
         fileWriter("PlayInfo/Data", output, isAppend: false, isUserData: true);
     }
-
     List<string> save_process(PlayInfo target, string name = "")
     {
         List<string> output = new List<string>();
@@ -263,14 +262,14 @@ public class ExternalFileSystem
         return output;
     }
 
-    public Dictionary<string, Quest> LoadQeust(List<string> questNameList)
+    public Dictionary<string, Quest> LoadQuest(List<string> questCodeList)
     {
         List<string> questStringList;
         Dictionary<string, Quest> questList = new Dictionary<string, Quest>();
-        foreach (string questName in questNameList)
+        foreach (string questCode in questCodeList)
         {
-            questStringList = fileReader("Quest/Info/" + questName);
-            Quest quest = new Quest(questName);
+            questStringList = fileReader("Quest/Info/" + questCode);
+            Quest quest = new Quest(questCode);
             foreach (string questString in questStringList)
             {
                 // mode 분리.
@@ -278,17 +277,34 @@ public class ExternalFileSystem
                 string mode = temp[0].Trim();
                 string info = temp[1];
                 // info 분리.
+                string type = "", code = "", value = "";
                 temp = info.Split(',');
-                string type = temp[0].Trim();
-                string code = temp[1].Trim();
-                string value = temp[2].Trim();
-                if (mode == "goal") quest.goalList.Add(new QuestInfo(type, code, value));
+                if (temp.Length == 3)
+                {
+                    type = temp[0].Trim();
+                    code = temp[1].Trim();
+                    value = temp[2].Trim();
+                }
+
+                if (mode == "name") quest.name = info;
+                else if (mode == "desc") quest.desc = info;
+                else if (mode == "rewardDesc") quest.rewardDesc = info;
+                else if (mode == "goal") quest.goalList.Add(new QuestInfo(type, code, value));
                 else if (mode == "price") quest.priceList.Add(new QuestInfo(type, code, value));
                 else if (mode == "reward") quest.rewardList.Add(new QuestInfo(type, code, value));
             }
-            questList.Add(quest.name, quest);
+            questList.Add(quest.code, quest);
         }
         return questList;
+    }
+    public void SaveQuestProcess(List<string> questCodeList)
+    {
+        string targetFileName = "Quest/ProcessingList";
+        fileWriter(targetFileName, questCodeList, isUserData: true);
+    }
+    public List<string> LoadQuestProcess()
+    {
+        return fileReader("Quest/ProcessingList", isUserData: true);
     }
 
     public List<Equipment> GetEquipmentInfo(string fileName)
