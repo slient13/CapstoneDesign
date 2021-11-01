@@ -61,6 +61,26 @@ public string command; // 실행을 원하는 함수의 명령어 문자열이�
 public string keyPattern; // 실행 조건이 되는 키 조합 문자열이다.
 ```
 
+### MouseDetector
+
+```c#
+    public MouseDetector() {}
+    // 생성자. 별도 정보 없음. GetMousePos 사용할 때 쓰임.
+    public MouseDetector(Transform targetTransform) {}
+    // 생성자. 대상 지정. 위치는 생성 당시 마우스 위치.
+    public MouseDetector(Vector2 mousePos, Transform targetTransform) {}
+    // 생성자. 대상 및 위치 지정.
+    public void TargetChange(Transform newTarget) {}
+    // 대상 변경.
+    public Vector2 GetMousePos() {}
+    // 현재 마우스 위치를 반환함.
+    public bool Trigger(int pinMode = 1) {}
+    // 입력된 위치가 대상 안에 있는지 체크. 맞다면 true 반환.
+    // pinMode = 어디를 기준으로 판별하는지 체크.
+        // 1 = 좌상단.
+        // 5 = 중앙.
+}
+```
 ## 사용법
 
 ### 사용 준비
@@ -172,3 +192,7 @@ public string keyPattern; // 실행 조건이 되는 키 조합 문자열이다.
 
 ### 21-05-21
 - 버그가 외적인 요인으로 발생한 것임을 확인. 기술 삭제.
+
+### 21-10-13
+- upgrade MouseDetector.
+- Write MouseDetector's menual.

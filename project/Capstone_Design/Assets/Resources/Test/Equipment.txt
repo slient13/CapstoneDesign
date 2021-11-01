@@ -1,0 +1,5 @@
+code = TestEquipment
+name = 테스트 장비
+effect = Player.Stat.Attack, +30
+effect = Player.Stat.Defense, +20
+end

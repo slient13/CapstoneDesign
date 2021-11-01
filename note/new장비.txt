@@ -1,0 +1,59 @@
+장비창 구조
+EquipmentUI 아래에 
+Equipment와 Eqtooltip 패널 두개가 존재
+
+Equipment
+ EquipmentTitle //장비창 제목
+  text
+  CloseButton //누르면 장비창을 끔
+   text
+  EquipmentPanel //장착중인 아이템이 있는 패널
+    EqSlot1 
+      Eq1Image //장비1의 이미지 , 장비를 착용할경우 나타남
+ EqSlot2
+      Eq2Image //장비2의 이미지 , 장비를 착용할경우 나타남
+ EqSlot3 
+      Eq3Image //장비3의 이미지 , 장비를 착용할경우 나타남
+ EqSlot4
+      Eq4Image //장비4의 이미지 , 장비를 착용할경우 나타남
+
+EquipmentStatPanel //캐릭터의 능력치를 나타냄
+HPText //그냥텍스트
+ATKText//그냥텍스트
+AText//그냥텍스트
+HpPanel
+ HpPanelText//캐릭터의 Hp를 나타냄
+AtkPanel
+ AtkPanelText//캐릭터의 공격력을 나타냄
+APanel
+ APanelText//캐릭터의 능력치 a를 나타냄
+
+SPText//그냥 텍스트
+DEFText//그냥 텍스트
+BText//그냥 텍스트
+SpPanel
+ SpPanelText//캐릭터의 스태미너를 나타냄
+DefPanel
+ DefPanelText//캐릭터의 방어력을 나타냄
+BPanel
+ BPanelText//캐릭터의 능력치 b를 나타냄
+
+EqCharacter //이쪽에는 카메라를 달아서 캐릭터의 현재모습을 보여줄예정
+
+
+
+
+
+
+
+EqTooltip은 장비창에서 장착중인 아이템에 마우스를 가져간후 오른쪽 클릭하면 나타남
+
+EqItemName
+ EqItemNameText //장비의 아이템이름을 나타냄
+
+EqItemContent
+ EqItemContent //장비의 능력치를 나타냄 예: 공격력 30, 방어력 30
+
+EqTootipSelect
+ ReleaseButton //버튼을 누르면 장착중인 아이템을 장착해제하는 버튼
+  ReleaseButtonText

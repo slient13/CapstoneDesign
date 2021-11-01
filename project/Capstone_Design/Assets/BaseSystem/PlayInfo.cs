@@ -167,4 +167,14 @@ public class PlayInfo
         return new int[] { min, max };
     }
 
+    public void SetRange(int min, int max)
+    {
+        this.min = min;
+        this.max = max;
+    }
+
+    public void SetRange(int max)
+    {
+        this.max = max;
+    }
 }
