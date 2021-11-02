@@ -329,7 +329,9 @@ public class ExternalFileSystem
                 temp = value.Split(',');
                 string target = temp[0].Trim();
                 int degree = Convert.ToInt32(temp[1].Trim());
-                effects.Add(new EquipmentEffect(target, degree));
+                string desc = "";
+                if (temp.Length == 3) desc = temp[2].Trim();
+                effects.Add(new EquipmentEffect(target, degree, desc));
             }
             else if (type == "end")
             {

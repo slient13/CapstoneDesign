@@ -256,7 +256,7 @@ public class Quest
     public List<QuestInfo> rewardList;
     public bool isProcess;
 
-    public Quest(string code, string name = "", string desc = "", string rewardDesc = "")
+    public Quest(string code, string name = "", string desc = "", string rewardDesc = "" )
     {
         this.code = code;
         this.name = name;
