@@ -5,10 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scene/finalSecen.unity
     guid: 0ab7c61d39e23f348acdf90a36d03637
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scene/dummyScene.unity
     guid: cee9374e985e1964797b68dd78512842
   - enabled: 1
@@ -20,4 +20,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/TurnRPG/Scene/BattleScene.unity
     guid: c0fa2221b2f12cb48a96de85c68328b6
+  - enabled: 1
+    path: Assets/Scene/LodingSecen.unity
+    guid: 00aadf0ef19c64a45908ad8260a48e6e
+  - enabled: 1
+    path: Assets/TurnRPG/Scene/HuntingField.unity
+    guid: 7f3b90578325c7d47987b4fa913eaf03
   m_configObjects: {}

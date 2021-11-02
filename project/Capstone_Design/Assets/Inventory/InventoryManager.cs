@@ -62,7 +62,8 @@ public class InventoryManager : MonoBehaviour {
             else {
                 string[] temp = itemInfoString.Split('=');
                 string mode = temp[0].Trim();
-                string value = temp[1].Trim();
+                string value = "";
+                if (temp.Length == 2) value = temp[1].Trim();
                 if (mode == "short") {
                     Debug.Log("InventoryManager/LoadItemInfo : shortCut is detected.");
                     string[] shortInfoList = value.Split(',');
@@ -315,7 +316,7 @@ public class InventoryManager : MonoBehaviour {
                 // 약식인 경우 대응 형태로 변경.
                 if (commandList[i].IndexOf('/') == -1) {
                     string[] data = commandList[i].Split(':');                
-                    commandList[i] = "PlayInfoManager/ChangeData : " + data[0] + ", " + data[1];
+                    commandList[i] = $"ChangeData : Player.Stat.{data[0]}, {data[1]}";
                 } 
                 // 효과 실행.
                 new Message(commandList[i]).FunctionCall();

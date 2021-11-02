@@ -230,11 +230,8 @@ class EquipmentInventory : InventoryPanel {
         this.image = box.GetChild(0).gameObject;
         this.numberText = null;
     }
-    public void SetItem(string itemCode, Sprite itemImage, int itemNumber) {
-        isSetItem = true;
-        this.itemCode = itemCode;
-        box.SetActive(true);
-        if (itemImage != null) image.GetComponent<Image>().sprite = itemImage;
+    public void SetItem(string itemCode, Sprite itemImage) {
+        base.SetItem(itemCode, itemImage, 1);
     }
 }
 
