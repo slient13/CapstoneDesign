@@ -5,17 +5,17 @@ using UnityEngine.UI;
 
 public class CommandPanel : MonoBehaviour
 {
-
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
+        this.gameObject.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    /// <summary>
+    /// 활성화 설정
+    /// </summary>
+    /// <param name="input"></param>
+    public void SetActive(bool input)
     {
-        
+        this.gameObject.SetActive(input);
     }
-
 }

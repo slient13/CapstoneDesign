@@ -431,7 +431,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 98f841c6ac46d174ca4f358018ab8de0, type: 3}
-  m_Type: 0
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -556,8 +556,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 20, y: -20}
-  m_SizeDelta: {x: 1680, y: 250}
+  m_AnchoredPosition: {x: 40, y: -20}
+  m_SizeDelta: {x: 1580, y: 250}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &387450682
 MonoBehaviour:
@@ -591,7 +591,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC557! \uC57C\uC0DD\uC758 [MonsterName]\uC774(\uAC00) \uB098\uD0C0\uB0AC\uB2E4!"
+  m_Text: Text
 --- !u!222 &387450683
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1101,6 +1101,8 @@ GameObject:
   - component: {fileID: 791485050}
   - component: {fileID: 791485052}
   - component: {fileID: 791485051}
+  - component: {fileID: 791485053}
+  - component: {fileID: 791485054}
   m_Layer: 5
   m_Name: ReadyIndicator
   m_TagString: Untagged
@@ -1125,7 +1127,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: -70, y: 65}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 100.00018, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &791485051
 MonoBehaviour:
@@ -1164,6 +1166,39 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 791485049}
   m_CullTransparentMesh: 0
+--- !u!95 &791485053
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 791485049}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 18da7ecbbc42226438140a28dfd19c8a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &791485054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 791485049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0933b4461c1901c44b27b8d40bbd8ef7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  battleManagerObj: {fileID: 0}
+  battleManager: {fileID: 0}
 --- !u!1001 &998243898
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1861,13 +1896,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56ee8736dee1e874e9b98fe9853ccb5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textPanel: {fileID: 0}
-  readyIndicator: {fileID: 0}
-  enemy: {fileID: 0}
-  enemyName: 
-  enemySkill: 
-  itemName: 
-  commentLine: []
+  textPanel: {fileID: 387450680}
+  readyIndicator: {fileID: 791485049}
+  battleManagerObj: {fileID: 1541220425}
+  typingSpeed: 0.05
 --- !u!1 &1469840421
 GameObject:
   m_ObjectHideFlags: 0
@@ -1971,7 +2003,7 @@ GameObject:
   - component: {fileID: 1541220427}
   - component: {fileID: 1541220428}
   m_Layer: 0
-  m_Name: BattleManager
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2000,11 +2032,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1541220425}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5220204adeda8aa4f812304681b44be3, type: 3}
+  m_Script: {fileID: 11500000, guid: 186b6f9e886b5964f846459dcbe56360, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainComment: []
-  monsterName: 
+  monsterName: "\uC544\uAE7D\uC774"
+  monsterSkill: 
+  playerSkill: 
+  commentPanelObj: {fileID: 1422807231}
 --- !u!1 &1580688855
 GameObject:
   m_ObjectHideFlags: 0
