@@ -96,14 +96,14 @@ public class BaseSystem : MonoBehaviour
     public void CreateInstance(Message message)
     {
         string name = (string)message.args[0];
-        ulong input_id = 0;
+        int input_id = 0;
         if (message.args.Count == 2)
         {
-            input_id = (ulong)message.args[1];
+            input_id = (int)message.args[1];
         }
 
         PlayInfo origin_info = findInfo(name);
-        ulong id_counter = input_id;
+        int id_counter = input_id;
         foreach (PlayInfo instance in origin_info.GetInstanceList())
         {
             if (instance.id >= id_counter) id_counter = instance.id + 1;
@@ -164,9 +164,9 @@ public class BaseSystem : MonoBehaviour
             // Debug.Log($"BaseSystem.findInfo.debug : name = {name}, searching_target.name = {searching_target.name}, .id = {searching_target.id}");
             string[] temp_string_list = splited_name[level].Split('[');
             string target_name = temp_string_list[0];
-            ulong id = 0;
+            int id = 0;
             if (temp_string_list.Length == 2)
-                id = Convert.ToUInt64(temp_string_list[1].Substring(0, 1));
+                id = Convert.ToInt32(temp_string_list[1].Substring(0, 1));
 
             List<PlayInfo> searching_target_subList = searching_target.GetSubList();
             List<PlayInfo> searching_target_instanceList = searching_target.GetInstanceList();
@@ -222,8 +222,9 @@ public class BaseSystem : MonoBehaviour
 
     public void GetPlayInfoValue(Message message)
     {
-        Message getPlayInfo = new Message($"GetPlayInfo : {(string)message.args[0]}");
+        Message getPlayInfo = new Message($"GetPlayInfo : {(string)message.args[0]}");        
         PlayInfo target = (PlayInfo)getPlayInfo.FunctionCall().returnValue[0];
+        if (target == null) Debug.Log($"BaseSystem.GetPlayInfoValue.error : target is null. inputName is {(string)message.args[0]}");
         PlayInfo target_data = target.GetDataList()[0];
         message.returnValue.Add(target_data.GetValue());
     }

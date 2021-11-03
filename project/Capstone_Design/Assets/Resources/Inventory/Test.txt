@@ -1,1 +1,8 @@
 short = TestType, Test, 테스트, 테스트용 아이템
+
+type = Equipment
+code = TestEquipment
+name = 테스트 장비
+desc = 테스트용 장비
+effect = EquipmentSystem/Equip : TestEquipment
+end

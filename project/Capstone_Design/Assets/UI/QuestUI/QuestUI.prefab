@@ -631,7 +631,7 @@ GameObject:
   - component: {fileID: 3783843367207140957}
   - component: {fileID: 2084749776632949642}
   m_Layer: 5
-  m_Name: QuestPanel(Complete)
+  m_Name: QuestPanel(CompleteAble)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -781,7 +781,7 @@ GameObject:
   - component: {fileID: 6706318724129479040}
   - component: {fileID: 7753442270541465479}
   m_Layer: 5
-  m_Name: PQ5Text
+  m_Name: PQ6Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -846,7 +846,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC9C4\uD589\uC911 4"
+  m_Text: "\uC9C4\uD589\uC911 5"
 --- !u!1 &953294605857615838
 GameObject:
   m_ObjectHideFlags: 0
@@ -1018,7 +1018,7 @@ GameObject:
   - component: {fileID: 4454995951256198848}
   - component: {fileID: 3769962110552556223}
   - component: {fileID: 7478072630205758089}
-  - component: {fileID: 4241309477235235380}
+  - component: {fileID: 2769796147480795982}
   m_Layer: 5
   m_Name: CQ6
   m_TagString: Untagged
@@ -1083,7 +1083,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4241309477235235380
+--- !u!114 &2769796147480795982
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1125,7 +1125,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7478072630205758089}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1372722307576871085}
+        m_MethodName: ChangeContentView
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 15
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1232943309352493626
 GameObject:
   m_ObjectHideFlags: 0
@@ -1397,7 +1408,7 @@ GameObject:
   - component: {fileID: 2853469821002008757}
   - component: {fileID: 4799263409253787671}
   - component: {fileID: 5734542254402931819}
-  - component: {fileID: 1331011300788938010}
+  - component: {fileID: 7457228470548233052}
   m_Layer: 5
   m_Name: CQ2
   m_TagString: Untagged
@@ -1462,7 +1473,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1331011300788938010
+--- !u!114 &7457228470548233052
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1504,7 +1515,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5734542254402931819}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1372722307576871085}
+        m_MethodName: ChangeContentView
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 11
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1705335055953851503
 GameObject:
   m_ObjectHideFlags: 0
@@ -1516,7 +1538,7 @@ GameObject:
   - component: {fileID: 5337880392126088542}
   - component: {fileID: 3554159429985068642}
   - component: {fileID: 7977071668458189014}
-  - component: {fileID: 2520610135226104662}
+  - component: {fileID: 3479158571175183304}
   m_Layer: 5
   m_Name: CQ1
   m_TagString: Untagged
@@ -1581,7 +1603,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2520610135226104662
+--- !u!114 &3479158571175183304
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1623,7 +1645,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7977071668458189014}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1372722307576871085}
+        m_MethodName: ChangeContentView
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1712010195754022986
 GameObject:
   m_ObjectHideFlags: 0
@@ -1713,7 +1746,7 @@ GameObject:
   - component: {fileID: 1700865892091259164}
   - component: {fileID: 3696894833372369589}
   - component: {fileID: 5908598214337882223}
-  - component: {fileID: 9035940673893580342}
+  - component: {fileID: 6871145937918114451}
   m_Layer: 5
   m_Name: PQ1
   m_TagString: Untagged
@@ -1769,8 +1802,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3db852e381d04c949bf22378cb39a255, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1779,7 +1812,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &9035940673893580342
+--- !u!114 &6871145937918114451
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1821,7 +1854,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5908598214337882223}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1372722307576871085}
+        m_MethodName: ChangeContentView
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2425872788222430055
 GameObject:
   m_ObjectHideFlags: 0
@@ -1988,7 +2032,7 @@ GameObject:
   - component: {fileID: 1238237561276093404}
   - component: {fileID: 3042066766025928357}
   m_Layer: 5
-  m_Name: Complete
+  m_Name: CompleteAble
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2430,7 +2474,7 @@ GameObject:
   - component: {fileID: 3715371727678706299}
   - component: {fileID: 5172921600982034201}
   m_Layer: 5
-  m_Name: PQ6Toggle
+  m_Name: PQ5Toggle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2501,7 +2545,18 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1372722307576871085}
+        m_MethodName: SyncSideUI
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 0
 --- !u!1 &2954321816983663748
 GameObject:
@@ -3152,9 +3207,9 @@ GameObject:
   - component: {fileID: 8990385625950024787}
   - component: {fileID: 2379639940488094063}
   - component: {fileID: 6676016658345573356}
-  - component: {fileID: 3696960812357879335}
+  - component: {fileID: 5365436266127250404}
   m_Layer: 5
-  m_Name: PQ5
+  m_Name: PQ6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3174,7 +3229,7 @@ RectTransform:
   - {fileID: 418566860988338009}
   - {fileID: 5737709681919079810}
   m_Father: {fileID: 1178153695498250732}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3218,7 +3273,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3696960812357879335
+--- !u!114 &5365436266127250404
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3260,7 +3315,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6676016658345573356}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1372722307576871085}
+        m_MethodName: ChangeContentView
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 5
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3626587321862284263
 GameObject:
   m_ObjectHideFlags: 0
@@ -3272,7 +3338,7 @@ GameObject:
   - component: {fileID: 5737709681919079810}
   - component: {fileID: 4905331544738293810}
   m_Layer: 5
-  m_Name: PQ5Toggle
+  m_Name: PQ6Toggle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3343,7 +3409,18 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1372722307576871085}
+        m_MethodName: SyncSideUI
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 0
 --- !u!1 &3645809501854885802
 GameObject:
@@ -3866,7 +3943,7 @@ GameObject:
   - component: {fileID: 892849056566951212}
   - component: {fileID: 4254217179737804759}
   - component: {fileID: 2243090816698425251}
-  - component: {fileID: 1266485403531655188}
+  - component: {fileID: 3644601784172512911}
   m_Layer: 5
   m_Name: PQ4
   m_TagString: Untagged
@@ -3932,7 +4009,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1266485403531655188
+--- !u!114 &3644601784172512911
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3974,7 +4051,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2243090816698425251}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1372722307576871085}
+        m_MethodName: ChangeContentView
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4016068016728341368
 GameObject:
   m_ObjectHideFlags: 0
@@ -4135,7 +4223,18 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1372722307576871085}
+        m_MethodName: SyncSideUI
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 0
 --- !u!1 &4189964496810879438
 GameObject:
@@ -4301,7 +4400,7 @@ GameObject:
   - component: {fileID: 7076766024544991571}
   - component: {fileID: 8502130565968281163}
   - component: {fileID: 6139629182499305442}
-  - component: {fileID: 8783418390804547989}
+  - component: {fileID: 5877118580057690500}
   m_Layer: 5
   m_Name: CQ5
   m_TagString: Untagged
@@ -4366,7 +4465,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8783418390804547989
+--- !u!114 &5877118580057690500
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4408,7 +4507,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6139629182499305442}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1372722307576871085}
+        m_MethodName: ChangeContentView
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 14
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4599047969905154863
 GameObject:
   m_ObjectHideFlags: 0
@@ -4640,7 +4750,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC644\uB8CC"
+  m_Text: "\uC644\uB8CC \uAC00\uB2A5"
 --- !u!1 &4868063797817658855
 GameObject:
   m_ObjectHideFlags: 0
@@ -4835,9 +4945,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panel: {fileID: 0}
-  processingPanel: {fileID: 0}
-  processingQuestListTextList: []
-  processingQuestNameList: []
 --- !u!1 &4933028538532083250
 GameObject:
   m_ObjectHideFlags: 0
@@ -5034,7 +5141,18 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1372722307576871085}
+        m_MethodName: SyncSideUI
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 1
 --- !u!1 &5030671947275155298
 GameObject:
@@ -5593,7 +5711,7 @@ GameObject:
   - component: {fileID: 7122059216921859042}
   - component: {fileID: 5799861892359443956}
   - component: {fileID: 6336934924145900066}
-  - component: {fileID: 8351979810008443838}
+  - component: {fileID: 4090417999459840588}
   m_Layer: 5
   m_Name: PQ2
   m_TagString: Untagged
@@ -5659,7 +5777,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8351979810008443838
+--- !u!114 &4090417999459840588
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5701,7 +5819,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6336934924145900066}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1372722307576871085}
+        m_MethodName: ChangeContentView
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5552484143111712868
 GameObject:
   m_ObjectHideFlags: 0
@@ -5784,7 +5913,18 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1372722307576871085}
+        m_MethodName: SyncSideUI
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 0
 --- !u!1 &5566537068671726699
 GameObject:
@@ -5797,7 +5937,7 @@ GameObject:
   - component: {fileID: 3723493773479350564}
   - component: {fileID: 2660849067213332346}
   - component: {fileID: 3160396080718826387}
-  - component: {fileID: 7500571668178218204}
+  - component: {fileID: 7832642803188440048}
   m_Layer: 5
   m_Name: CQ4
   m_TagString: Untagged
@@ -5852,8 +5992,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3db852e381d04c949bf22378cb39a255, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -5862,7 +6002,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7500571668178218204
+--- !u!114 &7832642803188440048
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5904,7 +6044,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3160396080718826387}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1372722307576871085}
+        m_MethodName: ChangeContentView
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 13
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5789248220585485945
 GameObject:
   m_ObjectHideFlags: 0
@@ -6069,7 +6220,7 @@ GameObject:
   - component: {fileID: 8463805345929847365}
   - component: {fileID: 8090307938561012901}
   - component: {fileID: 8000799904467708913}
-  - component: {fileID: 2667055646127811335}
+  - component: {fileID: 6407839794896587201}
   m_Layer: 5
   m_Name: CQ3
   m_TagString: Untagged
@@ -6134,7 +6285,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2667055646127811335
+--- !u!114 &6407839794896587201
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6176,7 +6327,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8000799904467708913}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1372722307576871085}
+        m_MethodName: ChangeContentView
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 12
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6021126781145407797
 GameObject:
   m_ObjectHideFlags: 0
@@ -6420,7 +6582,7 @@ GameObject:
   - component: {fileID: 8877351293864941788}
   - component: {fileID: 3697372284277109735}
   m_Layer: 5
-  m_Name: PQ6Text
+  m_Name: PQ5Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6485,7 +6647,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC9C4\uD589\uC911 5"
+  m_Text: "\uC9C4\uD589\uC911 4"
 --- !u!1 &6253265908098464689
 GameObject:
   m_ObjectHideFlags: 0
@@ -6768,7 +6930,18 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1372722307576871085}
+        m_MethodName: SyncSideUI
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 0
 --- !u!1 &6992240941219215490
 GameObject:
@@ -7106,9 +7279,9 @@ GameObject:
   - component: {fileID: 483388571678353421}
   - component: {fileID: 750934287809802603}
   - component: {fileID: 4518231885164491629}
-  - component: {fileID: 835073228874819539}
+  - component: {fileID: 7969228967156819678}
   m_Layer: 5
-  m_Name: PQ6
+  m_Name: PQ5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7128,7 +7301,7 @@ RectTransform:
   - {fileID: 7258900600113370499}
   - {fileID: 3715371727678706299}
   m_Father: {fileID: 1178153695498250732}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -7172,7 +7345,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &835073228874819539
+--- !u!114 &7969228967156819678
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7214,7 +7387,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4518231885164491629}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1372722307576871085}
+        m_MethodName: ChangeContentView
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 4
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7567715494954636657
 GameObject:
   m_ObjectHideFlags: 0
@@ -7370,7 +7554,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC9C4\uD589\uC911"
+  m_Text: "\uC9C4\uD589 \uC911"
 --- !u!1 &7887407002694929888
 GameObject:
   m_ObjectHideFlags: 0
@@ -7894,7 +8078,7 @@ GameObject:
   - component: {fileID: 8579389004897733769}
   - component: {fileID: 5061868469123870307}
   - component: {fileID: 3918655434431363098}
-  - component: {fileID: 8767533199686513656}
+  - component: {fileID: 2756666021676039645}
   m_Layer: 5
   m_Name: PQ3
   m_TagString: Untagged
@@ -7960,7 +8144,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8767533199686513656
+--- !u!114 &2756666021676039645
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8002,7 +8186,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3918655434431363098}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1372722307576871085}
+        m_MethodName: ChangeContentView
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8603957524975490641
 GameObject:
   m_ObjectHideFlags: 0
@@ -8114,8 +8309,8 @@ RectTransform:
   - {fileID: 7122059216921859042}
   - {fileID: 8579389004897733769}
   - {fileID: 892849056566951212}
-  - {fileID: 8990385625950024787}
   - {fileID: 483388571678353421}
+  - {fileID: 8990385625950024787}
   m_Father: {fileID: 8326758795967249039}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -1,3 +1,6 @@
+name : 낚시
+desc : 물고기를 낚아오세요.
+rewardDesc : 돈 1000, 경험치 1500
 price : Inventory, Fish, 3
-reward : Stat, Money, 1000
-reward : Stat, Exp, 1500
+reward : Player.Stat, Money, 1000
+reward : Player.Stat, Exp, 1500

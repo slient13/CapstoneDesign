@@ -10,7 +10,7 @@ public class PlayInfo
     int value_int;
     float value_float;
     string value_string;
-    public ulong id { get; }
+    public int id { get; }
 
     int min;
     int max;
@@ -69,7 +69,7 @@ public class PlayInfo
         this.min = 0;
     }
 
-    public PlayInfo(PlayInfo origin, ulong id)
+    public PlayInfo(PlayInfo origin, int id)
     {
         this.id = id;
         this.name = origin.name;
@@ -167,4 +167,14 @@ public class PlayInfo
         return new int[] { min, max };
     }
 
+    public void SetRange(int min, int max)
+    {
+        this.min = min;
+        this.max = max;
+    }
+
+    public void SetRange(int max)
+    {
+        this.max = max;
+    }
 }

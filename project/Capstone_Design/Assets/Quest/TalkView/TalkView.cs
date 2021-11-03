@@ -76,7 +76,7 @@ public class TalkView : MonoBehaviour
     }
 
     public void StartTalk(string npcName, int startId) {
-        Debug.Log("TalkView/StartTalk : is called with " + npcName);
+        Debug.Log($"TalkView/StartTalk.Notice : npcName = {npcName}, startId = {startId}");
         background.SetActive(true);     // 배경 활성화.
         talkView.SetActive(true);       // talkView 활성화.
         this.npcName = npcName;         // 대화 NPC 이름 변경.
@@ -108,7 +108,7 @@ public class TalkView : MonoBehaviour
             // 문자열 분리.
             splitedLine = line.Split(',');
             // 존재하는 좌우 공백 제거.
-            for (int i = 0; i < splitedLine.Length; i++) splitedLine[i].Trim();
+            if (splitedLine.Length >= 2) for (int i = 0; i < splitedLine.Length; i++) splitedLine[i].Trim();
             // mode 체크.
             mode = splitedLine[0];
             // 아이디 기록.
@@ -152,6 +152,9 @@ public class TalkView : MonoBehaviour
                 answerCount = 0;
                 message = new List<string>();
             }
+            else { 
+                Debug.Log($"TalkView.loadTalkScript.error : no match mode. input = {mode}.");
+            }
         }
     }
 
@@ -169,6 +172,9 @@ public class TalkView : MonoBehaviour
     }
 
     public void ChangeTalk(int targetId) {  // 선택에 따른 다음 분기로 대화 이동.
+        // debug
+        int currentId = this.currentTalk.id;
+        Debug.Log($"TalkView.ChangeTalk.debug : currentId = {currentId}, targetId = {targetId}");
         // 대상 분기가 종료인 경우 대화 종료.
         if (targetId == TALK_END) closeTalk();        
         // 아닌 경우 talkList 를 순회하며 일치하는 타겟을 확인, 현재 대화를 그것으로 변경

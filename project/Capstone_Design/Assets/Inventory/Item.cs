@@ -35,7 +35,22 @@ public class Item {
         return this.tooltip;
     }
     public List<string> GetItemEffect() {
-        return this.effect;
+            return this.effect;
+    }
+    public List<string> GetItemEffectDesc() {
+        if (this.type == "Equipment")
+        {
+            List<string> desc = new List<string>();
+            foreach(string effect_string in this.effect)
+            {
+                string equipment_code = effect_string.Split(':')[1].Trim();
+                string equipment_name = ((Equipment) new Message($"EquipmentSystem/GetEquipment : {equipment_code}").FunctionCall().returnValue[0]).name;
+                desc.Add($"{equipment_name} 장착");
+            }
+            return desc;
+        }
+        else 
+            return this.effect;
     }
     public Sprite GetItemImage() {
         return this.img;

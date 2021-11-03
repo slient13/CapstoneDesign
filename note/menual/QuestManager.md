@@ -18,16 +18,18 @@ public bool CheckQuestFinish(Message message) {}        // 입력(퀘스트-코�
 
 ## 입력 파일.
 - 파일 위치 : `Resources/Quest/Info/`
-- 퀘스트 이름 = 파일 이름.
+- name : 퀘스트 이름. 생략시 파일 이름이 대신 들어감.
+- desc : 퀘스트 설명. `questUI.contentView`의 내용에 표시됨.
+- rewardDesc : 퀘스트 보상 설명. `QuestUI.contentView`의 보상에 표시됨.
 - goal : 목표. 달성 필요.
-    - type = `Inventory | Stat`
+    - type = `Inventory | Player.Stat`
     - code : 대상 코드.
     - value : 목표값.
 - price : 비용. 달성 필요. 완료 시 소모.
-    - type = `Inventory | Stat`
+    - type = `Inventory | Player.Stat`
     - code : 대상 코드.
     - value : 비용값.
 - reward : 보상. 완료 시 제공.
-    - type = `Inventory | Stat`
+    - type = `Inventory | Player.Stat`
     - code : 대상 코드.
     - value : 보상값.
