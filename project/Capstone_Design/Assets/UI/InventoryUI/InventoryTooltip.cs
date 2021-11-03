@@ -38,7 +38,7 @@ public class InventoryTooltip : MonoBehaviour
             itemName = item.GetItemName();
             itemTooltip = item.GetItemToolTip();
             itemEffect = "";
-            foreach(string effectString in item.GetItemEffect()) itemEffect += effectString;
+            foreach(string effectString in item.GetItemEffectDesc()) itemEffect += effectString;
         }
         else {
             itemName = "";

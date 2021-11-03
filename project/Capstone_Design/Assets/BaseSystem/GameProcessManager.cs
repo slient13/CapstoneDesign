@@ -14,6 +14,9 @@ public class GameProcessManager : MonoBehaviour
         sceneNameList.Add("dummyScene");
         sceneNameList.Add("Rpg_Intro");
         sceneNameList.Add("LodingSecen");
+        sceneNameList.Add("LodingSecen2");
+        sceneNameList.Add("CoverSecen");
+        sceneNameList.Add("TutorialSecen");
     }
     public void Save()
     {

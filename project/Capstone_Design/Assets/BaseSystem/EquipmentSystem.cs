@@ -127,6 +127,20 @@ public class EquipmentSystem : MonoBehaviour
         if (target_equipment != null) message.returnValue.Add(true);
         else message.returnValue.Add(false);
     }
+
+    public void GetEquipment(Message message)
+    {
+        string equipment_code = (string) message.args[0];
+
+        for (int i = 0; i < this.equipment_info_list.Count; ++i)
+        {
+            if (equipment_info_list[i].code == equipment_code)
+            {
+                message.returnValue.Add(equipment_info_list[i]);
+                break;
+            }
+        }
+    }
 }
 
 public class Equipment
@@ -161,15 +175,20 @@ public class EquipmentEffect
 {
     public string target_code { get; }
     public int degree { get; }
+    public string desc { get; }
 
-    public EquipmentEffect(string target_code, int degree)
+    public EquipmentEffect(string target_code, int degree, string desc = "")
     {
         this.target_code = target_code;
         this.degree = degree;
+        this.desc = desc;
     }
 
     public string GetDesc()
     {
-        return $"{target_code} : {degree}";
+        if (this.desc == "")
+            return $"{target_code} : {degree}";
+        else 
+            return this.desc;
     }
 }

@@ -1,5 +1,5 @@
 code = TestEquipment
 name = 테스트 장비
-effect = Player.Stat.Attack, +30
-effect = Player.Stat.Defense, +20
+effect = Player.Stat.Attack, +30, 공격력 30 증가
+effect = Player.Stat.Defense, +20, 방어력 20 증가
 end
