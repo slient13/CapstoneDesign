@@ -204,7 +204,7 @@ public class InventoryPanel {
         this.itemCode = itemCode;
         box.SetActive(true);
         if (itemImage != null) image.GetComponent<Image>().sprite = itemImage;
-        numberText.GetComponent<Text>().text = $"{itemNumber}";
+        if (numberText != null) numberText.GetComponent<Text>().text = $"{itemNumber}";
     }
     public void Clear() {
         isSetItem = false;

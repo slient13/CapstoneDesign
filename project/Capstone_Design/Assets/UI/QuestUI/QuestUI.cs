@@ -55,12 +55,13 @@ public class QuestUI : MonoBehaviour
         {
             this.textList = new List<Text>();
         }
-        public void Change(List<string> questNameList)
+        public void Change(List<string> questNameList, List<bool> finishAble_check)
         {
             for (int i = 0; i < textList.Count; ++i)
             {
                 if (i < questNameList.Count)
-                    textList[i].text = questNameList[i];
+                    if (finishAble_check[i]) textList[i].text = $"< {questNameList[i]} >";
+                    else textList[i].text = questNameList[i];
                 else
                     textList[i].text = "";
             }
@@ -79,9 +80,8 @@ public class QuestUI : MonoBehaviour
     //////////////////////////////////////////////////////
     List<Quest> processing_questList;
     List<Quest> finishAble_questList;
+    List<bool> finishAble_check;
     bool isActive = false;
-    int selected_count;
-    int processing_count;
     private void Start()
     {
         {   // set panel
@@ -151,8 +151,6 @@ public class QuestUI : MonoBehaviour
             mapping.Enroll("QuestUI");
         }
         {   // initialize
-            selected_count = 0;
-            processing_count = 0;
         }
         {   // default setting
             Sync();
@@ -182,10 +180,19 @@ public class QuestUI : MonoBehaviour
             processing_questList = (List<Quest>)new Message($"QuestManager/GetProcessingQuestList : ").FunctionCall().returnValue[0];
 
             finishAble_questList = new List<Quest>();
+            finishAble_check = new List<bool>();
             foreach (Quest quest in processing_questList)
             {
                 int check = (int)new Message($"QuestManager/CheckQuestFinish : {quest.code}").FunctionCall().returnValue[0];
-                if (check == 1) finishAble_questList.Add(quest);
+                if (check == 1) 
+                {
+                    finishAble_questList.Add(quest);
+                    finishAble_check.Add(true);                    
+                }
+                else 
+                {
+                    finishAble_check.Add(false);
+                }
             }
         }
         {   // sync quest UI's datas.
@@ -236,10 +243,16 @@ public class QuestUI : MonoBehaviour
     public void SyncSideUI()
     {   // sync side UI
         List<string> temp_quest_name_list = new List<string>();
+
+        int index = 0;
         foreach (_Processing processing in processing_list)
-            if (processing.selected_toggle.isOn == true)
+        {            
+            if (index < processing_questList.Count && processing.selected_toggle.isOn == true)
                 temp_quest_name_list.Add(processing.name.text);
-        sideUI.Change(temp_quest_name_list);
+            index += 1;
+        }
+
+        sideUI.Change(temp_quest_name_list, finishAble_check);
     }
     public void ChangeContentView(int mode)
     {

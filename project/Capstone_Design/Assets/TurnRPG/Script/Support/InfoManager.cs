@@ -12,19 +12,38 @@ public class InfoManager : MonoBehaviour
         return (int) new Message($"GetPlayInfoValue : Player.Stat.Hp").FunctionCall().returnValue[0];
     }
 
+    public int GetSp()
+    {
+        return (int) new Message($"GetPlayInfoValue : Player.Stat.Sp").FunctionCall().returnValue[0];
+    }
+
     public void ChangeHp(int degree)
     {
         new Message($"ChangeData : Player.Stat.Hp, {degree}").FunctionCall();
     }
 
+    public void ChangeSp(int degree)
+    {
+        new Message($"ChangeData : Player.Stat.Sp, {degree}").FunctionCall();
+    }
+
     public int GetAtk()
     {
-        return (int) new Message($"GetPlayInfoValue : Player.Stat.Attack").FunctionCall().returnValue[0];
+        int output = (int) new Message($"GetPlayInfoValue : Player.Stat.Attack").FunctionCall().returnValue[0];
+        output = output * (GetSp() + 100) / 200;
+        return output;
     }
 
     public int GetDef()
     {
-        return (int) new Message($"GetPlayInfoValue : Player.Stat.Defense").FunctionCall().returnValue[0];
+        int output = (int) new Message($"GetPlayInfoValue : Player.Stat.Defense").FunctionCall().returnValue[0];
+        output = output * (GetSp() + 100) / 200;
+        return output;
+    }
+    
+    public int GetEvasion()
+    {        
+        return (int) new Message($"GetPlayInfoValue : Player.Stat.Evasion").FunctionCall().returnValue[0];
     }
     
     public Enemy GetEnemyInfo(string monster_code)
@@ -66,5 +85,11 @@ public class InfoManager : MonoBehaviour
     {
         new Message($"InventoryManager/UseItem : {item_code_list[index]}").FunctionCall();
         GetItemList();
+    }
+
+    // 0 = 끄기, 1 = 켜기, 그 외 = 토글.
+    public void SetSpRecoveryOnOff(int mode)
+    {
+        new Message($"PlayInfoManager/SetSpRecoveryOnOff : {mode}").FunctionCall();
     }
 }
