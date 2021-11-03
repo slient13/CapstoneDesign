@@ -15,11 +15,14 @@ public class InventoryManager : MonoBehaviour {
     // 아이템 정보가 기술된 위치들.
     string[] itemInfoPathList = {
         "Inventory/ItemInfo", 
-        "Inventory/Test"
+        "Inventory/Test",
+        "Inventory/rpg"
     };
 
-    void Start() {
+    void Awake() {
         LoadItemInfo();
+    }
+    void Start() {
         new Message("InventoryManager/LoadInventory : ").FunctionCall();
     }
 

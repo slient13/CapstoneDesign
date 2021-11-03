@@ -1,7 +1,8 @@
 short = Hp, 100, 0, 100
-short = Sp, 0, 0, 100
+short = Sp, 100, 0, 100
 short = Money, 10000, 0, 99999999
 short = Attack, 20
 short = Defense, 20
+short = Evasion, 30
 short = Level, 1, 1, 99
 short = Exp, 500, 0, 100000

@@ -1,0 +1,2 @@
+short = Item, bear_skin, 곰 가죽, 곰의 가죽이다. 질기다.
+short = Item, hard_fangs, 단단한 송곳니, 곰의 송곳니이다. 매우 단단하다.

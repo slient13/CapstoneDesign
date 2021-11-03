@@ -7,7 +7,6 @@ public class PlayInfoManager : MonoBehaviour
 {
     string[] infoFileNameList = {
         "Player/Stat"
-        // ,"Rpg/Monster/Info"
     };
 
     public List<Creature> creatureList;
@@ -18,8 +17,27 @@ public class PlayInfoManager : MonoBehaviour
     }
 
     // Update is called once per frame
+    float time = 0.0f;
+    public bool sp_recovery_switch = true;
     void Update()
     {
+        if (sp_recovery_switch == false) return;
+
+        if (time > 10.0f)
+        {
+            time = 0.0f;
+            new Message($"ChangeData : Player.Stat.Sp, 5").FunctionCall();
+        }
+        time += Time.deltaTime;
+    }
+
+    void SetSpRecoveryOnOff(Message message)
+    {
+        int mode = (int)message.args[0];
+
+        if (mode == 1) this.sp_recovery_switch = true;
+        else if (mode == 0) this.sp_recovery_switch = false;
+        else this.sp_recovery_switch = !this.sp_recovery_switch;
     }
 
     // 플레이 정보 등록.
