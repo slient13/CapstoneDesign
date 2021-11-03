@@ -29,49 +29,7 @@ public class CommentPanel : MonoBehaviour
         textPanel = transform.Find("MainText").gameObject;
         mainText = textPanel.GetComponent<Text>();
         battleManager = battleManagerObj.GetComponent<BattleManager>();
-
-        //코멘트라인 설정
-        //commentLine[0] = "앗! 야생의" + enemyName + "이(가) 나타났다!";
-        //commentLine[1] = "무엇을 하지?";
-        //commentLine[2] = itemName + "을 사용하였다.";
-        //commentLine[3] = skillName + "로 공격!";
-        //commentLine[4] = enemyName + "의 " + enemySkill + "!";
     }
-
-    /*
-    /// <summary>
-    /// 텍스트 라인 인덱스 선택
-    /// </summary>
-    public void SetCommentLine(int index)
-    {
-        mainText.text = commentLine[index];
-        lineIndex = index;
-    }
-
-    public int GetCommentLineIndex()
-    {
-        return lineIndex;
-    }
-
-    /// <summary>
-    /// 텍스트를 가져오기
-    /// </summary>
-    /// <param name="text"></param>
-    void GetText(string text)
-    {
-        mainText.text = text;
-    }
-
-    /// <summary>
-    /// 텍스트 업데이트
-    /// </summary>
-    void UpdateText()
-    {
-        Text originalText = textPanel.GetComponent<Text>();
-
-        originalText.text = mainText.text;
-    }
-    */
 
     /// <summary>
     /// 텍스트 직접 설정
@@ -133,6 +91,47 @@ public class CommentPanel : MonoBehaviour
     {
         textLine = "플레이어는 달아났다!";
         battleManager.SetCommentCode(5);
+        StartCoroutine(Typing(textLine));
+    }
+
+    public void PlayerLose()
+    {
+        textLine = "플레이어는 눈앞이 캄캄해졌다!";
+        battleManager.SetCommentCode(6);
+        StartCoroutine(Typing(textLine));
+    }
+    
+    public void PlayerWin(string monsterName)
+    {
+        textLine = monsterName + "은(는) 쓰러졌다!";
+        battleManager.SetCommentCode(7);
+        StartCoroutine(Typing(textLine));
+    }
+
+    public void ItemGet(string[] items)
+    {
+        string itemLine = "";
+        foreach (string item in items)
+        {
+            itemLine += item;
+            itemLine += ", ";
+        }
+        textLine = "플레이어는 " + itemLine + " 을(를) 손에 넣었다!";
+        battleManager.SetCommentCode(8);
+        StartCoroutine(Typing(textLine));
+    }
+
+    public void AtkFail()
+    {
+        textLine = "공격에 실패했다..";
+        battleManager.SetCommentCode(9);
+        StartCoroutine(Typing(textLine));
+    }
+
+    public void AtkSuc()
+    {
+        textLine = "공격은 성공적이였다!";
+        battleManager.SetCommentCode(10);
         StartCoroutine(Typing(textLine));
     }
 

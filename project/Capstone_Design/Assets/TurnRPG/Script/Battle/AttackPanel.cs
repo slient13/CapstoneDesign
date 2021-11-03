@@ -7,8 +7,9 @@ public class AttackPanel : MonoBehaviour
 {
     public string selectorText = "> ";
     public Text[] command;
+    public BattleManager gameManager;
 
-    int textCount = 0;
+    public int textCount = 0;
     public int selectorIndex = 0;
 
     // Start is called before the first frame update
@@ -65,6 +66,7 @@ public class AttackPanel : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
         {
             ConfirmSelector();
+            gameManager.AttackPanelSelect(selectorIndex);
         }
     }
 
@@ -85,23 +87,15 @@ public class AttackPanel : MonoBehaviour
     /// <returns></returns>
     public string ConfirmSelector()
     {
-        Debug.Log(selectorIndex + "번 메뉴 선택, " + command[selectorIndex].text);
+        //Debug.Log(selectorIndex + "번 메뉴 선택, " + command[selectorIndex].text);
         return command[selectorIndex].text;
     }
 
     /// <summary>
-    /// InitPanel 정지
+    /// AttackPanel 사용설정
     /// </summary>
-    public void StopPanel()
+    public void SetActive(bool value)
     {
-        this.gameObject.SetActive(false);
-    }
-
-    /// <summary>
-    /// InitPanl 시작
-    /// </summary>
-    public void StartPanel()
-    {
-        this.gameObject.SetActive(true);
+        this.gameObject.SetActive(value);
     }
 }

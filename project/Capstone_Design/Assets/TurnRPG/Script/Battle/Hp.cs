@@ -20,7 +20,7 @@ public class Hp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        hpPercentage = initHp / hpAmount;
+        hpPercentage = hpAmount / initHp;
         hpImage.fillAmount = hpPercentage;
     }
 
@@ -28,7 +28,7 @@ public class Hp : MonoBehaviour
     /// 'float'만큼 체력 증가
     /// </summary>
     /// <param name="value"></param>
-    void AddHp(float value)
+    public void AddHp(float value)
     {
         hpAmount += value;
     }

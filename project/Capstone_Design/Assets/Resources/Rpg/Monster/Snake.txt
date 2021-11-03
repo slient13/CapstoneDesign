@@ -1,0 +1,8 @@
+name = 뱀
+hp = 50
+attack = 10
+defence = 8
+skill = skill_A, 몸통 박치기, 1.0
+skill = skill_B, 송곳니 공격, 1.6
+drop = 뱀 가죽, 1.0
+drop = 날카로운 송곳니, 0.3
