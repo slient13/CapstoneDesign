@@ -47,36 +47,37 @@ public class RacingGameManager : MonoBehaviour
     float bestTime; //최고 기록을 담을 변수 
 
     //이렇게 하면, 다른 스크립트에서 RacingGameManager를 쉽게 접근할 수 있다.
-    private void Awake(){
-        if(instance==null)
-            instance=this; 
-        
+    private void Awake()
+    {
+        if (instance == null)
+            instance = this;
+
         SpeedSet(); //함수를 실행시켜준다.
-        
-        
+
+
         PlayerPrefs.DeleteKey("BestLap"); //BestTime을 초기화 시켜준다.
 
         BestTimeSet(); //함수를 실행시켜준다. 
 
         money = 10000;
-  
+
     }
 
     //Let's go를 눌렀을때 실행될 시작 기능 구현
     public void GameStart()
     {
+        bool check = (bool)new Message($"SelectMenu/BuyCar : {this.carName}").FunctionCall().returnValue[0];
 
-        bool check = (bool)new Message($"SelectMenu/selectcar : {this.carName}").FunctionCall().returnValue[0];
-
-        if(check==true){
-             StartCoroutine("StartCount"); //카운트다운 코르틴 실행 
+        if (check == true)
+        {
+            StartCoroutine("StartCount"); //카운트다운 코르틴 실행 
         }
-        
     }
 
-    public void selectedcar(Message message){
+    public void ChangeSelectedCarName(Message message)
+    {
         this.carName = (string)message.args[0];
-        
+
     }
     //저장된 best 기록을 가져오는 기능
     void BestTimeSet()
@@ -85,19 +86,19 @@ public class RacingGameManager : MonoBehaviour
         bestTime = PlayerPrefs.GetFloat("BestLap");
         //bestTimeText를 text로 바꿔준다. 
         bestTimeText.text = string.Format("Best {0:00}:{1:00.00}",
-            (int)(bestTime / 60%60), bestTime % 60);
-        
-        if(bestTime == 0)
+            (int)(bestTime / 60 % 60), bestTime % 60);
+
+        if (bestTime == 0)
         {
             bestTimeText.text = "Best   -";
         }
     }
-    
+
     //lapTime 기능
     public void LapTime()
     {
         //lap이 3이라면,
-        if(lap == 3)
+        if (lap == 3)
         {
             //goal 효과음 넣어주기 
             SE_Manager.instance.PlaySound(SE_Manager.instance.goal);
@@ -111,33 +112,33 @@ public class RacingGameManager : MonoBehaviour
             //player의 3번쨰 요소인 사운드 기능 비 화성화 
             player.transform.GetChild(3).gameObject.SetActive(false);
 
-            if(curTime < bestTime | bestTime == 0)
+            if (curTime < bestTime | bestTime == 0)
             {
                 //bestTimeText를 비 활성화 
                 bestTimeText.gameObject.SetActive(false);
                 //bestTimeText를 현재 시간으로 바꿔준다. 
                 bestTimeText.text = string.Format("Best {0:00}:{1:00.00}",
-                    (int)(curTime / 60%60), curTime % 60);
+                    (int)(curTime / 60 % 60), curTime % 60);
                 //bestTimeText를 다시 활성화 
                 bestTimeText.gameObject.SetActive(true);
 
                 //게임을 종료해도 기록을 남기기 위함
                 //PlayerPrefs의 BestLap에 curtime대입 
-                PlayerPrefs.SetFloat("BestLap",curTime);
+                PlayerPrefs.SetFloat("BestLap", curTime);
             }
 
         }
 
         //lapTimeText는 0번째 부터 있으므로 -1, false로 비활성화 
-        lapTimeText[lap-1].gameObject.SetActive(false);
+        lapTimeText[lap - 1].gameObject.SetActive(false);
         //lapTimeText를 현재 시간으로 바꿔준다. 
-        lapTimeText[lap-1].text = string.Format("{0:00}:{1:00.00}",
-            (int)(curTime / 60%60), curTime % 60);
+        lapTimeText[lap - 1].text = string.Format("{0:00}:{1:00.00}",
+            (int)(curTime / 60 % 60), curTime % 60);
         //바뀐 lapTimeText를 다시 활성화 시키기 
-        lapTimeText[lap-1].gameObject.SetActive(true);
+        lapTimeText[lap - 1].gameObject.SetActive(true);
     }
 
-    
+
     //카운트 다운 기능
     IEnumerator StartCount()
     {
@@ -196,22 +197,22 @@ public class RacingGameManager : MonoBehaviour
         controllPad.StartController();
 
         //Car스크립트의 StartAI()실행
-        for(int i=0;i<car.Length;i++) //차의 개수만큼 for문 실행 
+        for (int i = 0; i < car.Length; i++) //차의 개수만큼 for문 실행 
             car[i].StartAI();
-        
+
         //카운터다운이 끝나면 타이머 실행
         StartCoroutine("Timer");
     }
     //타이머 기능
     IEnumerator Timer()
     {
-        while(true)
+        while (true)
         {
             curTime += Time.deltaTime; // 시간이 1초씩 증가 
-            
+
             //시간이 증가할때마다, curTimeText의 글자 형태도 바꿔주기 
             curTimeText.text = string.Format("{0:00}:{1:00.00}",
-            (int)(curTime / 60 % 60), curTime % 60);;
+            (int)(curTime / 60 % 60), curTime % 60); ;
             yield return null;
         }
     }
@@ -220,7 +221,7 @@ public class RacingGameManager : MonoBehaviour
     void SpeedSet()
     {
         //차량의 수만큼 
-        for(int i=0;i<car.Length;i++)
+        for (int i = 0; i < car.Length; i++)
         {
             // 차량의 속도는 기본 속도에서 오차 0.5f내에서 랜덤으로 배정 
             //car[i].carSpeed = Random.Range(baseSpeed, baseSpeed + 0.5f);
@@ -233,13 +234,13 @@ public class RacingGameManager : MonoBehaviour
 
         car[0].carRotate = 30;
         car[1].carRotate = 30;
-        car[2].carRotate = 30; 
+        car[2].carRotate = 30;
         car[3].carRotate = 60;
         car[4].carRotate = 30;
 
         car[0].carAccel = 10;
         car[1].carAccel = 7;
-        car[2].carAccel = 15; 
+        car[2].carAccel = 15;
         car[3].carAccel = 10;
         car[4].carAccel = 5;
     }

@@ -19,19 +19,27 @@ public class SelectMenu : MonoBehaviour, IPointerDownHandler
 
     public TextMeshProUGUI PriceText;
 
+    int[] carPriceList = { 0, 15000, 17000, 20000, 23000 };
+    string[] carNameList = { "CarA", "CarB", "CarC", "CarD", "CarE" };
+    List<bool> unlock_list;
+    RacingDataManager racingDataManager = new RacingDataManager();
+
     void Start()
     {
-        changetext();
+        syncMoneyText();
         //money = 10000;
         Debug.Log(money);
+        unlock_list = this.racingDataManager.GetUnlockList();
+    }
+
+    public void SaveUnlockData()
+    {
+        this.racingDataManager.SaveUnlockList(this.unlock_list);
     }
 
     //IPointDownHandler 인터페이스 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Message getMoney = new Message("GetPlayInfoValue : Player.Stat.Money").FunctionCall();
-        money = (int)getMoney.returnValue[0];
-
         if (!checking) //checking이 false라면 
         {
             //차량을 선택하면 btn효과음 발생
@@ -64,88 +72,99 @@ public class SelectMenu : MonoBehaviour, IPointerDownHandler
                     RacingGameManager.instance.player = hit.transform.
                         GetComponent<Car>();
 
-                    if (hit.transform.gameObject.name == "CarA")
+                    int carPrice = -1;
+                    string carName = "";
+                    for (int i = 0; i < carNameList.Length; ++i)
                     {
-                        pricetext(10000);
-                        new Message($"GameManager/selectedcar : CarA").FunctionCall();
-                    }
-                    else if (hit.transform.gameObject.name == "CarB")
-                    {
-                        pricetext(15000);
-                         new Message($"GameManager/selectedcar : CarB").FunctionCall();
-                    }
-                    else if (hit.transform.gameObject.name == "CarC")
-                    {
-                         pricetext(17000);
-                          new Message($"GameManager/selectedcar : CarC").FunctionCall();
-                    }
-                    else if (hit.transform.gameObject.name == "CarD")
-                    {
-                         pricetext(20000);
-                          new Message($"GameManager/selectedcar : CarD").FunctionCall();
-                    }
-                    else if (hit.transform.gameObject.name == "CarE")
-                    {
-                         pricetext(23000);
-                          new Message($"GameManager/selectedcar : CarE").FunctionCall();
+                        if (hit.transform.gameObject.name == this.carNameList[i])
+                        {
+                            if (this.unlock_list[i] == false)
+                                carPrice = this.carPriceList[i];
+                            else
+                                carPrice = -1;
+                            carName = this.carNameList[i];
+                            break;
+                        }
                     }
 
-                    
-
-                    changetext();
-                }
-            }
-        }
+                    new Message($"GameManager/ChangeSelectedCarName : {carName}").FunctionCall();
+                    syncPriceText(carPrice);
+                    syncMoneyText();
+                } // end : hit.transform.gameObject.tag == "Car"
+            }   // end : hit.transform != null
+        }   // end : !checking
     }
 
-    public void selectcar(Message message){
+    public void BuyCar(Message message)
+    {
         string carName = (string)message.args[0];
         bool output = false;
 
-        if(carName=="CarA"){
-            output = buycar(10000);
-        }else if(carName=="CarB"){
-            output = buycar(15000);
-        }else if(carName=="CarC"){
-            output = buycar(17000);
-        }else if(carName=="CarD"){
-            output = buycar(20000);
-        }
-        else if(carName=="CarE"){
-            output = buycar(23000);
+        for (int i = 0; i < carNameList.Length; ++i)
+        {
+            if (carName == this.carNameList[i])
+            {
+                output = deal(i);
+                break;
+            }
         }
 
-        MoneyText.text= "";
-        PriceText.text= "";
+        if (output == true)
+        {
+            MoneyText.text = "";
+            PriceText.text = "";
+        }
 
         message.returnValue.Add(output);
     }
 
-    
 
-    bool buycar(int needMoney)
+
+    bool deal(int index)
     {
-        if(this.money >= needMoney){
-            new Message($"ChangeData : Player.Stat.Money, {-needMoney}").FunctionCall();
-            this.money = (int)new Message($"GetPlayInfoValue : Player.Stat.Money").FunctionCall().returnValue[0];
+        this.money = getMoney();
+        int needMoney = this.carPriceList[index];
+        bool unlock = this.unlock_list[index];
+
+        if (unlock == true)
+        {
             return true;
-        }else{
+        }
+        else if (this.money >= needMoney)
+        {
+            changeMoney(-needMoney);
+            this.unlock_list[index] = true;
+            this.SaveUnlockData();
+            return true;
+        }
+        else
+        {
             return false;
         }
 
     }
 
-    void changetext(){
-        this.money = (int)new Message($"GetPlayInfoValue : Player.Stat.Money").FunctionCall().returnValue[0];
-        MoneyText.text= $"Money : {this.money}";
+    void syncMoneyText()
+    {
+        this.money = getMoney();
+        MoneyText.text = $"Money : {this.money}";
     }
 
-    void pricetext(int needMoney){
-        PriceText.text= $"Price : {needMoney}";
+    void syncPriceText(int needMoney)
+    {
+        if (needMoney < 0) PriceText.text = $"Unlocked";
+        else PriceText.text = $"Price : {needMoney}";
     }
 
-    
+    int getMoney()
+    {
+        return (int)new Message($"GetPlayInfoValue : Player.Stat.Money").FunctionCall().returnValue[0];
+    }
 
+    void changeMoney(int degree)
+    {
+        new Message($"ChangeData : Player.Stat.Money, {degree}").FunctionCall();
+    }
 
 
     //카메라의 줌 인 기능
