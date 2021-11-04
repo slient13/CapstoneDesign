@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scene/dummyScene.unity
     guid: cee9374e985e1964797b68dd78512842
+  - enabled: 1
+    path: Assets/Racing/Racing.unity
+    guid: 3ffa20d406001544bb852d9a02cd9bf8
   m_configObjects: {}

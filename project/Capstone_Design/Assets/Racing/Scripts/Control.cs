@@ -16,7 +16,7 @@ public class Control : MonoBehaviour
 
     float carRotate;
 
-
+    
     Car player; // 플레이어 차량 자리
 
     Animator playerAni; // 플레이어 차량 애니메이션
@@ -55,7 +55,7 @@ public class Control : MonoBehaviour
 
         carRotate = player.carRotate;
 
-        if (player.carSpeed == 12.5)
+        if (player.carSpeed == 12.5f)
             player.carRotate = 3;
     }
     //드래그하는 동안

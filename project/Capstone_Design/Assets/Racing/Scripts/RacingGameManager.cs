@@ -17,8 +17,11 @@ public class RacingGameManager : MonoBehaviour
     public int lap; //몇바퀴째인지 확인할 변수 
     public bool check; //체크 포인트 지점을 통과했는지 확인할 bool 변수 
 
+    public int money; //플레이어 돈
+
     [Header("GameObj")]
     public Car[] car; //차량들을 담을 자리 
+
     public Transform[] target; //목적지들을 담을 자리
     public Control controllPad; //컨트롤 패드 스크립트 자리
     public Transform cam; //카메라 자리 
@@ -36,6 +39,10 @@ public class RacingGameManager : MonoBehaviour
     public TextMeshProUGUI curSpeedText; //현재 스피드를 나타낼 text 
     public TextMeshProUGUI[] lapTimeText; //한 바퀴 돌때마다 시간을 나타낼 text
 
+    string carName;
+
+
+
     float curTime; //현재 시간을 담을 변수 
     float bestTime; //최고 기록을 담을 변수 
 
@@ -45,14 +52,31 @@ public class RacingGameManager : MonoBehaviour
             instance=this; 
         
         SpeedSet(); //함수를 실행시켜준다.
+        
+        
+        PlayerPrefs.DeleteKey("BestLap"); //BestTime을 초기화 시켜준다.
+
         BestTimeSet(); //함수를 실행시켜준다. 
+
+        money = 10000;
   
     }
 
     //Let's go를 눌렀을때 실행될 시작 기능 구현
     public void GameStart()
     {
-        StartCoroutine("StartCount"); //카운트다운 코르틴 실행 
+
+        bool check = (bool)new Message($"SelectMenu/selectcar : {this.carName}").FunctionCall().returnValue[0];
+
+        if(check==true){
+             StartCoroutine("StartCount"); //카운트다운 코르틴 실행 
+        }
+        
+    }
+
+    public void selectedcar(Message message){
+        this.carName = (string)message.args[0];
+        
     }
     //저장된 best 기록을 가져오는 기능
     void BestTimeSet()
@@ -61,7 +85,7 @@ public class RacingGameManager : MonoBehaviour
         bestTime = PlayerPrefs.GetFloat("BestLap");
         //bestTimeText를 text로 바꿔준다. 
         bestTimeText.text = string.Format("Best {0:00}:{1:00.00}",
-            (int)(curTime / 60%60), bestTime % 60);
+            (int)(bestTime / 60%60), bestTime % 60);
         
         if(bestTime == 0)
         {
@@ -236,5 +260,11 @@ public class RacingGameManager : MonoBehaviour
         //버튼 효과음 
         SE_Manager.instance.PlaySound(SE_Manager.instance.btn);
         SceneManager.LoadScene("Racing"); //Racing scene을 다시 로드    
+    }
+
+    public void Cancel()
+    {
+        new Message("GameProcessManager/ChangeScene:finalSecen").FunctionCall();
+        Debug.Log("취소");
     }
 }

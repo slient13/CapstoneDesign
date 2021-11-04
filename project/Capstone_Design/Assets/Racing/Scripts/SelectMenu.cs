@@ -2,18 +2,37 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using TMPro; //TextMeshProUGUI를 사용하기 위해 필요한 네임스페이스
 
-public class SelectMenu : MonoBehaviour,IPointerDownHandler
+public class SelectMenu : MonoBehaviour, IPointerDownHandler
 {
     public Camera cam; // 카메라 자리
     public GameObject finalCheckMenu; //최종 확인 메뉴  
     RaycastHit hit;
     bool checking;
-    
+
+
+    int money;
+
+    [Header("Text")]
+    public TextMeshProUGUI MoneyText; //플레이어의 돈을 나타낼 text
+
+    public TextMeshProUGUI PriceText;
+
+    void Start()
+    {
+        changetext();
+        //money = 10000;
+        Debug.Log(money);
+    }
+
     //IPointDownHandler 인터페이스 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if(!checking) //checking이 false라면 
+        Message getMoney = new Message("GetPlayInfoValue : Player.Stat.Money").FunctionCall();
+        money = (int)getMoney.returnValue[0];
+
+        if (!checking) //checking이 false라면 
         {
             //차량을 선택하면 btn효과음 발생
             SE_Manager.instance.PlaySound(SE_Manager.instance.btn);
@@ -22,13 +41,13 @@ public class SelectMenu : MonoBehaviour,IPointerDownHandler
             Ray ray = cam.ScreenPointToRay(eventData.position);
             //만든 Ray광선을 발사하고, 광선을 맞은 오브젝트를 hit에 저장 
             Physics.Raycast(ray, out hit);
-            
+
             //터치한 곳에 오브젝트가 있는 경우에만,
             //차량 선택에서 아무것도 없는 곳을 눌렀을때 발생하는 오류 해결 방안
-            if(hit.transform != null)
+            if (hit.transform != null)
             {
                 //광선에 맞은 오브젝트의 태그가 Car라면,
-                if(hit.transform.gameObject.tag=="Car")
+                if (hit.transform.gameObject.tag == "Car")
                 {
                     checking = true; //checking을 true로 바꿔준다.
                     //카메라를 선택한 오브젝트안으로 위치시킨다.
@@ -44,25 +63,106 @@ public class SelectMenu : MonoBehaviour,IPointerDownHandler
                     //선택한 Car가 플레이어가 되게 한다.
                     RacingGameManager.instance.player = hit.transform.
                         GetComponent<Car>();
+
+                    if (hit.transform.gameObject.name == "CarA")
+                    {
+                        pricetext(10000);
+                        new Message($"GameManager/selectedcar : CarA").FunctionCall();
+                    }
+                    else if (hit.transform.gameObject.name == "CarB")
+                    {
+                        pricetext(15000);
+                         new Message($"GameManager/selectedcar : CarB").FunctionCall();
+                    }
+                    else if (hit.transform.gameObject.name == "CarC")
+                    {
+                         pricetext(17000);
+                          new Message($"GameManager/selectedcar : CarC").FunctionCall();
+                    }
+                    else if (hit.transform.gameObject.name == "CarD")
+                    {
+                         pricetext(20000);
+                          new Message($"GameManager/selectedcar : CarD").FunctionCall();
+                    }
+                    else if (hit.transform.gameObject.name == "CarE")
+                    {
+                         pricetext(23000);
+                          new Message($"GameManager/selectedcar : CarE").FunctionCall();
+                    }
+
+                    
+
+                    changetext();
                 }
             }
         }
     }
-     //카메라의 줌 인 기능
+
+    public void selectcar(Message message){
+        string carName = (string)message.args[0];
+        bool output = false;
+
+        if(carName=="CarA"){
+            output = buycar(10000);
+        }else if(carName=="CarB"){
+            output = buycar(15000);
+        }else if(carName=="CarC"){
+            output = buycar(17000);
+        }else if(carName=="CarD"){
+            output = buycar(20000);
+        }
+        else if(carName=="CarE"){
+            output = buycar(23000);
+        }
+
+        MoneyText.text= "";
+        PriceText.text= "";
+
+        message.returnValue.Add(output);
+    }
+
+    
+
+    bool buycar(int needMoney)
+    {
+        if(this.money >= needMoney){
+            new Message($"ChangeData : Player.Stat.Money, {-needMoney}").FunctionCall();
+            this.money = (int)new Message($"GetPlayInfoValue : Player.Stat.Money").FunctionCall().returnValue[0];
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
+    void changetext(){
+        this.money = (int)new Message($"GetPlayInfoValue : Player.Stat.Money").FunctionCall().returnValue[0];
+        MoneyText.text= $"Money : {this.money}";
+    }
+
+    void pricetext(int needMoney){
+        PriceText.text= $"Price : {needMoney}";
+    }
+
+    
+
+
+
+    //카메라의 줌 인 기능
     IEnumerator Cam_ZoomIn()
     {
-        while(true)
+        while (true)
         {
             //카메라의 localPosition을 Vector3.Slerp를 이용해 부드럽게 줌인
             //카메라의 형제 localPosition에서 new Vector3(0,2,-3.5f)의 위치로
             //카메라가 이동하고, 20*Time.deltaTime의 속도로 줌인된다.
-            cam.transform.localPosition = 
+            cam.transform.localPosition =
               Vector3.Slerp(cam.transform.localPosition,
-              new Vector3(0,2,-3.5f),20*Time.deltaTime);
-            
+              new Vector3(0, 2, -3.5f), 20 * Time.deltaTime);
+
             //카메라가 이동하다가 localPosition.z이 -3.5f보다 크거나 같아지면,
             //줌인 코르틴 종료 
-            if(cam.transform.localPosition.z >= -3.5f)
+            if (cam.transform.localPosition.z >= -3.5f)
                 StopCoroutine("Cam_ZoomIn");
             yield return null;
         }
@@ -79,24 +179,24 @@ public class SelectMenu : MonoBehaviour,IPointerDownHandler
         StartCoroutine("Cam_ZoomOut");
         //finalCheckMenu 비활성화
         finalCheckMenu.SetActive(false);
-        checking=false; //checking false로 바뀜
+        checking = false; //checking false로 바뀜
     }
 
     //카메라 줌 아웃 기능
     IEnumerator Cam_ZoomOut()
     {
-        while(true)
+        while (true)
         {
             //카메라의 localPosition을 Vector3.Slerp를 이용해 부드럽게 줌아웃
             //카메라의 형제 localPosition에서 new Vector3(0,3,-5f)의 위치로
             //카메라가 이동하고, 20*Time.deltaTime의 속도로 줌인된다.
-            cam.transform.localPosition = 
+            cam.transform.localPosition =
               Vector3.Slerp(cam.transform.localPosition,
-              new Vector3(0,3,-5f),20*Time.deltaTime);
-            
+              new Vector3(0, 3, -5f), 20 * Time.deltaTime);
+
             //카메라가 이동하다가 localPosition.z이 -5f보다 작거나 같아지면,
             //줌인 코르틴 종료 
-            if(cam.transform.localPosition.z <= -5f)
+            if (cam.transform.localPosition.z <= -5f)
                 StopCoroutine("Cam_ZoomOut");
 
             yield return null;

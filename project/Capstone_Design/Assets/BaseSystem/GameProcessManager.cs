@@ -12,6 +12,7 @@ public class GameProcessManager : MonoBehaviour
         sceneNameList = new List<string>();
         sceneNameList.Add("finalSecen");
         sceneNameList.Add("dummyScene");
+        sceneNameList.Add("Racing");
     }
 
     // Update is called once per frame

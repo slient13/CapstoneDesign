@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -144,6 +145,18 @@ public class Player : MonoBehaviour
             anim.SetBool("isJump", false);
             isJump = false;
         }
+
+        if (collision.gameObject.name == "Vehicle")
+        {
+            speed = 30;
+  
+        }
+
+         //플레이어가 포탈 오브젝트와 충돌시
+        if(collision.gameObject.name == "RacingPotal")
+        {
+            SceneManager.LoadScene("Racing");
+        }
     }
 
     void Action()
@@ -178,4 +191,6 @@ public class Player : MonoBehaviour
         if (nearObject != null && other.tag == nearObject.tag)
             nearObject = null;
     }
+    
+    
 }
