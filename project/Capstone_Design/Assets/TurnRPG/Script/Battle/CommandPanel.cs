@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class CommandPanel : MonoBehaviour
 {
+    public GameObject initPanel;
+    public GameObject attackPanel;
+
     private void Start()
     {
         this.gameObject.SetActive(false);
@@ -17,5 +20,15 @@ public class CommandPanel : MonoBehaviour
     public void SetActive(bool input)
     {
         this.gameObject.SetActive(input);
+    }
+
+    public void SetInitPanel(bool input)
+    {
+        initPanel.gameObject.SetActive(input);
+    }
+
+    public void SetAttackPanel(bool input)
+    {
+        attackPanel.gameObject.SetActive(input);
     }
 }

@@ -7,7 +7,7 @@ public class InitPanel : MonoBehaviour
 {
     public string selectorText = "> ";
     public Text[] command;
-    public GameObject gameManager;
+    public BattleManager gameManager;
 
     int textCount = 0;
     public int selectorIndex = 0;
@@ -15,7 +15,6 @@ public class InitPanel : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gameManager = GameObject.Find("BattleManager");
         GetChild();
 
         //최초 설렉터 생성
@@ -67,6 +66,7 @@ public class InitPanel : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
         {
             ConfirmSelector();
+            gameManager.InitPanelSelect(selectorIndex);
         }
     }
 
@@ -87,23 +87,15 @@ public class InitPanel : MonoBehaviour
     /// <returns></returns>
     public string ConfirmSelector()
     {
-        Debug.Log(selectorIndex + "번 메뉴 선택, " + command[selectorIndex].text);
+        //Debug.Log(selectorIndex + "번 메뉴 선택, " + command[selectorIndex].text);
         return command[selectorIndex].text;
     }
 
     /// <summary>
-    /// InitPanel 정지
+    /// InitPanel 사용설정
     /// </summary>
-    public void StopPanel()
+    public void SetActive(bool value)
     {
-        this.gameObject.SetActive(false);
-    }
-    
-    /// <summary>
-    /// InitPanl 시작
-    /// </summary>
-    public void StartPanel()
-    {
-        this.gameObject.SetActive(true);
+        this.gameObject.SetActive(value);
     }
 }

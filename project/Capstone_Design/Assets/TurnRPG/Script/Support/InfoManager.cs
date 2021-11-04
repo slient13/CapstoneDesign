@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InfoManager
-{
+public class InfoManager : MonoBehaviour
+    {
     public InfoManager() { }
 
     public string GetSceneStartValue()
