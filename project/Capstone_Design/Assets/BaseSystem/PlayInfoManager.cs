@@ -6,7 +6,8 @@ using UnityEngine;
 public class PlayInfoManager : MonoBehaviour
 {
     string[] infoFileNameList = {
-        "Player/Stat"
+        "Player/Stat",
+        "System/Process"
     };
 
     public List<Creature> creatureList;

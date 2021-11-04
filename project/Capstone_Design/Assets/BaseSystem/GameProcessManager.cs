@@ -17,6 +17,7 @@ public class GameProcessManager : MonoBehaviour
         sceneNameList.Add("LodingSecen2");
         sceneNameList.Add("CoverSecen");
         sceneNameList.Add("TutorialSecen");
+        sceneNameList.Add("BattleScene");
     }
     public void Save()
     {
@@ -40,6 +41,10 @@ public class GameProcessManager : MonoBehaviour
     public void ChangeScene(Message message)
     {
         string targetName = (string)message.args[0];
+        string passString = "none";
+        if (message.args.Count == 2) passString = (string)message.args[1];
+        new Message($"SetData : System.Process.SceneChangeValue, {passString}").FunctionCall();
+
         bool isMatched = false;
         foreach (string sceneName in sceneNameList) if (sceneName == targetName) isMatched = true;
 
