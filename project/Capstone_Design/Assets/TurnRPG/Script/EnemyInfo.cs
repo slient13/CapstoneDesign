@@ -51,13 +51,18 @@ public class EnemyInfo : MonoBehaviour
                 Debug.Log($"EnemyInfo.debug.SkillandDrop : drop list = {drops_string}.");
             }
         }
-        { // infoManager 관련 코드 테스트
+        { // InfoManager 관련 코드 테스트
             InfoManager im = new InfoManager();
-            Debug.Log($"infoManager.debug : Hp = {im.GetHp()}");
-            Debug.Log($"infoManager.debug : Sp = {im.GetSp()}");
-            Debug.Log($"infoManager.debug : Atk = {im.GetAtk()}");
-            Debug.Log($"infoManager.debug : Def = {im.GetDef()}");
-            Debug.Log($"infoManager.debug : Evasion = {im.GetEvasion()}");
+            Debug.Log($"InfoManager.debug : Hp = {im.GetHp()}");
+            Debug.Log($"InfoManager.debug : Sp = {im.GetSp()}");
+            Debug.Log($"InfoManager.debug : Atk = {im.GetAtk()}");
+            Debug.Log($"InfoManager.debug : Def = {im.GetDef()}");
+            Debug.Log($"InfoManager.debug : Evasion = {im.GetEvasion()}");
+        }
+        { // 씬 전환시 정보 반영 확인 코드.
+            InfoManager im = new InfoManager();
+            string sceneStartValue = im.GetSceneStartValue();
+            Debug.Log($"InfoManager.debug : Scene start value : {sceneStartValue}");
         }
     }
 

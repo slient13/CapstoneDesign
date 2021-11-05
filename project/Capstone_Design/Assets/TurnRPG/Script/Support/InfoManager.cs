@@ -7,6 +7,11 @@ public class InfoManager : MonoBehaviour
     {
     public InfoManager() { }
 
+    public string GetSceneStartValue()
+    {
+        return (string) new Message($"GetPlayInfoValue : System.Process.SceneChangeValue").FunctionCall().returnValue[0];
+    }
+
     public int GetHp() 
     {
         return (int) new Message($"GetPlayInfoValue : Player.Stat.Hp").FunctionCall().returnValue[0];
