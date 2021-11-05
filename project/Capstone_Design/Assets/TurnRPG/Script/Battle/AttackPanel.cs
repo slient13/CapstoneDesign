@@ -65,8 +65,8 @@ public class AttackPanel : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
         {
-            ConfirmSelector();
             gameManager.AttackPanelSelect(selectorIndex);
+            InitSelector();
         }
     }
 
@@ -75,6 +75,10 @@ public class AttackPanel : MonoBehaviour
     /// </summary>
     void InitSelector()
     {
+        //설렉터 텍스트 제거
+        for (int i = 0; i < command.Length; i++)
+            command[i].text = command[i].text.Replace(selectorText, "");
+
         selectorIndex = 0;
 
         //설렉터 추가
@@ -87,6 +91,8 @@ public class AttackPanel : MonoBehaviour
     /// <returns></returns>
     public string ConfirmSelector()
     {
+        InitSelector();
+
         //Debug.Log(selectorIndex + "번 메뉴 선택, " + command[selectorIndex].text);
         return command[selectorIndex].text;
     }
@@ -96,6 +102,7 @@ public class AttackPanel : MonoBehaviour
     /// </summary>
     public void SetActive(bool value)
     {
+
         this.gameObject.SetActive(value);
     }
 }

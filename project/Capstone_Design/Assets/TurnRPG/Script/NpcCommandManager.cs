@@ -8,6 +8,7 @@ public class NpcCommandManager : MonoBehaviour
     public GameObject npc;
     public float respawnTime;
     public GameProcessManager gpManager;
+    public string monsterName;
 
     //플레이어 정보를 전달하는 매니저
     public GameObject systemManager;
@@ -73,7 +74,7 @@ public class NpcCommandManager : MonoBehaviour
     /// <param name="boolean"></param>
     void BattleStart(bool boolean)
     {
-        Message msg = new Message("GameProcessManager/ChangeScene : Rpg_Intro").FunctionCall();
+        Message msg = new Message("GameProcessManager/ChangeScene : Rpg_Intro, " + monsterName).FunctionCall();
 
         //SceneManager.LoadScene("Rpg_Intro");
 

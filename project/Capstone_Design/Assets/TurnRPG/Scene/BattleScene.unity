@@ -660,7 +660,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 3
     m_MaxSize: 64
-    m_Alignment: 1
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
@@ -686,6 +686,7 @@ GameObject:
   - component: {fileID: 336232847}
   - component: {fileID: 336232849}
   - component: {fileID: 336232848}
+  - component: {fileID: 336232850}
   m_Layer: 5
   m_Name: Enemy
   m_TagString: Untagged
@@ -709,7 +710,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 91}
+  m_AnchoredPosition: {x: 0, y: 90}
   m_SizeDelta: {x: 400, y: 400}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &336232848
@@ -749,6 +750,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 336232846}
   m_CullTransparentMesh: 0
+--- !u!95 &336232850
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 336232846}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9b88dd9704bc92f489b69fa34c0e4fd4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &387450680
 GameObject:
   m_ObjectHideFlags: 0
@@ -1145,7 +1165,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5cecaba8aaa7f0a409fc70cc757da4ed, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a7b9689865c1dc848984f9d90d198c7c, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1604,7 +1624,7 @@ GameObject:
   - component: {fileID: 1031116062}
   - component: {fileID: 1031116061}
   m_Layer: 5
-  m_Name: SlashAttackText
+  m_Name: StingAttackText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1653,15 +1673,15 @@ MonoBehaviour:
     m_FontSize: 64
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 3
+    m_MinSize: 0
     m_MaxSize: 64
-    m_Alignment: 1
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uBCA0\uAE30"
+  m_Text: "\uCC0C\uB974\uAE30"
 --- !u!222 &1031116062
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1861,7 +1881,7 @@ GameObject:
   - component: {fileID: 1079769163}
   - component: {fileID: 1079769162}
   m_Layer: 5
-  m_Name: StingAttackText
+  m_Name: SlashAttackText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1912,13 +1932,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 3
     m_MaxSize: 64
-    m_Alignment: 1
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uCC0C\uB974\uAE30"
+  m_Text: "\uBCA0\uAE30"
 --- !u!222 &1079769163
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2398,10 +2418,12 @@ MonoBehaviour:
   commandPanel: {fileID: 1418297709}
   readyIndicator: {fileID: 791485049}
   infoManager: {fileID: 1722004576}
+  enemyPanel: {fileID: 1715364385}
   monsterName: "\uC544\uAE7D\uC774"
-  monsterSkill: 
   eHp: {fileID: 1779050178}
-  playerSkill: 
+  isMonsterTurn: 0
+  playerSkillName: 
+  battlePlayer: {fileID: 0}
   playerStr: 0
   playerDef: 0
   pHp: {fileID: 627133250}
@@ -2447,6 +2469,7 @@ GameObject:
   - component: {fileID: 1715364382}
   - component: {fileID: 1715364384}
   - component: {fileID: 1715364383}
+  - component: {fileID: 1715364385}
   m_Layer: 5
   m_Name: EnemyPanel
   m_TagString: Untagged
@@ -2513,6 +2536,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1715364381}
   m_CullTransparentMesh: 0
+--- !u!114 &1715364385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1715364381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a24f1aa3f97dd1949bc96e00dd24f977, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1722004575
 GameObject:
   m_ObjectHideFlags: 0
@@ -2613,7 +2648,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5cecaba8aaa7f0a409fc70cc757da4ed, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a7b9689865c1dc848984f9d90d198c7c, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
