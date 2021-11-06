@@ -101,7 +101,11 @@ public class PlayInfo
     public void SetValue(object value)
     {
         if (type == "int") this.value_int = (int)value;
-        else if (type == "float") this.value_float = (float)value;
+        else if (type == "float")
+        {
+            try { this.value_float = (float)value; }
+            catch { this.value_float = (int)value; }
+        }
         else if (type == "string") this.value_string = (string)value;
         fixRangeOut();
     }
@@ -109,7 +113,11 @@ public class PlayInfo
     public void ModifyValue(object value)
     {
         if (type == "int") this.value_int += (int)value;
-        else if (type == "float") this.value_float += (float)value;
+        else if (type == "float")
+        {
+            try { this.value_float += (float)value; }
+            catch { this.value_float += (int)value; }
+        }
         else if (type == "string") this.value_string += (string)value;
         fixRangeOut();
     }
