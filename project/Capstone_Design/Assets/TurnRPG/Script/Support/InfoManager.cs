@@ -1,25 +1,26 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InfoManager : MonoBehaviour
-    {
+public class InfoManager
+{
     public InfoManager() { }
 
     public string GetSceneStartValue()
     {
-        return (string) new Message($"GetPlayInfoValue : System.Process.SceneChangeValue").FunctionCall().returnValue[0];
+        return (string)new Message($"GetPlayInfoValue : System.Process.SceneChangeValue").FunctionCall().returnValue[0];
     }
 
-    public int GetHp() 
+    public int GetHp()
     {
-        return (int) new Message($"GetPlayInfoValue : Player.Stat.Hp").FunctionCall().returnValue[0];
+        return (int)new Message($"GetPlayInfoValue : Player.Stat.Hp").FunctionCall().returnValue[0];
     }
 
     public int GetSp()
     {
-        return (int) new Message($"GetPlayInfoValue : Player.Stat.Sp").FunctionCall().returnValue[0];
+        return (int)new Message($"GetPlayInfoValue : Player.Stat.Sp").FunctionCall().returnValue[0];
     }
 
     public void ChangeHp(int degree)
@@ -34,23 +35,23 @@ public class InfoManager : MonoBehaviour
 
     public int GetAtk()
     {
-        int output = (int) new Message($"GetPlayInfoValue : Player.Stat.Attack").FunctionCall().returnValue[0];
+        int output = (int)new Message($"GetPlayInfoValue : Player.Stat.Attack").FunctionCall().returnValue[0];
         output = output * (GetSp() + 100) / 200;
         return output;
     }
 
     public int GetDef()
     {
-        int output = (int) new Message($"GetPlayInfoValue : Player.Stat.Defense").FunctionCall().returnValue[0];
+        int output = (int)new Message($"GetPlayInfoValue : Player.Stat.Defense").FunctionCall().returnValue[0];
         output = output * (GetSp() + 100) / 200;
         return output;
     }
-    
+
     public int GetEvasion()
-    {        
-        return (int) new Message($"GetPlayInfoValue : Player.Stat.Evasion").FunctionCall().returnValue[0];
+    {
+        return (int)new Message($"GetPlayInfoValue : Player.Stat.Evasion").FunctionCall().returnValue[0];
     }
-    
+
     public Enemy GetEnemyInfo(string monster_code)
     {
         return ExternalFileSystem.SingleTon().GetEnemyInfo(monster_code);
@@ -61,7 +62,7 @@ public class InfoManager : MonoBehaviour
 
     public List<string> GetItemList()
     {
-        List<ItemBox> itemBoxes = (List<ItemBox>) new Message("InventoryManager/GetItemBoxList : ").FunctionCall().returnValue[0];
+        List<ItemBox> itemBoxes = (List<ItemBox>)new Message("InventoryManager/GetItemBoxList : ").FunctionCall().returnValue[0];
         List<string> output = new List<string>();
         item_code_list = new List<string>();
         item_count_list = new List<int>();
@@ -70,7 +71,7 @@ public class InfoManager : MonoBehaviour
         {
             if (itemBox.itemType == "Consumable")
             {
-                Item item = (Item) new Message($"InventoryManager/GetItem : {itemBox.itemCode}").FunctionCall().returnValue[0];
+                Item item = (Item)new Message($"InventoryManager/GetItem : {itemBox.itemCode}").FunctionCall().returnValue[0];
                 output.Add(item.GetItemName());
                 item_code_list.Add(item.GetItemCode());
                 item_count_list.Add(itemBox.itemNumber);
@@ -96,5 +97,31 @@ public class InfoManager : MonoBehaviour
     public void SetSpRecoveryOnOff(int mode)
     {
         new Message($"PlayInfoManager/SetSpRecoveryOnOff : {mode}").FunctionCall();
+    }
+
+    public Vector3 GetPlayerLastPos()
+    {
+        float x, y, z;
+        x = (float)new Message($"GetPlayInfoValue : System.Player.pos_x").FunctionCall().returnValue[0];
+        y = (float)new Message($"GetPlayInfoValue : System.Player.pos_y").FunctionCall().returnValue[0];
+        z = (float)new Message($"GetPlayInfoValue : System.Player.pos_z").FunctionCall().returnValue[0];
+        Vector3 output = new Vector3(x, y, z);
+
+        return output;
+    }
+
+    public void SavePlayerPos()
+    {
+        Vector3 targetPos = GameObject.Find("Player").transform.position;
+        // 정확히 정수 포지션에 있으면 문제가 생길 수 있어 값을 직접 넣어줌. 
+        new Message($"SetData : System.Player.pos_x")
+            .AddArg(targetPos.x)
+            .FunctionCall();
+        new Message($"SetData : System.Player.pos_y")
+            .AddArg(targetPos.y)
+            .FunctionCall();
+        new Message($"SetData : System.Player.pos_z")
+            .AddArg(targetPos.z)
+            .FunctionCall();
     }
 }

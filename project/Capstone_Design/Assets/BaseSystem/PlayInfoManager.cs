@@ -7,7 +7,8 @@ public class PlayInfoManager : MonoBehaviour
 {
     string[] infoFileNameList = {
         "Player/Stat",
-        "System/Process"
+        "System/Process",
+        "System/Player"
     };
 
     public List<Creature> creatureList;

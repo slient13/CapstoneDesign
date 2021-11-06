@@ -30,7 +30,7 @@ public class Message
             codeSpliter(command);
             if (argString.Count != 0) splitCodeConverter(ref argString, ref args);
             // codeRunner();
-        }        
+        }
         catch
         {
             Debug.Log($"Message.Initializer.error : command = {command}");
@@ -187,13 +187,19 @@ public class Message
         try
         {
             tempInt = Convert.ToInt32(command);
-            tempFloat = Convert.ToSingle(command);
-            if (command.IndexOf('.') == -1) list.Add(tempInt);
-            else list.Add(tempFloat);
+            list.Add(tempInt);
         }
         catch
         {
-            list.Add(command);
+            try
+            {
+                tempFloat = Convert.ToSingle(command);
+                list.Add(tempFloat);
+            }
+            catch
+            {
+                list.Add(command);
+            }
         }
     }
 
@@ -231,5 +237,11 @@ public class Message
         }
 
         return output;
+    }
+
+    public Message AddArg(object arg)
+    {
+        this.args.Add(arg);
+        return this;
     }
 }

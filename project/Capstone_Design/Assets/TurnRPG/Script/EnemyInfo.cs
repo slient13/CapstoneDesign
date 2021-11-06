@@ -63,7 +63,7 @@ public class EnemyInfo : MonoBehaviour
             InfoManager im = new InfoManager();
             string sceneStartValue = im.GetSceneStartValue();
             Debug.Log($"InfoManager.debug : Scene start value : {sceneStartValue}");
-        }
+        }        
     }
 
     // Update is called once per frame
