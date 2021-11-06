@@ -58,9 +58,10 @@ public class DebugAction : MonoBehaviour
             // MappingInfo mappingInfo = new MappingInfo("DebugAction");
             // mappingInfo.AddMapping("TestInfoManager : 1", "_shiftL, n1");
             // mappingInfo.AddMapping("TestInfoManager : 2", "_shiftL, n2");
+            // mappingInfo.AddMapping("TestInfoManager : 3", "_shiftL, n3");
             // mappingInfo.Enroll();
 
-            // infoManager = new InfoManager();
+            infoManager = new InfoManager();
         }
         // EventListener.GetEventListener().Binding("BaseSystem", "None", "DebugAction/EventTest : 123");
         // new Message("BaseSystem/None : 456, 789").FunctionCall();
@@ -101,5 +102,6 @@ public class DebugAction : MonoBehaviour
         int mode = (int) message.args[0];
         if (mode == 1) this.infoManager.SavePlayerPos();
         else if (mode == 2) Debug.Log($"DebugAction.TestInfoManager.playerPos : {this.infoManager.GetPlayerLastPos()}");
+        else if (mode == 3) this.infoManager.SetPlayerPosLast();
     }
 }

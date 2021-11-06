@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InfoManager
+public class InfoManager : MonoBehaviour
 {
     public InfoManager() { }
 
@@ -99,6 +99,7 @@ public class InfoManager
         new Message($"PlayInfoManager/SetSpRecoveryOnOff : {mode}").FunctionCall();
     }
 
+    GameObject player;
     public Vector3 GetPlayerLastPos()
     {
         float x, y, z;
@@ -112,7 +113,9 @@ public class InfoManager
 
     public void SavePlayerPos()
     {
-        Vector3 targetPos = GameObject.Find("Player").transform.position;
+        if (player == null) this.player = GameObject.Find("Player");
+        
+        Vector3 targetPos = player.transform.position;
         // 정확히 정수 포지션에 있으면 문제가 생길 수 있어 값을 직접 넣어줌. 
         new Message($"SetData : System.Player.pos_x")
             .AddArg(targetPos.x)
@@ -123,5 +126,12 @@ public class InfoManager
         new Message($"SetData : System.Player.pos_z")
             .AddArg(targetPos.z)
             .FunctionCall();
+    }
+
+    public void SetPlayerPosLast()
+    {
+        if (player == null) this.player = GameObject.Find("Player");
+
+        player.transform.position = this.GetPlayerLastPos();
     }
 }
