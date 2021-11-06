@@ -115,8 +115,11 @@ public class InfoManager : MonoBehaviour
     {
         if (player == null) this.player = GameObject.Find("Player");
         
-        Vector3 targetPos = player.transform.position;
-        // 정확히 정수 포지션에 있으면 문제가 생길 수 있어 값을 직접 넣어줌. 
+        this.SetPlayerPosData(player.transform.position);        
+    }
+
+    public void SetPlayerPosData(Vector3 targetPos, bool isMove = false)
+    {
         new Message($"SetData : System.Player.pos_x")
             .AddArg(targetPos.x)
             .FunctionCall();
@@ -126,6 +129,16 @@ public class InfoManager : MonoBehaviour
         new Message($"SetData : System.Player.pos_z")
             .AddArg(targetPos.z)
             .FunctionCall();
+
+        if (isMove == true)
+        {
+            this.SetPlayerPosLast();
+        }
+    }
+
+    public void SetPlayerPosData(float x, float y, float z, bool isMove = false)
+    {
+        this.SetPlayerPosData(new Vector3(x, y, z), isMove);
     }
 
     public void SetPlayerPosLast()
