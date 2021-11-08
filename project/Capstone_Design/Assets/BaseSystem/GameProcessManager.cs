@@ -20,6 +20,10 @@ public class GameProcessManager : MonoBehaviour
         sceneNameList.Add("TutorialSecen");
         sceneNameList.Add("BattleScene");
         sceneNameList.Add("HuntingField");
+        sceneNameList.Add("RacingLodingScene");
+        sceneNameList.Add("HuntingLodingScene");
+  
+
     }
     public void Save()
     {
