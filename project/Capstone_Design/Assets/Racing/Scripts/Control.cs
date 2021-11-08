@@ -55,8 +55,9 @@ public class Control : MonoBehaviour
 
         carRotate = player.carRotate;
 
-        if (player.carSpeed == 12.5f)
-            player.carRotate = 3;
+        // 플레이어가 조작할 시에 대한 밸런스 보정.
+        if (player.carAccel == 18)
+            player.carSpeed = 11.8f;
     }
     //드래그하는 동안
     public void OnDrag(PointerEventData eventData)
@@ -98,27 +99,21 @@ public class Control : MonoBehaviour
 
         if (Input.GetKey(KeyCode.A))
         {
-            dir += -1 * offset;
-            if (dir < -1)
-                dir = -1;
-            maxSpeed = player.carSpeed * 0.95f;
+            dir += -2 * offset;
+            if (dir > 0) dir = 0;
+            if (dir < -2) dir = -2;
+            maxSpeed = player.carSpeed * 0.92f;
         }
         else if (Input.GetKey(KeyCode.D))
         {
-            dir += 1 * offset;
-            if (dir > 1)
-                dir = 1;
-            maxSpeed = player.carSpeed * 0.95f;
+            dir += 2 * offset;
+            if (dir < 0) dir = 0;
+            if (dir > 2) dir = 2;
+            maxSpeed = player.carSpeed * 0.92f;
         }
         else
         {
-            if (dir > 0)
-                dir += -1 * offset;
-
-            if (dir < 0)
-                dir += 1 * offset;
-            if (Mathf.Abs(dir) <= 0.1)
-                dir = 0;
+            dir = 0;
             maxSpeed = player.carSpeed;
         }
 
@@ -158,13 +153,7 @@ public class Control : MonoBehaviour
                 if (dir < 0)
                     playerAni.Play("Ani_Left"); //좌회전 애니메이션 작동
 
-                if (Input.GetKey(KeyCode.A))
-                    player.transform.Rotate(playerRotate * player.carRotate * Time.deltaTime * Mathf.Abs(dir));
-
-
-                if (Input.GetKey(KeyCode.D))
-                    player.transform.Rotate(playerRotate * player.carRotate * Time.deltaTime * Mathf.Abs(dir));
-
+                player.transform.Rotate(playerRotate * player.carRotate * Time.deltaTime * Mathf.Abs(dir));
 
                 player.transform.GetChild(3).gameObject.SetActive(true);
                 player.transform.GetChild(4).gameObject.SetActive(false);
@@ -241,13 +230,6 @@ public class Control : MonoBehaviour
             OnMove(); //가속
         if (Input.GetKeyUp(KeyCode.W)) //W키를 떼면 
             OffMove(); //감속  
-
-        if (Input.GetKey(KeyCode.A))
-            player.transform.Rotate(playerRotate * 30 * Time.deltaTime);
-
-
-        if (Input.GetKey(KeyCode.D))
-            player.transform.Rotate(playerRotate * 30 * Time.deltaTime);
 
         Rotate();
     }
