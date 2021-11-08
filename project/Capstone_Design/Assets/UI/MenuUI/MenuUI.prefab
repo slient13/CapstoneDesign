@@ -40,7 +40,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 142.59998, y: -50.31006}
+  m_AnchoredPosition: {x: 142.59961, y: -50.310547}
   m_SizeDelta: {x: 285.32642, y: 100.28815}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1336431593404367847
@@ -465,7 +465,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3529069350386196177}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5164615655578409601}
+        m_MethodName: OpenOtherUI
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: EquipmentUI
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &603156187987594389
 GameObject:
   m_ObjectHideFlags: 0
@@ -781,15 +792,15 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5791242303918381853}
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 5164615655578409601}
+        m_MethodName: OpenOtherUI
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: MenuUI
           m_BoolArgument: 1
         m_CallState: 2
 --- !u!1 &1164481018398979955
@@ -1338,7 +1349,103 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5335083555943687174}
   m_OnClick:
     m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5164615655578409601}
+        m_MethodName: OpenOtherUI
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: InventoryUICanvas
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!1 &1730369420680150750
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3531744054379002760}
+  - component: {fileID: 7084922576312385873}
+  m_Layer: 5
+  m_Name: EmOn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3531744054379002760
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1730369420680150750}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 5271291002794743553}
+  - {fileID: 1885311799539915759}
+  m_Father: {fileID: 2818069796786735005}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -29, y: 71}
+  m_SizeDelta: {x: 70.83794, y: 25.532616}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7084922576312385873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1730369420680150750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 4575999815753391224}
+  toggleTransition: 1
+  graphic: {fileID: 6058461022175402244}
+  m_Group: {fileID: 0}
+  onValueChanged:
+    m_PersistentCalls:
       m_Calls: []
+  m_IsOn: 1
 --- !u!1 &1741184195869892294
 GameObject:
   m_ObjectHideFlags: 0
@@ -1534,8 +1641,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8774271246616286797}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
---- !u!1 &1967443795433894359
+      m_Calls:
+      - m_Target: {fileID: 5164615655578409601}
+        m_MethodName: OpenOtherUI
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: PlayerInfoUI
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!1 &1963476157512354431
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2557,7 +2675,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -14.75, y: -14.630005}
+  m_AnchoredPosition: {x: -14.75, y: -14.629883}
   m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1428796244652041420
@@ -3185,7 +3303,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4163444817262124700}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6708662442682398856}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3828282247999794566
 GameObject:
   m_ObjectHideFlags: 0
@@ -5368,9 +5497,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6209022664257150055}
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 5164615655578409601}
+        m_MethodName: Button_CloseGame
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -5379,7 +5508,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!1 &7198002665803276954
+--- !u!1 &7323775569623980551
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5497,8 +5626,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8850952748966474256}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
---- !u!1 &7557611012498798016
+      m_Calls:
+      - m_Target: {fileID: 5164615655578409601}
+        m_MethodName: OpenOtherUI
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: QuestUI
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!1 &7807942534840352808
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
