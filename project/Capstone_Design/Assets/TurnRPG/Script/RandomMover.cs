@@ -11,7 +11,6 @@ public class RandomMover : MonoBehaviour
     public float maxTime;
     public float speed;
 
-
     GameObject moveArea;
     Rigidbody npcBody;
     float timer = 0f;
@@ -20,6 +19,7 @@ public class RandomMover : MonoBehaviour
     bool isRightArea;
     bool enable;
     bool returning;
+
 
     // Start is called before the first frame update
     void Start()

@@ -6,21 +6,27 @@ using UnityEngine.UI;
 
 public class SceneLoading : MonoBehaviour
 {
+    static string nextScene;
+
     [SerializeField]
     private Image _progressBar;
 
     // Start is called before the first frame update
     void Start()
     {
+        SceneManager.LoadScene("BattleScene");
         //async 시작
         StartCoroutine(LoadAsyncOperation());
     }
 
+    public static void LoadScene(string sceneName)
+    {
+        nextScene = sceneName;
+        Message msg = new Message("GameprocessManager/ChangeScene : " + sceneName).FunctionCall();
+    }
     
     IEnumerator LoadAsyncOperation()
     {
-        Message msg = new Message("GameProcessManager/ChangeScene : BattleScene");
-
         //async 만들기
         AsyncOperation levelProgress = SceneManager.LoadSceneAsync("BattleScene");
         levelProgress.allowSceneActivation = false;
@@ -31,14 +37,14 @@ public class SceneLoading : MonoBehaviour
         {
             yield return null;
 
-            if(levelProgress.progress < 0.9f)
+            if(levelProgress.progress < 0.8f)
             {
                 _progressBar.fillAmount = levelProgress.progress;
             }
             else
             {
                 timer += Time.unscaledDeltaTime;
-                _progressBar.fillAmount = Mathf.Lerp(0.9f, 1f, timer);
+                _progressBar.fillAmount = Mathf.Lerp(0.8f, 1f, timer);
                 if(_progressBar.fillAmount >= 1.0f)
                 {
                     levelProgress.allowSceneActivation = true;

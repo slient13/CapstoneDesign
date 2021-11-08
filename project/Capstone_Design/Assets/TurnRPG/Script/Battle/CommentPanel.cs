@@ -108,15 +108,20 @@ public class CommentPanel : MonoBehaviour
         StartCoroutine(Typing(textLine));
     }
 
-    public void ItemGet(string[] items)
+    public void ItemGet(List<string> items)
     {
         string itemLine = "";
+        int index = 0;
+
         foreach (string item in items)
         {
             itemLine += item;
-            itemLine += ", ";
+            index++;
+
+            if (index < items.Count)
+                itemLine += ", ";
         }
-        textLine = "플레이어는 " + itemLine + " 을(를) 손에 넣었다!";
+        textLine = "플레이어는 " + itemLine + "을(를) 손에 넣었다!";
         battleManager.SetCommentCode(8);
         StartCoroutine(Typing(textLine));
     }

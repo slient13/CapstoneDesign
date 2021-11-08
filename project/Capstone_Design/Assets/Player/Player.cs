@@ -10,9 +10,7 @@ public class Player : MonoBehaviour
 
     public List<string> interactionTargetList;
 
-
     GameObject nearObject;
-
 
     float hAxis;
     float vAxis;
@@ -45,6 +43,7 @@ public class Player : MonoBehaviour
         };
         interactionTargetList.AddRange(targetList);
 
+        
     }
 
     void Start()

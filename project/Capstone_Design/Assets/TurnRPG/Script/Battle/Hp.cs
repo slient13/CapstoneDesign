@@ -34,12 +34,12 @@ public class Hp : MonoBehaviour
     }
 
     /// <summary>
-    /// 'float'만큼의 체력을 설정
+    /// 'float'만큼의 체력을 설정, MaxHP
     /// </summary>
     /// <param name="value"></param>
-    public void SetHpSize(float value)
+    public void SetHpSize(float value, float value2)
     {
         hpAmount = value;
-        initHp = hpAmount;
+        initHp = value2;
     }
 }

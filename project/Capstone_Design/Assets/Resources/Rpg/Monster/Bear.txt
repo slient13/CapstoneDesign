@@ -1,8 +1,8 @@
 name = 곰
-hp = 200
-attack = 30
+hp = 150
+attack = 20
 defence = 20
-skill = skill_A, 몸통 박치기, 1.0, 2
-skill = skill_B, 송곳니 공격, 1.6, 1
+skill = skill_A, 몸통 박치기 , 1.0, 2
+skill = skill_B, 물어뜯기 , 1.6, 1
 drop = bear_skin, 1.0
 drop = hard_fangs, 0.3
