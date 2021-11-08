@@ -48,14 +48,6 @@ public class MenuUI : MonoBehaviour
         new Message("ControlManager/LayerChanger : general").FunctionCall();
     }
 
-    public void ConfirmSaveAction()
-    {
-        confirmSave.lootPanel.SetActive(true);
-    }
-    public void ConfirmCloseAction()
-    {
-        confirmClose.lootPanel.SetActive(true);
-    }
     public void Sync()
     {
         playerUI.GetComponent<MenuPlayerUI>().Sync();
@@ -67,7 +59,11 @@ public class MenuUI : MonoBehaviour
         new Message($"ControlManager/LayerChanger : {targetUIName}").FunctionCall();
     }
 
-    public void Button_CloseGame() { new Message("GameProcessManager/CloseGame : ").FunctionCall(); }
+    public void OpenConfirmView(string mode)
+    {
+        if (mode == "Save") this.confirmSave.lootPanel.SetActive(true);
+        else if (mode == "Close") this.confirmClose.lootPanel.SetActive(true);
+    }
 }
 
 public class MenuBase
@@ -92,9 +88,9 @@ public class MenuBase
         btn_close.onClick.AddListener(act_close);
     }
     void act_continue() { menuUI.CloseUI(); }
-    void act_save() { new Message("GameProcessManager/Save : ").FunctionCall(); }
-    void act_option() { }
-    void act_close() { }
+    void act_save() {  this.menuUI.OpenConfirmView("Save"); }
+    void act_option() { Debug.Log("MenuBase.act_option : option button is not allocated function."); }
+    void act_close() { this.menuUI.OpenConfirmView("Close"); }
 }
 
 public class Confirm
@@ -130,8 +126,7 @@ public class ConfirmSave : Confirm
     public ConfirmSave(MenuUI menuUI, GameObject lootPanel) : base(menuUI, lootPanel) { }
     protected override void yes()
     {
-        new Message("InventoryManager/SaveInventory :").FunctionCall();
-        new Message("PlayInfoManager/SavePlayData : ").FunctionCall();
+        new Message("GameProcessManager/Save : ").FunctionCall();
         base.yes();
     }
 }
