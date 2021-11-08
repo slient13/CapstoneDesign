@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameProcessManager : MonoBehaviour
 {
-    List<string> sceneNameList;
+    public List<string> sceneNameList;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +18,7 @@ public class GameProcessManager : MonoBehaviour
         sceneNameList.Add("CoverSecen");
         sceneNameList.Add("TutorialSecen");
         sceneNameList.Add("BattleScene");
+        sceneNameList.Add("HuntingField");
     }
     public void Save()
     {

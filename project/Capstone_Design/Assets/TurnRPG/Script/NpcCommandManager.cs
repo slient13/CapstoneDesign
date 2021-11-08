@@ -9,6 +9,10 @@ public class NpcCommandManager : MonoBehaviour
     public float respawnTime;
     public GameProcessManager gpManager;
     public string monsterName;
+    public GameObject player;
+    public FieldManager fieldManager;
+    InfoManager infoManager = new InfoManager();
+
 
     //플레이어 정보를 전달하는 매니저
     public GameObject systemManager;
@@ -17,9 +21,12 @@ public class NpcCommandManager : MonoBehaviour
     float timer;
     AudioSource hitSound;
     GameObject deadEffect;
+    static string matchedNpcCode;
+    static Vector3 lastEnemyPosition;
 
     private void Start()
     {
+        fieldManager = GameObject.Find("FieldManager").GetComponent<FieldManager>();
         hitSound = transform.Find("HitSound").GetComponent<AudioSource>();
         deadEffect = transform.Find("ParticleDead").gameObject;
         gpManager = GameObject.Find("GameProcessManager").GetComponent<GameProcessManager>();
@@ -74,6 +81,13 @@ public class NpcCommandManager : MonoBehaviour
     /// <param name="boolean"></param>
     void BattleStart(bool boolean)
     {
+        infoManager.SavePlayerPos();
+        matchedNpcCode = gameObject.transform.parent.name;
+        lastEnemyPosition = npc.transform.position;
+        fieldManager.SetMatchedEnemy(matchedNpcCode);
+        //Debug.Log(matchedNpcCode + "의 위치" + lastEnemyPosition);
+        //Debug.Log("싸움을 시작한 몬스터의 코드 : " + matchedNpcCode);
+        //Debug.Log("플레이어의 위치저장:" + infoManager.GetPlayerLastPos());
         Message msg = new Message("GameProcessManager/ChangeScene : Rpg_Intro, " + monsterName).FunctionCall();
 
         //SceneManager.LoadScene("Rpg_Intro");
@@ -82,6 +96,33 @@ public class NpcCommandManager : MonoBehaviour
         //Debug.Log("몬스터 사망");
     }
 
+    /// <summary>
+    /// 죽었나 확인하는것
+    /// </summary>
+    public void isDie()
+    {
+        InfoManager infomanager = new InfoManager();
+        Debug.Log("싸움을 걸었던 적의 코드 : " + matchedNpcCode);
+
+        if (infomanager.GetSceneStartValue() == "Win" && gameObject.transform.parent.name == matchedNpcCode)
+        {
+            //Debug.Log(matchedNpcCode + "를 이겼다!");
+            //Debug.Log(matchedNpcCode + "의 마지막 위치" + lastEnemyPosition);
+            npc.transform.position = lastEnemyPosition;
+            Die();
+            // 플레이어 싸우던 위치로 이동
+            player.transform.position = infoManager.GetPlayerLastPos();
+        }
+        else if(infomanager.GetSceneStartValue() == "Lose" && gameObject.transform.parent.name == matchedNpcCode)
+        {
+            //Debug.Log(matchedNpcCode + "에게 졌다..");
+            //Debug.Log(matchedNpcCode + "의 마지막 위치" + lastEnemyPosition);
+            player.transform.position = infoManager.GetPlayerLastPos();
+        }
+        matchedNpcCode = "";
+        
+        
+    }
 
     /// <summary>
     /// 죽으면 사라지는것

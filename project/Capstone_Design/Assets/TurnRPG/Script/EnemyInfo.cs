@@ -10,6 +10,7 @@ public class EnemyInfo : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        /*
          // 테스트용 코드. 실 사용시 주석 처리 할 것
         { // 몹 정보 불러오기 테스트
             enemy = ExternalFileSystem.SingleTon().GetEnemyInfo("Bear");
@@ -63,7 +64,8 @@ public class EnemyInfo : MonoBehaviour
             InfoManager im = new InfoManager();
             string sceneStartValue = im.GetSceneStartValue();
             Debug.Log($"InfoManager.debug : Scene start value : {sceneStartValue}");
-        }        
+        }     
+        */
     }
 
     // Update is called once per frame

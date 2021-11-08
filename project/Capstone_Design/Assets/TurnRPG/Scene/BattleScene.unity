@@ -732,7 +732,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1edd545fe3e8d0f458a679414f885c51, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8f221fb10be192c4ebaa82791d172486, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2077,7 +2077,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1299867468
 Transform:
   m_ObjectHideFlags: 0
@@ -2417,7 +2417,6 @@ MonoBehaviour:
   commentPanel: {fileID: 1422807235}
   commandPanel: {fileID: 1418297709}
   readyIndicator: {fileID: 791485049}
-  infoManager: {fileID: 1722004576}
   enemyPanel: {fileID: 1715364385}
   monsterName: "\uC544\uAE7D\uC774"
   eHp: {fileID: 1779050178}
@@ -2548,49 +2547,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a24f1aa3f97dd1949bc96e00dd24f977, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1722004575
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1722004577}
-  - component: {fileID: 1722004576}
-  m_Layer: 0
-  m_Name: InfoManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1722004576
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1722004575}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7487d80d146bb884ba566b5f3ef30535, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1722004577
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1722004575}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1779050174
 GameObject:
   m_ObjectHideFlags: 0
