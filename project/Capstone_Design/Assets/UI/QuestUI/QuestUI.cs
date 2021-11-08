@@ -82,6 +82,7 @@ public class QuestUI : MonoBehaviour
     List<Quest> finishAble_questList;
     List<bool> finishAble_check;
     bool isActive = false;
+    int selected_index = -1;
     private void Start()
     {
         {   // set panel
@@ -184,12 +185,12 @@ public class QuestUI : MonoBehaviour
             foreach (Quest quest in processing_questList)
             {
                 int check = (int)new Message($"QuestManager/CheckQuestFinish : {quest.code}").FunctionCall().returnValue[0];
-                if (check == 1) 
+                if (check == 1)
                 {
                     finishAble_questList.Add(quest);
-                    finishAble_check.Add(true);                    
+                    finishAble_check.Add(true);
                 }
-                else 
+                else
                 {
                     finishAble_check.Add(false);
                 }
@@ -246,7 +247,7 @@ public class QuestUI : MonoBehaviour
 
         int index = 0;
         foreach (_Processing processing in processing_list)
-        {            
+        {
             if (index < processing_questList.Count && processing.selected_toggle.isOn == true)
                 temp_quest_name_list.Add(processing.name.text);
             index += 1;
@@ -260,6 +261,7 @@ public class QuestUI : MonoBehaviour
         {
             processing_contentView.Clear();
             finishAble_contentView.Clear();
+            this.selected_index = -1;
         }
         else if (mode < 10)
         {
@@ -271,6 +273,7 @@ public class QuestUI : MonoBehaviour
                 processing_contentView.title.text = targetQuest.name;
                 processing_contentView.contents.text = targetQuest.desc;
                 processing_contentView.reward.text = targetQuest.rewardDesc;
+                this.selected_index = mode;
             }
         }
         else if (mode < 20)
@@ -286,5 +289,17 @@ public class QuestUI : MonoBehaviour
                 finishAble_contentView.reward.text = targetQuest.rewardDesc;
             }
         }
+    }
+    public void CancelQuest()
+    {
+        string targetCode = "";
+        if (this.selected_index == -1) 
+            return;
+        else if (this.selected_index < this.processing_questList.Count) 
+            targetCode = processing_questList[this.selected_index].code;
+
+        new Message($"QuestManager/CancelQuest : {targetCode}").FunctionCall();
+        Sync();
+        ChangeContentView(-1);
     }
 }
