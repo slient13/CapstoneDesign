@@ -13,6 +13,7 @@ public class GameProcessManager : MonoBehaviour
         sceneNameList.Add("finalSecen");
         sceneNameList.Add("dummyScene");
         sceneNameList.Add("Rpg_Intro");
+        sceneNameList.Add("Racing");
         sceneNameList.Add("LodingSecen");
         sceneNameList.Add("LodingSecen2");
         sceneNameList.Add("CoverSecen");

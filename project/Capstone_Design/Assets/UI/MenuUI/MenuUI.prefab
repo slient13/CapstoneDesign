@@ -3943,9 +3943,10 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "\uC870\uC791\uD0A4 : wasd+space bar\n              \uD0A4\uBCF4\uB4DC\uC0C1\uD558\uC88C\uC6B0\n\n\uB2E8\uCD95\uD0A4
-    : \uCE90\uB9AD\uD130\uC0C1\uD0DC(P)\n               \uC7A5\uBE44\uCC3D(R)\n              
-    \uC778\uBCA4\uD1A0\uB9AC(I)\n               \uD018\uC2A4\uD2B8(Q)\n\n\uC0C1\uD638\uC791\uC6A9
-    : \uB09A\uC2DC(E)"
+    : \uCE90\uB9AD\uD130\uC0C1\uD0DC\uCC3D \uC5F4\uAE30 : p\n               \uC7A5\uBE44\uCC3D
+    \uC5F4\uAE30 : r\n               \uC778\uBCA4\uD1A0\uB9AC \uC5F4\uAE30 : i\n              
+    \uD018\uC2A4\uD2B8 \uC5F4\uAE30 : q\n\n\uC0C1\uD638\uC791\uC6A9 : \uB09A\uC2DC
+    : e"
 --- !u!1 &5305785693629400252
 GameObject:
   m_ObjectHideFlags: 0

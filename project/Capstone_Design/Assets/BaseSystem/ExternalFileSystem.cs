@@ -332,6 +332,32 @@ public class ExternalFileSystem
 
         return output;
     }
+    public List<bool> LoadCarUnlockList()
+    {
+        List<string> line_list = fileReader($"Racing/Unlock", isUserData: true);
+
+        List<bool> output = new List<bool>();
+
+        foreach(string line in line_list)
+        {
+            if (line == "0") output.Add(false);
+            else output.Add(true);
+        }
+
+        return output;
+    }
+
+    public void SaveCarUnlockList(List<bool> unlock_list)
+    {  
+        List<string> output = new List<string>();
+        foreach(bool unlock in unlock_list)
+        {
+            if (unlock == false) output.Add("0");
+            else if (unlock == true) output.Add("1");
+        }
+
+        fileWriter("Racing/Unlock", output);
+    }
     public void SaveQuestProcess(List<string> questCodeList)
     {
         string targetFileName = "Quest/ProcessingList";
