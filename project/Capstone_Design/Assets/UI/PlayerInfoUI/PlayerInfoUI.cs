@@ -56,22 +56,30 @@ public class PlayerInfoUI : MonoBehaviour
         playerNameText.text = "테스트 플레이어";
         playerCalledText.text = "테스터";
 
-        Message getLevel = new Message("PlayInfoManager/GetData : Level").FunctionCall();
+        Message getLevel = new Message("GetPlayInfoValue : Player.Stat.Level").FunctionCall();
         levelText.text = "" + (int) getLevel.returnValue[0];
         
-        Message getHp = new Message("PlayInfoManager/GetData : Hp").FunctionCall();
-        statHpText.text = $"{(int) getHp.returnValue[0]} / {(int)getHp.returnValue[3]}";
+        Message getHp = new Message("GetPlayInfo : Player.Stat.Hp").FunctionCall();
+        PlayInfo playInfo_Hp = (PlayInfo) getHp.returnValue[0];
+        PlayInfo playInfo_Hp_data = playInfo_Hp.GetDataList()[0];
+        int hp_value = (int) playInfo_Hp_data.GetValue();
+        int hp_max = playInfo_Hp_data.GetRange()[1];
+        statHpText.text = $"{hp_value} / {hp_max}";
         
-        Message getSp = new Message("PlayInfoManager/GetData : Sp").FunctionCall();
-        statSpText.text = $"{(int) getSp.returnValue[0]} / {(int)getSp.returnValue[3]}";
+        Message getSp = new Message("GetPlayInfo : Player.Stat.Sp").FunctionCall();
+        PlayInfo playInfo_Sp = (PlayInfo) getSp.returnValue[0];
+        PlayInfo playInfo_Sp_data = playInfo_Sp.GetDataList()[0];
+        int sp_value = (int) playInfo_Sp_data.GetValue();
+        int sp_max = playInfo_Sp_data.GetRange()[1];
+        statSpText.text = $"{sp_value} / {sp_max}";
         
-        Message getAttack = new Message("PlayInfoManager/GetData : Attack").FunctionCall();
+        Message getAttack = new Message("GetPlayInfoValue : Player.Stat.Attack").FunctionCall();
         statAttackText.text = "" + (int) getAttack.returnValue[0];
         
-        Message getDefence = new Message("PlayInfoManager/GetData : Defense").FunctionCall();
+        Message getDefence = new Message("GetPlayInfoValue : Player.Stat.Defense").FunctionCall();
         statDefenceText.text = "" + (int) getDefence.returnValue[0];
         
-        Message getExp = new Message("PlayInfoManager/GetData : Exp").FunctionCall();
+        Message getExp = new Message("GetPlayInfoValue : Player.Stat.Exp").FunctionCall();
         statExpText.text = "" + (int) getExp.returnValue[0];        
     }
 }

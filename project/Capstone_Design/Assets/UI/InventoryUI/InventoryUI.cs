@@ -204,7 +204,7 @@ public class InventoryPanel {
         this.itemCode = itemCode;
         box.SetActive(true);
         if (itemImage != null) image.GetComponent<Image>().sprite = itemImage;
-        numberText.GetComponent<Text>().text = $"{itemNumber}";
+        if (numberText != null) numberText.GetComponent<Text>().text = $"{itemNumber}";
     }
     public void Clear() {
         isSetItem = false;
@@ -230,11 +230,8 @@ class EquipmentInventory : InventoryPanel {
         this.image = box.GetChild(0).gameObject;
         this.numberText = null;
     }
-    public void SetItem(string itemCode, Sprite itemImage, int itemNumber) {
-        isSetItem = true;
-        this.itemCode = itemCode;
-        box.SetActive(true);
-        if (itemImage != null) image.GetComponent<Image>().sprite = itemImage;
+    public void SetItem(string itemCode, Sprite itemImage) {
+        base.SetItem(itemCode, itemImage, 1);
     }
 }
 

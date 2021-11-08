@@ -1,7 +1,9 @@
 ## 기능
 
 ``` c#
-public void CloseGame(Message message) {}
+public void Save() {}
+// 기능 : 게임 진행상황을 저장함.
+public void CloseGame() {}
 // 기능 : 진행 상황을 저장하고 게임을 종료함.
 public void ChangeScene(Message message) {}
 // 입력 : 대상 씬 이름

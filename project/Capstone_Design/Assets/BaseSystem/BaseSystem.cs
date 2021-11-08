@@ -222,8 +222,9 @@ public class BaseSystem : MonoBehaviour
 
     public void GetPlayInfoValue(Message message)
     {
-        Message getPlayInfo = new Message($"GetPlayInfo : {(string)message.args[0]}");
+        Message getPlayInfo = new Message($"GetPlayInfo : {(string)message.args[0]}");        
         PlayInfo target = (PlayInfo)getPlayInfo.FunctionCall().returnValue[0];
+        if (target == null) Debug.Log($"BaseSystem.GetPlayInfoValue.error : target is null. inputName is {(string)message.args[0]}");
         PlayInfo target_data = target.GetDataList()[0];
         message.returnValue.Add(target_data.GetValue());
     }
