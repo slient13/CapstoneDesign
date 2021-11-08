@@ -10,7 +10,7 @@ public class FieldManager : MonoBehaviour
 
     private void Start()
     {
-        //Debug.Log("싸웠던 적 :" + matchedEnemy);
+        Debug.Log("싸웠던 적 :" + matchedEnemy);
         GameObject enemyManager;
 
         enemy = GameObject.Find(matchedEnemy);

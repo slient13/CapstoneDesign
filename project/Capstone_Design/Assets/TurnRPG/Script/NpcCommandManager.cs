@@ -24,7 +24,7 @@ public class NpcCommandManager : MonoBehaviour
     static string matchedNpcCode;
     static Vector3 lastEnemyPosition;
 
-    private void Start()
+    private void Awake()
     {
         fieldManager = GameObject.Find("FieldManager").GetComponent<FieldManager>();
         hitSound = transform.Find("HitSound").GetComponent<AudioSource>();

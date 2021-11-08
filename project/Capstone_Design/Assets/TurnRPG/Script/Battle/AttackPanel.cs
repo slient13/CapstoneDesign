@@ -8,6 +8,7 @@ public class AttackPanel : MonoBehaviour
     public string selectorText = "> ";
     public Text[] command;
     public BattleManager gameManager;
+    public BattleAudioPack audioPack;
 
     public int textCount = 0;
     public int selectorIndex = 0;
@@ -62,6 +63,9 @@ public class AttackPanel : MonoBehaviour
 
             //설렉터 추가
             command[selectorIndex].text = selectorText + command[selectorIndex].text;
+
+            //소리 재생
+            audioPack.PlaySelectSound();
         }
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
         {

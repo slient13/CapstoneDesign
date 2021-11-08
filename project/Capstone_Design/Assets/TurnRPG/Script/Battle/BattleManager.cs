@@ -10,6 +10,7 @@ public class BattleManager : MonoBehaviour
     public CommandPanel commandPanel;
     public GameObject readyIndicator;
     public EnemyPanel enemyPanel;
+    public BattleAudioPack audioPack;
     int commentCode;
     InfoManager infoManager = new InfoManager();
     float MAXDEFENSE = 100f;
@@ -82,6 +83,8 @@ public class BattleManager : MonoBehaviour
     /// </summary>
     public void NextState()
     {
+        audioPack.PlayNextText();
+
         switch(commentCode)
         {
             case 0:
@@ -177,15 +180,19 @@ public class BattleManager : MonoBehaviour
         switch (index)
         {
             case 0:
+                audioPack.PlayConfirmSound();
                 commandPanel.SetInitPanel(false);
                 commandPanel.SetAttackPanel(true);
                     break;
             case 1:
+                audioPack.PlayErrorSound();
                 break;
             case 2:
+                audioPack.PlayConfirmSound();
                 PlayerFlee();
                 break;
             default:
+                audioPack.PlayConfirmSound();
                 PlayerFlee();
                 break;
         }
@@ -201,6 +208,7 @@ public class BattleManager : MonoBehaviour
         {
             case 0:
                 //Debug.Log("베기 공격!");
+                audioPack.PlayConfirmSound();
                 commandPanel.SetActive(false);
                 playerAttackChance = 90f;
                 playerAttackRate = 1.0f;
@@ -209,6 +217,7 @@ public class BattleManager : MonoBehaviour
                 break;
             case 1:
                 //Debug.Log("찌르기 공격!");
+                audioPack.PlayConfirmSound();
                 commandPanel.SetActive(false);
                 playerAttackChance = 50f;
                 playerAttackRate = 2.0f;
@@ -216,6 +225,7 @@ public class BattleManager : MonoBehaviour
                 commentPanel.PlayerAttack(playerSkillName);
                 break;
             default:
+                audioPack.PlayConfirmSound();
                 commandPanel.SetAttackPanel(false);
                 commandPanel.SetInitPanel(true);
                 break;

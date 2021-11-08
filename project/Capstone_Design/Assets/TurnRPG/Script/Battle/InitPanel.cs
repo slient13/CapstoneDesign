@@ -8,6 +8,7 @@ public class InitPanel : MonoBehaviour
     public string selectorText = "> ";
     public Text[] command;
     public BattleManager gameManager;
+    public BattleAudioPack audioPack;
 
     int textCount = 0;
     public int selectorIndex = 0;
@@ -62,6 +63,9 @@ public class InitPanel : MonoBehaviour
 
             //설렉터 추가
             command[selectorIndex].text = selectorText + command[selectorIndex].text;
+
+            //소리 재생
+            audioPack.PlaySelectSound();
         }
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
         {
@@ -88,6 +92,7 @@ public class InitPanel : MonoBehaviour
     public string ConfirmSelector()
     {
         //Debug.Log(selectorIndex + "번 메뉴 선택, " + command[selectorIndex].text);
+
         return command[selectorIndex].text;
     }
 

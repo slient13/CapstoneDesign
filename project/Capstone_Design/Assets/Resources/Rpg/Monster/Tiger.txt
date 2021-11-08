@@ -1,0 +1,8 @@
+name = 호랑이
+hp = 150
+attack = 20
+defence = 20
+skill = skill_A, 몸통 박치기 , 1.0, 2
+skill = skill_B, 물어뜯기 , 2.0, 1
+drop = tiger_skin, 1.0
+drop = tiger_fangs, 0.3
