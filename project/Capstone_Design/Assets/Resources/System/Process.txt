@@ -1,1 +1,2 @@
 short = SceneChangeValue, none
+short = LastSceneName, none

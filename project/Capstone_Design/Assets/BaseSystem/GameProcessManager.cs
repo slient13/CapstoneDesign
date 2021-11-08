@@ -23,7 +23,8 @@ public class GameProcessManager : MonoBehaviour
         sceneNameList.Add("RacingLodingScene");
         sceneNameList.Add("HuntingLodingScene");
   
-
+        string LastSceneName = (string) new Message($"GetPlayInfoValue : System.Process.LastSceneName").FunctionCall().returnValue[0];
+        Debug.Log($"GameProcessManager.debug : LastSceneName = {LastSceneName}");
     }
     public void Save()
     {
@@ -50,6 +51,9 @@ public class GameProcessManager : MonoBehaviour
         string passString = "none";
         if (message.args.Count == 2) passString = (string)message.args[1];
         new Message($"SetData : System.Process.SceneChangeValue, {passString}").FunctionCall();
+
+        Scene scene = SceneManager.GetActiveScene();
+        new Message($"SetData : System.Process.LastSceneName, {scene.name}").FunctionCall();
 
         bool isMatched = false;
         foreach (string sceneName in sceneNameList) if (sceneName == targetName) isMatched = true;
