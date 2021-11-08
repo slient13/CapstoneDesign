@@ -139,6 +139,9 @@ public class Car : MonoBehaviour
     //충돌을 감지하는 트리거
     private void OnTriggerEnter(Collider other)
     {
+        if(other.gameObject.tag == "Finish")
+            RacingGameManager.instance.passCount += 1; // 아무 차량이나 지나갈 시 수를 셈.
+
         //player 차량이 
         if(player)
         {
