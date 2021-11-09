@@ -31,35 +31,30 @@ public class ItemSelect : MonoBehaviour
     public string selectedItemName = "";
     public int selectedItemEffect = 0;
     List<string> itemNameList;
+    List<int> itemCountList;
 
     public void StartSelect()
     {
-        this.select_index = 0;
+        this.select_index = -1;
         itemNameList = infoManager.GetItemList();
+        itemNameList.Insert(0, "뒤로가기");
+        itemCountList = infoManager.GetItemCount();
 
         panel.SetActive(true);
         new Message($"ControlManager/LayerChanger : ItemSelect").FunctionCall();
 
-        if (this.itemNameList.Count == 0)
-        {
-            this.select_index = -1;
-            this.panelText.text = $"(보유한 아이템이 없습니다.)";
-        }
-        else 
-            sync();
+        sync();
     }
 
     public void ChangeSelect(Message message)
     {
-        if (this.select_index == -1) return;
-
-        int direction = (int) message.args[0];
+        int direction = (int)message.args[0];
         this.select_index += direction;
 
-        if (this.select_index < 0 && this.itemNameList.Count != 0)
-            this.select_index = 0;
-        else if (this.select_index >= this.itemNameList.Count)
-            this.select_index = this.itemNameList.Count - 1;
+        if (this.select_index < -1)
+            this.select_index = -1;
+        else if (this.select_index >= this.itemNameList.Count - 1)
+            this.select_index = this.itemNameList.Count - 2;
 
         sync();
     }
@@ -69,11 +64,12 @@ public class ItemSelect : MonoBehaviour
         List<string> output = new List<string>();
 
         int start = 0;
+        int offset_index = this.select_index + 1;
         {   // set start
-            if (this.select_index < 4)
+            if (offset_index < 4)
                 start = 0;
-            else if (this.select_index >= 4 && this.select_index < this.itemNameList.Count - 3)
-                start = this.select_index - 3;
+            else if (offset_index >= 4 && offset_index < this.itemNameList.Count - 3)
+                start = offset_index - 3;
             else
                 start = this.itemNameList.Count - 7;
         }
@@ -82,12 +78,20 @@ public class ItemSelect : MonoBehaviour
             i < this.itemNameList.Count && printCount < 7;
             ++i, ++printCount)
         {
-            if (i == this.select_index) output.Add($"> {this.itemNameList[i]}");
-            else output.Add($"{this.itemNameList[i]}");
+            if (i == offset_index)
+            {
+                if (i == 0) output.Add($"> {this.itemNameList[i]}");
+                else output.Add($"> {this.itemNameList[i]} : {this.itemCountList[i-1]}");
+            }
+            else
+            {
+                if (i == 0) output.Add($"{this.itemNameList[i]}");
+                else output.Add($"{this.itemNameList[i]} : {this.itemCountList[i-1]}");
+            }
         }
 
         string outputText = "";
-        foreach(string line in output)
+        foreach (string line in output)
         {
             outputText += $"{line}\n";
         }
@@ -98,12 +102,11 @@ public class ItemSelect : MonoBehaviour
     {
         if (this.select_index == -1)
         {
-            this.selectedItemName = "";
-            this.selectedItemEffect = 0;
+            this.Cancel();
         }
-        else 
+        else
         {
-            this.selectedItemName = this.itemNameList[this.select_index];
+            this.selectedItemName = this.itemNameList[this.select_index + 1];
             this.selectedItemEffect = infoManager.GetItemEffect(this.select_index);
         }
         this.CloseSelect();
@@ -111,6 +114,8 @@ public class ItemSelect : MonoBehaviour
 
     public void Cancel()
     {
+        this.selectedItemName = "";
+        this.selectedItemEffect = 0;
         this.CloseSelect();
     }
 
