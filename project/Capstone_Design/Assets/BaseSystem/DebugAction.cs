@@ -78,14 +78,17 @@ public class DebugAction : MonoBehaviour
 
     public void OpenDebugConsole()
     {
+        new Message("ControlManager/LayerChanger : Debug").FunctionCall();
+        
         debugConsole.SetActive(true);
         InputField temp = debugConsole.transform.GetChild(0).gameObject.GetComponent<InputField>();
         temp.ActivateInputField();
-        new Message("ControlManager/LayerChanger : Debug").FunctionCall();
     }
 
     public void CloseDebugConsole(Message message)
     {
+        new Message("ControlManager/LayerChanger : general").FunctionCall();
+
         int isModify = (int)message.args[0];
         if (isModify == 1)
         {
@@ -93,7 +96,6 @@ public class DebugAction : MonoBehaviour
             Debug.Log($"DebugAction/CloseDebugConsole.command : {command}");
             new Message(command).FunctionCall();
         }
-        new Message("ControlManager/LayerChanger : general").FunctionCall();
         debugConsole.SetActive(false);
     }
 
