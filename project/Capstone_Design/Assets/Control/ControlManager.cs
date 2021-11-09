@@ -43,7 +43,10 @@ public class ControlManager : MonoBehaviour
             if (groupList[index] == currentMappingGroup) {
                 foreach(Info info in mappingInfoList[index].infoList) {
                     if (match(info.keyPattern)) 
+                    {
                         action(info.command, index, info.keyPattern, mappingInfoList[index].isNeedMousePos, mappingInfoList[index].isDebug);
+                        // if (info.keyPattern != "!esc") Debug.Log($"ControlManager.mapping.debug : passed pattern = {info.keyPattern}");
+                    }
                 }
             }
         }
@@ -63,6 +66,7 @@ public class ControlManager : MonoBehaviour
         }
         msg.FunctionCall();
 
+        // if (keyPattern != "!esc") Debug.Log($"ControlManager.action.debug : command = {command}");
         if (isDebug)
             Debug.Log("ControlManager.action : keyPattern = " + keyPattern + ", command = " + command);
     }

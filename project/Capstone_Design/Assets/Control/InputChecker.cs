@@ -139,6 +139,8 @@ public class InputChecker {
             if (checker == FALSE) break;
         }
 
+        // if (checker == TRUE && pattern != "!esc") Debug.Log($"InputChecker.PatternMatch : passed key pattern = {pattern}");
+
         if (checker == NONE || checker == FALSE) return FALSE;
         else return TRUE;
     }

@@ -20,6 +20,7 @@ public class BaseSystem : MonoBehaviour
 
     public void FunctionCaller(Message msg)
     {
+        // Debug.Log($"BaseSystem.FunctionCaller.debug : msg.targetName = {msg.targetName}, msg.targetFunction = {msg.functionName}");
         // Debug.Log(msg.args[0]);
         target = GameObject.Find(msg.targetName);
         // 타겟 포착 실패시 메세지 호출 후 함수 종료

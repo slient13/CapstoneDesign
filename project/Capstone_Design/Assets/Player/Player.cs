@@ -74,9 +74,6 @@ public class Player : MonoBehaviour
         //Axis 값을 정수 값으로 받는 함수 -> 키보드로 입력을 받으면 0,1 이런식으로 반환해준다
         wDown = Input.GetButton("Walk");
         //shift는 누를 때만 작동되도록 GetButton() 함수 사용
-        jDown = Input.GetButton("Jump");
-        //GetButton() 함수로 점프 입력 받기
-        iDown = Input.GetButton("Interation");
         vDown = Input.GetButton("OnCollisionEnter");
     }
 
@@ -106,7 +103,8 @@ public class Player : MonoBehaviour
     //점프
     void Jump()
     {
-        if (jDown && !isJump && !isDodge)
+        Debug.Log("Player.Jump.debug : is called");
+        if (!isJump && !isDodge)
         {
             rigid.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
             anim.SetBool("isJump", true);
@@ -170,7 +168,7 @@ public class Player : MonoBehaviour
 
     void Interaction()
     {
-        if (iDown && nearObject != null && !isJump && !isDodge)
+        if (nearObject != null && !isJump && !isDodge)
             nearObject.SendMessage("Interaction", this);
     }
 
