@@ -59,6 +59,11 @@ public class ItemSelect : MonoBehaviour
             this.select_index = -1;
         else if (this.select_index >= this.itemNameList.Count - 1)
             this.select_index = this.itemNameList.Count - 2;
+        else
+        {
+            //문제없을시 사운드 재생
+            audioPack.PlaySelectSound();
+        }
 
         sync();
     }
@@ -104,6 +109,8 @@ public class ItemSelect : MonoBehaviour
 
     public void Select()
     {
+        audioPack.PlayConfirmSound();
+
         if (this.select_index == -1)
         {
             //선택한 아이템 없을시
@@ -118,6 +125,7 @@ public class ItemSelect : MonoBehaviour
             //선택한 아이템 있을시
             commentPanel.ItemUse(selectedItemName);
             battleManager.AddPlayerHp(selectedItemEffect);
+            audioPack.PlayItemUse();
             infoManager.UseItem(select_index);
         }
         this.CloseSelect();

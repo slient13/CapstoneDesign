@@ -67,18 +67,18 @@ public class BattleManager : MonoBehaviour
     void Update()
     {
         //플레이어, 몬스터 HP 테스트
-        if (Input.GetKeyDown(KeyCode.Backspace))
-        {
-            pHp.AddHp(-10);
-        }
-        else if (Input.GetKeyDown(KeyCode.Delete))
-        {
-            eHp.AddHp(-10);
-        }
+        //if (Input.GetKeyDown(KeyCode.Backspace))
+        //{
+        //    pHp.AddHp(-10);
+        //}
+        //else if (Input.GetKeyDown(KeyCode.Delete))
+        //{
+        //    eHp.AddHp(-10);
+        //}
 
         //애니메이션, 효과음 실행 여부 확인
-        isAnimPlaying = enemyImage.IsPlaying();
-        isSoundPlaying = audioPack.IsPlaying();
+        //isAnimPlaying = enemyImage.IsPlaying();
+        //isSoundPlaying = audioPack.IsPlaying();
     }
 
     /// <summary>
