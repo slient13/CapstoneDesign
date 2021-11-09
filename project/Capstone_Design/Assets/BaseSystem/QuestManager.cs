@@ -168,6 +168,13 @@ public class QuestManager : MonoBehaviour
         message.returnValue.Add(1);
         return true;
     }
+    
+    public void CancelQuest(Message message)
+    {
+        string targetCode = (string) message.args[0];
+        Quest targetQuest = this.questList[targetCode];
+        targetQuest.isProcess = false;
+    }
     // 진행 관련 정보 반환.
     int getProcessData(string code, string type)
     {

@@ -26,9 +26,22 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/TurnRPG/Scene/HuntingField.unity
     guid: 7f3b90578325c7d47987b4fa913eaf03
-    path: Assets/Scene/LodingSecen2.unity
-    guid: dabe5d9bd217e2b44b0ae6ac3457087e
   - enabled: 1
     path: Assets/Scene/CoverScene.unity
     guid: aeaa37526e70ba54588c21a9c905ac50
+  - enabled: 1
+    path: Assets/Scene/LodingSecen2.unity
+    guid: dabe5d9bd217e2b44b0ae6ac3457087e
+  - enabled: 1
+    path: Assets/Scene/TutorialSecen.unity
+    guid: ca63949cf1e74b84dbfe7d660ab8e6bd
+  - enabled: 1
+    path: Assets/Scene/RacingLodingScene.unity
+    guid: 0d39a690d421f724f81cb64cf56bad93
+  - enabled: 1
+    path: Assets/Racing/Racing.unity
+    guid: 3ffa20d406001544bb852d9a02cd9bf8
+  - enabled: 1
+    path: Assets/Scene/HuntingLodingScene.unity
+    guid: b4bad1197204c7f479b9c8b325c20969
   m_configObjects: {}

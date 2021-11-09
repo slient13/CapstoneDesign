@@ -13,12 +13,18 @@ public class GameProcessManager : MonoBehaviour
         sceneNameList.Add("finalSecen");
         sceneNameList.Add("dummyScene");
         sceneNameList.Add("Rpg_Intro");
+        sceneNameList.Add("Racing");
         sceneNameList.Add("LodingSecen");
         sceneNameList.Add("LodingSecen2");
         sceneNameList.Add("CoverSecen");
         sceneNameList.Add("TutorialSecen");
         sceneNameList.Add("BattleScene");
         sceneNameList.Add("HuntingField");
+        sceneNameList.Add("RacingLodingScene");
+        sceneNameList.Add("HuntingLodingScene");
+  
+        string lastSceneName = (string) new Message($"GetPlayInfoValue : System.Process.LastSceneName").FunctionCall().returnValue[0];
+        Debug.Log($"GameProcessManager.debug : LastSceneName = {lastSceneName}");
     }
     public void Save()
     {
@@ -45,6 +51,9 @@ public class GameProcessManager : MonoBehaviour
         string passString = "none";
         if (message.args.Count == 2) passString = (string)message.args[1];
         new Message($"SetData : System.Process.SceneChangeValue, {passString}").FunctionCall();
+
+        Scene scene = SceneManager.GetActiveScene();
+        new Message($"SetData : System.Process.LastSceneName, {scene.name}").FunctionCall();
 
         bool isMatched = false;
         foreach (string sceneName in sceneNameList) if (sceneName == targetName) isMatched = true;

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 /*
@@ -332,6 +333,32 @@ public class ExternalFileSystem
 
         return output;
     }
+    public List<bool> LoadCarUnlockList()
+    {
+        List<string> line_list = fileReader($"Racing/Unlock", isUserData: true);
+
+        List<bool> output = new List<bool>();
+
+        foreach(string line in line_list)
+        {
+            if (line == "0") output.Add(false);
+            else output.Add(true);
+        }
+
+        return output;
+    }
+
+    public void SaveCarUnlockList(List<bool> unlock_list)
+    {  
+        List<string> output = new List<string>();
+        foreach(bool unlock in unlock_list)
+        {
+            if (unlock == false) output.Add("0");
+            else if (unlock == true) output.Add("1");
+        }
+
+        fileWriter("Racing/Unlock", output);
+    }
     public void SaveQuestProcess(List<string> questCodeList)
     {
         string targetFileName = "Quest/ProcessingList";
@@ -348,6 +375,7 @@ public class ExternalFileSystem
 
         string code = "";
         string name = "";
+        Sprite img = null; string imgPathBase = $"{fileName}Img/";
         List<EquipmentEffect> effects = new List<EquipmentEffect>();
         List<Equipment> output_equipment_list = new List<Equipment>();
         foreach (string input in input_list)
@@ -357,7 +385,11 @@ public class ExternalFileSystem
             string value = "";
             if (temp.Length == 2) value = temp[1].Trim();
 
-            if (type == "code") code = value;
+            if (type == "code") 
+            {
+                code = value;
+                img = Resources.Load<Sprite>(imgPathBase + code) as Sprite;
+            }
             else if (type == "name") name = value;
             else if (type == "effect")
             {
@@ -370,7 +402,7 @@ public class ExternalFileSystem
             }
             else if (type == "end")
             {
-                Equipment temp_equipment = new Equipment(code, name, effects);
+                Equipment temp_equipment = new Equipment(code, name, effects, img);
                 output_equipment_list.Add(temp_equipment);
             }
         }
