@@ -147,4 +147,9 @@ public class InfoManager
 
         player.transform.position = this.GetPlayerLastPos();
     }
+
+    public void GetLastSceneName()
+    {
+        return (string) new Message($"GetPlayInfoValue : System.Process.LastSceneName").FunctionCall().returnValue[0];
+    }
 }

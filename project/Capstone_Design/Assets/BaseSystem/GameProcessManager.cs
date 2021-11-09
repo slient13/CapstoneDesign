@@ -23,8 +23,8 @@ public class GameProcessManager : MonoBehaviour
         sceneNameList.Add("RacingLodingScene");
         sceneNameList.Add("HuntingLodingScene");
   
-        string LastSceneName = (string) new Message($"GetPlayInfoValue : System.Process.LastSceneName").FunctionCall().returnValue[0];
-        Debug.Log($"GameProcessManager.debug : LastSceneName = {LastSceneName}");
+        string lastSceneName = (string) new Message($"GetPlayInfoValue : System.Process.LastSceneName").FunctionCall().returnValue[0];
+        Debug.Log($"GameProcessManager.debug : LastSceneName = {lastSceneName}");
     }
     public void Save()
     {
