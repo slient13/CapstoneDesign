@@ -318,8 +318,11 @@ public class InventoryManager : MonoBehaviour {
             for (int i = 0; i < commandList.Count; i++) {
                 // 약식인 경우 대응 형태로 변경.
                 if (commandList[i].IndexOf('/') == -1) {
+                    string temp = "";
                     string[] data = commandList[i].Split(':');                
-                    commandList[i] = $"ChangeData : Player.Stat.{data[0]}, {data[1]}";
+                    temp = $"ChangeData : Player.Stat.{data[0]}, {data[1]}";
+                    new Message(temp).FunctionCall();
+                    continue;
                 } 
                 // 효과 실행.
                 new Message(commandList[i]).FunctionCall();
