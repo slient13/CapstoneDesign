@@ -87,12 +87,23 @@ public class InfoManager
         return item_count_list;
     }
 
-    public void UseItem(int index)
+    public void UseItem(int index, bool isApplyEffect = false)
     {
-        new Message($"InventoryManager/UseItem : {item_code_list[index]}").FunctionCall();
+        if (isApplyEffect == true) new Message($"InventoryManager/UseItem : {item_code_list[index]}").FunctionCall();
+        else new Message($"InventoryManager/ModifyItem : {item_code_list[index], -1}").FunctionCall();
         GetItemList();
     }
+    public int GetItemEffect(int index)
+    {
+        // Warning: this only return one effect's second value.
 
+        this.GetItemList();
+
+        Message getItem = new Message($"InventoryManager/GetItem : {this.item_code_list[index]}");
+        Item item = (Item) getItem.FunctionCall().returnValue[0];
+        Message tempMessage = new Message($"{item.GetItemEffect()[0]}"); // 실행용이 아니라 변환을 사용하기 위함.
+        return (int) tempMessage.args[0];
+    }
     // 0 = 끄기, 1 = 켜기, 그 외 = 토글.
     public void SetSpRecoveryOnOff(int mode)
     {
