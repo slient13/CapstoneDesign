@@ -1,0 +1,7 @@
+b, Health, 7000
+b, Apple, 1600
+b, Bread, 3000
+b, Hambuger, 4500
+b, Water, 1000
+b, Coffee, 1200
+b, Cola, 1500

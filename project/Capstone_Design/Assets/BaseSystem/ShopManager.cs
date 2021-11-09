@@ -9,7 +9,8 @@ public class ShopManager : MonoBehaviour
         "None",     // 상점 실행중이지 않을 때 처리하는 용도.
         "Sample",
         "ItemShop",
-        "EquipmentShop"
+        "EquipmentShop",
+        "AnyWhere"
     };
     ShopInfo shop;
     // Start is called before the first frame update
