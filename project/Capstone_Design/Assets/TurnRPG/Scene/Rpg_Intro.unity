@@ -907,13 +907,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.41509432, g: 0.41509432, b: 0.41509432, a: 1}
+  m_Color: {r: 0.4339623, g: 0.4339623, b: 0.4339623, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 213cadbcafc44424b8e7cb67f5802d24, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6ffdd23e4306aaa469f02f4625df4bc3, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1

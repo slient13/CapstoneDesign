@@ -110,7 +110,7 @@ public class NpcCommandManager : MonoBehaviour
             //Debug.Log(matchedNpcCode + "의 마지막 위치" + lastEnemyPosition);
             npc.transform.position = lastEnemyPosition;
             Die();
-            infoManager.ChangeSp(-20);
+            infoManager.ChangeSp(-10);
             // 플레이어 싸우던 위치로 이동
             player.transform.position = infoManager.GetPlayerLastPos() + new Vector3(0, 0, 0.1f);
         }
@@ -119,7 +119,7 @@ public class NpcCommandManager : MonoBehaviour
             //Debug.Log(matchedNpcCode + "에게 졌다..");
             //Debug.Log(matchedNpcCode + "의 마지막 위치" + lastEnemyPosition);
             Flee();
-            infoManager.ChangeSp(-20);
+            infoManager.ChangeSp(-10);
             player.transform.position = infoManager.GetPlayerLastPos() + new Vector3(0,0,0.1f);
         }
         matchedNpcCode = "";
