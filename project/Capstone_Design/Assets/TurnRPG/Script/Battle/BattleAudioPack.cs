@@ -8,6 +8,10 @@ public class BattleAudioPack : MonoBehaviour
     public AudioSource menuConfirmSound;
     public AudioSource errorSound;
     public AudioSource nextTexSound;
+    public AudioSource enemyHit;
+    public AudioSource playerHit;
+    public AudioSource textSound;
+    public AudioSource deadSound;
 
     AudioSource[] sources;
 
@@ -46,6 +50,37 @@ public class BattleAudioPack : MonoBehaviour
     {
         if (nextTexSound != null)
             nextTexSound.GetComponent<AudioSource>().Play();
+    }
+
+    public void PlayEnemyHit()
+    {
+        if (enemyHit != null)
+            enemyHit.GetComponent<AudioSource>().Play();
+    }
+
+    public void PlayPlayerHit()
+    {
+        PlaySound(playerHit);
+    }
+
+    public void PlayTextSound()
+    {
+        PlaySound(textSound);
+    }
+
+    public void PlayDeadSound()
+    {
+        PlaySound(deadSound);
+    }
+
+    /// <summary>
+    /// 사운드 재생 예외처리
+    /// </summary>
+    /// <param name="obj"></param>
+    void PlaySound(AudioSource obj)
+    {
+        if (obj != null)
+            obj.Play();
     }
 
     /// <summary>

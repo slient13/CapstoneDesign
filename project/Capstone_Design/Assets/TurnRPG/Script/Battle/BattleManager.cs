@@ -11,6 +11,7 @@ public class BattleManager : MonoBehaviour
     public GameObject readyIndicator;
     public EnemyPanel enemyPanel;
     public BattleAudioPack audioPack;
+    public EnemyImage enemyImage;
     int commentCode;
     InfoManager infoManager = new InfoManager();
     float MAXDEFENSE = 100f;
@@ -33,6 +34,8 @@ public class BattleManager : MonoBehaviour
     float playerAttackChance;
     float playerAttackRate;
     float damageHistory;
+    bool isAnimPlaying = false;
+    bool isSoundPlaying = false;
 
 
     // Start is called before the first frame update
@@ -51,8 +54,11 @@ public class BattleManager : MonoBehaviour
         eHp.SetHpSize(enemy.hp, enemy.hp);
         isMonsterTurn = false;
 
+        //게임 셋팅
+        readyIndicator.gameObject.SetActive(false);
+
         //시작 트리거 테스트
-        commentPanel.Contact(monsterName);
+        //commentPanel.Contact(monsterName);
     }
 
     // Update is called once per frame
@@ -67,6 +73,10 @@ public class BattleManager : MonoBehaviour
         {
             eHp.AddHp(-10);
         }
+
+        //애니메이션, 효과음 실행 여부 확인
+        isAnimPlaying = enemyImage.IsPlaying();
+        isSoundPlaying = audioPack.IsPlaying();
     }
 
     /// <summary>
@@ -104,6 +114,10 @@ public class BattleManager : MonoBehaviour
                 if (RandomSucc(playerAttackChance))
                 {
                     eHp.AddHp(-(PlayerAttackCal(playerAttackRate)));
+                    //애니메이션, 사운드 재생
+                    enemyImage.PlayHitAnim();
+                    audioPack.PlayEnemyHit();
+
                     commentPanel.AtkSuc();
                 }
                 else
@@ -114,12 +128,19 @@ public class BattleManager : MonoBehaviour
                 break;
             case 4:
                 //적이 플레이어를 때림
+
+                //애니메이션 재생
+                enemyImage.PlayAttackAnim();
+
                 if (RandomSucc(infoManager.GetEvasion()))
                 {
                     commentPanel.AtkFail();
                 }
                 else
                 {
+                    //소리 재생
+                    audioPack.PlayPlayerHit();
+
                     PlayerDefCal();
                     commentPanel.AtkSuc();
                 }
@@ -137,6 +158,8 @@ public class BattleManager : MonoBehaviour
                 break;
             case 7:
                 //플레이어가 승리
+                enemyImage.PlayDeadAnim();
+                audioPack.PlayDeadSound();
                 commentPanel.ItemGet(itemDrop);
                 break;
             case 8:
@@ -314,6 +337,14 @@ public class BattleManager : MonoBehaviour
             isOver = false;
 
         return isOver;
+    }
+
+    /// <summary>
+    /// 게임시작
+    /// </summary>
+    public void StartGame()
+    {
+        commentPanel.Contact(monsterName);
     }
     
     /// <summary>

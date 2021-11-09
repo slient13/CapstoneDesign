@@ -8,6 +8,7 @@ public class CommentPanel : MonoBehaviour
     public GameObject textPanel;
     public GameObject readyIndicator;
     public GameObject battleManagerObj;
+    public BattleAudioPack audioPack;
 
     BattleManager battleManager;
     Text mainText;
@@ -148,6 +149,7 @@ public class CommentPanel : MonoBehaviour
         foreach (char letter in text.ToCharArray())
         {
             mainText.text += letter;
+            audioPack.PlayTextSound();
             yield return new WaitForSeconds(typingSpeed);
         }
         readyIndicator.gameObject.SetActive(true);

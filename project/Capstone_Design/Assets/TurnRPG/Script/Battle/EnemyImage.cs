@@ -9,6 +9,8 @@ public class EnemyImage : MonoBehaviour
     public GameObject tigerImg;
 
     InfoManager infoManager = new InfoManager();
+    Animator animator;
+    bool isPlaying = false;
 
     // Start is called before the first frame update
     void Start()
@@ -26,5 +28,35 @@ public class EnemyImage : MonoBehaviour
                 tigerImg.SetActive(true);
                 break;
         }
+
+        animator = this.gameObject.GetComponent<Animator>();
+    }
+
+    public void PlayAttackAnim()
+    {
+        animator.Play("Attack");
+        isPlaying = true;
+    }
+
+    public void PlayHitAnim()
+    {
+        animator.Play("Hit");
+        isPlaying = true;
+    }
+
+    public void PlayDeadAnim()
+    {
+        animator.Play("Dead");
+        isPlaying = true;
+    }
+
+    public bool IsPlaying()
+    {
+        return isPlaying;
+    }
+
+    void EndAnim()
+    {
+        isPlaying = false;
     }
 }
