@@ -110,14 +110,17 @@ public class NpcCommandManager : MonoBehaviour
             //Debug.Log(matchedNpcCode + "의 마지막 위치" + lastEnemyPosition);
             npc.transform.position = lastEnemyPosition;
             Die();
+            infoManager.ChangeSp(-20);
             // 플레이어 싸우던 위치로 이동
-            player.transform.position = infoManager.GetPlayerLastPos();
+            player.transform.position = infoManager.GetPlayerLastPos() + new Vector3(0, 0, 0.1f);
         }
         else if(infomanager.GetSceneStartValue() == "Lose" && gameObject.transform.parent.name == matchedNpcCode)
         {
             //Debug.Log(matchedNpcCode + "에게 졌다..");
             //Debug.Log(matchedNpcCode + "의 마지막 위치" + lastEnemyPosition);
-            player.transform.position = infoManager.GetPlayerLastPos();
+            Flee();
+            infoManager.ChangeSp(-20);
+            player.transform.position = infoManager.GetPlayerLastPos() + new Vector3(0,0,0.1f);
         }
         matchedNpcCode = "";
         
@@ -134,6 +137,15 @@ public class NpcCommandManager : MonoBehaviour
 
         hitSound.Play();
 
+        isLive = false;
+        npc.SetActive(false);
+    }
+
+    /// <summary>
+    /// 플레이어가 도망갔을때
+    /// </summary>
+    void Flee()
+    {
         isLive = false;
         npc.SetActive(false);
     }

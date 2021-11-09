@@ -12,6 +12,7 @@ public class BattleManager : MonoBehaviour
     public EnemyPanel enemyPanel;
     public BattleAudioPack audioPack;
     public EnemyImage enemyImage;
+    public ItemSelect itemSelect;
     int commentCode;
     InfoManager infoManager = new InfoManager();
     float MAXDEFENSE = 100f;
@@ -28,9 +29,10 @@ public class BattleManager : MonoBehaviour
     //플레이어 정보
     public string playerSkillName;
     public Player battlePlayer;
+    public Hp pHp;
     public int playerStr;
     public int playerDef;
-    public Hp pHp;
+    public float playerMaxHp;
     float playerAttackChance;
     float playerAttackRate;
     float damageHistory;
@@ -44,7 +46,7 @@ public class BattleManager : MonoBehaviour
         //플레이어 셋팅
         playerDef = infoManager.GetDef();
         playerStr = infoManager.GetAtk();
-        pHp.SetHpSize(infoManager.GetHp(), 100f);
+        pHp.SetHpSize(infoManager.GetHp(), playerMaxHp);
         damageHistory = 0f;
 
         //몬스터 셋팅
@@ -109,6 +111,14 @@ public class BattleManager : MonoBehaviour
                //Debug.Log("커맨드패널 활성화");
                 readyIndicator.SetActive(false);
                 break;
+            case 2:
+                isMonsterTurn = true;
+
+                if (isMonsterTurn)
+                    EnemyAttack();
+                else
+                    commentPanel.Waiting();
+                break;
             case 3:
                 //플레이어가 적을때림
                 if (RandomSucc(playerAttackChance))
@@ -158,8 +168,6 @@ public class BattleManager : MonoBehaviour
                 break;
             case 7:
                 //플레이어가 승리
-                enemyImage.PlayDeadAnim();
-                audioPack.PlayDeadSound();
                 commentPanel.ItemGet(itemDrop);
                 break;
             case 8:
@@ -208,7 +216,10 @@ public class BattleManager : MonoBehaviour
                 commandPanel.SetAttackPanel(true);
                     break;
             case 1:
-                audioPack.PlayErrorSound();
+                //audioPack.PlayErrorSound();
+                audioPack.PlayConfirmSound();
+                itemSelect.StartSelect();
+                commandPanel.SetActive(false);
                 break;
             case 2:
                 audioPack.PlayConfirmSound();
@@ -273,7 +284,8 @@ public class BattleManager : MonoBehaviour
     {
         float damage = (float)enemySkill.effect * enemy.attack;
         pHp.AddHp(-1f * (damage - damage/((MAXDEFENSE - playerDef)/10)));
-        damageHistory += -1f * (damage - damage / ((MAXDEFENSE - playerDef) / 10));
+        AddPlayerDamage(-1f * (damage - damage / ((MAXDEFENSE - playerDef) / 10)));
+        //damageHistory += -1f * (damage - damage / ((MAXDEFENSE - playerDef) / 10));
     }
 
     /// <summary>
@@ -332,11 +344,46 @@ public class BattleManager : MonoBehaviour
             isOver = true;
             itemDrop = enemy.GetDrops();
             commentPanel.PlayerWin(enemy.name);
+
+            //효과음, 애니메이션 재생
+            enemyImage.PlayDeadAnim();
+            audioPack.PlayDeadSound();
         }
         else
             isOver = false;
 
         return isOver;
+    }
+
+    /// <summary>
+    /// 플레이어 HP 더하기
+    /// </summary>
+    public void AddPlayerHp(float value)
+    {
+        pHp.AddHp(value);
+        AddPlayerDamage(-1f * value);
+    }
+
+    /// <summary>
+    /// 플레이어에게 가해진 데미지 더하기
+    /// </summary>
+    /// <param name="value"></param>
+    void AddPlayerDamage(float value)
+    {
+        damageHistory += value;
+        if (damageHistory < 0f)
+            damageHistory = 0f;
+        else if (damageHistory > playerMaxHp)
+            damageHistory = 100f;
+    }
+
+    /// <summary>
+    /// 커맨드패널 사용설정
+    /// </summary>
+    /// <param name="value"></param>
+    public void SetCommandPanel(bool value)
+    {
+        commandPanel.SetActive(value);
     }
 
     /// <summary>

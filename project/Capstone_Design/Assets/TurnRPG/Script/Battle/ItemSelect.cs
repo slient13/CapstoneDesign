@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class ItemSelect : MonoBehaviour
 {
+    public BattleManager battleManager;
+    public CommentPanel commentPanel;
+    public BattleAudioPack audioPack;
     InfoManager infoManager;
 
     void Start()
@@ -18,6 +21,7 @@ public class ItemSelect : MonoBehaviour
         mapping.AddMapping("ChangeSelect : 1", "d");
         mapping.AddMapping("Cancel : ", "esc");
         mapping.AddMapping("Select : ", "enter");
+        mapping.AddMapping("Select : ", "space");
         mapping.Enroll("ItemSelect");
 
         infoManager = new InfoManager();
@@ -102,12 +106,19 @@ public class ItemSelect : MonoBehaviour
     {
         if (this.select_index == -1)
         {
+            //선택한 아이템 없을시
+            battleManager.SetCommandPanel(true);
             this.Cancel();
         }
         else
         {
             this.selectedItemName = this.itemNameList[this.select_index + 1];
             this.selectedItemEffect = infoManager.GetItemEffect(this.select_index);
+
+            //선택한 아이템 있을시
+            commentPanel.ItemUse(selectedItemName);
+            battleManager.AddPlayerHp(selectedItemEffect);
+            infoManager.UseItem(select_index);
         }
         this.CloseSelect();
     }

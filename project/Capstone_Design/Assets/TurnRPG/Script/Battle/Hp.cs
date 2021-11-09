@@ -31,6 +31,9 @@ public class Hp : MonoBehaviour
     public void AddHp(float value)
     {
         hpAmount += value;
+
+        if (hpAmount > initHp)
+            hpAmount = 100f;
     }
 
     /// <summary>
