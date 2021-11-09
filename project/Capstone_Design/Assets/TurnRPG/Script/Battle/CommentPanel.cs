@@ -69,7 +69,7 @@ public class CommentPanel : MonoBehaviour
     /// <param name="itemName"></param>
     public void ItemUse(string itemName)
     {
-        textLine = itemName + "을(를) 사용하였다.";
+        textLine = itemName + "을(를) 사용하였다!";
         battleManager.SetCommentCode(2);
         StartCoroutine(Typing(textLine));
     }

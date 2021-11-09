@@ -12,6 +12,7 @@ public class BattleAudioPack : MonoBehaviour
     public AudioSource playerHit;
     public AudioSource textSound;
     public AudioSource deadSound;
+    public AudioSource itemUse;
 
     AudioSource[] sources;
 
@@ -71,6 +72,11 @@ public class BattleAudioPack : MonoBehaviour
     public void PlayDeadSound()
     {
         PlaySound(deadSound);
+    }
+
+    public void PlayItemUse()
+    {
+        PlaySound(itemUse);
     }
 
     /// <summary>
