@@ -90,7 +90,7 @@ public class InfoManager
     public void UseItem(int index, bool isApplyEffect = false)
     {
         if (isApplyEffect == true) new Message($"InventoryManager/UseItem : {item_code_list[index]}").FunctionCall();
-        else new Message($"InventoryManager/ModifyItem : {item_code_list[index], -1}").FunctionCall();
+        else new Message($"InventoryManager/ModifyItem : {item_code_list[index]}, -1").FunctionCall();
         GetItemList();
     }
     public int GetItemEffect(int index)
