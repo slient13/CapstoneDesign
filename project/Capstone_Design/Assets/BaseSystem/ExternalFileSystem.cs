@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 /*
@@ -374,6 +375,7 @@ public class ExternalFileSystem
 
         string code = "";
         string name = "";
+        Sprite img = null; string imgPathBase = $"{fileName}Img/";
         List<EquipmentEffect> effects = new List<EquipmentEffect>();
         List<Equipment> output_equipment_list = new List<Equipment>();
         foreach (string input in input_list)
@@ -383,7 +385,11 @@ public class ExternalFileSystem
             string value = "";
             if (temp.Length == 2) value = temp[1].Trim();
 
-            if (type == "code") code = value;
+            if (type == "code") 
+            {
+                code = value;
+                img = Resources.Load<Sprite>(imgPathBase + code) as Sprite;
+            }
             else if (type == "name") name = value;
             else if (type == "effect")
             {
@@ -396,7 +402,7 @@ public class ExternalFileSystem
             }
             else if (type == "end")
             {
-                Equipment temp_equipment = new Equipment(code, name, effects);
+                Equipment temp_equipment = new Equipment(code, name, effects, img);
                 output_equipment_list.Add(temp_equipment);
             }
         }
