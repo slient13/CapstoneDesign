@@ -270,6 +270,6 @@ public class RacingGameManager : MonoBehaviour
     public void Cancel()
     {
         Debug.Log("RacingGameManager.Cancel : Selected");
-        new Message("GameProcessManager/ChangeScene:finalSecen").FunctionCall();
+        new Message("GameProcessManager/ChangeScene : LodingSecen").FunctionCall();
     }
 }
