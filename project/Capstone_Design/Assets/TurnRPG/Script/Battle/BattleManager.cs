@@ -284,7 +284,7 @@ public class BattleManager : MonoBehaviour
     {
         float damage = (float)enemySkill.effect * enemy.attack;
         pHp.AddHp(-1f * (damage - damage/((MAXDEFENSE - playerDef)/10)));
-        AddPlayerDamage(-1f * (damage - damage / ((MAXDEFENSE - playerDef) / 10)));
+        AddPlayerDamage(damage - damage / ((MAXDEFENSE - playerDef) / 10));
         //damageHistory += -1f * (damage - damage / ((MAXDEFENSE - playerDef) / 10));
     }
 
@@ -368,13 +368,11 @@ public class BattleManager : MonoBehaviour
     /// 플레이어에게 가해진 데미지 더하기
     /// </summary>
     /// <param name="value"></param>
-    void AddPlayerDamage(float value)
+    public void AddPlayerDamage(float value)
     {
         damageHistory += value;
-        if (damageHistory < 0f)
-            damageHistory = 0f;
-        else if (damageHistory > playerMaxHp)
-            damageHistory = 100f;
+
+        //Debug.Log("플레이어가 받은 데미지 : " + damageHistory);
     }
 
     /// <summary>
@@ -399,8 +397,9 @@ public class BattleManager : MonoBehaviour
     /// </summary>
     void EndGame(string value)
     {
-        infoManager.ChangeHp((int)damageHistory);
-       //Debug.Log("플레이어의 남은 체력은 : " + pHp.hpAmount);
+        infoManager.ChangeHp(-1 * (int)damageHistory);
+        //Debug.Log("플레이어가 받은 데미지 : " + damageHistory);
+        //Debug.Log("플레이어의 남은 체력은 : " + pHp.hpAmount);
         Message msg = new Message("GameProcessManager/ChangeScene : HuntingField, " + value).FunctionCall();
     }
 }
