@@ -164,7 +164,7 @@ public class EquipmentUI : MonoBehaviour
         if (mode == 0) this.CloseTooltip(false);
         else if (mode == 1)
         {
-            bool check = new MouseDetector(this.tooltipPanel.panel.transform).Trigger(5);
+            bool check = new MouseDetector(this.tooltipPanel.panel.transform).Trigger(MouseDetector.PinMode.C);
             if (check == false) this.CloseTooltip(false);
         }
     }

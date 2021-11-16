@@ -13,8 +13,13 @@ public class QuestManager : MonoBehaviour
         questNameList = new List<string>();
         questNameList.Add("GetFish");
         loadQuest();
+    }
+
+    void Start()
+    {
         loadQuestProcess();
     }
+
     bool loadQuest()
     {
         questList = ExternalFileSystem.SingleTon().LoadQuest(questNameList);

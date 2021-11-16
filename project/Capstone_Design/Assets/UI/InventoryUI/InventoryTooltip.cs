@@ -52,5 +52,5 @@ public class InventoryTooltip : MonoBehaviour
 
     void use() { new Message($"InventoryManager/UseItem : {itemCode}").FunctionCall(); }
     void abandon() {}
-    void cancel() { transform.gameObject.SetActive(false); }
+    void cancel() { new Message($"InventoryUICanvas/CloseTooltip : ").FunctionCall(); }
 }

@@ -9,6 +9,10 @@ public class MouseDetector {
     public Vector2 mousePos = new Vector2();    // 마우스의 위치
     public Transform targetTransform;           // 비교 대상의 Transform 정보.
 
+    public enum PinMode {
+        NONE, LT, T, RT, LC, C, RC, LB, B, RB
+    };
+
     public MouseDetector() {
         this.mousePos.x = 0.0f;
         this.mousePos.y = 0.0f;
@@ -35,7 +39,10 @@ public class MouseDetector {
         return new Vector2(this.mousePos.x, this.mousePos.y);
     }
 
-    public bool Trigger(int pinMode = 1) {
+    public const float const_standard_screen_width = 1280;
+    public const float const_standard_screen_height = 720;
+
+    public bool Trigger(PinMode pinMode = PinMode.C) {
         // pinMode
         /*
             1 = 좌상단.
@@ -58,6 +65,13 @@ public class MouseDetector {
         targetSize.x = targetTransform.GetComponent<RectTransform>().rect.width;
         targetSize.y = targetTransform.GetComponent<RectTransform>().rect.height;
 
+        // 화면 크기에 따라 동적으로 UI 크기가 변하기 때문에 크기에 보정을 넣어주는 것.
+        float[] offset = new float[2];
+        offset[0] = Screen.width / const_standard_screen_width;
+        offset[1] = Screen.height / const_standard_screen_height;
+        targetSize.x *= offset[0];
+        targetSize.y *= offset[1];
+
         // 마우스 좌표를 최신화 함.
         GetMousePos();
 
@@ -68,7 +82,7 @@ public class MouseDetector {
         maxPos.y = targetPos.y;
 
         // pinMode 에 따라 판정 범위를 조정함.
-        if (pinMode == 5)
+        if (pinMode == PinMode.C)
         {
             minPos.x -= targetSize.x / 2;
             maxPos.x -= targetSize.x / 2;
