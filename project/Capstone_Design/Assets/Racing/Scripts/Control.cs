@@ -59,26 +59,45 @@ public class Control : MonoBehaviour
         if (player.carAccel == 18)
             player.carSpeed = 11.8f;
     }
+    
+    bool isStickUse = false;
+    int stick_x_dir = 0;
     //드래그하는 동안
     public void OnDrag(PointerEventData eventData)
     {
+        this.isStickUse = true;
+
         //스틱이 손가락을 따라다니게 함.
         stick.position = eventData.position;
         //스틱이 움직일때 원을 벗어나지 않도록 범위 지정
         stick.localPosition = Vector3.ClampMagnitude(eventData.position -
         (Vector2)pad.position, pad.rect.width * 0.5f);
 
-        //스틱이 움직이는 동안, 플레이어의 회전율을 정해준다.
-        //y축만 회전 시켜준다. => normalized로 정교화
-        playerRotate = new Vector3(0, stick.localPosition.x, 0).normalized;
+        // Debug.Log($"Control.OnDrag.debug : is callled");
+
+        if (stick.localPosition.x < -pad.rect.width * 0.1f) 
+            this.stick_x_dir = -1;
+        else if (stick.localPosition.x > pad.rect.width * 0.1f) 
+            this.stick_x_dir = 1;
+        else 
+            this.stick_x_dir = 0;
+
+        // //스틱이 움직이는 동안, 플레이어의 회전율을 정해준다.
+        // //y축만 회전 시켜준다. => normalized로 정교화
+        // playerRotate = new Vector3(0, stick.localPosition.x, 0).normalized;
     }
     //스틱에서 손을 떼면 
     public void OnPointerUp(PointerEventData eventData)
     {
+        this.isStickUse = false;
+
+        // Debug.Log($"Control.OnPointUp.debug : is callled");
+        
         //스틱을 원래 위치로 되돌려 놓기 
         stick.localPosition = Vector3.zero;
         //플레이어 회전값도 0으로 초기화
-        playerRotate = Vector3.zero;
+        // playerRotate = Vector3.zero;
+        this.stick_x_dir = 0;
     }
     public void OnMove() // 버튼을 누르면, 
     {
@@ -93,18 +112,35 @@ public class Control : MonoBehaviour
         StartCoroutine("Braking"); //감속 코르틴 시작
     }
 
-    public void Rotate()
+    void turningInput()
+    {
+        int direction;
+
+        if (this.isStickUse == true)
+        {
+            direction = this.stick_x_dir;
+        }
+        else 
+        {
+            if (Input.GetKey(KeyCode.A)) direction = -1;
+            else if (Input.GetKey(KeyCode.D)) direction = 1;
+            else direction = 0;
+        }
+
+        Rotate(direction);
+    }
+    public void Rotate(int direction)
     {
         float offset = Time.deltaTime * 3;
 
-        if (Input.GetKey(KeyCode.A))
+        if (direction == -1)
         {
             dir += -2 * offset;
             if (dir > 0) dir = 0;
             if (dir < -2) dir = -2;
             maxSpeed = player.carSpeed * 0.92f;
         }
-        else if (Input.GetKey(KeyCode.D))
+        else if (direction == 1)
         {
             dir += 2 * offset;
             if (dir < 0) dir = 0;
@@ -231,7 +267,7 @@ public class Control : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.W)) //W키를 떼면 
             OffMove(); //감속  
 
-        Rotate();
+        turningInput();
     }
 
 
