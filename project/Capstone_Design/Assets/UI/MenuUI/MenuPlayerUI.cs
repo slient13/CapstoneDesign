@@ -26,18 +26,15 @@ public class MenuPlayerUI : MonoBehaviour
     {
         try
         {
-            Message getHp = new Message("GetPlayInfo : Player.Stat.Hp").FunctionCall();
-            PlayInfo Hp = (PlayInfo)getHp.returnValue[0];
-            PlayInfo Hp_data = Hp.GetDataList()[0];
-            hpBar.Sync((int)Hp_data.GetValue(), (int)Hp_data.GetRange()[1]);
-            Message getStamina = new Message("GetPlayInfo : Player.Stat.Sp").FunctionCall();
-            PlayInfo Sp = (PlayInfo)getStamina.returnValue[0];
-            PlayInfo Sp_data = Sp.GetDataList()[0];
-            spBar.Sync((int)Sp_data.GetValue(), (int)Sp_data.GetRange()[1]);
+            PlayInfo Hp = (PlayInfo) new Message("GetPlayInfo : Player.Stat.Hp").FunctionCall().returnValue[0];
+            hpBar.Sync((int)Hp.GetValue(0), (int)Hp.GetRange(0)[1]);
+
+            PlayInfo Sp = (PlayInfo) new Message("GetPlayInfo : Player.Stat.Sp").FunctionCall().returnValue[0];
+            spBar.Sync((int)Sp.GetValue(0), (int)Sp.GetRange(0)[1]);
         }
         catch
         {
-            Debug.Log("MenuPlayerUI.Sync.error : there is no hp/sp stick");
+            Debug.Log("MenuPlayerUI.Sync.error : there is no hp/sp prograssBar");
         }
     }
 }

@@ -103,7 +103,7 @@ public class Player : MonoBehaviour
     //점프
     void Jump()
     {
-        Debug.Log("Player.Jump.debug : is called");
+        // Debug.Log("Player.Jump.debug : is called");
         if (!isJump && !isDodge)
         {
             rigid.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);

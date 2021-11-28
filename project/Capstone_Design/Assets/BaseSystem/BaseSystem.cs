@@ -201,7 +201,7 @@ public class BaseSystem : MonoBehaviour
 
             if (findCheck == false)
             {
-                Debug.Log($"BaseSystem.findInfo.debug : findCheck = null. name = {name}, level = {level}");
+                Debug.Log($"BaseSystem.findInfo.error : findCheck = null. name = {name}, level = {level}");
                 return null;
             }
         }
@@ -225,8 +225,12 @@ public class BaseSystem : MonoBehaviour
     {
         Message getPlayInfo = new Message($"GetPlayInfo : {(string)message.args[0]}");        
         PlayInfo target = (PlayInfo)getPlayInfo.FunctionCall().returnValue[0];
+
+        int index = 0;
+        if (message.args.Count == 2) { index = (int) message.args[1]; }
+
         if (target == null) Debug.Log($"BaseSystem.GetPlayInfoValue.error : target is null. inputName is {(string)message.args[0]}");
-        PlayInfo target_data = target.GetDataList()[0];
+        PlayInfo target_data = target.GetDataList()[index];
         message.returnValue.Add(target_data.GetValue());
     }
 }

@@ -97,6 +97,10 @@ public class PlayInfo
         else if (type == "string") return value_string;
         else return null;
     }
+    public object GetValue(int index)
+    {
+        return this.data_list[index].GetValue();
+    }
 
     public void SetValue(object value)
     {
@@ -175,6 +179,11 @@ public class PlayInfo
         return new int[] { min, max };
     }
 
+    public int[] GetRange(int index)
+    {
+        return this.data_list[index].GetRange();
+    }
+
     public void SetRange(int min, int max)
     {
         this.min = min;
@@ -183,6 +192,7 @@ public class PlayInfo
 
     public void SetRange(int max)
     {
+        this.min = 0;
         this.max = max;
     }
 }
