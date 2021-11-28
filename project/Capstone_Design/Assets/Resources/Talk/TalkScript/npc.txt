@@ -1,3 +1,5 @@
+name, 도시 NPC
+
 id, 0, 
 text, 저는 Quest NPC 입니다. 무엇을 도와드릴까요?
 answer, 무슨 퀘스트가 있어?, 100

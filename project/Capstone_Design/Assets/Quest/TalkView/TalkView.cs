@@ -80,17 +80,32 @@ public class TalkView : MonoBehaviour
         background.SetActive(true);     // 배경 활성화.
         talkView.SetActive(true);       // talkView 활성화.
         this.npcName = npcName;         // 대화 NPC 이름 변경.
-        npcNameText.text = npcName;     // 이름 표시 변경.
         loadTalkScript(npcName);        // 해당 NPC의 대화 목록 불러옴.
         ChangeTalk(startId);            // 지정된 첫 시작 위치로 변경.
     }
 
     void loadTalkScript(string npcName) {
-        this.npcName = npcName;
         talkList = new List<Talk>();
         // 문자열 리스트 로드.
         List<string> lineList = ExternalFileSystem.SingleTon().GetTalkInfo(npcName);        
         string[] splitedLine = new string[10];        
+        {   // NPC의 이름 추출
+            string tag, value;
+            string[] temp = lineList[0].Split(',');
+            tag = temp[0].Trim();
+
+            if (tag == "name")
+            {
+                value = temp[1].Trim();
+                this.npcName = value;
+            }
+            else 
+            {
+                this.npcName = npcName;
+            }
+        }
+        npcNameText.text = this.npcName;
+
         // 기타 분류 값.
         string mode;                                // 해당 줄이 담은 정보 구분.
         int id = 0;                                 // 해당 대화 단위의 번호.
@@ -151,6 +166,9 @@ public class TalkView : MonoBehaviour
                 for (int i = 0; i < 4; i++) answer[i] = new Answer();
                 answerCount = 0;
                 message = new List<string>();
+            }
+            else if (mode == "name") {
+                // do nothing.
             }
             else { 
                 Debug.Log($"TalkView.loadTalkScript.error : no match mode. input = {mode}.");
