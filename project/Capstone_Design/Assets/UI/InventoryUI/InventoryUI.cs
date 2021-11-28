@@ -248,7 +248,7 @@ public class InventoryPanel
         isSetItem = true;
         this.itemCode = itemCode;
         box.SetActive(true);
-        if (itemImage != null) image.GetComponent<Image>().sprite = itemImage;
+        image.GetComponent<Image>().sprite = itemImage;
         if (numberText != null) numberText.GetComponent<Text>().text = $"{itemNumber}";
     }
     public void Clear()
