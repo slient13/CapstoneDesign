@@ -158,6 +158,12 @@ public class QuestUI : MonoBehaviour
             ChangeContentView(-1);
             CloseUI();
         }
+        {   // set eventlistener
+            EventListener eventListener = EventListener.GetEventListener();
+            eventListener.Binding("BaseSystem", "ChangeData", "QuestUI/Sync : ");
+            eventListener.Binding("BaseSystem", "SetData", "QuestUI/Sync : ");
+            eventListener.Binding("InventoryManager", "ModifyItem", "QuestUI/Sync : ");
+        }
     }
 
     public void OpenUI()

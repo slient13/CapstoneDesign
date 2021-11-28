@@ -26,6 +26,6 @@ public void CancleBinding(string objectName, string functionName, string eventCo
     - `eventCommand` : 이벤트 발생 시 수행할 코드. `Message`객체 사용법과 동일.
 
 사용
-- `Message`객체 사용법과 동일.
-- 단 맨 마지막 인수로 이벤트 조건 메시지의 인수들이 같이 전달됨.
-    - 단순히 추가되는 것이 아니라 마지막 인수 하나에 통째로 오기 때문에 언박싱 필요.
+- `EventCall()` 함수에 `Message` 객체를 전달해주면 바인딩 된 메시지인지 확인하고 연결된 함수들을 자동으로 실행함.
+- `EventCall()`을 통해 실행된 대상 함수는 본래 지정된 인수에 추가로 집어넣어준 `Message` 객체의 인수들까지 추가되어 호출됨.
+    - 추가되는 인수들은 `ArrayList`형으로 묶여 마지막 인수 하나로 추가되어 전달됨.
